@@ -1,6 +1,9 @@
 {
-  "rewrites": [
-    { "source": "/matriz", "destination": "/matriz/index.html" },
-    { "source": "/matriz/", "destination": "/matriz/index.html" }
+  "version": 2,
+  "routes": [
+    { "src": "/matriz", "dest": "/matriz/index.html" },
+    { "src": "/matriz/", "dest": "/matriz/index.html" },
+    { "src": "/api/diagnostico", "dest": "/api/diagnostico.js" },
+    { "src": "/", "dest": "/index.html" }
   ]
 }
