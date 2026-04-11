@@ -1,9 +1,12 @@
 export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method Not Allowed' });
-  }
+  if (req.method !== 'POST') return res.status(405).json({ error: 'Method Not Allowed' });
 
-  const { notas } = req.body;
+  let body = req.body;
+  if (typeof body === 'string') {
+    try { body = JSON.parse(body); } catch(e) {}
+  }
+  const { notas } = body || {};
+  if (!notas) return res.status(400).json({ error: 'Notas não recebidas.' });
 
   const pilares = [
     'Clareza interna',
