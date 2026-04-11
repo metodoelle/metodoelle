@@ -1,7 +1,0 @@
-[build]
-  functions = "netlify/functions"
-
-[[redirects]]
-  from = "/matriz"
-  to = "/matriz/index.html"
-  status = 200
