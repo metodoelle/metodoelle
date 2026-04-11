@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/matriz", "destination": "/matriz/index.html" },
+    { "source": "/matriz/", "destination": "/matriz/index.html" }
+  ]
+}
