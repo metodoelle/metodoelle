@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matriz ELLE — Arquitetura da Voz</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #B8934A;
+  --gold-light: #D4AF6E;
+  --gold-pale: rgba(184,147,74,0.12);
+  --dark: #0E0C09;
+  --dark-2: #161410;
+  --dark-3: #1E1B16;
+  --text: #F0EAE0;
+  --text-muted: #B8AFA0;
+  --border: rgba(184,147,74,0.2);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--dark);
+  color: var(--text);
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  line-height: 1.7;
+  min-height: 100vh;
+}
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(184,147,74,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(184,147,74,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* LAYOUT */
+.wrap {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 3rem 2rem 4rem;
+  position: relative;
+  z-index: 1;
+}
+.eyebrow {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.eyebrow::before {
+  content: '';
+  display: block;
+  width: 30px;
+  height: 1px;
+  background: var(--gold);
+}
+.titulo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 300;
+  line-height: 1.1;
+  margin-bottom: 0.5rem;
+}
+.titulo em { font-style: italic; color: var(--gold-light); }
+.subtitulo {
+  font-size: 0.9375rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 2rem;
+}
+.divider {
+  width: 50px;
+  height: 1px;
+  background: var(--gold);
+  opacity: 0.4;
+  margin: 2rem 0;
+}
+
+/* SENHA */
+#tela-senha {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 60vh;
+}
+.senha-box {
+  border: 1px solid var(--border);
+  padding: 2.5rem;
+  background: var(--dark-2);
+  position: relative;
+  max-width: 420px;
+}
+.senha-box::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 40px; height: 1px;
+  background: var(--gold);
+}
+.senha-box::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 1px; height: 40px;
+  background: var(--gold);
+}
+.senha-label {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.75rem;
+}
+.senha-desc {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+.senha-input {
+  width: 100%;
+  background: var(--dark);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: 'Jost', sans-serif;
+  font-size: 1rem;
+  padding: 0.85rem 1rem;
+  margin-bottom: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.senha-input:focus { border-color: var(--gold); }
+.senha-input::placeholder { color: var(--text-muted); opacity: 0.5; }
+.senha-erro {
+  font-size: 0.8125rem;
+  color: #C0392B;
+  margin-bottom: 0.75rem;
+  display: none;
+}
+.btn {
+  background: var(--gold);
+  color: var(--dark);
+  font-family: 'Jost', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border: none;
+  padding: 1rem 2rem;
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.2s;
+}
+.btn:hover { background: var(--gold-light); }
+.btn:disabled { opacity: 0.5; cursor: default; }
+
+/* FERRAMENTA */
+#tela-ferramenta { display: none; }
+.instrucao {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 2rem;
+  padding: 1.25rem 1.5rem;
+  border-left: 2px solid var(--gold);
+  background: var(--dark-2);
+}
+.instrucao strong { color: var(--text); font-weight: 400; }
+
+/* CAMPOS */
+.campos-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+@media (max-width: 500px) { .campos-grid { grid-template-columns: 1fr; } }
+.campo { display: flex; flex-direction: column; gap: 4px; }
+.campo-label {
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+.campo-desc {
+  font-size: 10px;
+  color: var(--text-muted);
+  opacity: 0.6;
+  margin-bottom: 2px;
+}
+.campo-input {
+  background: var(--dark-2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: 'Jost', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  padding: 0.65rem 0.85rem;
+  outline: none;
+  transition: border-color 0.2s;
+  width: 100%;
+}
+.campo-input:focus { border-color: var(--gold); }
+.nivel {
+  font-size: 10px;
+  padding: 2px 7px;
+  border-radius: 99px;
+  display: inline-block;
+  margin-top: 2px;
+  width: fit-content;
+}
+.nivel-cede { background: rgba(160,42,42,0.15); color: #E07070; }
+.nivel-oscila { background: rgba(186,117,23,0.15); color: #D4A060; }
+.nivel-esforco { background: rgba(59,109,17,0.15); color: #90C060; }
+.nivel-natural { background: rgba(8,80,65,0.15); color: #60C0A0; }
+
+/* RADAR */
+.radar-wrap {
+  border: 1px solid var(--border);
+  background: var(--dark-2);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+/* LEGENDA */
+.legenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+.leg-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  color: var(--text-muted);
+}
+.leg-dot { width: 6px; height: 6px; border-radius: 50%; }
+
+/* DIAGNÓSTICO */
+.btn-diag {
+  background: var(--gold);
+  color: var(--dark);
+  font-family: 'Jost', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border: none;
+  padding: 1rem 2rem;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom: 1.5rem;
+  transition: background 0.2s;
+}
+.btn-diag:hover { background: var(--gold-light); }
+.btn-diag:disabled { opacity: 0.5; cursor: default; }
+
+.diag-box {
+  border: 1px solid var(--border);
+  background: var(--dark-2);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  display: none;
+  position: relative;
+}
+.diag-box::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 40px; height: 1px;
+  background: var(--gold);
+}
+.diag-titulo {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.25rem;
+}
+.diag-texto {
+  font-size: 0.9375rem;
+  color: var(--text);
+  line-height: 1.9;
+  white-space: pre-wrap;
+}
+.diag-loading {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.aviso-print {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+.btn-reset {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 0.8125rem;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+  display: block;
+  margin: 0 auto;
+}
+.btn-reset:hover { color: var(--text); }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- TELA SENHA -->
+  <div id="tela-senha">
+    <div class="eyebrow">Método ELLE</div>
+    <h1 class="titulo">Matriz <em>ELLE</em><br>de Sustentação da Voz</h1>
+    <p class="subtitulo">Ferramenta exclusiva para alunas do programa Arquitetura da Voz.</p>
+    <div class="divider"></div>
+    <div class="senha-box">
+      <p class="senha-label">Acesso restrito</p>
+      <p class="senha-desc">Digite a senha disponível na aula da Matriz ELLE dentro da plataforma Hotmart.</p>
+      <div class="senha-erro" id="senha-erro">Senha incorreta. Verifique na plataforma e tente novamente.</div>
+      <input type="password" class="senha-input" id="senha-input" placeholder="Digite sua senha" autocomplete="off">
+      <button class="btn" onclick="verificarSenha()">Acessar</button>
+    </div>
+  </div>
+
+  <!-- TELA FERRAMENTA -->
+  <div id="tela-ferramenta">
+    <div class="eyebrow">Método ELLE</div>
+    <h1 class="titulo">Matriz <em>ELLE</em><br>de Sustentação da Voz</h1>
+    <p class="subtitulo">Atribua uma nota de 0 a 10 para cada pilar com base no seu comportamento real.</p>
+
+    <div class="instrucao">
+      <strong>Como usar:</strong> Responda com base em como você realmente age — não como gostaria de agir.
+      Após preencher os 8 pilares, clique em <strong>Gerar meu diagnóstico</strong> para receber sua leitura personalizada.
+      <br>Tire um print ao final para guardar seu mapa. Reaplique no Dia 21 e compare.
+    </div>
+
+    <div class="legenda">
+      <div class="leg-item"><div class="leg-dot" style="background:#E07070"></div> 0–3 sua voz cede</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#D4A060"></div> 4–6 sua voz oscila</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#90C060"></div> 7–8 sustenta com esforço</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#60C0A0"></div> 9–10 sustenta naturalmente</div>
+    </div>
+
+    <div class="campos-grid" id="campos"></div>
+
+    <div class="radar-wrap">
+      <canvas id="radar" width="420" height="420"></canvas>
+    </div>
+
+    <button class="btn-diag" id="btn-diag" onclick="gerarDiagnostico()">Gerar meu diagnóstico</button>
+
+    <div class="diag-box" id="diag-box">
+      <p class="diag-titulo">Diagnóstico estrutural da sua voz</p>
+      <p class="diag-texto" id="diag-texto"></p>
+    </div>
+
+    <p class="aviso-print">Tire um print desta página para guardar seu diagnóstico.</p>
+    <button class="btn-reset" onclick="resetar()">Limpar e reiniciar</button>
+  </div>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+const SENHA = 'vozelle';
+
+const pilares = [
+  { id: 'clareza', label: 'Clareza interna', desc: 'saber o que pensa' },
+  { id: 'regulacao', label: 'Regulação emocional', desc: 'sustentar-se sob pressão' },
+  { id: 'medo', label: 'Medo de julgamento', desc: 'não travar diante do outro' },
+  { id: 'autorizacao', label: 'Autorização interna', desc: 'permitir-se ocupar espaço' },
+  { id: 'assertividade', label: 'Assertividade prática', desc: 'dizer com clareza' },
+  { id: 'limites', label: 'Limites e posicionamento', desc: 'sustentar o não' },
+  { id: 'presenca', label: 'Presença e linguagem', desc: 'alinhar corpo e fala' },
+  { id: 'consistencia', label: 'Consistência', desc: 'constância no posicionamento' },
+];
+
+function getNivel(v) {
+  if (v <= 3) return { classe: 'nivel-cede', texto: '0–3 · sua voz cede' };
+  if (v <= 6) return { classe: 'nivel-oscila', texto: '4–6 · sua voz oscila' };
+  if (v <= 8) return { classe: 'nivel-esforco', texto: '7–8 · sustenta com esforço' };
+  return { classe: 'nivel-natural', texto: '9–10 · sustenta naturalmente' };
+}
+
+function verificarSenha() {
+  const input = document.getElementById('senha-input').value.trim().toLowerCase();
+  const erro = document.getElementById('senha-erro');
+  if (input === SENHA) {
+    document.getElementById('tela-senha').style.display = 'none';
+    document.getElementById('tela-ferramenta').style.display = 'block';
+    construirCampos();
+    iniciarRadar();
+  } else {
+    erro.style.display = 'block';
+    document.getElementById('senha-input').value = '';
+    document.getElementById('senha-input').focus();
+  }
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' && document.getElementById('tela-senha').style.display !== 'none') {
+    verificarSenha();
+  }
+});
+
+function construirCampos() {
+  const grid = document.getElementById('campos');
+  grid.innerHTML = '';
+  pilares.forEach(p => {
+    const div = document.createElement('div');
+    div.className = 'campo';
+    div.innerHTML = `
+      <span class="campo-label">${p.label}</span>
+      <span class="campo-desc">${p.desc}</span>
+      <input type="number" class="campo-input" id="${p.id}" min="0" max="10" step="1" placeholder="0 – 10" oninput="atualizar()">
+      <span class="nivel" id="nivel_${p.id}" style="display:none"></span>
+    `;
+    grid.appendChild(div);
+  });
+}
+
+let chart = null;
+
+function getValores() {
+  return pilares.map(p => {
+    const v = parseFloat(document.getElementById(p.id)?.value);
+    return isNaN(v) ? 0 : Math.min(10, Math.max(0, Math.round(v)));
+  });
+}
+
+function iniciarRadar() {
+  const ctx = document.getElementById('radar').getContext('2d');
+  chart = new Chart(ctx, {
+    type: 'radar',
+    data: {
+      labels: pilares.map(p => p.label),
+      datasets: [{
+        data: new Array(8).fill(0),
+        backgroundColor: 'rgba(184, 147, 74, 0.15)',
+        borderColor: '#B8934A',
+        borderWidth: 2,
+        pointBackgroundColor: '#B8934A',
+        pointRadius: 4,
+        pointHoverRadius: 6,
+      }]
+    },
+    options: {
+      responsive: false,
+      scales: {
+        r: {
+          min: 0, max: 10,
+          ticks: { stepSize: 2, font: { size: 10 }, color: '#B8AFA0', backdropColor: 'transparent' },
+          grid: { color: 'rgba(184,147,74,0.1)' },
+          angleLines: { color: 'rgba(184,147,74,0.1)' },
+          pointLabels: { font: { size: 11, family: 'Jost' }, color: '#F0EAE0' }
+        }
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: ctx => ` ${Math.round(ctx.raw)}/10` } }
+      }
+    }
+  });
+}
+
+function atualizar() {
+  const valores = getValores();
+  pilares.forEach((p, i) => {
+    const input = document.getElementById(p.id);
+    const span = document.getElementById('nivel_' + p.id);
+    if (input && input.value !== '' && !isNaN(parseFloat(input.value))) {
+      const n = getNivel(valores[i]);
+      span.className = 'nivel ' + n.classe;
+      span.textContent = n.texto;
+      span.style.display = 'inline-block';
+    } else {
+      span.style.display = 'none';
+    }
+  });
+  if (chart) {
+    chart.data.datasets[0].data = valores;
+    chart.update();
+  }
+}
+
+async function gerarDiagnostico() {
+  const valores = getValores();
+  const preenchidos = pilares.filter(p => {
+    const input = document.getElementById(p.id);
+    return input && input.value !== '';
+  });
+
+  if (preenchidos.length < 8) {
+    alert('Preencha todos os 8 pilares antes de gerar o diagnóstico.');
+    return;
+  }
+
+  const btn = document.getElementById('btn-diag');
+  const box = document.getElementById('diag-box');
+  const texto = document.getElementById('diag-texto');
+
+  btn.disabled = true;
+  btn.textContent = 'Gerando diagnóstico...';
+  box.style.display = 'block';
+  texto.className = 'diag-texto diag-loading';
+  texto.textContent = 'Analisando sua estrutura...';
+
+  try {
+    const response = await fetch('/.netlify/functions/diagnostico', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ notas: valores }),
+    });
+
+    const data = await response.json();
+    texto.className = 'diag-texto';
+    texto.textContent = data.diagnostico || 'Não foi possível gerar o diagnóstico. Tente novamente.';
+  } catch (err) {
+    texto.className = 'diag-texto';
+    texto.textContent = 'Não foi possível gerar o diagnóstico. Verifique sua conexão e tente novamente.';
+  }
+
+  btn.disabled = false;
+  btn.textContent = 'Gerar meu diagnóstico';
+  box.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function resetar() {
+  pilares.forEach(p => {
+    const input = document.getElementById(p.id);
+    if (input) input.value = '';
+    const span = document.getElementById('nivel_' + p.id);
+    if (span) span.style.display = 'none';
+  });
+  if (chart) { chart.data.datasets[0].data = new Array(8).fill(0); chart.update(); }
+  document.getElementById('diag-box').style.display = 'none';
+  document.getElementById('diag-texto').textContent = '';
+  document.getElementById('btn-diag').textContent = 'Gerar meu diagnóstico';
+}
+</script>
+</body>
+</html>
