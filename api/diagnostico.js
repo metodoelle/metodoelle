@@ -63,6 +63,7 @@ Responda apenas o texto do diagnóstico, sem título, sem introdução.`;
     const texto = data.content.map(i => i.text || '').join('');
     return res.status(200).json({ diagnostico: texto });
   } catch (err) {
-    return res.status(500).json({ error: 'Erro ao gerar diagnóstico.' });
+    console.error('Erro completo:', err);
+    return res.status(500).json({ error: 'Erro: ' + err.message, stack: err.stack });
   }
 }
