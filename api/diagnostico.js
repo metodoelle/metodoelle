@@ -59,8 +59,11 @@ Responda apenas o texto do diagnóstico, sem título, sem introdução.`;
       }),
     });
 
-    const data = await response.json();
-    const texto = data.content.map(i => i.text || '').join('');
+   const data = await response.json();
+console.log('Resposta Anthropic:', JSON.stringify(data));
+if (data.error) return res.status(500).json({ error: data.error.message || JSON.stringify(data.error) });
+if (!data.content) return res.status(500).json({ error: 'Resposta inesperada: ' + JSON.stringify(data) });
+const texto = data.content.map(i => i.text || '').join('');
     return res.status(200).json({ diagnostico: texto });
   } catch (err) {
     console.error('Erro completo:', err);
