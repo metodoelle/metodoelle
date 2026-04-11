@@ -116,7 +116,7 @@ body::before {
   background: var(--gold);
 }
 .senha-label {
-  font-size: 11px;
+  font-size: 13px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--gold);
@@ -195,10 +195,10 @@ body::before {
   text-transform: uppercase;
 }
 .campo-desc {
-  font-size: 10px;
+  font-size: 12px;
   color: var(--text-muted);
-  opacity: 0.6;
-  margin-bottom: 2px;
+  opacity: 1;
+  margin-bottom: 4px;
 }
 .campo-input {
   background: var(--dark-2);
