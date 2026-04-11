@@ -6,6 +6,8 @@ export default async function handler(req, res) {
     try { body = JSON.parse(body); } catch(e) {}
   }
   const { notas } = body || {};
+  console.log('Chave presente:', !!process.env.ANTHROPIC_API_KEY);
+console.log('Primeiros chars:', process.env.ANTHROPIC_API_KEY?.substring(0, 10));
   if (!notas) return res.status(400).json({ error: 'Notas não recebidas.' });
 
   const pilares = [
