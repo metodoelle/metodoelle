@@ -6,6 +6,7 @@
     { "src": "/api/diagnostico", "dest": "/api/diagnostico.js" },
     { "src": "/quiz", "dest": "/quiz.html" },
     { "src": "/quiz/", "dest": "/quiz.html" },
+    { "src": "/(.+\\.(png|jpg|jpeg|gif|svg|ico|css|js))", "dest": "/$1" },
     { "src": "/", "dest": "/index.html" },
     { "src": "/(.*)", "dest": "/index.html" }
   ]
