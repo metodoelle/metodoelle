@@ -565,12 +565,8 @@ function processResult() {
   setTimeout(function() {
     var result = scoreA >= scoreB ? 'r1' : 'r2';
     document.querySelectorAll('.nome-field').forEach(function(el) {
-      el.textContent = nome + ',';
+      el.textContent = nome;
     });
-    document.getElementById(result).querySelector('.result-title').innerHTML =
-      document.getElementById(result).querySelector('.result-title').innerHTML.replace(
-        '<span class="nome-field"></span>,', nome + ','
-      );
     goTo(result);
   }, 2400);
 }
