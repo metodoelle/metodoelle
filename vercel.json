@@ -4,6 +4,8 @@
     { "src": "/matriz", "dest": "/matriz/index.html" },
     { "src": "/matriz/", "dest": "/matriz/index.html" },
     { "src": "/api/diagnostico", "dest": "/api/diagnostico.js" },
+    { "src": "/quiz", "dest": "/quiz.html" },
+    { "src": "/quiz/", "dest": "/quiz.html" },
     { "src": "/", "dest": "/index.html" }
   ]
 }
