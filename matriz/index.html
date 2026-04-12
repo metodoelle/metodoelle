@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Arquitetura da Voz — Fran Castro</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<title>Matriz ELLE — Arquitetura da Voz</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -14,7 +13,6 @@
   --dark: #0E0C09;
   --dark-2: #161410;
   --dark-3: #1E1B16;
-  --dark-4: #252118;
   --text: #F0EAE0;
   --text-muted: #B8AFA0;
   --border: rgba(184,147,74,0.2);
@@ -27,10 +25,8 @@ body {
   font-family: 'Jost', sans-serif;
   font-weight: 300;
   line-height: 1.7;
-  overflow-x: hidden;
+  min-height: 100vh;
 }
-
-/* GRID LINES */
 body::before {
   content: '';
   position: fixed;
@@ -42,701 +38,482 @@ body::before {
   pointer-events: none;
   z-index: 0;
 }
-
-.container { max-width: 720px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 1; }
-.container-wide { max-width: 960px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 1; }
-
-/* HERO */
-.hero {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  padding: 6rem 0 4rem;
-  position: relative;
-}
-.hero-content { position: relative; z-index: 1; }
-.hero-image-area {
+.wrap {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 3rem 2rem 4rem;
   position: relative;
   z-index: 1;
-  display: flex;
-  justify-content: flex-end;
 }
-.hero-image {
-  width: 100%;
-  max-width: 480px;
-  aspect-ratio: 3/4;
-  object-fit: cover;
-  object-position: left center;
-  filter: brightness(0.9);
-}
-.hero-image-frame {
-  position: absolute;
-  inset: -8px;
-  border: 1px solid var(--border);
-  pointer-events: none;
-}
-@media (max-width: 768px) {
-  .hero {
-    min-height: auto;
-    padding: 4rem 0 3rem;
-  }
-  .hero > div {
-    grid-template-columns: 1fr !important;
-    gap: 2rem !important;
-  }
-  .hero-image-area {
-    justify-content: center;
-  }
-  .hero-image {
-    max-width: 100%;
-    aspect-ratio: 4/3;
-    object-position: center top;
-  }
-}
-.hero-eyebrow {
-  font-family: 'Jost', sans-serif;
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 2rem;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-.hero-eyebrow::before {
-  content: '';
-  display: block;
-  width: 40px;
-  height: 1px;
-  background: var(--gold);
-}
-.hero-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(3rem, 8vw, 6rem);
-  font-weight: 300;
-  line-height: 1.0;
-  letter-spacing: -0.02em;
-  margin-bottom: 1.5rem;
-  color: var(--text);
-}
-.hero-title em {
-  font-style: italic;
-  color: var(--gold-light);
-}
-.hero-subtitle {
-  font-size: 1.125rem;
-  color: var(--text-muted);
-  max-width: 520px;
-  margin-bottom: 3rem;
-  line-height: 1.8;
-}
-.hero-subtitle strong {
-  color: var(--text);
-  font-weight: 400;
-}
-.hero-line {
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 1px;
-  height: 60%;
-  background: linear-gradient(to bottom, transparent, var(--gold), transparent);
-  opacity: 0.3;
-}
-
-/* BUTTONS */
-.btn-primary {
-  display: inline-block;
-  background: var(--gold);
-  color: var(--dark);
-  font-family: 'Jost', sans-serif;
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  text-decoration: none;
-  padding: 1.1rem 2.5rem;
-  transition: background 0.2s, transform 0.15s;
-}
-.btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
-.btn-ghost {
-  display: inline-block;
-  border: 1px solid var(--border);
-  color: var(--gold);
-  font-family: 'Jost', sans-serif;
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  text-decoration: none;
-  padding: 1.1rem 2.5rem;
-  transition: border-color 0.2s, background 0.2s;
-}
-.btn-ghost:hover { border-color: var(--gold); background: var(--gold-pale); }
-
-/* SECTION */
-section { padding: 6rem 0; }
-.section-label {
+.eyebrow {
   font-size: 10px;
   font-weight: 500;
   letter-spacing: 0.3em;
   text-transform: uppercase;
   color: var(--gold);
-  margin-bottom: 1rem;
-}
-.section-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 300;
-  line-height: 1.15;
-  margin-bottom: 1.5rem;
-}
-.section-title em { font-style: italic; color: var(--gold-light); }
-.divider {
-  width: 60px;
-  height: 1px;
-  background: var(--gold);
-  margin: 2rem 0;
-  opacity: 0.5;
-}
-
-/* DOR */
-.dor-section { background: var(--dark-2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-.dor-intro {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(1.4rem, 3vw, 2rem);
-  font-weight: 300;
-  font-style: italic;
-  line-height: 1.5;
-  color: var(--text-muted);
-  margin-bottom: 3rem;
-}
-.dor-intro strong { color: var(--text); font-style: normal; font-weight: 400; }
-.dor-list { list-style: none; display: flex; flex-direction: column; gap: 1.25rem; }
-.dor-list li {
+  margin-bottom: 0.75rem;
   display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-  font-size: 1rem;
-  color: var(--text-muted);
-  line-height: 1.6;
+  align-items: center;
+  gap: 0.75rem;
 }
-.dor-list li::before {
+.eyebrow::before {
   content: '';
   display: block;
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
+  width: 30px;
+  height: 1px;
   background: var(--gold);
-  margin-top: 0.6rem;
-  flex-shrink: 0;
 }
-.dor-list li strong { color: var(--text); font-weight: 400; }
-
-/* MÉTODO */
-.metodo-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1px;
-  background: var(--border);
-  border: 1px solid var(--border);
-  margin-top: 3rem;
-}
-.metodo-item {
-  background: var(--dark-2);
-  padding: 2rem;
-}
-.metodo-num {
+.titulo {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 3rem;
+  font-size: clamp(2rem, 5vw, 3rem);
   font-weight: 300;
+  line-height: 1.1;
+  margin-bottom: 0.5rem;
+}
+.titulo em { font-style: italic; color: var(--gold-light); }
+.subtitulo {
+  font-size: 0.9375rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 2rem;
+}
+.divider {
+  width: 50px;
+  height: 1px;
+  background: var(--gold);
+  opacity: 0.4;
+  margin: 2rem 0;
+}
+#tela-senha {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 60vh;
+}
+.senha-box {
+  border: 1px solid var(--border);
+  padding: 2.5rem;
+  background: var(--dark-2);
+  position: relative;
+  max-width: 420px;
+}
+.senha-box::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 40px; height: 1px;
+  background: var(--gold);
+}
+.senha-box::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 1px; height: 40px;
+  background: var(--gold);
+}
+.senha-label {
+  font-size: 13px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
   color: var(--gold);
-  opacity: 0.3;
-  line-height: 1;
   margin-bottom: 0.75rem;
 }
-.metodo-title {
+.senha-desc {
   font-size: 0.875rem;
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+}
+.senha-input {
+  width: 100%;
+  background: var(--dark);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: 'Jost', sans-serif;
+  font-size: 1rem;
+  padding: 0.85rem 1rem;
+  margin-bottom: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.senha-input:focus { border-color: var(--gold); }
+.senha-input::placeholder { color: var(--text-muted); opacity: 0.5; }
+.senha-erro {
+  font-size: 0.8125rem;
+  color: #C0392B;
+  margin-bottom: 0.75rem;
+  display: none;
+}
+.btn {
+  background: var(--gold);
+  color: var(--dark);
+  font-family: 'Jost', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border: none;
+  padding: 1rem 2rem;
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.2s;
+}
+.btn:hover { background: var(--gold-light); }
+.btn:disabled { opacity: 0.5; cursor: default; }
+#tela-ferramenta { display: none; }
+.instrucao {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 2rem;
+  padding: 1.25rem 1.5rem;
+  border-left: 2px solid var(--gold);
+  background: var(--dark-2);
+}
+.instrucao strong { color: var(--text); font-weight: 400; }
+.campos-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+@media (max-width: 500px) { .campos-grid { grid-template-columns: 1fr; } }
+.campo { display: flex; flex-direction: column; gap: 4px; }
+.campo-label {
+  font-size: 13px;
   font-weight: 500;
   letter-spacing: 0.05em;
   color: var(--text);
-  margin-bottom: 0.5rem;
+  text-transform: uppercase;
 }
-.metodo-desc { font-size: 0.875rem; color: var(--text); line-height: 1.6; opacity: 0.8; }
-
-/* PRODUTO */
-.produto-section { background: var(--dark-3); }
-.produto-box {
-  border: 1px solid var(--border);
-  padding: 3rem;
-  position: relative;
+.campo-desc {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+.campo-input {
   background: var(--dark-2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: 'Jost', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  padding: 0.65rem 0.85rem;
+  outline: none;
+  transition: border-color 0.2s;
+  width: 100%;
 }
-.produto-box::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0;
-  width: 60px; height: 1px;
-  background: var(--gold);
+.campo-input:focus { border-color: var(--gold); }
+.nivel {
+  font-size: 10px;
+  padding: 2px 7px;
+  border-radius: 99px;
+  display: inline-block;
+  margin-top: 2px;
+  width: fit-content;
 }
-.produto-box::after {
-  content: '';
-  position: absolute;
-  top: 0; left: 0;
-  width: 1px; height: 60px;
-  background: var(--gold);
-}
-.produto-list { list-style: none; display: flex; flex-direction: column; gap: 1rem; margin: 2rem 0; }
-.produto-list li {
+.nivel-cede { background: rgba(160,42,42,0.15); color: #E07070; }
+.nivel-oscila { background: rgba(186,117,23,0.15); color: #D4A060; }
+.nivel-esforco { background: rgba(59,109,17,0.15); color: #90C060; }
+.nivel-natural { background: rgba(8,80,65,0.15); color: #60C0A0; }
+.radar-wrap {
+  border: 1px solid var(--border);
+  background: var(--dark-2);
+  padding: 1.5rem;
+  margin-bottom: 2rem;
   display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-  font-size: 0.9375rem;
+  justify-content: center;
+}
+.legenda {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+.leg-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
   color: var(--text-muted);
 }
-.produto-list li span.check {
-  color: var(--gold);
-  font-size: 0.75rem;
-  margin-top: 0.3rem;
-  flex-shrink: 0;
+.leg-dot { width: 6px; height: 6px; border-radius: 50%; }
+.btn-diag {
+  background: var(--gold);
+  color: var(--dark);
+  font-family: 'Jost', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border: none;
+  padding: 1rem 2rem;
+  cursor: pointer;
+  width: 100%;
+  margin-bottom: 1.5rem;
+  transition: background 0.2s;
 }
-.produto-list li strong { color: var(--text); font-weight: 400; }
-.preco-area { margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--border); }
-.preco-label { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem; }
-.preco { font-family: 'Cormorant Garamond', serif; font-size: 3.5rem; font-weight: 300; color: var(--gold-light); line-height: 1; margin-bottom: 0.5rem; }
-.preco-detalhe { font-size: 0.8125rem; color: var(--text-muted); margin-bottom: 2rem; }
-.garantia {
-  margin-top: 1.5rem;
-  padding: 1.25rem 1.5rem;
+.btn-diag:hover { background: var(--gold-light); }
+.btn-diag:disabled { opacity: 0.5; cursor: default; }
+.diag-box {
   border: 1px solid var(--border);
+  background: var(--dark-2);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  display: none;
+  position: relative;
+}
+.diag-box::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 40px; height: 1px;
+  background: var(--gold);
+}
+.diag-titulo {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.25rem;
+}
+.diag-texto {
+  font-size: 0.9375rem;
+  color: var(--text);
+  line-height: 1.9;
+  white-space: pre-wrap;
+}
+.diag-loading {
   font-size: 0.875rem;
   color: var(--text-muted);
-  line-height: 1.6;
-}
-.garantia strong { color: var(--text); font-weight: 400; }
-
-/* DEPOIMENTOS */
-.depo-grid { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 3rem; }
-.depo-card {
-  border-left: 2px solid var(--gold);
-  padding: 1.5rem 2rem;
-  background: var(--dark-2);
-}
-.depo-text {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.25rem;
-  font-weight: 300;
   font-style: italic;
-  line-height: 1.6;
-  color: var(--text);
-  margin-bottom: 0.75rem;
 }
-.depo-autor { font-size: 0.8125rem; letter-spacing: 0.1em; color: var(--text-muted); text-transform: uppercase; }
-
-/* AUTORIDADE */
-.autoridade-section { background: var(--dark-2); border-top: 1px solid var(--border); }
-.autoridade-inner {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 4rem;
-  align-items: start;
-}
-.autoridade-foto-area { position: relative; }
-.autoridade-foto {
-  width: 100%;
-  aspect-ratio: 4/5;
-  object-fit: cover;
-  object-position: center top;
-  filter: grayscale(15%) sepia(20%) brightness(0.85) contrast(1.05);
-}
-.autoridade-foto-frame {
-  position: absolute;
-  inset: -8px;
-  border: 1px solid var(--border);
-  pointer-events: none;
-}
-.autoridade-texto p {
-  color: var(--text-muted);
-  margin-bottom: 1.25rem;
-  font-size: 0.9375rem;
-  line-height: 1.8;
-}
-.autoridade-texto p strong { color: var(--text); font-weight: 400; }
-.autoridade-nome {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.75rem;
-  font-weight: 300;
-  margin-bottom: 0.25rem;
-}
-.autoridade-cargo { font-size: 0.8125rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 2rem; }
-
-/* COMPARAÇÃO */
-.comp-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1px;
-  background: var(--border);
-  border: 1px solid var(--border);
-  margin-top: 3rem;
-}
-.comp-col { background: var(--dark-2); padding: 2rem; }
-.comp-header {
-  font-size: 11px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  margin-bottom: 1.5rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid var(--border);
-}
-.comp-header.sem { color: var(--text-muted); }
-.comp-header.com { color: var(--gold); }
-.comp-list { list-style: none; display: flex; flex-direction: column; gap: 1rem; }
-.comp-list li { font-size: 0.9rem; line-height: 1.5; }
-.comp-list.sem li { color: var(--text-muted); }
-.comp-list.sem li::before { content: '— '; }
-.comp-list.com li { color: var(--text); }
-.comp-list.com li::before { content: '+ '; color: var(--gold); }
-
-/* OBJEÇÕES */
-.obj-list { display: flex; flex-direction: column; gap: 0; margin-top: 2rem; }
-.obj-item {
-  border-bottom: 1px solid var(--border);
-  padding: 1.75rem 0;
-}
-.obj-q {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.125rem;
-  font-weight: 400;
-  color: var(--text);
-  margin-bottom: 0.75rem;
-}
-.obj-a { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; }
-.obj-a strong { color: var(--text); font-weight: 400; }
-
-/* FAQ */
-.faq-list { display: flex; flex-direction: column; gap: 0; margin-top: 2rem; }
-.faq-item { border-bottom: 1px solid var(--border); padding: 1.5rem 0; }
-.faq-q { font-size: 0.9375rem; font-weight: 400; color: var(--text); margin-bottom: 0.5rem; }
-.faq-a { font-size: 0.875rem; color: var(--text-muted); line-height: 1.7; }
-
-/* CTA FINAL */
-.cta-final {
-  background: var(--dark-3);
-  border-top: 1px solid var(--border);
-  text-align: center;
-  padding: 8rem 0;
-}
-.cta-final .section-title { margin-bottom: 1rem; }
-.cta-quote {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.25rem;
-  font-style: italic;
-  color: var(--text-muted);
-  max-width: 480px;
-  margin: 0 auto 3rem;
-  line-height: 1.6;
-}
-
-/* FOOTER */
-footer {
-  background: var(--dark);
-  border-top: 1px solid var(--border);
-  padding: 2rem 0;
-  text-align: center;
+.aviso-print {
   font-size: 0.8125rem;
   color: var(--text-muted);
+  text-align: center;
+  margin-bottom: 1.5rem;
 }
-footer a { color: var(--gold); text-decoration: none; }
-
-/* RESPONSIVE */
-@media (max-width: 640px) {
-  .metodo-grid { grid-template-columns: 1fr; }
-  .comp-grid { grid-template-columns: 1fr; }
-  .autoridade-inner { grid-template-columns: 1fr; gap: 2rem; }
-  .autoridade-foto-area { max-width: 280px; }
-  .produto-box { padding: 2rem 1.5rem; }
-  section { padding: 4rem 0; }
+.btn-reset {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 0.8125rem;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+  display: block;
+  margin: 0 auto;
 }
-
-/* ANIMATIONS */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.hero-eyebrow { animation: fadeUp 0.6s ease both; }
-.hero-title { animation: fadeUp 0.6s 0.1s ease both; }
-.hero-subtitle { animation: fadeUp 0.6s 0.2s ease both; }
-.hero .btn-primary { animation: fadeUp 0.6s 0.3s ease both; }
+.btn-reset:hover { color: var(--text); }
 </style>
 </head>
 <body>
-
-<!-- HERO -->
-<section class="hero">
-  <div style="max-width:1100px; margin:0 auto; padding:0 2rem; width:100%; position:relative; z-index:1; display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center;">
-    <div class="hero-content">
-      <div class="hero-eyebrow">Fran Castro — Arquiteta da Inteligência Emocional</div>
-      <h1 class="hero-title">
-        Arquitetura<br>
-        da <em>Voz</em>
-      </h1>
-      <p class="hero-subtitle">
-        <strong>21 dias para parar de se diminuir e sustentar sua voz.</strong><br>
-        Você não precisa falar mais alto, ser mais dura ou virar outra pessoa.<br>
-        Precisa parar de se abandonar antes mesmo de abrir a boca.
-      </p>
-      <a href="https://pay.hotmart.com/B105291424M?src=paginadevenda" class="btn-primary">Quero sustentar minha voz</a>
-      <p style="margin-top:1rem; font-size:0.9rem; color:var(--text); font-weight:400;">12x de R$10,03 <span style="color:var(--text-muted); font-size:0.8rem;">ou R$97 à vista</span></p>
-    </div>
-    <div class="hero-image-area">
-      <div style="position:relative; width:100%;">
-        <img src="fran-castro.jpg" alt="Fran Castro" class="hero-image">
-        <div class="hero-image-frame"></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- DOR -->
-<section class="dor-section">
-  <div class="container">
-    <p class="section-label">Reconhecimento</p>
-    <p class="dor-intro">
-      Você sabe o que precisa ser dito.<br>
-      Você pensa na resposta <strong>certa.</strong><br>
-      Mas quando chega a sua vez —<br>
-      <strong>você suaviza. Você se explica. Você se cala.</strong>
-    </p>
-    <ul class="dor-list">
-      <li><strong>Você ensaia tudo na cabeça</strong> — mas na hora diminui o que ia dizer.</li>
-      <li><strong>Você se explica demais</strong> — mesmo quando está certa.</li>
-      <li><strong>Você evita conflito</strong> — e depois carrega o peso do que não disse.</li>
-      <li><strong>Você sai das conversas pensando:</strong> eu deveria ter falado.</li>
-      <li><strong>Você não consegue dizer não</strong> — sem sentir culpa depois.</li>
-      <li><strong>Você suaviza sua opinião</strong> — para caber no ambiente.</li>
-    </ul>
+<div class="wrap">
+  <div id="tela-senha">
+    <div class="eyebrow">Método ELLE</div>
+    <h1 class="titulo">Matriz <em>ELLE</em><br>de Sustentação da Voz</h1>
+    <p class="subtitulo">Ferramenta exclusiva para alunas do programa Arquitetura da Voz.</p>
     <div class="divider"></div>
-    <p style="font-size:1rem; color:var(--text-muted); line-height:1.8;">
-      Isso não é falta de coragem. Não é falta de preparo.<br>
-      <strong style="color:var(--text); font-weight:400;">É um padrão invisível que opera antes da sua voz sair.</strong>
-    </p>
-  </div>
-</section>
-
-<!-- MÉTODO -->
-<section>
-  <div class="container">
-    <p class="section-label">O método</p>
-    <h2 class="section-title">Não é sobre <em>técnica.</em><br>É sobre estrutura.</h2>
-    <p style="color:var(--text-muted); max-width:520px; line-height:1.8; font-size:0.9375rem;">
-      O método Arquitetura da Voz atua no lugar de onde sua voz nasce — não na superfície do que você diz. Em 21 dias, você passa por três camadas de construção:
-    </p>
-    <div class="metodo-grid">
-      <div class="metodo-item">
-        <div class="metodo-num">01</div>
-        <div class="metodo-title">Semana 1 — Consciência</div>
-        <div class="metodo-desc">Você identifica onde se cala, nomeia os medos por trás da fala e questiona as crenças que sustentam seus padrões automáticos.</div>
-      </div>
-      <div class="metodo-item">
-        <div class="metodo-num">02</div>
-        <div class="metodo-title">Semana 2 — Ajuste</div>
-        <div class="metodo-desc">Você aprende a regular emoção antes de reagir, estruturar sua fala, dizer não sem culpa e discordar sem se desculpar por ter uma opinião.</div>
-      </div>
-      <div class="metodo-item">
-        <div class="metodo-num">03</div>
-        <div class="metodo-title">Semana 3 — Consolidação</div>
-        <div class="metodo-desc">Presença, postura, silêncio estratégico e posicionamento nos ambientes que testam sua segurança. Sua voz como extensão de quem você é.</div>
-      </div>
-      <div class="metodo-item">
-        <div class="metodo-num">21</div>
-        <div class="metodo-title">Dia 21 — Obra entregue</div>
-        <div class="metodo-desc">Você reaplica a Matriz ELLE, compara com seu ponto de partida e tem evidência concreta do que se moveu. Não perfeição — conclusão de uma etapa.</div>
-      </div>
+    <div class="senha-box">
+      <p class="senha-label">Acesso restrito</p>
+      <p class="senha-desc">Digite a senha disponível na aula da Matriz ELLE dentro da plataforma Hotmart.</p>
+      <div class="senha-erro" id="senha-erro">Senha incorreta. Verifique na plataforma e tente novamente.</div>
+      <input type="password" class="senha-input" id="senha-input" placeholder="Digite sua senha" autocomplete="off">
+      <button class="btn" onclick="verificarSenha()">Acessar</button>
     </div>
   </div>
-</section>
 
-<!-- DEPOIMENTOS -->
-<section style="background:var(--dark-2); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
-  <div class="container">
-    <p class="section-label">Primeiros resultados</p>
-    <h2 class="section-title">O que as primeiras<br>mulheres estão <em>vivendo</em></h2>
-    <p style="color:var(--text-muted); font-size:0.875rem; margin-bottom:0.5rem;">Relatos reais das participantes do desafio guiado, ainda em andamento.</p>
-    <div class="depo-grid">
-      <div class="depo-card">
-        <p class="depo-text">"Estou gostando muito das percepções que tem me despertado. Achei bem fiel — algumas definições bateram muito com o que as pessoas responderam sobre mim."</p>
-        <p class="depo-autor">Participante do desafio guiado — Dia 4</p>
-      </div>
-      <div class="depo-card">
-        <p class="depo-text">"Você está sendo psicóloga para mim."</p>
-        <p class="depo-autor">Participante do desafio guiado — Exercício 5</p>
-      </div>
-      <div class="depo-card">
-        <p class="depo-text">"Ontem conversar com as pessoas sobre a forma como me comunico — eu descobri tanta coisa. Hoje eu vejo claramente as minhas falhas de comunicação que eu não via. É incrível que eu nunca perguntei a ninguém como é que eu me comunico. Vai ser uma Maria Rosa antes e outra depois dessa mentoria."</p>
-        <p class="depo-autor">Maria Rosa — Participante do desafio guiado</p>
-      </div>
-      <div class="depo-card">
-        <p class="depo-text">"Eu consegui realmente me ver ali. Embora talvez eu nunca tivesse parado pra pensar como eu tenho parado nesses dias. O dia de hoje foi muito interessante — eu comecei a olhar com mais cuidados sobre essas crenças e foi um momento em que eu me emocionei muito. Foi um momento bem desafiador mas eu estou gostando muito. Obrigada por essa oportunidade, você é uma bênção."</p>
-        <p class="depo-autor">Claudia — Participante do desafio guiado</p>
-      </div>
+  <div id="tela-ferramenta">
+    <div class="eyebrow">Método ELLE</div>
+    <h1 class="titulo">Matriz <em>ELLE</em><br>de Sustentação da Voz</h1>
+    <p class="subtitulo">Atribua uma nota de 0 a 10 para cada pilar com base no seu comportamento real.</p>
+    <div class="instrucao">
+      <strong>Como usar:</strong> Responda com base em como você realmente age — não como gostaria de agir.
+      Após preencher os 8 pilares, clique em <strong>Gerar meu diagnóstico</strong> para receber sua leitura personalizada.
+      <br>Tire um print ao final para guardar seu mapa. Reaplique no Dia 21 e compare.
     </div>
-    <div style="text-align:center; margin-top:3rem;">
-      <a href="https://pay.hotmart.com/B105291424M?src=paginadevenda" class="btn-primary">Quero viver isso também</a>
-      <p style="margin-top:1rem; font-size:0.9rem; color:var(--text); font-weight:400;">12x de R$10,03 <span style="color:var(--text-muted); font-size:0.8rem;">ou R$97 à vista · 7 dias de garantia</span></p>
+    <div class="legenda">
+      <div class="leg-item"><div class="leg-dot" style="background:#E07070"></div> 0–3 sua voz cede</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#D4A060"></div> 4–6 sua voz oscila</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#90C060"></div> 7–8 sustenta com esforço</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#60C0A0"></div> 9–10 sustenta naturalmente</div>
     </div>
-  </div>
-</section>
-
-<!-- PRODUTO -->
-<section class="produto-section">
-  <div class="container">
-    <p class="section-label">O que você recebe</p>
-    <h2 class="section-title">Tudo que você precisa<br>para os <em>21 dias</em></h2>
-    <div class="produto-box">
-      <ul class="produto-list">
-        <li><span class="check">◆</span><div><strong>Ebook Arquitetura da Voz</strong> — o protocolo completo dos 21 dias com exercícios práticos, perguntas de consolidação e observações por perfil para cada dia.</div></li>
-        <li><span class="check">◆</span><div><strong>3 aulas em vídeo</strong> — orientações gravadas nos momentos-chave da jornada: abertura do processo, início da Semana 2 e início da Semana 3.</div></li>
-        <li><span class="check">◆</span><div><strong>Diagnóstico de Perfil ELLE</strong> — 26 perguntas que identificam seu perfil comunicacional primário e secundário, com leitura do sistema interno.</div></li>
-        <li><span class="check">◆</span><div><strong>Manual de Arquitetura Interior</strong> — aprofundamento do seu perfil emocional: virtudes, sombras e o medo que você raramente nomeia.</div></li>
-        <li><span class="check">◆</span><div><strong>Matriz ELLE de Sustentação da Voz</strong> — diagnóstico dos 8 pilares da sua comunicação. Você preenche antes de começar e reaplica no Dia 21.</div></li>
-      </ul>
-      <div class="preco-area">
-        <p style="font-size:0.875rem; color:var(--text-muted); margin-bottom:1.5rem; line-height:1.7;">Uma sessão de coaching custa em média R$300. Aqui você tem 21 dias de trabalho estruturado, diagnóstico de perfil, manual completo e três aulas gravadas — por R$97. Menos do que R$5 por dia.</p>
-        <p class="preco-label">Investimento</p>
-        <p class="preco">R$&nbsp;97</p>
-        <p class="preco-detalhe" style="font-size:0.9rem; color:var(--text); font-weight:400;">12x de R$10,03 <span style="color:var(--text-muted); font-size:0.8rem;">ou R$97 à vista</span></p>
-        <a href="https://pay.hotmart.com/B105291424M?src=paginadevenda" class="btn-primary">Quero sustentar minha voz</a>
-        <div class="garantia">
-          <strong>7 dias de garantia incondicional.</strong> Se não fizer sentido para você, basta solicitar o reembolso. Sem risco. Sem burocracia.
-        </div>
-      </div>
+    <div class="campos-grid" id="campos"></div>
+    <div class="radar-wrap">
+      <canvas id="radar" width="420" height="420"></canvas>
     </div>
-  </div>
-</section>
-
-<!-- AUTORIDADE -->
-<section class="autoridade-section">
-  <div class="container-wide">
-    <div class="autoridade-inner">
-      <div class="autoridade-foto-area">
-        <img src="fran-arquiteta.jpg" alt="Fran Castro" class="autoridade-foto" style="object-position: center top;">
-        <div class="autoridade-foto-frame"></div>
-      </div>
-      <div class="autoridade-texto">
-        <p class="section-label">Quem vai guiar o processo</p>
-        <h2 class="autoridade-nome">Fran Castro</h2>
-        <p class="autoridade-cargo">Arquiteta da Inteligência Emocional</p>
-        <p>Eu não comecei ensinando mulheres a se posicionarem. Eu comecei me observando.</p>
-        <p>Por muito tempo, eu sabia o que precisava ser dito — mas escolhia o silêncio para manter o equilíbrio. Por fora, parecia maturidade. Por dentro, era um padrão invisível operando antes da minha voz sair.</p>
-        <p>Eu tinha clareza técnica, visão estratégica e atuação reconhecida. E ainda assim, numa reunião, apresentava uma ideia — silêncio. Minutos depois, um colega dizia a mesma coisa. A sala se inclinava. As pessoas anotavam.</p>
-        <p><strong>Não era falta de competência. Era falta de sustentação.</strong></p>
-        <p>Quando entendi isso, tudo mudou. A Arquitetura da Voz nasceu dessa compreensão — e é isso que você vai construir nos próximos 21 dias.</p>
-      </div>
+    <button class="btn-diag" id="btn-diag" onclick="gerarDiagnostico()">Gerar meu diagnóstico</button>
+    <div class="diag-box" id="diag-box">
+      <p class="diag-titulo">Diagnóstico estrutural da sua voz</p>
+      <p class="diag-texto" id="diag-texto"></p>
     </div>
+    <p class="aviso-print">Tire um print desta página para guardar seu diagnóstico.</p>
+    <button class="btn-reset" onclick="resetar()">Limpar e reiniciar</button>
   </div>
-</section>
+</div>
 
-<!-- COMPARAÇÃO -->
-<section>
-  <div class="container">
-    <p class="section-label">A diferença</p>
-    <h2 class="section-title">Antes e depois<br>do <em>processo</em></h2>
-    <div class="comp-grid">
-      <div class="comp-col">
-        <p class="comp-header sem">Sem Arquitetura da Voz</p>
-        <ul class="comp-list sem">
-          <li>Aprende técnicas, mas continua travando na hora</li>
-          <li>Fala, mas não se sustenta quando pressionada</li>
-          <li>Depende da validação externa para se posicionar</li>
-          <li>Continua se diminuindo nos momentos que importam</li>
-          <li>Sai das conversas com o peso do que não disse</li>
-        </ul>
-      </div>
-      <div class="comp-col">
-        <p class="comp-header com">Com Arquitetura da Voz</p>
-        <ul class="comp-list com">
-          <li>Atua no padrão invisível — não na superfície</li>
-          <li>Se posiciona com consciência, mesmo com desconforto</li>
-          <li>Sustenta a própria voz sem depender de aprovação</li>
-          <li>Desenvolve identidade e presença reais</li>
-          <li>Sabe o que está fazendo quando escolhe falar ou calar</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- OBJEÇÕES -->
-<section style="background:var(--dark-2); border-top:1px solid var(--border);">
-  <div class="container">
-    <p class="section-label">Objeções</p>
-    <h2 class="section-title">O que você pode<br>estar <em>pensando</em></h2>
-    <div class="obj-list">
-      <div class="obj-item">
-        <p class="obj-q">"Isso funciona para mim?"</p>
-        <p class="obj-a">Se você se identificou com qualquer uma das dores descritas nesta página — sim. <strong>Porque isso não é sobre técnica de comunicação. É sobre o padrão que opera antes da sua voz sair.</strong> E esse padrão é universal entre mulheres que aprenderam que suavizar é mais seguro do que sustentar.</p>
-      </div>
-      <div class="obj-item">
-        <p class="obj-q">"Não tenho tempo."</p>
-        <p class="obj-a">São <strong>10 a 15 minutos por dia.</strong> O que vai exigir não é tempo — é presença. Você pode fazer em 10 minutos desatentos e não mover nada. Ou fazer em 10 minutos com foco real e sentir o chão se deslocar.</p>
-      </div>
-      <div class="obj-item">
-        <p class="obj-q">"Já tentei melhorar minha comunicação antes."</p>
-        <p class="obj-a">Provavelmente você trabalhou na superfície — tom de voz, assertividade, técnicas de fala. <strong>Aqui o trabalho começa por dentro.</strong> Sem entender de onde vêm seus padrões, qualquer técnica vira máscara.</p>
-      </div>
-      <div class="obj-item">
-        <p class="obj-q">"E se não funcionar para mim?"</p>
-        <p class="obj-a">Você tem <strong>7 dias de garantia incondicional.</strong> Se não fizer sentido, basta solicitar o reembolso. Sem risco. Sem burocracia.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FAQ -->
-<section>
-  <div class="container">
-    <p class="section-label">Perguntas frequentes</p>
-    <h2 class="section-title">FAQ</h2>
-    <div class="faq-list">
-      <div class="faq-item">
-        <p class="faq-q">São 21 dias seguidos?</p>
-        <p class="faq-a">Sim. É uma jornada estruturada em três semanas com progressão intencional — cada semana prepara você para a próxima. Se pular um dia, não volte para compensar: continue de onde parou.</p>
-      </div>
-      <div class="faq-item">
-        <p class="faq-q">Como funciona o acesso?</p>
-        <p class="faq-a">Após a compra você recebe acesso imediato à plataforma Hotmart com todos os materiais organizados por módulo. Você segue a sequência no seu tempo.</p>
-      </div>
-      <div class="faq-item">
-        <p class="faq-q">Quanto tempo por dia?</p>
-        <p class="faq-a">Entre 10 e 15 minutos. O método foi desenhado para consistência, não para volume. Presença vale mais do que duração.</p>
-      </div>
-      <div class="faq-item">
-        <p class="faq-q">Preciso ter feito algo antes?</p>
-        <p class="faq-a">Não. O produto começa pelo diagnóstico de perfil — que você faz antes do Dia 1. Tudo que você precisa está dentro do produto.</p>
-      </div>
-      <div class="faq-item">
-        <p class="faq-q">Como entro em contato?</p>
-        <p class="faq-a">Para dúvidas técnicas ou de acesso: <a href="/cdn-cgi/l/email-protection#8ce1e9f8e3e8e3e9e0e0e9ccebe1ede5e0a2efe3e1"><span class="__cf_email__" data-cfemail="076a6273686368626b6b6247606a666e6b2964686a">[email&#160;protected]</span></a></p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CTA FINAL -->
-<section class="cta-final">
-  <div class="container">
-    <p class="section-label">Decisão</p>
-    <h2 class="section-title">Quando uma mulher aprende<br>a sustentar a própria voz,<br>ela aprende a <em>liderar a própria história.</em></h2>
-    <p class="cta-quote">Você pode continuar suavizando. Ou pode começar a se sustentar.</p>
-    <a href="https://pay.hotmart.com/B105291424M?src=paginadevenda" class="btn-primary">Quero parar de me diminuir</a>
-    <p style="margin-top:1.5rem; font-size:0.9rem; color:var(--text); font-weight:400;">12x de R$10,03 <span style="color:var(--text-muted); font-size:0.8rem;">ou R$97 à vista · 7 dias de garantia</span></p>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="container">
-    <p>© 2026 Fran Castro — Arquit
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+const SENHA = 'vozelle';
+const pilares = [
+  { id: 'clareza', label: 'Clareza interna', desc: 'saber o que pensa' },
+  { id: 'regulacao', label: 'Regulação emocional', desc: 'sustentar-se sob pressão' },
+  { id: 'medo', label: 'Medo de julgamento', desc: 'não travar diante do outro' },
+  { id: 'autorizacao', label: 'Autorização interna', desc: 'permitir-se ocupar espaço' },
+  { id: 'assertividade', label: 'Assertividade prática', desc: 'dizer com clareza' },
+  { id: 'limites', label: 'Limites e posicionamento', desc: 'sustentar o não' },
+  { id: 'presenca', label: 'Presença e linguagem', desc: 'alinhar corpo e fala' },
+  { id: 'consistencia', label: 'Consistência', desc: 'constância no posicionamento' },
+];
+function getNivel(v) {
+  if (v <= 3) return { classe: 'nivel-cede', texto: '0–3 · sua voz cede' };
+  if (v <= 6) return { classe: 'nivel-oscila', texto: '4–6 · sua voz oscila' };
+  if (v <= 8) return { classe: 'nivel-esforco', texto: '7–8 · sustenta com esforço' };
+  return { classe: 'nivel-natural', texto: '9–10 · sustenta naturalmente' };
+}
+function verificarSenha() {
+  const input = document.getElementById('senha-input').value.trim().toLowerCase();
+  const erro = document.getElementById('senha-erro');
+  if (input === SENHA) {
+    document.getElementById('tela-senha').style.display = 'none';
+    document.getElementById('tela-ferramenta').style.display = 'block';
+    construirCampos();
+    iniciarRadar();
+  } else {
+    erro.style.display = 'block';
+    document.getElementById('senha-input').value = '';
+    document.getElementById('senha-input').focus();
+  }
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Enter' && document.getElementById('tela-senha').style.display !== 'none') {
+    verificarSenha();
+  }
+});
+function construirCampos() {
+  const grid = document.getElementById('campos');
+  grid.innerHTML = '';
+  pilares.forEach(p => {
+    const div = document.createElement('div');
+    div.className = 'campo';
+    div.innerHTML = `
+      <span class="campo-label">${p.label}</span>
+      <span class="campo-desc">${p.desc}</span>
+      <input type="number" class="campo-input" id="${p.id}" min="0" max="10" step="1" placeholder="0 – 10" oninput="atualizar()">
+      <span class="nivel" id="nivel_${p.id}" style="display:none"></span>
+    `;
+    grid.appendChild(div);
+  });
+}
+let chart = null;
+function getValores() {
+  return pilares.map(p => {
+    const v = parseFloat(document.getElementById(p.id)?.value);
+    return isNaN(v) ? 0 : Math.min(10, Math.max(0, Math.round(v)));
+  });
+}
+function iniciarRadar() {
+  const ctx = document.getElementById('radar').getContext('2d');
+  chart = new Chart(ctx, {
+    type: 'radar',
+    data: {
+      labels: pilares.map(p => p.label),
+      datasets: [{
+        data: new Array(8).fill(0),
+        backgroundColor: 'rgba(184, 147, 74, 0.15)',
+        borderColor: '#B8934A',
+        borderWidth: 2,
+        pointBackgroundColor: '#B8934A',
+        pointRadius: 4,
+        pointHoverRadius: 6,
+      }]
+    },
+    options: {
+      responsive: false,
+      scales: {
+        r: {
+          min: 0, max: 10,
+          ticks: { stepSize: 2, font: { size: 10 }, color: '#B8AFA0', backdropColor: 'transparent' },
+          grid: { color: 'rgba(184,147,74,0.1)' },
+          angleLines: { color: 'rgba(184,147,74,0.1)' },
+          pointLabels: { font: { size: 11, family: 'Jost' }, color: '#F0EAE0' }
+        }
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: ctx => ` ${Math.round(ctx.raw)}/10` } }
+      }
+    }
+  });
+}
+function atualizar() {
+  const valores = getValores();
+  pilares.forEach((p, i) => {
+    const input = document.getElementById(p.id);
+    const span = document.getElementById('nivel_' + p.id);
+    if (input && input.value !== '' && !isNaN(parseFloat(input.value))) {
+      const n = getNivel(valores[i]);
+      span.className = 'nivel ' + n.classe;
+      span.textContent = n.texto;
+      span.style.display = 'inline-block';
+    } else {
+      span.style.display = 'none';
+    }
+  });
+  if (chart) {
+    chart.data.datasets[0].data = valores;
+    chart.update();
+  }
+}
+async function gerarDiagnostico() {
+  const valores = getValores();
+  const preenchidos = pilares.filter(p => {
+    const input = document.getElementById(p.id);
+    return input && input.value !== '';
+  });
+  if (preenchidos.length < 8) {
+    alert('Preencha todos os 8 pilares antes de gerar o diagnóstico.');
+    return;
+  }
+  const btn = document.getElementById('btn-diag');
+  const box = document.getElementById('diag-box');
+  const texto = document.getElementById('diag-texto');
+  btn.disabled = true;
+  btn.textContent = 'Gerando diagnóstico...';
+  box.style.display = 'block';
+  texto.className = 'diag-texto diag-loading';
+  texto.textContent = 'Analisando sua estrutura...';
+  try {
+    const response = await fetch('/api/diagnostico', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ notas: valores }),
+    });
+    const data = await response.json();
+    texto.className = 'diag-texto';
+    texto.textContent = data.diagnostico || 'Não foi possível gerar o diagnóstico. Tente novamente.';
+  } catch (err) {
+    texto.className = 'diag-texto';
+    texto.textContent = 'Não foi possível gerar o diagnóstico. Verifique sua conexão e tente novamente.';
+  }
+  btn.disabled = false;
+  btn.textContent = 'Gerar meu diagnóstico';
+  box.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+function resetar() {
+  pilares.forEach(p => {
+    const input = document.getElementById(p.id);
+    if (input) input.value = '';
+    const span = document.getElementById('nivel_' + p.id);
+    if (span) span.style.display = 'none';
+  });
+  if (chart) { chart.data.datasets[0].data = new Array(8).fill(0); chart.update(); }
+  document.getElementById('diag-box').style.display = 'none';
+  document.getElementById('diag-texto').textContent = '';
+  document.getElementById('btn-diag').textContent = 'Gerar meu diagnóstico';
+}
+</script>
+</body>
+</html>
