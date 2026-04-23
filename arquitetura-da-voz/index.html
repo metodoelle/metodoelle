@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Arquitetura da Voz — Fran Castro</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;1,400&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -79,7 +80,7 @@ body::before {
 .hero-image { width: 100%; max-width: 480px; aspect-ratio: 3/4; object-fit: cover; object-position: left center; filter: brightness(0.9); }
 .hero-image-frame { position: absolute; inset: -8px; border: 1px solid var(--border); pointer-events: none; }
 .premissa {
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 500;
   letter-spacing: 0.25em;
   text-transform: uppercase;
@@ -165,6 +166,7 @@ section { padding: 6rem 0; }
   gap: 12px;
 }
 .section-label::before { content: ''; display: block; width: 32px; height: 1px; background: var(--gold); }
+.section-title, h1, h2 { font-family: 'Cormorant Garamond', serif !important; }
 .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 300; line-height: 1.15; margin-bottom: 1.5rem; }
 .section-title em { font-style: italic; color: var(--gold-light); }
 
@@ -268,7 +270,7 @@ section { padding: 6rem 0; }
 
 /* CTA FINAL */
 .preco-area { margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--border); }
-.preco-label { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem; }
+.preco-label { font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem; }
 .btn-cta-grande {
   display: block;
   width: 100%;
@@ -285,7 +287,7 @@ section { padding: 6rem 0; }
 }
 .btn-cta-grande:hover { background: var(--gold-light); }
 .btn-cta-parcel { font-size: 1.5rem; font-weight: 500; letter-spacing: 0.02em; color: var(--dark); display: block; margin-bottom: 4px; }
-.btn-cta-texto { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(14,12,9,0.65); display: block; }
+.btn-cta-texto { font-size: 13px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(14,12,9,0.65); display: block; }
 .garantia { margin-top: 1.5rem; padding: 1.25rem 1.5rem; border: 1px solid var(--border); font-size: 0.875rem; color: var(--text-muted); line-height: 1.6; }
 .garantia strong { color: var(--text); font-weight: 400; }
 
@@ -319,7 +321,7 @@ section { padding: 6rem 0; }
 /* COMPARAÇÃO */
 .comp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 3rem; }
 .comp-col { background: var(--dark-2); padding: 2rem; }
-.comp-header { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 1.5rem; padding-bottom: 1rem; }
+.comp-header { font-size: 13px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 1.5rem; padding-bottom: 1rem; }
 .comp-header.sem { color: var(--text-muted); border-top: 1px solid rgba(110,98,88,0.4); padding-top: 16px; }
 .comp-header.com { color: var(--gold); border-top: 1px solid var(--gold); padding-top: 16px; }
 .comp-list { list-style: none; display: flex; flex-direction: column; gap: 0.85rem; }
