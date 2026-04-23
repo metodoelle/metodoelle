@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Diagnóstico — Arquitetura da Voz</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;1,400&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -43,8 +44,6 @@ body::before {
   pointer-events: none;
   z-index: 0;
 }
-
-/* SITE NAV */
 .site-nav {
   display: flex;
   justify-content: space-between;
@@ -67,7 +66,6 @@ body::before {
   transition: color 0.2s;
 }
 .site-nav-link:hover { color: #B8934A; }
-
 .main-content {
   flex: 1;
   display: flex;
@@ -83,7 +81,7 @@ body::before {
 @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 .eyebrow { font-size: 10px; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem; }
 .eyebrow::before { content: ''; display: block; width: 30px; height: 1px; background: var(--gold); }
-.hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.2rem, 6vw, 3.4rem); font-weight: 300; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1rem; color: var(--text); }
+.hero-title { font-family: 'Cormorant Garamond', serif !important; font-size: clamp(2.2rem, 6vw, 3.4rem); font-weight: 300; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1rem; color: var(--text); }
 .hero-title em { font-style: italic; color: var(--gold-light); }
 .subtitle { font-size: 0.95rem; color: var(--text-muted); margin-bottom: 2.5rem; line-height: 1.8; }
 .btn-primary { display: inline-block; background: var(--gold); color: var(--dark); font-family: 'Jost', sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; padding: 1.1rem 2.8rem; border: none; cursor: pointer; transition: background 0.2s, transform 0.15s; text-decoration: none; }
@@ -93,7 +91,7 @@ body::before {
 .progress-label { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.6rem; }
 .progress-track { height: 1px; background: var(--border); }
 .progress-fill { height: 1px; background: var(--gold); transition: width 0.5s ease; }
-.question { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.3rem, 3.5vw, 1.65rem); font-weight: 400; line-height: 1.4; margin-bottom: 2rem; color: var(--text); }
+.question { font-family: 'Cormorant Garamond', serif !important; font-size: clamp(1.3rem, 3.5vw, 1.65rem); font-weight: 400; line-height: 1.4; margin-bottom: 2rem; color: var(--text); }
 .options { display: flex; flex-direction: column; gap: 0.65rem; margin-bottom: 1.5rem; }
 .opt { background: transparent; border: 1px solid var(--border); color: var(--text); font-family: 'Jost', sans-serif; font-size: 0.875rem; font-weight: 300; padding: 1rem 1.25rem; text-align: left; cursor: pointer; transition: border-color 0.2s, background 0.2s; line-height: 1.5; }
 .opt:hover { border-color: var(--gold); background: var(--gold-pale); }
@@ -105,15 +103,17 @@ body::before {
 .field-input { width: 100%; background: transparent; border: 1px solid var(--border); color: var(--text); font-family: 'Jost', sans-serif; font-size: 0.9rem; font-weight: 300; padding: 0.9rem 1rem; outline: none; transition: border-color 0.2s; -webkit-appearance: none; }
 .field-input:focus { border-color: var(--gold); }
 .field-input::placeholder { color: rgba(176,163,144,0.4); }
+.field-error { font-size: 0.8rem; color: #E24B4A; margin-top: 0.4rem; display: none; }
+.field-error.visible { display: block; }
 .loading-wrap { padding: 3rem 0; }
-.loading-text { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 300; color: var(--text); margin-bottom: 2rem; line-height: 1.4; }
+.loading-text { font-family: 'Cormorant Garamond', serif !important; font-size: 1.4rem; font-weight: 300; color: var(--text); margin-bottom: 2rem; line-height: 1.4; }
 .dots { display: flex; gap: 8px; }
 .dot { width: 5px; height: 5px; background: var(--gold); border-radius: 50%; animation: blink 1.4s ease-in-out infinite; }
 .dot:nth-child(2) { animation-delay: 0.2s; }
 .dot:nth-child(3) { animation-delay: 0.4s; }
 @keyframes blink { 0%,80%,100%{opacity:0.25;} 40%{opacity:1;} }
 .result-tag { font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; }
-.result-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 5vw, 2.6rem); font-weight: 300; line-height: 1.15; margin-bottom: 2rem; color: var(--text); }
+.result-title { font-family: 'Cormorant Garamond', serif !important; font-size: clamp(1.8rem, 5vw, 2.6rem); font-weight: 300; line-height: 1.15; margin-bottom: 2rem; color: var(--text); }
 .result-title em { font-style: italic; color: var(--gold-light); }
 .result-body { font-size: 0.925rem; color: var(--text-muted); line-height: 1.9; margin-bottom: 0.9rem; }
 .result-body strong { color: var(--text); font-weight: 400; }
@@ -121,12 +121,12 @@ body::before {
 .offer-box { border: 1px solid rgba(184,147,74,0.35); padding: 1.75rem; position: relative; }
 .offer-box::before { content: ''; position: absolute; top: -1px; left: 0; width: 40px; height: 1px; background: var(--gold); }
 .offer-eyebrow { font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.6rem; }
-.offer-title { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 300; color: var(--text); margin-bottom: 0.4rem; line-height: 1.3; }
+.offer-title { font-family: 'Cormorant Garamond', serif !important; font-size: 1.5rem; font-weight: 300; color: var(--text); margin-bottom: 0.4rem; line-height: 1.3; }
 .offer-desc { font-size: 0.825rem; color: var(--text-muted); line-height: 1.75; margin-bottom: 1.5rem; }
-.offer-price { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 300; color: var(--gold-light); line-height: 1; margin-bottom: 0.3rem; }
+.offer-price { font-family: 'Cormorant Garamond', serif !important; font-size: 2.2rem; font-weight: 300; color: var(--gold-light); line-height: 1; margin-bottom: 0.3rem; }
 .offer-detail { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.5rem; }
 .garantia { margin-top: 1rem; font-size: 0.78rem; color: var(--text-muted); line-height: 1.6; border-top: 1px solid var(--border); padding-top: 1rem; }
-.hook-text { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.3rem, 3.5vw, 1.7rem); font-weight: 300; font-style: italic; color: var(--gold-light); line-height: 1.3; margin-bottom: 1.5rem; }
+.hook-text { font-family: 'Cormorant Garamond', serif !important; font-size: clamp(1.3rem, 3.5vw, 1.7rem); font-weight: 300; font-style: italic; color: var(--gold-light); line-height: 1.3; margin-bottom: 1.5rem; }
 .offer-img { width: 100%; max-width: 280px; display: block; margin: 0 auto 1.5rem; }
 .btn-secondary { display: block; background: transparent; border: 1px solid var(--border); color: var(--text-muted); font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 400; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.85rem 2rem; text-decoration: none; text-align: center; margin-top: 0.75rem; transition: border-color 0.2s, color 0.2s; }
 .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
@@ -244,9 +244,17 @@ body::before {
   <div class="eyebrow">Quase lá</div>
   <h2 class="hero-title" style="font-size:clamp(1.6rem,4vw,2.2rem);">Seu diagnóstico<br>está <em>pronto.</em></h2>
   <p class="subtitle" style="margin-bottom:2rem;">Para onde enviamos?</p>
-  <div class="field-group"><label class="field-label" for="nome">Nome</label><input class="field-input" type="text" id="nome" placeholder="Seu nome" autocomplete="given-name"></div>
-  <div class="field-group"><label class="field-label" for="email">E-mail</label><input class="field-input" type="email" id="email" placeholder="Seu melhor e-mail" autocomplete="email"></div>
-  <button class="btn-primary btn-full" onclick="processResult()" style="margin-top:0.5rem;">Ver meu resultado</button>
+  <div class="field-group">
+    <label class="field-label" for="nome">Nome</label>
+    <input class="field-input" type="text" id="nome" placeholder="Seu nome" autocomplete="given-name">
+    <span class="field-error" id="erro-nome">Por favor, informe seu nome.</span>
+  </div>
+  <div class="field-group">
+    <label class="field-label" for="email">E-mail</label>
+    <input class="field-input" type="email" id="email" placeholder="Seu melhor e-mail" autocomplete="email">
+    <span class="field-error" id="erro-email">Por favor, informe um e-mail válido.</span>
+  </div>
+  <button class="btn-primary btn-full" onclick="processResult()" style="margin-top:0.5rem;" id="btn-resultado">Ver meu resultado</button>
 </div>
 
 <div id="s9" class="screen">
@@ -263,7 +271,7 @@ body::before {
   <p class="result-body">Não é falta de conhecimento. Não é timidez.</p>
   <p class="result-body">É que você aprendeu, ao longo do tempo, que sustentar sua voz tem um custo — conflito, julgamento, rejeição. E seu sistema foi se ajustando para evitar esse custo.</p>
   <p class="result-body">O problema é que esse ajuste tem um preço maior: aos poucos, você foi deixando de ocupar o espaço que é seu.</p>
-  <p class="result-body"><strong>Você tem. Só precisa aprender a sustentar quem você é quando fala.</strong></p>
+  <p class="result-body"><strong>Você tem voz. Só precisa aprender a sustentar quem você é quando fala.</strong></p>
   <div class="divider"></div>
   <p class="hook-text">Você pode ocupar o espaço que merece.</p>
   <div class="offer-box">
@@ -306,11 +314,13 @@ body::before {
 
 <script>
 var scoreA = 0, scoreB = 0;
+
 function goTo(id) {
   document.querySelectorAll('.screen').forEach(function(s) { s.classList.remove('active'); });
   document.getElementById(id).classList.add('active');
   window.scrollTo(0, 0);
 }
+
 function pick(btn, score, nextId) {
   var opts = btn.closest('.options').querySelectorAll('.opt');
   opts.forEach(function(o) { o.classList.remove('selected'); });
@@ -319,19 +329,67 @@ function pick(btn, score, nextId) {
   var nextBtn = document.getElementById(nextId);
   if (nextBtn) nextBtn.classList.add('visible');
 }
+
+function validateForm() {
+  var nome = document.getElementById('nome').value.trim();
+  var email = document.getElementById('email').value.trim();
+  var erroNome = document.getElementById('erro-nome');
+  var erroEmail = document.getElementById('erro-email');
+  var valid = true;
+
+  if (!nome) {
+    erroNome.classList.add('visible');
+    valid = false;
+  } else {
+    erroNome.classList.remove('visible');
+  }
+
+  var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!email || !emailRegex.test(email)) {
+    erroEmail.classList.add('visible');
+    valid = false;
+  } else {
+    erroEmail.classList.remove('visible');
+  }
+
+  return valid;
+}
+
+function sendToBrevo(nome, email, resultado) {
+  fetch('/api/brevo', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ nome: nome, email: email, resultado: resultado })
+  }).catch(function(err) {
+    console.log('Erro ao enviar lead:', err);
+  });
+}
+
 function processResult() {
-  var nome = document.getElementById('nome').value.trim() || 'Você';
+  if (!validateForm()) return;
+
+  var nome = document.getElementById('nome').value.trim();
+  var email = document.getElementById('email').value.trim();
+
+  scoreA = 0;
+  scoreB = 0;
   document.querySelectorAll('.opt.selected').forEach(function(opt) {
     if (opt.dataset.score === 'A') scoreA++;
     else if (opt.dataset.score === 'B') scoreB++;
   });
+
+  var resultado = scoreA >= scoreB ? 'r1' : 'r2';
+
   goTo('s9');
+
+  sendToBrevo(nome, email, resultado);
+
   setTimeout(function() {
-    var result = scoreA >= scoreB ? 'r1' : 'r2';
     document.querySelectorAll('.nome-field').forEach(function(el) { el.textContent = nome; });
-    goTo(result);
+    goTo(resultado);
   }, 2400);
 }
 </script>
 </body>
 </html>
+
