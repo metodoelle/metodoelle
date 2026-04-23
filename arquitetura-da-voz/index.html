@@ -41,7 +41,6 @@ body::before {
   z-index: 0;
 }
 
-/* NAV — só logo, sem link de volta */
 .site-nav {
   display: flex;
   justify-content: center;
@@ -57,7 +56,7 @@ body::before {
 .container { max-width: 720px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 1; }
 .container-wide { max-width: 960px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 1; }
 
-/* HERO — PRIMEIRA DOBRA */
+/* HERO */
 .hero {
   min-height: 100vh;
   display: flex;
@@ -102,38 +101,22 @@ body::before {
 .hero-title em { font-style: italic; color: var(--gold-light); }
 .hero-sub {
   font-size: 1rem;
-  color: var(--gold-light);
+  color: var(--text-muted);
   font-style: italic;
   font-family: 'Cormorant Garamond', serif;
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
   line-height: 1.7;
   max-width: 520px;
 }
-.hero-intro {
+.hero-mecanismo {
   font-size: 0.9375rem;
   color: var(--text-muted);
-  margin-bottom: 1.75rem;
-  line-height: 1.6;
-  font-weight: 400;
+  line-height: 1.8;
+  margin-bottom: 2rem;
+  max-width: 520px;
 }
-.beneficios { list-style: none; display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2.5rem; }
-.beneficios li {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 1rem;
-  font-size: 0.9rem;
-  color: var(--text-muted);
-  line-height: 1.6;
-}
-.beneficios li .num {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.1rem;
-  color: var(--gold);
-  opacity: 0.6;
-  padding-top: 1px;
-  min-width: 18px;
-}
-.beneficios li strong { color: var(--text); font-weight: 400; display: block; margin-bottom: 2px; }
+.hero-mecanismo p { margin-bottom: 0.75rem; }
+.hero-mecanismo p:last-child { font-style: italic; color: var(--text); }
 
 /* BUTTONS */
 .btn-primary {
@@ -152,28 +135,48 @@ body::before {
   cursor: pointer;
 }
 .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+.btn-ghost {
+  display: inline-block;
+  border: 1px solid rgba(184,147,74,0.4);
+  color: var(--gold);
+  font-family: 'Jost', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 1.1rem 2.5rem;
+  background: transparent;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+.btn-ghost:hover { border-color: var(--gold); color: var(--gold-light); }
 
-/* SECTION */
 section { padding: 6rem 0; }
-.section-label { font-size: 10px; font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+.section-label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.section-label::before { content: ''; display: block; width: 32px; height: 1px; background: var(--gold); }
 .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 300; line-height: 1.15; margin-bottom: 1.5rem; }
 .section-title em { font-style: italic; color: var(--gold-light); }
-.divider { width: 60px; height: 1px; background: var(--gold); margin: 2rem 0; opacity: 0.5; }
 
 /* IDENTIFICAÇÃO */
 .ident-section { background: var(--dark-2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-.ident-body {
-  font-size: 1.0625rem;
-  color: var(--text-muted);
-  line-height: 1.95;
-  max-width: 640px;
-}
+.ident-body { font-size: 1.0625rem; color: var(--text-muted); line-height: 1.95; max-width: 640px; }
 .ident-body p { margin-bottom: 1.25rem; }
 .ident-body strong { color: var(--text); font-weight: 400; }
 .ident-body em { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.15rem; color: var(--text); }
 .ident-list { list-style: none; margin: 1.5rem 0; display: flex; flex-direction: column; gap: 0.6rem; }
 .ident-list li { display: flex; align-items: flex-start; gap: 0.75rem; font-size: 0.9375rem; color: var(--text-muted); }
-.ident-list li::before { content: ''; display: block; width: 4px; height: 4px; border-radius: 50%; background: var(--gold); margin-top: 0.65rem; flex-shrink: 0; }
+.ident-list li::before { content: '—'; color: var(--gold); flex-shrink: 0; opacity: 0.6; }
 .ident-fecho {
   font-family: 'Cormorant Garamond', serif;
   font-size: clamp(1.3rem, 2.5vw, 1.75rem);
@@ -186,17 +189,60 @@ section { padding: 6rem 0; }
   border-top: 1px solid var(--border);
 }
 
+/* MECANISMO ISOLADO */
+.mecanismo-section {
+  background: var(--dark);
+  border-bottom: 1px solid var(--border);
+  padding: 4rem 0;
+}
+.mecanismo-box {
+  max-width: 640px;
+  border-left: 2px solid var(--gold);
+  padding-left: 2rem;
+}
+.mecanismo-box p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+  font-weight: 300;
+  color: var(--text);
+  line-height: 1.6;
+  margin-bottom: 0.75rem;
+}
+.mecanismo-box p:last-child { font-style: italic; color: var(--gold-light); margin-bottom: 0; }
+
 /* PARA QUEM É */
-.paraquem-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 2.5rem; }
-.paraquem-item { background: var(--dark-2); padding: 1.5rem 1.75rem; display: flex; align-items: flex-start; gap: 1rem; font-size: 0.9375rem; color: var(--text-muted); line-height: 1.6; }
-.paraquem-item::before { content: ''; display: block; width: 4px; height: 4px; border-radius: 50%; background: var(--gold); margin-top: 0.6rem; flex-shrink: 0; }
+.paraquem-body { max-width: 560px; }
+.paraquem-body p { font-size: 0.9375rem; color: var(--text-muted); line-height: 1.85; margin-bottom: 1rem; }
+.paraquem-fecho { font-size: 0.9375rem; color: var(--text); font-style: italic; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border); max-width: 560px; }
+
+/* PARA QUEM NÃO É */
+.naoparaquem-section { background: var(--dark-2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+.naoparaquem-list { list-style: none; margin-top: 2rem; max-width: 560px; }
+.naoparaquem-list li {
+  font-size: 0.9375rem;
+  color: #6e6258;
+  padding: 12px 0;
+  border-bottom: 0.5px solid rgba(255,255,255,0.04);
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  line-height: 1.6;
+}
+.naoparaquem-list li::before { content: '×'; color: rgba(184,147,74,0.25); flex-shrink: 0; font-size: 14px; margin-top: 1px; }
 
 /* MÉTODO */
 .metodo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 3rem; }
 .metodo-item { background: var(--dark-2); padding: 2rem; }
 .metodo-num { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 300; color: var(--gold); opacity: 0.3; line-height: 1; margin-bottom: 0.75rem; }
-.metodo-title { font-size: 0.875rem; font-weight: 500; letter-spacing: 0.05em; color: var(--text); margin-bottom: 0.5rem; }
-.metodo-desc { font-size: 0.875rem; color: var(--text); line-height: 1.6; opacity: 0.8; }
+.metodo-title { font-size: 0.875rem; font-weight: 500; letter-spacing: 0.05em; color: var(--text); margin-bottom: 0.5rem; text-transform: uppercase; }
+.metodo-desc { font-size: 0.875rem; color: var(--text-muted); line-height: 1.7; }
+
+/* MARCOS */
+.marcos-section { background: var(--dark-3); border-bottom: 1px solid var(--border); padding: 4rem 0; }
+.marcos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 2.5rem; }
+.marco-item { background: var(--dark-2); padding: 1.75rem 1.5rem; }
+.marco-semana { font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; opacity: 0.7; }
+.marco-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.65; }
 
 /* PRODUTO */
 .produto-section { background: var(--dark-3); }
@@ -207,6 +253,18 @@ section { padding: 6rem 0; }
 .produto-list li { display: flex; align-items: flex-start; gap: 1rem; font-size: 0.9375rem; color: var(--text-muted); }
 .produto-list li span.check { color: var(--gold); font-size: 0.75rem; margin-top: 0.3rem; flex-shrink: 0; }
 .produto-list li strong { color: var(--text); font-weight: 400; }
+
+/* LANÇAMENTO */
+.lancamento-box {
+  background: rgba(184,147,74,0.06);
+  border: 1px solid rgba(184,147,74,0.2);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+.lancamento-box strong { color: var(--gold-light); font-weight: 400; }
 
 /* CTA FINAL */
 .preco-area { margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--border); }
@@ -226,30 +284,16 @@ section { padding: 6rem 0; }
   margin-bottom: 0.75rem;
 }
 .btn-cta-grande:hover { background: var(--gold-light); }
-.btn-cta-parcel {
-  font-size: 1.5rem;
-  font-weight: 500;
-  letter-spacing: 0.02em;
-  color: var(--dark);
-  display: block;
-  margin-bottom: 4px;
-}
-.btn-cta-texto {
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: rgba(14,12,9,0.65);
-  display: block;
-}
+.btn-cta-parcel { font-size: 1.5rem; font-weight: 500; letter-spacing: 0.02em; color: var(--dark); display: block; margin-bottom: 4px; }
+.btn-cta-texto { font-size: 11px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(14,12,9,0.65); display: block; }
 .garantia { margin-top: 1.5rem; padding: 1.25rem 1.5rem; border: 1px solid var(--border); font-size: 0.875rem; color: var(--text-muted); line-height: 1.6; }
 .garantia strong { color: var(--text); font-weight: 400; }
 
 /* DEPOIMENTOS */
 .depo-grid { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 3rem; }
-.depo-card { border-left: 2px solid var(--gold); padding: 1.5rem 2rem; background: var(--dark-2); }
-.depo-text { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-weight: 300; font-style: italic; line-height: 1.6; color: var(--text); margin-bottom: 0.75rem; }
-.depo-autor { font-size: 0.8125rem; letter-spacing: 0.1em; color: var(--text-muted); text-transform: uppercase; }
+.depo-card { border-left: 2px solid rgba(184,147,74,0.35); padding: 1.5rem 2rem; background: var(--dark-2); }
+.depo-text { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 300; font-style: italic; line-height: 1.65; color: var(--text); margin-bottom: 0.75rem; }
+.depo-autor { font-size: 0.8125rem; letter-spacing: 0.12em; color: var(--text-muted); text-transform: uppercase; opacity: 0.6; }
 
 /* AUTORIDADE */
 .autoridade-section { background: var(--dark-2); border-top: 1px solid var(--border); }
@@ -261,49 +305,74 @@ section { padding: 6rem 0; }
 .autoridade-texto p strong { color: var(--text); font-weight: 400; }
 .autoridade-nome { font-family: 'Cormorant Garamond', serif; font-size: 1.75rem; font-weight: 300; margin-bottom: 0.25rem; }
 .autoridade-cargo { font-size: 0.8125rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 2rem; }
+.autoridade-destaque {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.35rem;
+  font-style: italic;
+  color: var(--text);
+  border-left: 2px solid var(--gold);
+  padding-left: 1.25rem;
+  margin: 1.5rem 0;
+  line-height: 1.5;
+}
 
 /* COMPARAÇÃO */
 .comp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 3rem; }
 .comp-col { background: var(--dark-2); padding: 2rem; }
-.comp-header { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
-.comp-header.sem { color: var(--text-muted); }
-.comp-header.com { color: var(--gold); }
-.comp-list { list-style: none; display: flex; flex-direction: column; gap: 1rem; }
-.comp-list li { font-size: 0.9rem; line-height: 1.5; }
-.comp-list.sem li { color: var(--text-muted); }
-.comp-list.sem li::before { content: '— '; }
-.comp-list.com li { color: var(--text); }
-.comp-list.com li::before { content: '+ '; color: var(--gold); }
+.comp-header { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 1.5rem; padding-bottom: 1rem; }
+.comp-header.sem { color: var(--text-muted); border-top: 1px solid rgba(110,98,88,0.4); padding-top: 16px; }
+.comp-header.com { color: var(--gold); border-top: 1px solid var(--gold); padding-top: 16px; }
+.comp-list { list-style: none; display: flex; flex-direction: column; gap: 0.85rem; }
+.comp-list li { font-size: 0.9rem; line-height: 1.55; display: flex; gap: 8px; align-items: flex-start; }
+.comp-list.sem li { color: #6e6258; }
+.comp-list.sem li::before { content: '—'; color: rgba(110,98,88,0.5); flex-shrink: 0; }
+.comp-list.com li { color: var(--text-muted); }
+.comp-list.com li::before { content: '+'; color: var(--gold); flex-shrink: 0; }
 
 /* OBJEÇÕES */
 .obj-list { display: flex; flex-direction: column; gap: 0; margin-top: 2rem; }
-.obj-item { border-bottom: 1px solid var(--border); padding: 1.75rem 0; }
-.obj-q { font-family: 'Cormorant Garamond', serif; font-size: 1.125rem; font-weight: 400; color: var(--text); margin-bottom: 0.75rem; }
-.obj-a { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; }
+.obj-item { border-bottom: 1px solid var(--border); padding: 1.75rem 0; max-width: 580px; }
+.obj-q { font-family: 'Cormorant Garamond', serif; font-size: 1.125rem; font-weight: 400; color: var(--text); margin-bottom: 0.75rem; font-style: italic; }
+.obj-a { font-size: 0.9rem; color: var(--text-muted); line-height: 1.8; }
+.obj-a span { display: block; margin-top: 6px; }
 .obj-a strong { color: var(--text); font-weight: 400; }
 
 /* FAQ */
 .faq-list { display: flex; flex-direction: column; gap: 0; margin-top: 2rem; }
-.faq-item { border-bottom: 1px solid var(--border); padding: 1.5rem 0; }
-.faq-q { font-size: 0.9375rem; font-weight: 400; color: var(--text); margin-bottom: 0.5rem; }
+.faq-item { border-bottom: 1px solid var(--border); padding: 1.5rem 0; max-width: 580px; }
+.faq-q { font-size: 0.9375rem; font-weight: 500; color: var(--text); margin-bottom: 0.5rem; }
 .faq-a { font-size: 0.875rem; color: var(--text-muted); line-height: 1.7; }
+.faq-a a { color: var(--gold); text-decoration: none; }
+
+/* RISCO DE NÃO AGIR */
+.risco-box {
+  border-left: 2px solid rgba(184,147,74,0.3);
+  padding: 1.5rem 0 1.5rem 1.75rem;
+  margin: 3rem 0;
+  max-width: 560px;
+}
+.risco-box p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem;
+  font-style: italic;
+  color: var(--text-muted);
+  line-height: 1.65;
+}
 
 /* CTA FINAL */
 .cta-final { background: var(--dark-3); border-top: 1px solid var(--border); text-align: center; padding: 8rem 0; }
-.cta-quote { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-style: italic; color: var(--text-muted); max-width: 480px; margin: 0 auto 3rem; line-height: 1.6; }
+.cta-quote { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-style: italic; color: var(--text-muted); max-width: 480px; margin: 0 auto 1.5rem; line-height: 1.6; }
 
-/* FOOTER */
 footer { background: var(--dark); border-top: 1px solid var(--border); padding: 2rem 0; text-align: center; font-size: 0.8125rem; color: var(--text-muted); }
 footer a { color: var(--gold); text-decoration: none; }
 
-/* RESPONSIVE */
 @media (max-width: 768px) {
   .site-nav { padding: 18px 20px; }
   .hero { min-height: auto; padding: 3rem 0; }
   .hero-grid { grid-template-columns: 1fr; gap: 2rem; }
   .hero-image { max-width: 100%; aspect-ratio: 4/3; object-position: center top; order: -1; }
-  .paraquem-grid { grid-template-columns: 1fr; }
   .metodo-grid { grid-template-columns: 1fr; }
+  .marcos-grid { grid-template-columns: 1fr; }
   .comp-grid { grid-template-columns: 1fr; }
   .autoridade-inner { grid-template-columns: 1fr; gap: 2rem; }
   .produto-box { padding: 2rem 1.5rem; }
@@ -314,13 +383,12 @@ footer a { color: var(--gold); text-decoration: none; }
 .premissa { animation: fadeUp 0.6s ease both; }
 .hero-title { animation: fadeUp 0.6s 0.1s ease both; }
 .hero-sub { animation: fadeUp 0.6s 0.2s ease both; }
-.hero-intro { animation: fadeUp 0.6s 0.25s ease both; }
-.beneficios { animation: fadeUp 0.6s 0.3s ease both; }
+.hero-mecanismo { animation: fadeUp 0.6s 0.25s ease both; }
 </style>
 </head>
 <body>
 
-<!-- NAV — só logo, sem link de volta -->
+<!-- NAV -->
 <nav class="site-nav">
   <a href="/" aria-label="Método ELLE">
     <svg width="140" height="38" viewBox="0 0 140 38" xmlns="http://www.w3.org/2000/svg">
@@ -332,30 +400,20 @@ footer a { color: var(--gold); text-decoration: none; }
   </a>
 </nav>
 
-<!-- PRIMEIRA DOBRA -->
+<!-- HERO -->
 <section class="hero">
   <div class="hero-grid">
     <div>
-      <div class="premissa">Existe uma forma de nunca mais se diminuir</div>
-      <h1 class="hero-title">Em 21 dias, você aprende a sustentar sua voz com segurança em qualquer ambiente — mesmo que hoje você trave, evite conflito ou saia das conversas pensando no que deveria ter dito.</h1>
-      <p class="hero-sub">Sem precisar ser agressiva, sem mudar quem você é e sem continuar se sentindo invisível.</p>
-      <p class="hero-intro">Continue lendo e entenda o que precisa virar a chave:</p>
-      <ul class="beneficios">
-        <li>
-          <span class="num">1.</span>
-          <div><strong>Como falar o que precisa ser dito no momento certo, mesmo quando o medo aparece</strong> — para parar de reviver conversas na cabeça e começar a se posicionar com segurança.</div>
-        </li>
-        <li>
-          <span class="num">2.</span>
-          <div><strong>O padrão invisível que faz você se diminuir e evitar conflito sem perceber</strong> — para conseguir dizer "não" sem culpa e parar de aceitar o que te machuca.</div>
-        </li>
-        <li>
-          <span class="num">3.</span>
-          <div><strong>A mudança interna que faz as pessoas pararem de te subestimar</strong> — para você ser ouvida, respeitada e nunca mais negociar quem você é.</div>
-        </li>
-      </ul>
-      <a href="#investimento" class="btn-primary">Quero sustentar minha voz</a>
-      <p style="margin-top:1rem; font-size:0.875rem; color:var(--text-muted);">Role para conhecer o método</p>
+      <div class="premissa">Você não precisa mais se diminuir para caber.</div>
+      <h1 class="hero-title">Em 21 dias, você deixa de se calar, se ajustar e sair das conversas com o peso do que não disse — e começa a <em>sustentar sua voz com segurança</em> em qualquer ambiente.</h1>
+      <p class="hero-sub">Para mulheres que sabem o que precisam dizer — mas travam na hora que mais importa ou saem das conversas carregando o peso do que não disseram.<br><br>Sem precisar endurecer. Sem continuar se sentindo invisível.</p>
+      <div class="hero-mecanismo">
+        <p>Antes de você falar, algo já decidiu por você.</p>
+        <p>Um padrão invisível que te faz se ajustar, evitar conflito e sair das conversas com a sensação de que deveria ter dito mais.</p>
+        <p>Quando você entende e muda esse padrão, sua fala deixa de ser reação — e vira posicionamento.</p>
+      </div>
+      <a href="https://pay.hotmart.com/B105291424M?checkoutMode=10&src=paginadevenda" class="btn-primary">Quero começar a sustentar minha voz</a>
+      <p style="margin-top:1rem; font-size:0.8125rem; color:var(--text-muted); letter-spacing:0.05em;">7 dias de garantia · acesso imediato</p>
     </div>
     <div style="position:relative; width:100%;">
       <img src="/fran-castro.jpg" alt="Fran Castro" class="hero-image">
@@ -364,48 +422,69 @@ footer a { color: var(--gold); text-decoration: none; }
   </div>
 </section>
 
-<!-- SEGUNDA DOBRA — IDENTIFICAÇÃO -->
+<!-- RECONHECIMENTO -->
 <section class="ident-section">
   <div class="container">
     <p class="section-label">Reconhecimento</p>
     <div class="ident-body">
-      <p>Você sabe exatamente o que deveria falar. Mas na hora — trava.</p>
-      <p>Fica procurando as palavras certas, ensaiando na cabeça, esperando o momento ideal. E quando percebe, o momento já passou.</p>
-      <p>Aí, horas depois — às vezes dias — você ainda está pensando na mesma conversa. No que deveria ter dito. No que deixou passar. No que engoliu para não criar conflito.</p>
-      <p><em>E o pior não é nem o silêncio. É a sensação de que você está se diminuindo — mesmo sabendo que não deveria.</em></p>
-      <p>Você evita o confronto, tenta manter a paz, se adapta para não incomodar. Mas no fundo isso vai te apagando aos poucos. E chega uma hora que começa a pesar:</p>
+      <p>Você sabe exatamente o que deveria dizer. Mas na hora — trava.</p>
+      <p>Procura as palavras certas. Espera o momento ideal. E quando percebe… já passou.</p>
+      <p>Depois, a conversa continua na sua cabeça.<br>O que você deveria ter dito. O que deixou passar. O que engoliu para evitar conflito.</p>
+      <p><em>E o ponto não é só o silêncio. É a sensação de estar se diminuindo — mesmo sabendo que não deveria.</em></p>
+      <p>Você evita confronto. Se adapta para não incomodar. Tenta manter o clima.<br>Mas, aos poucos, isso te apaga.</p>
+      <p>E começa a aparecer:</p>
       <ul class="ident-list">
-        <li>Pessoas te interrompem e continuam como se nada tivesse acontecido</li>
-        <li>Sua opinião é ignorada ou esquecida logo depois que você fala</li>
-        <li>Decidem coisas por você — no trabalho, em casa, nas relações</li>
-        <li>Você sente que não é levada tão a sério quanto deveria</li>
+        <li>Te interrompem — e seguem como se fosse normal</li>
+        <li>Sua opinião é ignorada logo depois que você fala</li>
+        <li>Decidem por você</li>
+        <li>Você não é levada tão a sério quanto poderia</li>
       </ul>
-      <p>Você percebe que está sendo subestimada. Percebe que está ocupando menos espaço do que poderia. E mesmo assim — não consegue mudar.</p>
-      <p><strong>Não é falta de consciência. E definitivamente não é falta de capacidade.</strong></p>
-      <p>É porque ninguém nunca te ensinou como sustentar sua voz sem medo, sem culpa e sem se perder no processo.</p>
-      <div class="ident-fecho">Esse é exatamente o padrão que a Arquitetura da Voz foi construída para interromper.</div>
+      <p>Você percebe tudo isso. E mesmo assim… não muda.</p>
+      <p><strong>Não é falta de consciência. E não é falta de capacidade.</strong><br>É porque você nunca aprendeu a sustentar sua voz sem medo, sem culpa e sem se perder no processo.</p>
+      <div class="ident-fecho">E é exatamente isso que a Arquitetura da Voz foi construída para interromper.</div>
     </div>
   </div>
 </section>
 
-<!-- TERCEIRA DOBRA — PARA QUEM É -->
+<!-- MECANISMO ISOLADO -->
+<section class="mecanismo-section">
+  <div class="container">
+    <div class="mecanismo-box">
+      <p>Você não trava porque não sabe o que dizer.</p>
+      <p>Você trava porque um padrão decide por você antes da fala sair.</p>
+      <p>Quando você muda o padrão, muda o que sai.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PARA QUEM É -->
 <section>
   <div class="container">
     <p class="section-label">Para quem é</p>
     <h2 class="section-title">Esse produto é para <em>você</em> que:</h2>
-    <div class="paraquem-grid">
-      <div class="paraquem-item">Sabe o que precisa falar — mas trava na hora de dizer</div>
-      <div class="paraquem-item">Se explica demais e depois se arrepende do que disse</div>
-      <div class="paraquem-item">Evita conflito e acaba se anulando para manter a paz</div>
-      <div class="paraquem-item">Sente que as pessoas passam por cima de você com facilidade</div>
-      <div class="paraquem-item">Não consegue dizer "não" sem sentir culpa depois</div>
-      <div class="paraquem-item">Sai de conversas pensando: "eu deveria ter falado…"</div>
-      <div class="paraquem-item">Quer ser respeitada sem precisar se provar o tempo todo</div>
-      <div class="paraquem-item">Está cansada de ocupar menos espaço do que merece</div>
+    <div class="paraquem-body">
+      <p>Para você que sabe o que precisa dizer — mas não sustenta na hora.</p>
+      <p>Se explica demais. Evita conflito. E depois fica com a sensação de que deveria ter se posicionado.</p>
+      <p>Percebe que estão passando por cima. Que não é levada tão a sério quanto poderia. E, mesmo assim, continua se anulando para manter a paz.</p>
     </div>
-    <div style="text-align:center; margin-top:3rem;">
-      <a href="#investimento" class="btn-primary">Quero conhecer o método</a>
+    <p class="paraquem-fecho">Se você se reconheceu — este produto foi feito para você.</p>
+    <div style="margin-top:2.5rem;">
+      <a href="#investimento" class="btn-ghost">Quero conhecer o método</a>
     </div>
+  </div>
+</section>
+
+<!-- PARA QUEM NÃO É -->
+<section class="naoparaquem-section">
+  <div class="container">
+    <p class="section-label">Para quem não é</p>
+    <h2 class="section-title">Este produto não é para você que:</h2>
+    <ul class="naoparaquem-list">
+      <li>Está procurando frases prontas ou scripts para decorar</li>
+      <li>Quer resultado sem nenhum processo interno</li>
+      <li>Acredita que basta mudar o que você diz, sem entender por que você se cala</li>
+      <li>Não está disposta a dedicar 10 a 15 minutos por dia ao processo</li>
+    </ul>
   </div>
 </section>
 
@@ -414,12 +493,53 @@ footer a { color: var(--gold); text-decoration: none; }
   <div class="container">
     <p class="section-label">O método</p>
     <h2 class="section-title">Não é sobre <em>técnica.</em><br>É sobre estrutura.</h2>
-    <p style="color:var(--text-muted); max-width:520px; line-height:1.8; font-size:0.9375rem;">A Arquitetura da Voz atua no lugar de onde sua voz nasce — não na superfície do que você diz. Em 21 dias, você passa por três camadas de construção:</p>
+    <p style="color:var(--text-muted); max-width:520px; line-height:1.8; font-size:0.9375rem;">A Arquitetura da Voz atua no lugar de onde sua fala nasce — não apenas no que você diz. Em 21 dias, você passa por três camadas:</p>
     <div class="metodo-grid">
-      <div class="metodo-item"><div class="metodo-num">01</div><div class="metodo-title">Semana 1 — Consciência</div><div class="metodo-desc">Você identifica onde se cala, nomeia os medos por trás da fala e questiona as crenças que sustentam seus padrões automáticos.</div></div>
-      <div class="metodo-item"><div class="metodo-num">02</div><div class="metodo-title">Semana 2 — Ajuste</div><div class="metodo-desc">Você aprende a regular emoção antes de reagir, estruturar sua fala, dizer não sem culpa e discordar sem se desculpar por ter uma opinião.</div></div>
-      <div class="metodo-item"><div class="metodo-num">03</div><div class="metodo-title">Semana 3 — Consolidação</div><div class="metodo-desc">Presença, postura, silêncio estratégico e posicionamento nos ambientes que testam sua segurança. Sua voz como extensão de quem você é.</div></div>
-      <div class="metodo-item"><div class="metodo-num">21</div><div class="metodo-title">Dia 21 — Obra entregue</div><div class="metodo-desc">Você reaplica a Matriz ELLE, compara com seu ponto de partida e tem evidência concreta do que se moveu. Não perfeição — conclusão de uma etapa.</div></div>
+      <div class="metodo-item">
+        <div class="metodo-num">01</div>
+        <div class="metodo-title">Consciência</div>
+        <div class="metodo-desc">Você identifica onde se cala, entende o que te trava e começa a enxergar os padrões que operam no automático.</div>
+      </div>
+      <div class="metodo-item">
+        <div class="metodo-num">02</div>
+        <div class="metodo-title">Ajuste</div>
+        <div class="metodo-desc">Você aprende a pausar antes de reagir, organizar sua fala, dizer "não" sem culpa e discordar sem se justificar.</div>
+      </div>
+      <div class="metodo-item">
+        <div class="metodo-num">03</div>
+        <div class="metodo-title">Consolidação</div>
+        <div class="metodo-desc">Sua presença passa a sustentar sua voz. Postura. Tom. Silêncio. Posicionamento real nos ambientes que te desafiam.</div>
+      </div>
+      <div class="metodo-item" style="border-top: 1px solid rgba(184,147,74,0.2);">
+        <div class="metodo-num" style="opacity:0.45;">21</div>
+        <div class="metodo-title">Dia 21 — Integração</div>
+        <div class="metodo-desc">Você revisa seu processo, compara com o ponto de partida e enxerga, com clareza, o que mudou. Não é perfeição — é a conclusão de uma etapa.</div>
+      </div>
+    </div>
+    <div style="margin-top:3rem; text-align:center;">
+      <a href="https://pay.hotmart.com/B105291424M?checkoutMode=10&src=paginadevenda" class="btn-primary">Quero começar a sustentar minha voz</a>
+    </div>
+  </div>
+</section>
+
+<!-- MARCOS POR SEMANA -->
+<section class="marcos-section">
+  <div class="container">
+    <p class="section-label">O que você vai sentir</p>
+    <h2 class="section-title">O processo<br>semana a <em>semana</em></h2>
+    <div class="marcos-grid">
+      <div class="marco-item">
+        <div class="marco-semana">Semana 1</div>
+        <div class="marco-desc">Você começa a identificar onde se cala — e por quê. Os padrões que operavam no escuro começam a ter nome.</div>
+      </div>
+      <div class="marco-item">
+        <div class="marco-semana">Semana 2</div>
+        <div class="marco-desc">Você percebe os padrões operando em tempo real — e começa a interrompê-los. As primeiras pausas aparecem antes das reações.</div>
+      </div>
+      <div class="marco-item">
+        <div class="marco-semana">Semana 3</div>
+        <div class="marco-desc">Você se posiciona nos ambientes que antes te travavam. Sua voz começa a carregar o peso de quem você realmente é.</div>
+      </div>
     </div>
   </div>
 </section>
@@ -428,16 +548,32 @@ footer a { color: var(--gold); text-decoration: none; }
 <section>
   <div class="container">
     <p class="section-label">Primeiros resultados</p>
-    <h2 class="section-title">O que as primeiras<br>mulheres estão <em>vivendo</em></h2>
-    <p style="color:var(--text-muted); font-size:0.875rem; margin-bottom:0.5rem;">Relatos reais das participantes do desafio guiado.</p>
+    <h2 class="section-title">O que as primeiras mulheres já estão <em>vivendo</em></h2>
+    <p style="color:var(--text-muted); font-size:0.875rem; margin-bottom:0; line-height:1.7;">Esses relatos são do desafio guiado — ainda na metade do caminho. <strong style="color:var(--gold-light); font-weight:400;">Imagine o que acontece quando você tem os 21 dias completos.</strong></p>
     <div class="depo-grid">
-      <div class="depo-card"><p class="depo-text">"Estou gostando muito das percepções que tem me despertado. Achei bem fiel — algumas definições bateram muito com o que as pessoas responderam sobre mim."</p><p class="depo-autor">Participante do desafio guiado — Dia 4</p></div>
-      <div class="depo-card"><p class="depo-text">"Você está sendo psicóloga para mim."</p><p class="depo-autor">Participante do desafio guiado — Exercício 5</p></div>
-      <div class="depo-card"><p class="depo-text">"Hoje eu vejo claramente as minhas falhas de comunicação que eu não via. É incrível que eu nunca perguntei a ninguém como é que eu me comunico. Vai ser uma Maria Rosa antes e outra depois dessa mentoria."</p><p class="depo-autor">Maria Rosa — Participante do desafio guiado</p></div>
-      <div class="depo-card"><p class="depo-text">"Eu consegui realmente me ver ali. Foi um momento bem desafiador mas eu estou gostando muito. Obrigada por essa oportunidade, você é uma bênção."</p><p class="depo-autor">Claudia — Participante do desafio guiado</p></div>
+      <div class="depo-card">
+        <p class="depo-text">"Eu reagia no automático — na maioria das vezes por emoção, sem entender o que estava acontecendo. Agora faço pausa antes de responder. Já percebo uma mudança muito grande — não só na minha fala, mas no meu posicionamento."</p>
+        <p class="depo-autor">Participante — Semana 2</p>
+      </div>
+      <div class="depo-card">
+        <p class="depo-text">"A minha vida inteira eu não disse nada, paguei, falei tchau e fui embora. Agora eu estou falando. E logo em seguida já consigo me posicionar com mais clareza."</p>
+        <p class="depo-autor">Participante — Semana 2</p>
+      </div>
+      <div class="depo-card">
+        <p class="depo-text">"Vou deixar de ser uma ouvinte passiva e começar a dar minha opinião, a discordar. Porque a minha tendência era nunca discordar. Estou vendo isso como uma virada de chave."</p>
+        <p class="depo-autor">Participante — Semana 2</p>
+      </div>
+      <div class="depo-card">
+        <p class="depo-text">"Hoje eu me posicionei — mas reparei que não saiu natural ainda. Mas já sei o que preciso fazer. E isso já é diferente de antes."</p>
+        <p class="depo-autor">Participante — Semana 2</p>
+      </div>
+      <div class="depo-card">
+        <p class="depo-text">"É um caminho sem volta — porque primeiro saber quem realmente somos é indescritível. E vamos seguindo, dia a dia."</p>
+        <p class="depo-autor">Participante — após a segunda semana</p>
+      </div>
     </div>
     <div style="text-align:center; margin-top:3rem;">
-      <a href="#investimento" class="btn-primary">Quero viver isso também</a>
+      <a href="https://pay.hotmart.com/B105291424M?checkoutMode=10&src=paginadevenda" class="btn-primary">Quero viver isso também</a>
     </div>
   </div>
 </section>
@@ -447,22 +583,26 @@ footer a { color: var(--gold); text-decoration: none; }
   <div class="container">
     <p class="section-label">O que você recebe</p>
     <h2 class="section-title">Tudo que você precisa<br>para os <em>21 dias</em></h2>
+    <p style="color:var(--text-muted); font-size:0.9375rem; margin-bottom:2rem; line-height:1.8; max-width:560px;">Tudo organizado para que você nunca precise adivinhar o que fazer em nenhum momento.</p>
     <div class="produto-box">
       <ul class="produto-list">
-        <li><span class="check">◆</span><div><strong>Ebook Arquitetura da Voz</strong> — o protocolo completo dos 21 dias com exercícios práticos, perguntas de consolidação e observações por perfil para cada dia.</div></li>
-        <li><span class="check">◆</span><div><strong>3 aulas em vídeo</strong> — orientações gravadas nos momentos-chave da jornada: abertura do processo, início da Semana 2 e início da Semana 3.</div></li>
-        <li><span class="check">◆</span><div><strong>Diagnóstico de Perfil ELLE</strong> — 26 perguntas que identificam seu perfil comunicacional primário e secundário, com leitura do sistema interno.</div></li>
-        <li><span class="check">◆</span><div><strong>Manual de Arquitetura Interior</strong> — aprofundamento do seu perfil emocional: virtudes, sombras e o medo que você raramente nomeia.</div></li>
-        <li><span class="check">◆</span><div><strong>Matriz ELLE de Sustentação da Voz</strong> — diagnóstico dos 8 pilares da sua comunicação. Você preenche antes de começar e reaplica no Dia 21.</div></li>
+        <li><span class="check">◆</span><div><strong>Ebook Arquitetura da Voz</strong> — o protocolo completo dos 21 dias com exercícios práticos, perguntas de consolidação e direcionamento claro para cada etapa.</div></li>
+        <li><span class="check">◆</span><div><strong>3 aulas em vídeo</strong> — orientações nos momentos-chave da jornada: início, virada da Semana 2 e virada da Semana 3.</div></li>
+        <li><span class="check">◆</span><div><strong>Diagnóstico de Perfil ELLE</strong> — 26 perguntas que identificam seu perfil comunicacional e mostram como sua voz opera antes mesmo de você falar.</div></li>
+        <li><span class="check">◆</span><div><strong>Manual de Arquitetura Interior</strong> — aprofundamento do seu perfil emocional: virtudes, sombras e os padrões que sustentam sua forma de se posicionar.</div></li>
+        <li><span class="check">◆</span><div><strong>Matriz ELLE de Sustentação da Voz</strong> — diagnóstico dos 8 pilares da sua comunicação. Você preenche no início e reaplica no final — com evidência clara do que mudou.</div></li>
       </ul>
       <div class="preco-area">
-        <p style="font-size:0.875rem; color:var(--text-muted); margin-bottom:1.5rem; line-height:1.7;">Uma sessão de coaching custa em média R$300. Aqui você tem 21 dias de trabalho estruturado, diagnóstico de perfil, manual completo e três aulas gravadas — por R$97. Menos do que R$5 por dia.</p>
+        <div class="lancamento-box">
+          <strong>Este é o primeiro lançamento do produto digital.</strong> O preço de R$97 é de acesso inaugural — os próximos ajustes acontecerão com base nos resultados das primeiras participantes. Quem entra agora entra com o menor investimento e com o processo sendo refinado junto com você.
+        </div>
+        <p style="font-size:0.875rem; color:var(--text-muted); margin-bottom:1.5rem; line-height:1.7;">Uma sessão de coaching pode custar R$300. Aqui você tem 21 dias de processo estruturado, com diagnóstico, manual e aulas gravadas. Por R$97.</p>
         <p class="preco-label">Investimento</p>
         <a href="https://pay.hotmart.com/B105291424M?checkoutMode=10&src=paginadevenda" class="btn-cta-grande">
           <span class="btn-cta-parcel">12x de R$10,03</span>
           <span class="btn-cta-texto">ou R$97 à vista · 7 dias de garantia</span>
         </a>
-        <div class="garantia"><strong>7 dias de garantia incondicional.</strong> Se não fizer sentido para você, basta solicitar o reembolso. Sem risco. Sem burocracia.</div>
+        <div class="garantia"><strong>7 dias de garantia incondicional.</strong> Se não fizer sentido, basta solicitar o reembolso. Sem risco. Sem burocracia.</div>
       </div>
     </div>
   </div>
@@ -481,23 +621,42 @@ footer a { color: var(--gold); text-decoration: none; }
         <h2 class="autoridade-nome">Fran Castro</h2>
         <p class="autoridade-cargo">Arquiteta da Inteligência Emocional</p>
         <p>Eu não comecei ensinando mulheres a se posicionarem. Eu comecei me observando.</p>
-        <p>Por muito tempo, eu sabia o que precisava ser dito — mas escolhia o silêncio para manter o equilíbrio. Por fora, parecia maturidade. Por dentro, era um padrão invisível operando antes da minha voz sair.</p>
-        <p>Eu tinha clareza técnica, visão estratégica e atuação reconhecida. E ainda assim, numa reunião, apresentava uma ideia — silêncio. Minutos depois, um colega dizia a mesma coisa. A sala se inclinava. As pessoas anotavam.</p>
-        <p><strong>Não era falta de competência. Era falta de sustentação.</strong></p>
-        <p>Quando entendi isso, tudo mudou. A Arquitetura da Voz nasceu dessa compreensão — e é isso que você vai construir nos próximos 21 dias.</p>
+        <p>Eu sabia o que precisava ser dito. Mas não sustentava na hora.</p>
+        <p>Por fora, parecia maturidade. Por dentro, era um padrão invisível operando antes da minha voz sair.</p>
+        <p>Eu tinha clareza, visão e atuação reconhecida. E ainda assim, em uma reunião, apresentava uma ideia — silêncio. Minutos depois, outra pessoa dizia o mesmo. A sala mudava. As pessoas anotavam.</p>
+        <div class="autoridade-destaque">Não era falta de competência.<br>Era falta de sustentação.</div>
+        <p>A Arquitetura da Voz nasceu dessa virada — e é isso que você começa a construir nos próximos 21 dias.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- COMPARAÇÃO -->
+<!-- A DIFERENÇA -->
 <section>
   <div class="container">
     <p class="section-label">A diferença</p>
     <h2 class="section-title">Antes e depois<br>do <em>processo</em></h2>
     <div class="comp-grid">
-      <div class="comp-col"><p class="comp-header sem">Sem Arquitetura da Voz</p><ul class="comp-list sem"><li>Aprende técnicas, mas continua travando na hora</li><li>Fala, mas não se sustenta quando pressionada</li><li>Depende da validação externa para se posicionar</li><li>Continua se diminuindo nos momentos que importam</li><li>Sai das conversas com o peso do que não disse</li></ul></div>
-      <div class="comp-col"><p class="comp-header com">Com Arquitetura da Voz</p><ul class="comp-list com"><li>Atua no padrão invisível — não na superfície</li><li>Se posiciona com consciência, mesmo com desconforto</li><li>Sustenta a própria voz sem depender de aprovação</li><li>Desenvolve identidade e presença reais</li><li>Sabe o que está fazendo quando escolhe falar ou calar</li></ul></div>
+      <div class="comp-col">
+        <p class="comp-header sem">Antes do processo</p>
+        <ul class="comp-list sem">
+          <li>Aprende técnicas — mas trava na hora</li>
+          <li>Fala — mas não sustenta quando vem pressão</li>
+          <li>Precisa da validação do outro para se posicionar</li>
+          <li>Se diminui justamente nos momentos que mais importam</li>
+          <li>Sai das conversas com o peso do que não disse</li>
+        </ul>
+      </div>
+      <div class="comp-col">
+        <p class="comp-header com">Depois do processo</p>
+        <ul class="comp-list com">
+          <li>Atua no padrão que vem antes da fala</li>
+          <li>Se posiciona mesmo com desconforto</li>
+          <li>Sustenta sua voz sem depender de aprovação</li>
+          <li>Desenvolve presença — não só comunicação</li>
+          <li>Sabe quando falar, quando sustentar e quando não ceder</li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
@@ -508,10 +667,22 @@ footer a { color: var(--gold); text-decoration: none; }
     <p class="section-label">Objeções</p>
     <h2 class="section-title">O que você pode<br>estar <em>pensando</em></h2>
     <div class="obj-list">
-      <div class="obj-item"><p class="obj-q">"Isso funciona para mim?"</p><p class="obj-a">Se você se identificou com qualquer uma das dores descritas nesta página — sim. <strong>Porque isso não é sobre técnica de comunicação. É sobre o padrão que opera antes da sua voz sair.</strong></p></div>
-      <div class="obj-item"><p class="obj-q">"Não tenho tempo."</p><p class="obj-a">São <strong>10 a 15 minutos por dia.</strong> O que vai exigir não é tempo — é presença. Você pode fazer em 10 minutos desatentos e não mover nada. Ou fazer em 10 minutos com foco real e sentir o chão se deslocar.</p></div>
-      <div class="obj-item"><p class="obj-q">"Já tentei melhorar minha comunicação antes."</p><p class="obj-a">Provavelmente você trabalhou na superfície. <strong>Aqui o trabalho começa por dentro.</strong> Sem entender de onde vêm seus padrões, qualquer técnica vira máscara.</p></div>
-      <div class="obj-item"><p class="obj-q">"E se não funcionar para mim?"</p><p class="obj-a">Você tem <strong>7 dias de garantia incondicional.</strong> Se não fizer sentido, basta solicitar o reembolso. Sem risco. Sem burocracia.</p></div>
+      <div class="obj-item">
+        <p class="obj-q">"Isso funciona para mim?"</p>
+        <p class="obj-a">Se você se identificou com o que leu até aqui — funciona.<span>Porque não é sobre aprender a falar melhor. É sobre interromper o padrão que te faz travar antes mesmo de falar.</span></p>
+      </div>
+      <div class="obj-item">
+        <p class="obj-q">"Não tenho tempo."</p>
+        <p class="obj-a">São 10 a 15 minutos por dia.<span>Não é sobre tempo. É sobre presença.</span><span>10 minutos no automático não mudam nada. 10 minutos com atenção mudam o suficiente.</span></p>
+      </div>
+      <div class="obj-item">
+        <p class="obj-q">"Já tentei melhorar minha comunicação antes."</p>
+        <p class="obj-a">Provavelmente você tentou ajustar a forma.<span>Aqui você ajusta a origem.</span><span>Sem mudar o padrão, qualquer técnica vira esforço — não mudança.</span></p>
+      </div>
+      <div class="obj-item">
+        <p class="obj-q">"E se não funcionar para mim?"</p>
+        <p class="obj-a">Você tem 7 dias de garantia.<span>Se não fizer sentido, basta solicitar o reembolso. Sem risco. Sem explicação.</span></p>
+      </div>
     </div>
   </div>
 </section>
@@ -520,27 +691,46 @@ footer a { color: var(--gold); text-decoration: none; }
 <section>
   <div class="container">
     <p class="section-label">Perguntas frequentes</p>
-    <h2 class="section-title">FAQ</h2>
     <div class="faq-list">
-      <div class="faq-item"><p class="faq-q">São 21 dias seguidos?</p><p class="faq-a">Sim. É uma jornada estruturada em três semanas com progressão intencional. Se pular um dia, não volte para compensar: continue de onde parou.</p></div>
-      <div class="faq-item"><p class="faq-q">Como funciona o acesso?</p><p class="faq-a">Após a compra você recebe acesso imediato à plataforma Hotmart com todos os materiais organizados por módulo.</p></div>
-      <div class="faq-item"><p class="faq-q">Quanto tempo por dia?</p><p class="faq-a">Entre 10 e 15 minutos. O método foi desenhado para consistência, não para volume.</p></div>
-      <div class="faq-item"><p class="faq-q">Preciso ter feito algo antes?</p><p class="faq-a">Não. O produto começa pelo diagnóstico de perfil — que você faz antes do Dia 1. Tudo que você precisa está dentro do produto.</p></div>
-      <div class="faq-item"><p class="faq-q">Como entro em contato?</p><p class="faq-a">Para dúvidas técnicas ou de acesso: <a href="mailto:contato@metodoelle.com.br">contato@metodoelle.com.br</a></p></div>
+      <div class="faq-item">
+        <p class="faq-q">São 21 dias seguidos?</p>
+        <p class="faq-a">Sim. É uma jornada com progressão intencional. Se pular um dia, não precisa voltar para compensar — continue de onde parou.</p>
+      </div>
+      <div class="faq-item">
+        <p class="faq-q">Como funciona o acesso?</p>
+        <p class="faq-a">Após a compra, você recebe acesso imediato pela Hotmart. Tudo já organizado — você entra e começa.</p>
+      </div>
+      <div class="faq-item">
+        <p class="faq-q">Quanto tempo por dia?</p>
+        <p class="faq-a">Entre 10 e 15 minutos. Não é sobre quantidade — é sobre consistência.</p>
+      </div>
+      <div class="faq-item">
+        <p class="faq-q">Preciso ter feito algo antes?</p>
+        <p class="faq-a">Não. O processo começa pelo diagnóstico de perfil e te conduz passo a passo desde o início.</p>
+      </div>
+      <div class="faq-item">
+        <p class="faq-q">Como entro em contato?</p>
+        <p class="faq-a">Para dúvidas técnicas ou de acesso: <a href="mailto:contato@metodoelle.com.br">contato@metodoelle.com.br</a></p>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- CTA FINAL -->
+<!-- DECISÃO FINAL -->
 <section class="cta-final">
   <div class="container">
-    <p class="section-label">Decisão</p>
-    <h2 class="section-title">Quando uma mulher aprende<br>a sustentar a própria voz,<br>ela aprende a <em>liderar a própria história.</em></h2>
-    <p class="cta-quote">Você pode continuar suavizando. Ou pode começar a se sustentar.</p>
-    <a href="https://pay.hotmart.com/B105291424M?checkoutMode=10&src=paginadevenda" class="btn-cta-grande" style="max-width:480px; margin:0 auto;">
+    <p class="section-label" style="justify-content:center;">Decisão</p>
+    <h2 class="section-title">Você pode continuar sabendo o que precisa dizer — <em>e não sustentando na hora.</em></h2>
+    <p class="cta-quote">Ou pode começar a se posicionar com clareza, presença e consistência.</p>
+    <p style="font-size:0.9375rem; color:var(--text-muted); max-width:480px; margin:0 auto; line-height:1.75; margin-bottom:1.5rem;">A Arquitetura da Voz não é sobre aprender mais. É sobre parar de se abandonar quando mais importa.</p>
+    <div class="risco-box" style="margin: 2rem auto; text-align:left;">
+      <p>Se nada mudar, você continua vivendo as mesmas situações — sabendo o que deveria dizer, e não dizendo.</p>
+    </div>
+    <a href="https://pay.hotmart.com/B105291424M?checkoutMode=10&src=paginadevenda" class="btn-cta-grande" style="max-width:480px; margin:0 auto 1rem;">
       <span class="btn-cta-parcel">12x de R$10,03</span>
       <span class="btn-cta-texto">ou R$97 à vista · 7 dias de garantia</span>
     </a>
+    <p style="font-size:0.8125rem; color:var(--text-muted); opacity:0.6; letter-spacing:0.05em;">Acesso imediato · Hotmart · Pagamento seguro</p>
   </div>
 </section>
 
