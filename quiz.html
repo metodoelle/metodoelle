@@ -7,6 +7,23 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;1,400&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
+<!-- Meta Pixel -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '812476201902590');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=812476201902590&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel -->
 <style>
 :root {
   --gold: #B8934A;
@@ -128,7 +145,7 @@ body::before {
 .garantia { margin-top: 1rem; font-size: 0.78rem; color: var(--text-muted); line-height: 1.6; border-top: 1px solid var(--border); padding-top: 1rem; }
 .hook-text { font-family: 'Cormorant Garamond', serif !important; font-size: clamp(1.3rem, 3.5vw, 1.7rem); font-weight: 300; font-style: italic; color: var(--gold-light); line-height: 1.3; margin-bottom: 1.5rem; }
 .offer-img { width: 100%; max-width: 280px; display: block; margin: 0 auto 1.5rem; }
-.btn-secondary { display: block; background: transparent; border: 1px solid var(--border); color: var(--text-muted); font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 400; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.85rem 2rem; text-decoration: none; text-align: center; margin-top: 0.75rem; transition: border-color 0.2s, color 0.2s; }
+.btn-secondary { display: block; background: transparent; border: 1px solid var(--border); color: var(--text-muted); font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 400; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.85rem 2rem; text-decoration: none; text-align: center; margin-top: 0.75rem; transition: border-color 0.2s, color 0.2s; }
 .btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
 </style>
 </head>
@@ -382,6 +399,14 @@ function processResult() {
 
   goTo('s9');
 
+  // Dispara evento Lead no pixel do Meta
+  if (typeof fbq !== 'undefined') {
+    fbq('track', 'Lead', {
+      content_name: 'Quiz Arquitetura da Voz',
+      content_category: resultado === 'r1' ? 'Voz Contida' : 'Voz Oscilante'
+    });
+  }
+
   sendToBrevo(nome, email, resultado);
 
   setTimeout(function() {
@@ -392,4 +417,3 @@ function processResult() {
 </script>
 </body>
 </html>
-
