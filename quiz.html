@@ -408,6 +408,8 @@ function processResult() {
   // Dispara evento Lead no pixel do Meta
   if (typeof fbq !== 'undefined') {
     fbq('track', 'Lead', {
+      currency: 'BRL',
+      value: 0,
       content_name: 'Quiz Arquitetura da Voz',
       content_category: resultado === 'r1' ? 'Voz Contida' : 'Voz Oscilante'
     });
@@ -420,6 +422,7 @@ function processResult() {
     goTo(resultado);
   }, 2400);
 }
+
 </script>
 </body>
 </html>
