@@ -145,8 +145,37 @@ body::before {
 .garantia { margin-top: 1rem; font-size: 0.78rem; color: var(--text-muted); line-height: 1.6; border-top: 1px solid var(--border); padding-top: 1rem; }
 .hook-text { font-family: 'Cormorant Garamond', serif !important; font-size: clamp(1.3rem, 3.5vw, 1.7rem); font-weight: 300; font-style: italic; color: var(--gold-light); line-height: 1.3; margin-bottom: 1.5rem; }
 .offer-img { width: 100%; max-width: 280px; display: block; margin: 0 auto 1.5rem; }
-.btn-secondary { display: block; background: transparent; border: 1px solid var(--border); color: var(--text-muted); font-family: 'Jost', sans-serif; font-size: 11px; font-weight: 400; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.85rem 2rem; text-decoration: none; text-align: center; margin-top: 0.75rem; transition: border-color 0.2s, color 0.2s; }
-.btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+/* Depoimento */
+.depo-card {
+  border-left: 2px solid rgba(184,147,74,0.35);
+  padding: 1.25rem 1.5rem;
+  background: var(--dark-2);
+  margin-bottom: 1.75rem;
+}
+.depo-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.65;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+}
+.depo-autor {
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+/* Bridge text */
+.bridge-text {
+  font-size: 0.9375rem;
+  color: var(--text-muted);
+  line-height: 1.8;
+  margin-bottom: 1.75rem;
+  padding-top: 0.25rem;
+}
 </style>
 </head>
 <body>
@@ -281,6 +310,7 @@ body::before {
   </div>
 </div>
 
+<!-- RESULTADO R1 — VOZ CONTIDA -->
 <div id="r1" class="screen">
   <div class="result-tag">Seu diagnóstico</div>
   <h2 class="result-title"><span class="nome-field"></span>, sua voz está <em>contida.</em></h2>
@@ -293,6 +323,14 @@ body::before {
   <p class="result-body">Você não precisa aprender o que dizer. Precisa aprender a permanecer em si mesma quando falar tem custo.</p>
   <div class="divider"></div>
   <p class="hook-text">Você pode ocupar o espaço que merece.</p>
+
+  <!-- PONTE + DEPOIMENTO -->
+  <p class="bridge-text">É exatamente esse padrão que a Arquitetura da Voz trabalha em 21 dias.</p>
+  <div class="depo-card">
+    <p class="depo-text">"A minha vida inteira eu não disse nada, paguei, falei tchau e fui embora. Agora eu estou falando."</p>
+    <p class="depo-autor">Participante — Semana 2</p>
+  </div>
+
   <div class="offer-box">
     <img src="/ARQUITETURA_DA_VOZ.png" alt="Arquitetura da Voz" class="offer-img">
     <p class="offer-eyebrow">Em 21 dias</p>
@@ -300,12 +338,12 @@ body::before {
     <p class="offer-desc">21 dias para parar de se diminuir e sustentar sua voz com segurança. Ebook completo, 3 aulas em vídeo, diagnóstico de perfil e ferramentas de aplicação.</p>
     <p class="offer-price">R$ 97</p>
     <p class="offer-detail">12x de R$10,03 ou R$97 à vista</p>
-    <a href="/arquitetura-da-voz" class="btn-primary btn-full">Quero conhecer o método completo</a>
-    <a href="https://pay.hotmart.com/B105291424M?checkoutMode=10&src=quiz" class="btn-secondary btn-full">Já conheço, quero comprar direto</a>
+    <a href="/arquitetura-da-voz" class="btn-primary btn-full">Quero sustentar minha voz</a>
     <p class="garantia">7 dias de garantia incondicional. Se não fizer sentido, basta solicitar o reembolso. Sem risco. Sem burocracia.</p>
   </div>
 </div>
 
+<!-- RESULTADO R2 — VOZ OSCILANTE -->
 <div id="r2" class="screen">
   <div class="result-tag">Seu diagnóstico</div>
   <h2 class="result-title"><span class="nome-field"></span>, sua voz <em>oscila.</em></h2>
@@ -319,6 +357,14 @@ body::before {
   <p class="result-body">Sem isso, qualquer avanço vira instável.</p>
   <div class="divider"></div>
   <p class="hook-text">Falar não é o problema. Sustentar é.</p>
+
+  <!-- PONTE + DEPOIMENTO -->
+  <p class="bridge-text">É exatamente esse padrão que a Arquitetura da Voz trabalha em 21 dias.</p>
+  <div class="depo-card">
+    <p class="depo-text">"A minha vida inteira eu não disse nada, paguei, falei tchau e fui embora. Agora eu estou falando."</p>
+    <p class="depo-autor">Participante — Semana 2</p>
+  </div>
+
   <div class="offer-box">
     <img src="/ARQUITETURA_DA_VOZ.png" alt="Arquitetura da Voz" class="offer-img">
     <p class="offer-eyebrow">Em 21 dias</p>
@@ -326,8 +372,7 @@ body::before {
     <p class="offer-desc">21 dias para parar de se diminuir e sustentar sua voz com segurança. Ebook completo, 3 aulas em vídeo, diagnóstico de perfil e ferramentas de aplicação.</p>
     <p class="offer-price">R$ 97</p>
     <p class="offer-detail">12x de R$10,03 ou R$97 à vista</p>
-    <a href="/arquitetura-da-voz" class="btn-primary btn-full">Quero conhecer o método completo</a>
-    <a href="https://pay.hotmart.com/B105291424M?checkoutMode=10&src=quiz" class="btn-secondary btn-full">Já conheço, quero comprar direto</a>
+    <a href="/arquitetura-da-voz" class="btn-primary btn-full">Quero sustentar minha voz</a>
     <p class="garantia">7 dias de garantia incondicional. Se não fizer sentido, basta solicitar o reembolso. Sem risco. Sem burocracia.</p>
   </div>
 </div>
@@ -422,7 +467,6 @@ function processResult() {
     goTo(resultado);
   }, 2400);
 }
-
 </script>
 </body>
 </html>
