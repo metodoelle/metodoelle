@@ -145,7 +145,6 @@ body::before {
 .garantia { margin-top: 1rem; font-size: 0.78rem; color: var(--text-muted); line-height: 1.6; border-top: 1px solid var(--border); padding-top: 1rem; }
 .hook-text { font-family: 'Cormorant Garamond', serif !important; font-size: clamp(1.3rem, 3.5vw, 1.7rem); font-weight: 300; font-style: italic; color: var(--gold-light); line-height: 1.3; margin-bottom: 1.5rem; }
 .offer-img { width: 100%; max-width: 280px; display: block; margin: 0 auto 1.5rem; }
-/* Depoimento */
 .depo-card {
   border-left: 2px solid rgba(184,147,74,0.35);
   padding: 1.25rem 1.5rem;
@@ -168,7 +167,6 @@ body::before {
   text-transform: uppercase;
   opacity: 0.6;
 }
-/* Bridge text */
 .bridge-text {
   font-size: 0.9375rem;
   color: var(--text-muted);
@@ -197,7 +195,8 @@ body::before {
 
 <div id="s0" class="screen active">
   <div class="eyebrow">Arquitetura da Voz</div>
-  <h1 class="hero-title">Descubra onde<br>sua voz está <em>travando</em></h1>
+  <!-- MUDANÇA 1: Novo título do quiz -->
+  <h1 class="hero-title">Descubra por que você<br>trava na hora de <em>se posicionar</em></h1>
   <p class="subtitle">7 perguntas. Menos de 2 minutos.<br>Um diagnóstico feito para você.</p>
   <button class="btn-primary" onclick="goTo('s1')">Quero descobrir</button>
 </div>
@@ -264,7 +263,8 @@ body::before {
 
 <div id="s6" class="screen">
   <div class="progress-wrap"><div class="progress-label">Pergunta 6 de 7</div><div class="progress-track"><div class="progress-fill" style="width:85%"></div></div></div>
-  <p class="question">Como você descreveria sua voz hoje?</p>
+  <!-- MUDANÇA 2: Nova pergunta 6 -->
+  <p class="question">Como você descreveria seu posicionamento em público hoje?</p>
   <div class="options">
     <button class="opt" onclick="pick(this,'A','next6')">Quase não aparece — me calo mais do que falo</button>
     <button class="opt" onclick="pick(this,'A','next6')">Aparece, mas de um jeito que não representa quem eu sou</button>
@@ -276,12 +276,13 @@ body::before {
 
 <div id="s7" class="screen">
   <div class="progress-wrap"><div class="progress-label">Pergunta 7 de 7</div><div class="progress-track"><div class="progress-fill" style="width:100%"></div></div></div>
-  <p class="question">Se a Arquitetura da Voz pudesse mudar uma coisa na sua vida, qual seria?</p>
+  <!-- MUDANÇA 3: Nova pergunta 7 -->
+  <p class="question">Se você soubesse se posicionar, o que mudaria?</p>
   <div class="options">
-    <button class="opt" onclick="pick(this,'A','next7')">Parar de sair das conversas com o peso do que não disse</button>
-    <button class="opt" onclick="pick(this,'A','next7')">Conseguir dizer não sem sentir culpa depois</button>
-    <button class="opt" onclick="pick(this,'B','next7')">Ser respeitada sem precisar me provar o tempo todo</button>
-    <button class="opt" onclick="pick(this,'B','next7')">Falar e sentir que sou realmente ouvida e levada a sério</button>
+    <button class="opt" onclick="pick(this,'A','next7')">Pararia de sair das conversas com o peso do que não disse</button>
+    <button class="opt" onclick="pick(this,'A','next7')">Conseguiria dizer não sem sentir culpa depois</button>
+    <button class="opt" onclick="pick(this,'B','next7')">Seria respeitada sem precisar me provar o tempo todo</button>
+    <button class="opt" onclick="pick(this,'B','next7')">Falaria e sentiria que sou realmente ouvida e levada a sério</button>
   </div>
   <button id="next7" class="btn-primary next-btn" onclick="goTo('s8')">Ver meu diagnóstico</button>
 </div>
@@ -323,14 +324,11 @@ body::before {
   <p class="result-body">Você não precisa aprender o que dizer. Precisa aprender a permanecer em si mesma quando falar tem custo.</p>
   <div class="divider"></div>
   <p class="hook-text">Você pode ocupar o espaço que merece.</p>
-
-  <!-- PONTE + DEPOIMENTO -->
   <p class="bridge-text">É exatamente esse padrão que a Arquitetura da Voz trabalha em 21 dias.</p>
   <div class="depo-card">
     <p class="depo-text">"A minha vida inteira eu não disse nada, paguei, falei tchau e fui embora. Agora eu estou falando."</p>
     <p class="depo-autor">Participante — Semana 2</p>
   </div>
-
   <div class="offer-box">
     <img src="/ARQUITETURA_DA_VOZ.png" alt="Arquitetura da Voz" class="offer-img">
     <p class="offer-eyebrow">Em 21 dias</p>
@@ -357,14 +355,11 @@ body::before {
   <p class="result-body">Sem isso, qualquer avanço vira instável.</p>
   <div class="divider"></div>
   <p class="hook-text">Falar não é o problema. Sustentar é.</p>
-
-  <!-- PONTE + DEPOIMENTO -->
   <p class="bridge-text">É exatamente esse padrão que a Arquitetura da Voz trabalha em 21 dias.</p>
   <div class="depo-card">
     <p class="depo-text">"A minha vida inteira eu não disse nada, paguei, falei tchau e fui embora. Agora eu estou falando."</p>
     <p class="depo-autor">Participante — Semana 2</p>
   </div>
-
   <div class="offer-box">
     <img src="/ARQUITETURA_DA_VOZ.png" alt="Arquitetura da Voz" class="offer-img">
     <p class="offer-eyebrow">Em 21 dias</p>
@@ -450,7 +445,6 @@ function processResult() {
 
   goTo('s9');
 
-  // Dispara evento Lead no pixel do Meta
   if (typeof fbq !== 'undefined') {
     fbq('track', 'Lead', {
       currency: 'BRL',
