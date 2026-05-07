@@ -207,7 +207,8 @@ section { padding: 6rem 0; }
 /* MARCOS */
 .marcos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 2.5rem; }
 .marco-item { background: var(--dark-2); padding: 1.75rem 1.5rem; }
-.marco-semana { font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; opacity: 0.7; }
+.marco-semana { font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; opacity: 0.7; }
+.marco-titulo { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--text); font-weight: 400; margin-bottom: 0.75rem; }
 .marco-desc { font-size: 0.9375rem; color: var(--text-muted); line-height: 1.75; }
 
 /* BÔNUS */
@@ -297,8 +298,17 @@ section { padding: 6rem 0; }
   line-height: 1.7;
 }
 .lancamento-box strong { color: var(--gold-light); font-weight: 400; }
-.garantia { margin-top: 1.5rem; padding: 1.25rem 1.5rem; border: 1px solid var(--border); font-size: 0.9375rem; color: var(--text-muted); line-height: 1.7; }
+.garantia {
+  margin-top: 1.5rem;
+  padding: 1.75rem 2rem;
+  border: 1px solid var(--border);
+  font-size: 0.9375rem;
+  color: var(--text-muted);
+  line-height: 1.85;
+}
 .garantia strong { color: var(--text); font-weight: 400; }
+.garantia p { margin-bottom: 0.75rem; }
+.garantia p:last-child { margin-bottom: 0; }
 
 /* AUTORIDADE */
 .autoridade-section { background: var(--dark-2); border-top: 1px solid var(--border); }
@@ -396,7 +406,7 @@ footer a { color: var(--gold); text-decoration: none; }
       </li>
       <li style="display: flex; gap: 0.75rem; align-items: flex-start; font-size: 1rem; color: var(--text-muted);">
         <span style="color: var(--gold); flex-shrink: 0; margin-top: 4px;">—</span>
-        Como interromper esse ciclo em 21 dias — sem endurecer, sem se apagar e sem perder quem você é
+        Como interromper esse ciclo em 21 dias, sem endurecer, sem se apagar e sem perder quem você é
       </li>
     </ul>
 
@@ -524,20 +534,26 @@ footer a { color: var(--gold); text-decoration: none; }
     </div>
 
     <h2 class="section-title" style="margin-top:4rem;">O processo<br>semana a <em>semana</em></h2>
+
+    <!-- PROGRESSÃO SEMANAL ATUALIZADA -->
     <div class="marcos-grid">
       <div class="marco-item">
         <div class="marco-semana">Semana 1</div>
-        <div class="marco-desc">Você começa a identificar onde se cala — e por quê. Os padrões que operavam no escuro começam a ter nome.</div>
+        <div class="marco-titulo">Consciência</div>
+        <div class="marco-desc">A primeira semana não é sobre falar melhor. É sobre reconhecer onde você para de falar. Através do Mapa das Oscilações da Voz, você registra situações reais da semana: onde sentiu dificuldade de se posicionar, o que fez no automático e o que teria dito se sua voz estivesse sustentada. Ao final, você para de acreditar que o problema é incapacidade. Você enxerga o padrão.</div>
       </div>
       <div class="marco-item">
         <div class="marco-semana">Semana 2</div>
-        <div class="marco-desc">Você percebe os padrões operando em tempo real — e começa a interrompê-los. As primeiras pausas aparecem antes das reações.</div>
+        <div class="marco-titulo">Ativação</div>
+        <div class="marco-desc">A segunda semana é prática. Através do exercício Ação de Voz Intencional, você interrompe o automático em situações reais, uma por dia: dizer não sem justificar, expressar uma opinião de forma direta, sustentar silêncio sem se explicar. O desconforto continua. O que muda é que você aprende que ele não destrói você. Ao final, você não faz mais o que sabe que deveria fazer. Você faz.</div>
       </div>
       <div class="marco-item">
         <div class="marco-semana">Semana 3</div>
-        <div class="marco-desc">Você se posiciona nos ambientes que antes te travavam. Sua voz começa a carregar o peso de quem você realmente é.</div>
+        <div class="marco-titulo">Sustentação</div>
+        <div class="marco-desc">A terceira semana resolve o que a maioria das abordagens ignora: conseguir falar uma vez não é o mesmo que conseguir manter. Você escolhe uma situação real e sustenta sua postura até o final, sem voltar atrás, sem se explicar, sem compensar depois. Ao final, sua voz não depende mais do ambiente estar favorável. Ela depende de você.</div>
       </div>
     </div>
+
     <div style="margin-top:3rem; text-align:center;">
       <a href="https://pay.hotmart.com/B105291424M?checkoutMode=10&src=paginadevenda" class="btn-primary">Quero começar a sustentar minha voz</a>
     </div>
@@ -556,14 +572,14 @@ footer a { color: var(--gold); text-decoration: none; }
         <span class="produto-diamond">◆</span>
         <div class="produto-item-text">
           <strong>Ebook Arquitetura da Voz</strong>
-          <span>O protocolo completo dos 21 dias — exercícios práticos, perguntas de consolidação e direcionamento claro para cada etapa.</span>
+          <span>O protocolo completo dos 21 dias, com exercícios práticos e perguntas de consolidação para cada etapa.</span>
         </div>
       </div>
       <div class="produto-item">
         <span class="produto-diamond">◆</span>
         <div class="produto-item-text">
-          <strong>3 aulas em vídeo</strong>
-          <span>Orientações nos momentos-chave da jornada: início do processo, virada da Semana 2 e virada da Semana 3.</span>
+          <strong>3 vídeos-aula</strong>
+          <span>Um para cada semana, assistido no início de cada etapa para orientar o que vem a seguir.</span>
         </div>
       </div>
     </div>
@@ -572,13 +588,14 @@ footer a { color: var(--gold); text-decoration: none; }
       <span class="bonus-divider-text">Bônus inclusos</span>
     </div>
 
+    <!-- BÔNUS ATUALIZADOS -->
     <div class="bonus-grid-wrap">
       <div class="bonus-item">
         <div class="bonus-num">01</div>
         <div class="bonus-content">
           <strong>Diagnóstico de Perfil ELLE</strong>
-          <span>26 perguntas que identificam seu perfil comunicacional e mostram como sua voz opera antes mesmo de você falar.</span>
-          <em class="bonus-quando">Aplicado antes do Dia 1 — o ponto de partida do processo.</em>
+          <span>26 perguntas em dois blocos. Os primeiros 20 mapeiam como você se comporta sob pressão externa. Os últimos 6 identificam o sistema interno que governa suas reações. O resultado é seu perfil comunicacional e emocional dentro do Método ELLE.</span>
+          <em class="bonus-quando">O ponto de partida do protocolo. Aplicado antes do Dia 1.</em>
         </div>
         <div class="bonus-valor">
           <span class="de">R$47</span>
@@ -589,8 +606,8 @@ footer a { color: var(--gold); text-decoration: none; }
         <div class="bonus-num">02</div>
         <div class="bonus-content">
           <strong>Manual de Arquitetura Interior</strong>
-          <span>Aprofundamento do seu perfil emocional: virtudes, sombras e os padrões que sustentam sua forma de se posicionar.</span>
-          <em class="bonus-quando">Complementa o diagnóstico — usado ao longo das três semanas.</em>
+          <span>Leitura aprofundada do seu perfil ELLE. Cada tipo explicado em detalhe para que você entenda não só o que faz, mas por que faz e como isso afeta sua voz nas conversas que importam.</span>
+          <em class="bonus-quando">Complementa o diagnóstico. Usado ao longo das três semanas.</em>
         </div>
         <div class="bonus-valor">
           <span class="de">R$67</span>
@@ -601,8 +618,8 @@ footer a { color: var(--gold); text-decoration: none; }
         <div class="bonus-num">03</div>
         <div class="bonus-content">
           <strong>Matriz ELLE de Sustentação da Voz</strong>
-          <span>Diagnóstico dos 8 pilares da sua comunicação. Preenchida no início e reaplicada no Dia 21 — com evidência clara do que mudou.</span>
-          <em class="bonus-quando">Marcador de progresso — do Dia 1 ao Dia 21.</em>
+          <span>Avaliação em 8 pilares aplicada duas vezes: no Dia 1 e no Dia 21. Você entra sabendo onde está. Termina vendo exatamente o que mudou.</span>
+          <em class="bonus-quando">Marcador de progresso. Do Dia 1 ao Dia 21.</em>
         </div>
         <div class="bonus-valor">
           <span class="de">R$37</span>
@@ -641,14 +658,17 @@ footer a { color: var(--gold); text-decoration: none; }
       <span class="btn-cta-texto">ou R$97 à vista · 7 dias de garantia</span>
     </a>
 
-    <!-- 7. GARANTIA -->
+    <!-- 7. GARANTIA ATUALIZADA -->
     <div class="garantia">
-      <strong>7 dias de garantia incondicional.</strong> Se não fizer sentido, basta solicitar o reembolso. Sem risco. Sem burocracia. Sem precisar explicar nada.
+      <p><strong>7 dias de garantia incondicional.</strong></p>
+      <p>Se em até 7 dias você sentir que o protocolo não é para você, solicite o reembolso direto pela plataforma Hotmart e o valor é devolvido integralmente, sem perguntas e sem burocracia.</p>
+      <p>Você não precisa justificar. Não precisa provar nada. A decisão é sua.</p>
+      <p>A garantia existe porque o método foi construído para funcionar. E porque a única forma de você descobrir isso é entrando sem risco.</p>
     </div>
   </div>
 </section>
 
-<!-- 8. QUEM SOU EU -->
+<!-- 8. AUTORIDADE ATUALIZADA -->
 <section class="autoridade-section">
   <div class="container-wide">
     <div class="autoridade-inner">
@@ -657,15 +677,16 @@ footer a { color: var(--gold); text-decoration: none; }
         <div class="autoridade-foto-frame"></div>
       </div>
       <div class="autoridade-texto">
-        <h2 class="section-title" style="margin-bottom: 0.5rem;">Eu também já passei por isso</h2>
+        <h2 class="section-title" style="margin-bottom: 0.5rem;">De onde veio o método Elle e a Arquiteturaa da Voz</h2>
         <h3 class="autoridade-nome">Fran Castro</h3>
         <p class="autoridade-cargo">Arquiteta da Inteligência Emocional</p>
-        <p>Eu não comecei ensinando mulheres a se posicionarem. Eu comecei me observando.</p>
-        <p>Eu sabia o que precisava ser dito. Mas não sustentava na hora.</p>
-        <p>Por fora, parecia maturidade. Por dentro, era um padrão invisível operando antes da minha voz sair.</p>
-        <p>Eu tinha clareza, visão e atuação reconhecida. E ainda assim, em uma reunião, apresentava uma ideia — silêncio. Minutos depois, outra pessoa dizia o mesmo. A sala mudava. As pessoas anotavam.</p>
-        <div class="autoridade-destaque">Não era falta de competência.<br>Era falta de sustentação.</div>
-        <p>A Arquitetura da Voz nasceu dessa virada — e é isso que você começa a construir nos próximos 21 dias.</p>
+        <p>Em 2021, numa reunião de feedback, uma das minhas analistas me disse que ficava feliz quando eu entrava de férias e triste quando eu voltava.</p>
+        <p>Essa foi a frase que mudou tudo.</p>
+        <p>Eu era gestora no serviço público e achava que sabia liderar. Tinha clareza do que precisava ser dito. Sabia me comunicar. Mas o que eu comunicava, sem perceber, era distância.</p>
+        <p>A partir dali, fui estudar inteligência emocional de forma séria. Imersões, formação, anos aplicando dentro da minha própria equipe. Aprendi que eu tinha um perfil dominante e que parte da minha equipe era estável. Eu estava conversando com elas do jeito que eu funcionava, não do jeito que elas precisavam ser tratadas. Quando mudei isso, a relação inteira mudou.</p>
+        <div class="autoridade-destaque">Quatro anos depois, quando saí do serviço público, essa mesma analista me disse que não sabia como ia trabalhar na segunda-feira sabendo que eu não ia estar lá.</div>
+        <p>O método não nasceu de teoria. Nasceu de uma reunião difícil, de quatro anos de ajuste deliberado e de uma mudança que aconteceu na postura, na voz e no jeito de me posicionar.</p>
+        <p>Desde que saí do serviço público, acompanho mulheres individualmente e conduzi um desafio guiado de 21 dias, ajudando cada uma a encontrar a própria voz. Não a voz que funciona para todo mundo. A que sustenta quem elas são.</p>
       </div>
     </div>
   </div>
@@ -698,7 +719,7 @@ footer a { color: var(--gold); text-decoration: none; }
       </div>
       <div class="faq-item">
         <p class="faq-q">E se não funcionar para mim?</p>
-        <p class="faq-a">Você tem 7 dias de garantia incondicional. Se não fizer sentido, basta solicitar o reembolso. Sem risco. Sem explicação.</p>
+        <p class="faq-a">Você tem 7 dias de garantia incondicional. Solicite o reembolso direto pela Hotmart. Sem risco. Sem explicação.</p>
       </div>
       <div class="faq-item">
         <p class="faq-q">Como entro em contato?</p>
