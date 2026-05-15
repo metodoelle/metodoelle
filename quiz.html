@@ -3,698 +3,1486 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Diagnóstico — Arquitetura da Voz</title>
+<title>Mapa da Voz · Arquitetura da Voz</title>
+<meta name="description" content="Diagnóstico gratuito. Onde sua voz perde sustentação antes mesmo da sua consciência reagir.">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;1,400&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '812476201902590');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=812476201902590&ev=PageView&noscript=1"/></noscript>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
 <style>
 :root {
+  --bg: #FAF8F4;
+  --bg-2: #F2EDE3;
+  --bg-3: #EAE2D2;
   --gold: #B8934A;
   --gold-light: #D4AF6E;
-  --gold-pale: rgba(184,147,74,0.12);
-  --dark: #0E0C09;
-  --dark-2: #161410;
-  --dark-3: #1E1B16;
-  --text: #F0EAE0;
-  --text-muted: #B8AFA0;
-  --border: rgba(184,147,74,0.2);
+  --gold-dark: #8A6E38;
+  --gold-pale: rgba(184,147,74,0.10);
+  --gold-faint: rgba(184,147,74,0.05);
+  --text: #3D2B1F;
+  --text-muted: #6B5847;
+  --text-soft: #94816D;
+  --border: rgba(184,147,74,0.28);
+  --border-strong: rgba(184,147,74,0.55);
+  --dark-accent: #2A1F15;
+  --radius: 8px;
+  --radius-lg: 12px;
+  --maxw: 760px;
 }
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 body {
-  background: var(--dark);
+  background: var(--bg);
   color: var(--text);
-  font-family: 'Jost', sans-serif;
-  font-weight: 300;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
   font-size: 17px;
-  line-height: 1.85;
+  line-height: 1.7;
+  min-height: 100vh;
+  position: relative;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: url('assets/quiz-fundo.png');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  z-index: -2;
+  pointer-events: none;
+}
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(180deg,
+    rgba(250,248,244,0.55) 0%,
+    rgba(250,248,244,0.78) 50%,
+    rgba(250,248,244,0.55) 100%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.shell {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 48px 24px 64px;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   position: relative;
-  overflow-x: hidden;
+  z-index: 1;
 }
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(184,147,74,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(184,147,74,0.03) 1px, transparent 1px);
-  background-size: 60px 60px;
-  pointer-events: none;
-  z-index: 0;
+
+.brand {
+  text-align: center;
+  margin-bottom: 56px;
 }
-.site-nav {
-  display: flex;
-  justify-content: space-between;
+.brand-mark {
+  display: inline-block;
+  width: auto;
+  height: 56px;
+  max-width: 180px;
+  object-fit: contain;
+}
+@media (max-width: 640px) {
+  .brand-mark { height: 44px; max-width: 150px; }
+}
+
+.screen {
+  display: none;
+  flex-direction: column;
+  animation: fadeIn 0.5s ease forwards;
+}
+.screen.active { display: flex; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.pre-headline {
+  font-family: 'Inter', sans-serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 14px;
+  color: var(--gold-dark);
+  text-align: center;
+  margin-bottom: 24px;
+  letter-spacing: 0.02em;
+}
+.eyebrow {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.3em;
+  color: var(--gold-dark);
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 24px;
+  display: inline-flex;
   align-items: center;
-  padding: 18px 32px;
-  border-bottom: 0.5px solid rgba(184,147,74,0.15);
-  background: var(--dark);
-  position: relative;
-  z-index: 10;
-  flex-shrink: 0;
+  gap: 12px;
+  justify-content: center;
+  width: 100%;
 }
-.site-nav a { text-decoration: none; }
-.site-nav-link { font-family: 'Raleway', sans-serif; font-size: 13px; color: #7A6E65; letter-spacing: 0.15em; text-transform: uppercase; font-weight: 400; transition: color 0.2s; }
-.site-nav-link:hover { color: #B8934A; }
-.main-content { flex: 1; display: flex; align-items: flex-start; justify-content: center; padding: 2rem 1.5rem; position: relative; z-index: 1; }
-.container { max-width: 580px; width: 100%; }
-.screen { display: none; animation: fadeIn 0.4s ease; }
-.screen.active { display: block; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-.eyebrow { font-size: 13px; font-weight: 500; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem; }
-.eyebrow::before { content: ''; display: block; width: 30px; height: 1px; background: var(--gold); }
-.hero-title { font-family: 'Cormorant Garamond', serif !important; font-size: clamp(2.2rem, 6vw, 3.4rem); font-weight: 300; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 1rem; color: var(--text); }
-.hero-title em { font-style: italic; color: var(--gold-light); }
-.subtitle { font-size: 1rem; color: var(--text-muted); margin-bottom: 2.5rem; line-height: 1.8; }
-.btn-primary { display: inline-block; background: var(--gold); color: var(--dark); font-family: 'Jost', sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase; padding: 1.1rem 2.8rem; border: none; cursor: pointer; transition: background 0.2s, transform 0.15s; text-decoration: none; }
-.btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
-.btn-full { width: 100%; display: block; text-align: center; }
-.progress-wrap { margin-bottom: 2.5rem; }
-.progress-label { font-size: 13px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.6rem; }
-.progress-track { height: 1px; background: var(--border); }
-.progress-fill { height: 1px; background: var(--gold); transition: width 0.5s ease; }
-.question { font-family: 'Cormorant Garamond', serif !important; font-size: clamp(1.3rem, 3.5vw, 1.65rem); font-weight: 400; line-height: 1.4; margin-bottom: 2rem; color: var(--text); }
-.options { display: flex; flex-direction: column; gap: 0.65rem; margin-bottom: 1.5rem; }
-.opt { background: transparent; border: 1px solid var(--border); color: var(--text); font-family: 'Jost', sans-serif; font-size: 0.9375rem; font-weight: 300; padding: 1rem 1.25rem; text-align: left; cursor: pointer; transition: border-color 0.2s, background 0.2s; line-height: 1.6; }
-.opt:hover { border-color: var(--gold); background: var(--gold-pale); }
-.opt.selected { border-color: var(--gold); background: rgba(184,147,74,0.18); color: var(--text); }
-.next-btn { display: none; }
-.next-btn.visible { display: inline-block; }
-.field-group { margin-bottom: 1.25rem; }
-.field-label { display: block; font-size: 13px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 0.5rem; }
-.field-input { width: 100%; background: transparent; border: 1px solid var(--border); color: var(--text); font-family: 'Jost', sans-serif; font-size: 1rem; font-weight: 300; padding: 0.9rem 1rem; outline: none; transition: border-color 0.2s; -webkit-appearance: none; }
-.field-input:focus { border-color: var(--gold); }
-.field-input::placeholder { color: rgba(176,163,144,0.4); }
-.field-error { font-size: 0.8rem; color: #E24B4A; margin-top: 0.4rem; display: none; }
-.field-error.visible { display: block; }
-.loading-wrap { padding: 3rem 0; }
-.loading-text { font-family: 'Cormorant Garamond', serif !important; font-size: 1.4rem; font-weight: 300; color: var(--text); margin-bottom: 2rem; line-height: 1.4; }
-.dots { display: flex; gap: 8px; }
-.dot { width: 5px; height: 5px; background: var(--gold); border-radius: 50%; animation: blink 1.4s ease-in-out infinite; }
-.dot:nth-child(2) { animation-delay: 0.2s; }
-.dot:nth-child(3) { animation-delay: 0.4s; }
-@keyframes blink { 0%,80%,100%{opacity:0.25;} 40%{opacity:1;} }
+.eyebrow::before, .eyebrow::after {
+  content: "";
+  flex: 0 0 24px;
+  height: 1px;
+  background: var(--border-strong);
+}
+.headline {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: clamp(2rem, 5.5vw, 3.2rem);
+  line-height: 1.12;
+  color: var(--text);
+  text-align: center;
+  margin-bottom: 28px;
+  letter-spacing: -0.015em;
+}
+.headline em {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--gold-dark);
+}
+.subheadline {
+  font-size: 17px;
+  color: var(--text-muted);
+  text-align: center;
+  max-width: 580px;
+  margin: 0 auto 36px;
+  line-height: 1.6;
+}
+.instruction {
+  font-size: 15px;
+  color: var(--text-soft);
+  text-align: center;
+  max-width: 560px;
+  margin: 0 auto 40px;
+  line-height: 1.7;
+  padding: 22px 26px;
+  background: var(--bg-2);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
 
-/* RESULTADO */
-.result-tag { font-size: 13px; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; }
-.result-title { font-family: 'Cormorant Garamond', serif !important; font-size: clamp(1.8rem, 5vw, 2.6rem); font-weight: 300; line-height: 1.15; margin-bottom: 1.75rem; color: var(--text); }
-.result-title em { font-style: italic; color: var(--gold-light); }
-.result-body { font-size: 1rem; color: var(--text-muted); line-height: 1.9; margin-bottom: 1rem; }
-.result-body strong { color: var(--text); font-weight: 400; }
-.divider { height: 1px; background: var(--border); margin: 2rem 0; }
+.btn-primary {
+  display: inline-block;
+  padding: 18px 36px;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  color: #FFFFFF;
+  background: var(--gold);
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  text-decoration: none;
+  text-align: center;
+  transition: all 200ms ease;
+  margin: 0 auto;
+  box-shadow: 0 2px 8px rgba(184,147,74,0.18);
+}
+.btn-primary:hover {
+  background: var(--gold-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(184,147,74,0.28);
+}
+.btn-primary:active { transform: translateY(0); }
+.btn-primary:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+.btn-wrap { text-align: center; margin-top: 16px; }
+.btn-meta {
+  display: block;
+  margin-top: 14px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 12px;
+  color: var(--text-soft);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
 
-/* ANTES E DEPOIS */
-.antes-depois { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); margin: 2rem 0; }
-.ad-col { background: var(--dark-2); padding: 1.5rem; }
-.ad-header { font-size: 10px; font-weight: 500; letter-spacing: 0.25em; text-transform: uppercase; margin-bottom: 1rem; padding-bottom: 0.75rem; }
-.ad-header.sem { color: var(--text-muted); border-bottom: 1px solid rgba(110,98,88,0.3); }
-.ad-header.com { color: var(--gold); border-bottom: 1px solid var(--gold); }
-.ad-list { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
-.ad-list li { font-size: 0.875rem; color: var(--text-muted); line-height: 1.6; display: flex; gap: 8px; align-items: flex-start; }
-.ad-list.sem li::before { content: '—'; color: rgba(110,98,88,0.5); flex-shrink: 0; }
-.ad-list.com li::before { content: '+'; color: var(--gold); flex-shrink: 0; }
+.progress { margin-bottom: 40px; }
+.progress-bar {
+  height: 2px;
+  background: var(--bg-3);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: var(--gold);
+  width: 0%;
+  transition: width 400ms ease;
+}
+.progress-label {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  color: var(--gold-dark);
+  text-transform: uppercase;
+  text-align: center;
+  margin-top: 14px;
+}
 
-/* ENTREGÁVEIS */
-.entregaveis-box { border: 1px solid var(--border); background: var(--dark-2); padding: 2rem; margin: 2rem 0; position: relative; }
-.entregaveis-box::before { content: ''; position: absolute; top: 0; left: 0; width: 40px; height: 1px; background: var(--gold); }
-.entregaveis-box::after { content: ''; position: absolute; top: 0; left: 0; width: 1px; height: 40px; background: var(--gold); }
-.entregaveis-label { font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.25rem; opacity: 0.8; }
-.entregavel-item { display: flex; gap: 0.875rem; align-items: flex-start; margin-bottom: 1.1rem; padding-bottom: 1.1rem; border-bottom: 0.5px solid rgba(184,147,74,0.1); }
-.entregavel-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
-.entregavel-diamond { color: var(--gold); font-size: 0.6rem; margin-top: 6px; flex-shrink: 0; }
-.entregavel-texto strong { color: var(--text); font-weight: 400; display: block; font-size: 0.9375rem; margin-bottom: 0.2rem; }
-.entregavel-texto span { color: var(--text-muted); font-size: 0.875rem; line-height: 1.65; }
+.question-title {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 500;
+  font-size: clamp(1.4rem, 3.5vw, 1.9rem);
+  line-height: 1.32;
+  color: var(--text);
+  text-align: center;
+  margin-bottom: 40px;
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+  letter-spacing: -0.01em;
+}
 
-/* BÔNUS */
-.bonus-divider { display: flex; align-items: center; gap: 12px; margin: 1.5rem 0 1rem; }
-.bonus-divider::before, .bonus-divider::after { content: ''; flex: 1; height: 0.5px; background: rgba(184,147,74,0.25); }
-.bonus-divider-text { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); white-space: nowrap; }
-.bonus-item { display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 0.9rem; }
-.bonus-num { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 300; color: var(--gold); opacity: 0.35; line-height: 1; min-width: 24px; }
-.bonus-texto strong { color: var(--text); font-weight: 400; font-size: 0.9375rem; display: block; margin-bottom: 0.15rem; }
-.bonus-texto span { color: var(--text-muted); font-size: 0.875rem; line-height: 1.6; }
-.bonus-de { font-size: 0.75rem; color: var(--text-muted); opacity: 0.5; text-decoration: line-through; margin-left: 0.5rem; }
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 640px;
+  margin: 0 auto;
+}
+.option {
+  display: block;
+  width: 100%;
+  padding: 20px 24px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--text);
+  background: #FFFFFF;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  text-align: left;
+  transition: all 180ms ease;
+}
+.option:hover {
+  border-color: var(--gold);
+  background: var(--bg-2);
+  transform: translateX(4px);
+}
+.option:focus {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
 
-/* SUPORTE */
-.suporte-box { border: 1px solid var(--border); padding: 1.25rem 1.5rem; margin: 1.5rem 0; font-size: 0.9375rem; color: var(--text-muted); line-height: 1.7; }
-.suporte-box a { color: var(--gold); text-decoration: none; }
+.form { max-width: 480px; margin: 0 auto; }
+.form-field { margin-bottom: 20px; }
+.form-label {
+  display: block;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 500;
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.form-input {
+  width: 100%;
+  padding: 14px 16px;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  color: var(--text);
+  background: #FFFFFF;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: border-color 180ms ease;
+}
+.form-input:focus { outline: none; border-color: var(--gold); }
+.form-error {
+  display: none;
+  margin-top: 6px;
+  font-size: 13px;
+  color: #B23A3A;
+}
+.form-error.show { display: block; }
 
-/* OFERTA */
-.valor-bloco { background: rgba(184,147,74,0.06); border: 1px solid rgba(184,147,74,0.2); padding: 1.5rem; margin: 1.5rem 0; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
-.valor-label { font-size: 0.875rem; color: var(--text-muted); line-height: 1.6; }
-.valor-label strong { color: var(--gold-light); font-weight: 400; display: block; font-family: 'Cormorant Garamond', serif; font-size: 1rem; margin-bottom: 0.2rem; }
-.valor-num { text-align: right; }
-.valor-num .riscado { font-size: 0.75rem; color: var(--text-muted); opacity: 0.5; text-decoration: line-through; display: block; }
-.valor-num .preco { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 300; color: var(--gold-light); display: block; }
-.valor-num .parcel { font-size: 0.8125rem; color: var(--text-muted); opacity: 0.7; }
+.loading-msg {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 500;
+  font-size: clamp(1.3rem, 3vw, 1.7rem);
+  line-height: 1.4;
+  color: var(--text);
+  text-align: center;
+  margin: 60px auto 28px;
+  max-width: 600px;
+  letter-spacing: -0.01em;
+}
+.loading-dots { text-align: center; margin-top: 12px; }
+.loading-dots span {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: var(--gold);
+  border-radius: 50%;
+  margin: 0 4px;
+  animation: blink 1.4s infinite;
+}
+.loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+.loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes blink {
+  0%, 60%, 100% { opacity: 0.2; }
+  30% { opacity: 1; }
+}
 
-.btn-cta-grande { display: block; width: 100%; background: var(--gold); color: var(--dark); font-family: 'Jost', sans-serif; text-decoration: none; text-align: center; padding: 1.4rem 2rem 1.2rem; border: none; cursor: pointer; transition: background 0.2s; margin-bottom: 0.75rem; }
-.btn-cta-grande:hover { background: var(--gold-light); }
-.btn-cta-parcel { font-size: 1.35rem; font-weight: 500; color: var(--dark); display: block; margin-bottom: 3px; }
-.btn-cta-texto { font-size: 12px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(14,12,9,0.6); display: block; }
+.result-eyebrow {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.32em;
+  color: var(--gold-dark);
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 24px;
+}
+.result-headline {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: clamp(1.8rem, 4.5vw, 2.6rem);
+  line-height: 1.22;
+  color: var(--text);
+  text-align: center;
+  margin-bottom: 56px;
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+  letter-spacing: -0.01em;
+}
+.dimension-block {
+  background: #FFFFFF;
+  border-left: 3px solid var(--gold);
+  border-top: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 28px 28px;
+  margin-bottom: 20px;
+}
+.dimension-block.level-sustenta { border-left-color: var(--gold-light); }
+.dimension-block.level-oscila { border-left-color: var(--gold); }
+.dimension-block.level-recolhe { border-left-color: var(--gold-dark); }
+.dimension-label {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  color: var(--gold-dark);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.dimension-text {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--text);
+}
 
-.garantia-box { margin-top: 1rem; padding: 1.1rem 1.25rem; border: 1px solid var(--border); font-size: 0.875rem; color: var(--text-muted); line-height: 1.7; }
-.garantia-box strong { color: var(--text); font-weight: 400; }
+.connector {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 500;
+  font-size: clamp(1.3rem, 3vw, 1.7rem);
+  line-height: 1.4;
+  color: var(--text);
+  text-align: center;
+  margin: 48px auto;
+  max-width: 620px;
+  padding: 32px 24px;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  letter-spacing: -0.005em;
+}
+.connector em {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--gold-dark);
+}
 
-/* AUTORIDADE */
-.autoridade-mini { display: flex; gap: 1.25rem; align-items: flex-start; margin: 1.75rem 0; padding: 1.5rem; background: var(--dark-2); border-left: 2px solid rgba(184,147,74,0.35); }
-.autoridade-foto { width: 72px; height: 72px; object-fit: cover; object-position: center top; filter: grayscale(15%) sepia(20%) brightness(0.85); flex-shrink: 0; }
-.autoridade-texto-nome { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-weight: 300; color: var(--text); margin-bottom: 0.15rem; }
-.autoridade-texto-cargo { font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; }
-.autoridade-texto-bio { font-size: 0.875rem; color: var(--text-muted); line-height: 1.7; }
+.desafio-block { max-width: 640px; margin: 0 auto; }
+.desafio-block p {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  line-height: 1.78;
+  color: var(--text-muted);
+  margin-bottom: 18px;
+}
+.desafio-block p.tagline {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  color: var(--text);
+  text-align: center;
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
 
-/* DEPO */
-.depo-card { border-left: 2px solid rgba(184,147,74,0.35); padding: 1.25rem 1.5rem; background: var(--dark-2); margin-bottom: 1.25rem; }
-.depo-text { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 400; line-height: 1.65; color: var(--text); margin-bottom: 0.5rem; }
-.depo-autor { font-size: 0.78rem; letter-spacing: 0.12em; color: var(--text-muted); text-transform: uppercase; opacity: 0.6; }
+.cta-final { text-align: center; margin: 56px 0; }
 
-.hook-text { font-family: 'Cormorant Garamond', serif !important; font-size: clamp(1.2rem, 3vw, 1.6rem); font-weight: 300; color: var(--gold-light); line-height: 1.35; margin-bottom: 1rem; }
-.bridge-text { font-size: 1rem; color: var(--text-muted); line-height: 1.85; margin-bottom: 1.5rem; }
+/* Bloco de oferta */
+.offer-divider {
+  margin: 72px auto 56px;
+  text-align: center;
+  position: relative;
+}
+.offer-divider::before {
+  content: "";
+  display: block;
+  width: 1px;
+  height: 64px;
+  background: var(--border-strong);
+  margin: 0 auto;
+}
 
-@media (max-width: 480px) {
-  .site-nav { padding: 16px 20px; }
-  .antes-depois { grid-template-columns: 1fr; }
+.offer-headline {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: clamp(1.7rem, 4.2vw, 2.3rem);
+  line-height: 1.22;
+  color: var(--text);
+  text-align: center;
+  margin-bottom: 24px;
+  max-width: 680px;
+  margin-left: auto;
+  margin-right: auto;
+  letter-spacing: -0.01em;
+}
+.offer-headline em {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--gold-dark);
+}
+.offer-subheadline {
+  font-family: 'Inter', sans-serif;
+  font-size: 17px;
+  color: var(--text-muted);
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 48px;
+  line-height: 1.65;
+}
+
+/* Antes e depois */
+.antes-depois {
+  max-width: 720px;
+  margin: 0 auto 48px;
+  background: #FFFFFF;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+}
+.antes-depois-title {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+  text-align: center;
+  margin-bottom: 28px;
+}
+.antes-depois-grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 16px;
+  align-items: stretch;
+}
+.antes-col, .depois-col {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.antes-col-label, .depois-col-label {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.antes-col-label { color: var(--text-soft); text-align: right; }
+.depois-col-label { color: var(--gold-dark); text-align: left; }
+.antes-item, .depois-item {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--text);
+  padding: 12px 14px;
+  border-radius: var(--radius);
+}
+.antes-item { background: var(--bg-2); color: var(--text-muted); text-align: right; }
+.depois-item { background: var(--gold-pale); text-align: left; }
+.antes-depois-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+  font-family: 'Outfit', sans-serif;
+  font-size: 24px;
+}
+
+/* CTA de oferta com preço */
+.offer-cta {
+  text-align: center;
+  margin: 48px 0;
+  padding: 36px 24px;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+}
+.offer-cta-label {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+  margin-bottom: 12px;
+}
+.offer-cta-price {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: clamp(2.2rem, 6vw, 3rem);
+  color: var(--text);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.offer-cta-installment {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  color: var(--text-soft);
+  margin-bottom: 8px;
+}
+.offer-cta-stack {
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  color: var(--text-soft);
+  margin-bottom: 24px;
+}
+.offer-cta-stack s { color: var(--text-soft); }
+.offer-cta-window {
+  display: inline-block;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+  margin-top: 18px;
+  padding: 6px 14px;
+  background: var(--gold-pale);
+  border-radius: 4px;
+}
+
+/* Seções intermediárias */
+.section-block {
+  max-width: 720px;
+  margin: 56px auto;
+}
+.section-eyebrow {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+  text-align: center;
+  margin-bottom: 18px;
+}
+.section-title {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: clamp(1.5rem, 3.8vw, 2rem);
+  line-height: 1.25;
+  color: var(--text);
+  text-align: center;
+  margin-bottom: 32px;
+  letter-spacing: -0.01em;
+}
+
+/* Entregáveis e Bônus */
+.item-list { display: flex; flex-direction: column; gap: 14px; }
+.item-row {
+  display: flex;
+  gap: 18px;
+  padding: 20px 22px;
+  background: #FFFFFF;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  align-items: flex-start;
+}
+.item-row .item-check {
+  flex: 0 0 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: #FFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  margin-top: 2px;
+}
+.item-row .item-content { flex: 1; }
+.item-row .item-name {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.item-row .item-value {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 500;
+  font-size: 13px;
+  color: var(--gold-dark);
+  margin-left: 8px;
+}
+.item-row .item-desc {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+/* Suporte */
+.support-block {
+  max-width: 600px;
+  margin: 48px auto;
+  text-align: center;
+  padding: 28px 24px;
+  background: var(--bg-2);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+}
+.support-block .support-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: #FFF;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: 18px;
+  margin-bottom: 14px;
+}
+.support-title {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+.support-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+.support-text a { color: var(--gold-dark); text-decoration: underline; }
+
+/* Garantia */
+.guarantee-block {
+  max-width: 600px;
+  margin: 56px auto;
+  text-align: center;
+  padding: 36px 28px;
+  background: #FFFFFF;
+  border: 2px solid var(--gold);
+  border-radius: var(--radius-lg);
+}
+.guarantee-label {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+  margin-bottom: 14px;
+}
+.guarantee-title {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 22px;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+.guarantee-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text-muted);
+}
+.guarantee-text strong { color: var(--text); font-weight: 600; }
+
+/* Depoimento */
+.testimonial-block {
+  max-width: 640px;
+  margin: 56px auto;
+  padding: 32px 28px;
+  background: #FFFFFF;
+  border-left: 3px solid var(--gold);
+  border-top: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+.testimonial-text {
+  font-family: 'Inter', sans-serif;
+  font-style: italic;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--text);
+  margin-bottom: 14px;
+}
+.testimonial-text strong { font-style: normal; font-weight: 600; color: var(--gold-dark); }
+.testimonial-meta {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+}
+
+/* Autoridade */
+.authority-block {
+  max-width: 760px;
+  margin: 56px auto;
+  padding: 36px 32px;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 32px;
+  align-items: start;
+}
+.authority-photo-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+.authority-photo {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center top;
+  border: 3px solid var(--gold-pale);
+  box-shadow: 0 4px 18px rgba(184,147,74,0.18);
+}
+.authority-content { min-width: 0; }
+.authority-eyebrow {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+  text-align: left;
+  margin-bottom: 12px;
+}
+.authority-name {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--text);
+  text-align: left;
+  margin-bottom: 4px;
+}
+.authority-role {
+  font-family: 'Inter', sans-serif;
+  font-size: 13px;
+  color: var(--text-soft);
+  text-align: left;
+  margin-bottom: 24px;
+  font-style: italic;
+}
+.authority-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  line-height: 1.78;
+  color: var(--text-muted);
+}
+.authority-text p { margin-bottom: 14px; }
+.authority-text strong { color: var(--text); font-weight: 600; }
+
+@media (max-width: 640px) {
+  .antes-depois { padding: 24px 18px; }
+  .antes-depois-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .antes-col-label, .depois-col-label { text-align: center; }
+  .antes-item, .depois-item { text-align: center; }
+  .antes-depois-arrow { transform: rotate(90deg); }
+  .offer-cta { padding: 28px 18px; }
+  .item-row { padding: 16px 18px; }
+  .authority-block {
+    padding: 28px 22px;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    text-align: center;
+  }
+  .authority-photo { width: 140px; height: 140px; }
+  .authority-eyebrow,
+  .authority-name,
+  .authority-role { text-align: center; }
+  .authority-text { text-align: left; }
+}
+
+.footer {
+  margin-top: 80px;
+  padding-top: 32px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  font-family: 'Outfit', sans-serif;
+  font-size: 12px;
+  color: var(--text-soft);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 640px) {
+  .shell { padding: 32px 20px 48px; }
+  .brand { margin-bottom: 36px; }
+  .option { padding: 18px 20px; font-size: 15px; }
+  .dimension-block { padding: 24px 22px; }
+  .instruction { padding: 18px 20px; }
 }
 </style>
 </head>
 <body>
 
-<nav class="site-nav">
-  <a href="/" aria-label="Método ELLE">
-    <svg width="140" height="38" viewBox="0 0 140 38" xmlns="http://www.w3.org/2000/svg">
-      <path d="M7 19 A12 12 0 1 1 31 19" fill="none" stroke="#B8934A" stroke-width="1"/>
-      <line x1="19" y1="5" x2="19" y2="33" stroke="#B8934A" stroke-width="1.75"/>
-      <text x="78" y="15" font-family="'Raleway', sans-serif" font-size="7" fill="#7A6E65" font-weight="500" letter-spacing="3" text-anchor="middle">MÉTODO</text>
-      <text x="78" y="30" font-family="'Playfair Display', serif" font-size="15" fill="#F0EAE0" font-weight="400" letter-spacing="4" text-anchor="middle">ELLE</text>
-    </svg>
-  </a>
-  <a href="/" class="site-nav-link">← Voltar ao site</a>
-</nav>
+<div class="shell">
 
-<div class="main-content">
-<div class="container">
+  <header class="brand">
+    <img class="brand-mark" src="assets/logo-elle.png" alt="Método ELLE">
+  </header>
 
-<!-- TELA 0: INTRO -->
-<div id="s0" class="screen active">
-  <div class="eyebrow">Arquitetura da Voz</div>
-  <h1 class="hero-title">Descubra por que você<br>trava na hora de <em>se posicionar</em></h1>
-  <p class="subtitle">7 perguntas. Menos de 2 minutos.<br>Um diagnóstico feito para você.</p>
-  <button class="btn-primary" onclick="goTo('s1')">Quero descobrir</button>
-</div>
-
-<!-- PERGUNTAS 1–7 (inalteradas) -->
-<div id="s1" class="screen">
-  <div class="progress-wrap"><div class="progress-label">Pergunta 1 de 7</div><div class="progress-track"><div class="progress-fill" style="width:14%"></div></div></div>
-  <p class="question">Quando você está prestes a falar algo importante, o que acontece primeiro?</p>
-  <div class="options">
-    <button class="opt" onclick="pick(this,'A','next1')">Penso demais e perco o momento</button>
-    <button class="opt" onclick="pick(this,'A','next1')">Espero alguém abrir espaço</button>
-    <button class="opt" onclick="pick(this,'B','next1')">Falo, mas me arrependo de como saiu</button>
-    <button class="opt" onclick="pick(this,'B','next1')">Começo a me justificar antes mesmo de terminar</button>
-  </div>
-  <button id="next1" class="btn-primary next-btn" onclick="goTo('s2')">Próxima</button>
-</div>
-
-<div id="s2" class="screen">
-  <div class="progress-wrap"><div class="progress-label">Pergunta 2 de 7</div><div class="progress-track"><div class="progress-fill" style="width:28%"></div></div></div>
-  <p class="question">Numa reunião, alguém passa por cima da sua ideia e segue em frente. O que você faz?</p>
-  <div class="options">
-    <button class="opt" onclick="pick(this,'A','next2')">Não falo nada na hora — processo depois, sozinha</button>
-    <button class="opt" onclick="pick(this,'A','next2')">Deixo passar na hora, mas fico remoendo por dias</button>
-    <button class="opt" onclick="pick(this,'B','next2')">Começo a falar mas me enrolo e acabo concordando</button>
-    <button class="opt" onclick="pick(this,'B','next2')">Falo, mas depois fico me perguntando se fui agressiva demais</button>
-  </div>
-  <button id="next2" class="btn-primary next-btn" onclick="goTo('s3')">Próxima</button>
-</div>
-
-<div id="s3" class="screen">
-  <div class="progress-wrap"><div class="progress-label">Pergunta 3 de 7</div><div class="progress-track"><div class="progress-fill" style="width:42%"></div></div></div>
-  <p class="question">Você precisa dizer algo difícil para alguém próximo. Como costuma agir?</p>
-  <div class="options">
-    <button class="opt" onclick="pick(this,'A','next3')">Fico ensaiando mas nunca acho o momento certo — e não falo</button>
-    <button class="opt" onclick="pick(this,'A','next3')">Espero que a situação se resolva sozinha</button>
-    <button class="opt" onclick="pick(this,'B','next3')">Falo, mas suavizo tanto que a mensagem não chega</button>
-    <button class="opt" onclick="pick(this,'B','next3')">Falo direto, mas depois me arrependo do tom</button>
-  </div>
-  <button id="next3" class="btn-primary next-btn" onclick="goTo('s4')">Próxima</button>
-</div>
-
-<div id="s4" class="screen">
-  <div class="progress-wrap"><div class="progress-label">Pergunta 4 de 7</div><div class="progress-track"><div class="progress-fill" style="width:57%"></div></div></div>
-  <p class="question">Quando surge um conflito direto, o que você faz na prática?</p>
-  <div class="options">
-    <button class="opt" onclick="pick(this,'A','next4')">Evito me expor e deixo passar</button>
-    <button class="opt" onclick="pick(this,'A','next4')">Fico em silêncio na hora e penso depois no que deveria ter dito</button>
-    <button class="opt" onclick="pick(this,'B','next4')">Falo, mas acabo me embolando ou cedendo no meio</button>
-    <button class="opt" onclick="pick(this,'B','next4')">Falo, mas depois me arrependo do jeito que falei</button>
-  </div>
-  <button id="next4" class="btn-primary next-btn" onclick="goTo('s5')">Próxima</button>
-</div>
-
-<div id="s5" class="screen">
-  <div class="progress-wrap"><div class="progress-label">Pergunta 5 de 7</div><div class="progress-track"><div class="progress-fill" style="width:71%"></div></div></div>
-  <p class="question">Você fala algo importante e a pessoa ignora ou passa por cima. O que acontece?</p>
-  <div class="options">
-    <button class="opt" onclick="pick(this,'A','next5')">Não digo nada — engulo e sigo</button>
-    <button class="opt" onclick="pick(this,'A','next5')">Fico remoendo por horas, mas não volto ao assunto</button>
-    <button class="opt" onclick="pick(this,'B','next5')">Tento reforçar o ponto mas acabo me justificando demais</button>
-    <button class="opt" onclick="pick(this,'B','next5')">Reforço o ponto, mas depois fico em dúvida se forcei demais</button>
-  </div>
-  <button id="next5" class="btn-primary next-btn" onclick="goTo('s6')">Próxima</button>
-</div>
-
-<div id="s6" class="screen">
-  <div class="progress-wrap"><div class="progress-label">Pergunta 6 de 7</div><div class="progress-track"><div class="progress-fill" style="width:85%"></div></div></div>
-  <p class="question">Como você descreveria seu posicionamento em público hoje?</p>
-  <div class="options">
-    <button class="opt" onclick="pick(this,'A','next6')">Quase não aparece — me calo mais do que falo</button>
-    <button class="opt" onclick="pick(this,'A','next6')">Aparece, mas de um jeito que não representa quem eu sou</button>
-    <button class="opt" onclick="pick(this,'B','next6')">Aparece, mas some quando encontra resistência</button>
-    <button class="opt" onclick="pick(this,'B','next6')">Aparece, mas sempre com culpa depois</button>
-  </div>
-  <button id="next6" class="btn-primary next-btn" onclick="goTo('s7')">Próxima</button>
-</div>
-
-<div id="s7" class="screen">
-  <div class="progress-wrap"><div class="progress-label">Pergunta 7 de 7</div><div class="progress-track"><div class="progress-fill" style="width:100%"></div></div></div>
-  <p class="question">Se você soubesse se posicionar com segurança, o que mudaria?</p>
-  <div class="options">
-    <button class="opt" onclick="pick(this,'A','next7')">Pararia de sair das conversas com o peso do que não disse</button>
-    <button class="opt" onclick="pick(this,'A','next7')">Conseguiria dizer não sem sentir culpa depois</button>
-    <button class="opt" onclick="pick(this,'B','next7')">Seria respeitada sem precisar me provar o tempo todo</button>
-    <button class="opt" onclick="pick(this,'B','next7')">Falaria e sentiria que sou realmente ouvida e levada a sério</button>
-  </div>
-  <button id="next7" class="btn-primary next-btn" onclick="goTo('s8')">Ver meu diagnóstico</button>
-</div>
-
-<!-- CAPTURA -->
-<div id="s8" class="screen">
-  <div class="eyebrow">Quase lá</div>
-  <h2 class="hero-title" style="font-size:clamp(1.6rem,4vw,2.2rem);">Seu diagnóstico<br>está <em>pronto.</em></h2>
-  <p class="subtitle" style="margin-bottom:2rem;">Para onde enviamos?</p>
-  <div class="field-group">
-    <label class="field-label" for="nome">Nome</label>
-    <input class="field-input" type="text" id="nome" placeholder="Seu nome" autocomplete="off">
-    <span class="field-error" id="erro-nome">Por favor, informe seu nome.</span>
-  </div>
-  <div class="field-group">
-    <label class="field-label" for="email">E-mail</label>
-    <input class="field-input" type="email" id="email" placeholder="Seu melhor e-mail" autocomplete="email">
-    <span class="field-error" id="erro-email">Por favor, informe um e-mail válido.</span>
-  </div>
-  <button class="btn-primary btn-full" onclick="processResult()" style="margin-top:0.5rem;">Ver meu resultado</button>
-</div>
-
-<!-- LOADING -->
-<div id="s9" class="screen">
-  <div class="loading-wrap">
-    <p class="loading-text">Identificando onde<br>sua voz trava...</p>
-    <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
-  </div>
-</div>
-
-<!-- RESULTADO R1 — VOZ CONTIDA -->
-<div id="r1" class="screen">
-  <div class="result-tag">Seu diagnóstico</div>
-  <h2 class="result-title"><span class="nome-field"></span>, sua voz está <em>contida.</em></h2>
-
-  <p class="result-body">Você não tem dificuldade de pensar. Tem dificuldade de sustentar o que pensa quando há risco de desconforto.</p>
-  <p class="result-body">Você percebe rápido o que precisa ser dito — mas suaviza, adia ou simplesmente não fala. Evita tensão. Evita ser mal interpretada. Com o tempo, isso criou um padrão: você se adapta antes mesmo de tentar se posicionar.</p>
-  <p class="result-body">O problema é que isso não te protege — te apaga. E depois a conta vem: em forma de frustração, acúmulo e aquela sensação recorrente de "eu devia ter falado".</p>
-  <p class="result-body"><strong>Sua questão não é comunicação. É sustentação.</strong> Você não precisa aprender o que dizer. Precisa aprender a permanecer em si mesma quando falar tem custo.</p>
-
-  <!-- 03. ANTES E DEPOIS -->
-  <div style="border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:1.5rem 0; margin:2rem 0;">
-    <p style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.2rem,2.5vw,1.5rem); font-weight:300; font-style:italic; color:var(--gold-light); line-height:1.5; margin:0;">Esse padrão tem consequências concretas — e tem saída concreta também:</p>
-  </div>
-  <div class="antes-depois">
-    <div class="ad-col">
-      <p class="ad-header sem">Antes do processo</p>
-      <ul class="ad-list sem">
-        <li>Sai das conversas com o peso do que não disse</li>
-        <li>Se adapta para não gerar desconforto</li>
-        <li>Fica remoendo o que deveria ter falado</li>
-        <li>Não é levada tão a sério quanto poderia</li>
-      </ul>
+  <!-- TELA 0. INTRO -->
+  <section class="screen active" id="s0">
+    <p class="pre-headline">O autoconhecimento chega depois. O reflexo chega antes.</p>
+    <p class="eyebrow">Arquitetura da Voz · Mapa da Voz</p>
+    <h1 class="headline">Onde sua voz perde sustentação <em>antes mesmo</em> da sua consciência reagir</h1>
+    <p class="subheadline">12 perguntas. Menos de 4 minutos. Um mapa da forma como sua voz oscila em situações de confronto, conexão e posicionamento.</p>
+    <p class="instruction">Para cada cena, marque a reação que mais se repete na sua vida real. Não a resposta ideal. O diagnóstico só funciona quando você reconhece o reflexo real.</p>
+    <div class="btn-wrap">
+      <button class="btn-primary" onclick="goTo('s1')">Quero mapear minha voz</button>
     </div>
-    <div class="ad-col">
-      <p class="ad-header com">Depois do processo</p>
-      <ul class="ad-list com">
-        <li>Se posiciona mesmo quando há tensão</li>
-        <li>Sustenta sua voz sem depender de aprovação</li>
-        <li>Sai das conversas sem peso acumulado</li>
-        <li>É ouvida e levada a sério — sem se provar</li>
-      </ul>
-    </div>
-  </div>
+  </section>
 
-  <!-- 04. PRIMEIRO CTA -->
-  <p class="hook-text">A Arquitetura da Voz não é sobre aprender mais. É sobre parar de se abandonar quando mais importa.</p>
-  <div class="valor-bloco">
-    <div class="valor-label">
-      <strong>Primeiro lançamento digital</strong>
-      Acesso inaugural — não se repetirá nas próximas turmas.
+  <!-- PERGUNTA 1 (Alicerce) -->
+  <section class="screen" id="s1">
+    <div class="progress">
+      <div class="progress-bar"><div class="progress-fill" style="width: 8.33%"></div></div>
+      <p class="progress-label">Pergunta 1 de 12</p>
     </div>
-    <div class="valor-num">
-      <span class="preco">R$97</span>
-      <span class="parcel">ou 12x de R$10,03</span>
+    <h2 class="question-title">Cai uma demanda no seu colo que ninguém combinou com você. O que acontece?</h2>
+    <div class="options">
+      <button class="option" onclick="pick('alicerce', 0, 's2')">Falo na hora que aquilo não estava combinado e proponho outro caminho</button>
+      <button class="option" onclick="pick('alicerce', 1, 's2')">Aceito e saio reorganizando minha agenda na correria</button>
+      <button class="option" onclick="pick('alicerce', 2, 's2')">Cedo o tempo sem dizer nada e me cobro depois</button>
+      <button class="option" onclick="pick('alicerce', 2, 's2')">Aceito e fico irritada o resto do dia sem dizer</button>
     </div>
-  </div>
-  <a href="https://pay.hotmart.com/B105291424M?checkoutMode=10&src=quiz" class="btn-cta-grande">
-    <span class="btn-cta-parcel">Quero interromper esse padrão</span>
-    <span class="btn-cta-texto">Acesso imediato · 7 dias de garantia</span>
-  </a>
+  </section>
 
-  <div class="divider"></div>
+  <!-- PERGUNTA 2 (Fachada) -->
+  <section class="screen" id="s2">
+    <div class="progress">
+      <div class="progress-bar"><div class="progress-fill" style="width: 16.66%"></div></div>
+      <p class="progress-label">Pergunta 2 de 12</p>
+    </div>
+    <h2 class="question-title">Você discorda fortemente de alguém próximo numa conversa. O que faz?</h2>
+    <div class="options">
+      <button class="option" onclick="pick('fachada', 0, 's3')">Digo que penso diferente e explico o porquê</button>
+      <button class="option" onclick="pick('fachada', 1, 's3')">Digo, mas tiro o peso pra não soar grossa</button>
+      <button class="option" onclick="pick('fachada', 2, 's3')">Concordo na hora e fico ruminando por dias</button>
+      <button class="option" onclick="pick('fachada', 2, 's3')">Mudo de assunto antes que vire briga</button>
+    </div>
+  </section>
 
-  <!-- 05. ENTREGÁVEIS -->
-  <div class="entregaveis-box">
-    <div class="entregaveis-label">O que você recebe</div>
-    <div class="entregavel-item">
-      <span class="entregavel-diamond">◆</span>
-      <div class="entregavel-texto">
-        <strong>Ebook Arquitetura da Voz</strong>
-        <span>O protocolo completo dos 21 dias — exercícios práticos, perguntas de consolidação e direcionamento claro para cada etapa.</span>
+  <!-- PERGUNTA 3 (Cobertura) -->
+  <section class="screen" id="s3">
+    <div class="progress">
+      <div class="progress-bar"><div class="progress-fill" style="width: 25%"></div></div>
+      <p class="progress-label">Pergunta 3 de 12</p>
+    </div>
+    <h2 class="question-title">Surge um assunto que você não domina totalmente, mas tem uma opinião clara. O que faz?</h2>
+    <div class="options">
+      <button class="option" onclick="pick('cobertura', 0, 's4')">Falo o que penso, deixando claro que é meu ponto de vista</button>
+      <button class="option" onclick="pick('cobertura', 1, 's4')">Falo, mas cerco de tantos "depende" que minha fala perde força</button>
+      <button class="option" onclick="pick('cobertura', 2, 's4')">Espero ter mais informação antes de dar opinião</button>
+      <button class="option" onclick="pick('cobertura', 2, 's4')">Fico calada e comento depois, em particular, com alguém de confiança</button>
+    </div>
+  </section>
+
+  <!-- PERGUNTA 4 (Alicerce) -->
+  <section class="screen" id="s4">
+    <div class="progress">
+      <div class="progress-bar"><div class="progress-fill" style="width: 33.33%"></div></div>
+      <p class="progress-label">Pergunta 4 de 12</p>
+    </div>
+    <h2 class="question-title">Você precisa dizer um "não" que sabe que vai pegar mal. O que sua voz faz?</h2>
+    <div class="options">
+      <button class="option" onclick="pick('alicerce', 0, 's5')">Digo o não com uma frase curta e fecho ali</button>
+      <button class="option" onclick="pick('alicerce', 1, 's5')">Digo, mas suavizo tanto que vira um talvez</button>
+      <button class="option" onclick="pick('alicerce', 2, 's5')">Travo, fico procurando justificativa e acabo dando a volta</button>
+      <button class="option" onclick="pick('alicerce', 2, 's5')">Aceito na hora pra evitar atrito e fico remoendo depois</button>
+    </div>
+  </section>
+
+  <!-- PERGUNTA 5 (Fachada) -->
+  <section class="screen" id="s5">
+    <div class="progress">
+      <div class="progress-bar"><div class="progress-fill" style="width: 41.66%"></div></div>
+      <p class="progress-label">Pergunta 5 de 12</p>
+    </div>
+    <h2 class="question-title">Você precisa dar um feedback difícil pra alguém que gosta. O que faz?</h2>
+    <div class="options">
+      <button class="option" onclick="pick('fachada', 0, 's6')">Falo o que precisa ser dito, direto, sem dar voltas</button>
+      <button class="option" onclick="pick('fachada', 1, 's6')">Adoço tanto a entrada que a mensagem principal se perde</button>
+      <button class="option" onclick="pick('fachada', 2, 's6')">Adio a conversa por semanas até a situação piorar</button>
+      <button class="option" onclick="pick('fachada', 2, 's6')">Falo, me arrependo do tom e tento compensar depois</button>
+    </div>
+  </section>
+
+  <!-- PERGUNTA 6 (Cobertura) -->
+  <section class="screen" id="s6">
+    <div class="progress">
+      <div class="progress-bar"><div class="progress-fill" style="width: 50%"></div></div>
+      <p class="progress-label">Pergunta 6 de 12</p>
+    </div>
+    <h2 class="question-title">Te perguntam algo direto em público e você precisa improvisar. O que faz?</h2>
+    <div class="options">
+      <button class="option" onclick="pick('cobertura', 0, 's7')">Respondo na hora, mesmo que ajuste depois</button>
+      <button class="option" onclick="pick('cobertura', 1, 's7')">Respondo, mas me embaralho e vou me corrigindo no caminho</button>
+      <button class="option" onclick="pick('cobertura', 2, 's7')">Travo, peço pra repetir e ganho tempo pensando</button>
+      <button class="option" onclick="pick('cobertura', 2, 's7')">Dou uma resposta genérica pra sair do aperto</button>
+    </div>
+  </section>
+
+  <!-- PERGUNTA 7 (Alicerce) -->
+  <section class="screen" id="s7">
+    <div class="progress">
+      <div class="progress-bar"><div class="progress-fill" style="width: 58.33%"></div></div>
+      <p class="progress-label">Pergunta 7 de 12</p>
+    </div>
+    <h2 class="question-title">A reunião passou do horário e você tem outro compromisso. O que faz?</h2>
+    <div class="options">
+      <button class="option" onclick="pick('alicerce', 0, 's8')">Encerro na hora combinada e digo que preciso seguir</button>
+      <button class="option" onclick="pick('alicerce', 1, 's8')">Comento que estou no limite, mas espero alguém puxar</button>
+      <button class="option" onclick="pick('alicerce', 2, 's8')">Fico em silêncio, atrasada, esperando a reunião terminar</button>
+      <button class="option" onclick="pick('alicerce', 2, 's8')">Saio sem dizer nada e carrego a culpa o resto do dia</button>
+    </div>
+  </section>
+
+  <!-- PERGUNTA 8 (Fachada) -->
+  <section class="screen" id="s8">
+    <div class="progress">
+      <div class="progress-bar"><div class="progress-fill" style="width: 66.66%"></div></div>
+      <p class="progress-label">Pergunta 8 de 12</p>
+    </div>
+    <h2 class="question-title">Num grupo, você pensa diferente da maioria. O que faz?</h2>
+    <div class="options">
+      <button class="option" onclick="pick('fachada', 0, 's9')">Falo o que penso mesmo sabendo que vai gerar reação</button>
+      <button class="option" onclick="pick('fachada', 1, 's9')">Falo, mas em tom mais brando do que sinto de verdade</button>
+      <button class="option" onclick="pick('fachada', 2, 's9')">Fico calada e digo "concordo" se alguém me perguntar</button>
+      <button class="option" onclick="pick('fachada', 2, 's9')">Falo e fico em dúvida se devia ter falado</button>
+    </div>
+  </section>
+
+  <!-- PERGUNTA 9 (Cobertura) -->
+  <section class="screen" id="s9">
+    <div class="progress">
+      <div class="progress-bar"><div class="progress-fill" style="width: 75%"></div></div>
+      <p class="progress-label">Pergunta 9 de 12</p>
+    </div>
+    <h2 class="question-title">Você percebe que alguém disse algo errado numa conversa. O que faz?</h2>
+    <div class="options">
+      <button class="option" onclick="pick('cobertura', 0, 's10')">Corrijo de forma neutra, sem confronto</button>
+      <button class="option" onclick="pick('cobertura', 1, 's10')">Corrijo, mas cerco de tanta justificativa que se perde no meio</button>
+      <button class="option" onclick="pick('cobertura', 2, 's10')">Penso em corrigir e decido que não vale o atrito</button>
+      <button class="option" onclick="pick('cobertura', 2, 's10')">Não falo na hora e fico ensaiando a correção horas depois</button>
+    </div>
+  </section>
+
+  <!-- PERGUNTA 10 (Alicerce) -->
+  <section class="screen" id="s10">
+    <div class="progress">
+      <div class="progress-bar"><div class="progress-fill" style="width: 83.33%"></div></div>
+      <p class="progress-label">Pergunta 10 de 12</p>
+    </div>
+    <h2 class="question-title">Alguém questiona seu preço ou sua entrega. Como sua voz reage?</h2>
+    <div class="options">
+      <button class="option" onclick="pick('alicerce', 0, 's11')">Defendo o valor com clareza, sem mudar a postura</button>
+      <button class="option" onclick="pick('alicerce', 1, 's11')">Argumento, mas vou me explicando até minha fala perder peso</button>
+      <button class="option" onclick="pick('alicerce', 2, 's11')">Travo na hora e só penso na resposta horas depois</button>
+      <button class="option" onclick="pick('alicerce', 2, 's11')">Abaixo o preço antes da pessoa terminar de falar</button>
+    </div>
+  </section>
+
+  <!-- PERGUNTA 11 (Fachada) -->
+  <section class="screen" id="s11">
+    <div class="progress">
+      <div class="progress-bar"><div class="progress-fill" style="width: 91.66%"></div></div>
+      <p class="progress-label">Pergunta 11 de 12</p>
+    </div>
+    <h2 class="question-title">Alguém te critica direto na frente de outras pessoas. O que faz?</h2>
+    <div class="options">
+      <button class="option" onclick="pick('fachada', 0, 's12')">Escuto, penso na hora e respondo com clareza</button>
+      <button class="option" onclick="pick('fachada', 1, 's12')">Respondo, mas começo a me explicar demais no caminho</button>
+      <button class="option" onclick="pick('fachada', 2, 's12')">Travo, dou um sorriso e carrego a crítica comigo por dias</button>
+      <button class="option" onclick="pick('fachada', 2, 's12')">Reajo na defensiva e fico mal com o tom depois</button>
+    </div>
+  </section>
+
+  <!-- PERGUNTA 12 (Cobertura) -->
+  <section class="screen" id="s12">
+    <div class="progress">
+      <div class="progress-bar"><div class="progress-fill" style="width: 100%"></div></div>
+      <p class="progress-label">Pergunta 12 de 12</p>
+    </div>
+    <h2 class="question-title">Você precisa se posicionar antes de ter todas as informações. O que faz?</h2>
+    <div class="options">
+      <button class="option" onclick="pick('cobertura', 0, 's13')">Falo com o que tenho na mão, aberta pra ajustar depois</button>
+      <button class="option" onclick="pick('cobertura', 1, 's13')">Falo, mas cerco de tantas dúvidas que minha fala enfraquece</button>
+      <button class="option" onclick="pick('cobertura', 2, 's13')">Adio a decisão até ter clareza total</button>
+      <button class="option" onclick="pick('cobertura', 2, 's13')">Não me posiciono e deixo outra pessoa decidir</button>
+    </div>
+  </section>
+
+  <!-- TELA 13. CAPTURA -->
+  <section class="screen" id="s13">
+    <p class="eyebrow">Quase lá</p>
+    <h2 class="headline" style="font-size: clamp(1.6rem, 4vw, 2.4rem);">Seu diagnóstico foi <em>concluído.</em></h2>
+    <p class="subheadline">Receba agora a leitura das 3 dimensões da sua voz.</p>
+    <form class="form" onsubmit="event.preventDefault(); submitForm();">
+      <div class="form-field">
+        <label class="form-label" for="nome">Seu nome</label>
+        <input class="form-input" type="text" id="nome" autocomplete="given-name" required>
+        <p class="form-error" id="err-nome">Informe seu nome.</p>
       </div>
-    </div>
-    <div class="entregavel-item">
-      <span class="entregavel-diamond">◆</span>
-      <div class="entregavel-texto">
-        <strong>3 aulas em vídeo</strong>
-        <span>Orientações nos momentos-chave: início do processo, virada da Semana 2 e virada da Semana 3.</span>
+      <div class="form-field">
+        <label class="form-label" for="email">Seu melhor email</label>
+        <input class="form-input" type="email" id="email" autocomplete="email" required>
+        <p class="form-error" id="err-email">Informe um email válido.</p>
       </div>
-    </div>
-
-    <div class="bonus-divider"><span class="bonus-divider-text">Bônus inclusos</span></div>
-
-    <div class="bonus-item">
-      <span class="bonus-num">01</span>
-      <div class="bonus-texto">
-        <strong>Diagnóstico de Perfil ELLE <span class="bonus-de">R$47</span></strong>
-        <span>26 perguntas que identificam seu perfil comunicacional antes mesmo de você falar.</span>
+      <div class="btn-wrap" style="margin-top: 24px;">
+        <button class="btn-primary" type="submit">Ver meu diagnóstico</button>
       </div>
+    </form>
+  </section>
+
+  <!-- TELA 14. LOADING -->
+  <section class="screen" id="s14">
+    <p class="loading-msg">Mapeando os momentos em que sua voz oscila antes da consciência reagir.</p>
+    <div class="loading-dots"><span></span><span></span><span></span></div>
+  </section>
+
+  <!-- TELA 15. RESULTADO -->
+  <section class="screen" id="s15">
+    <!-- DIAGNÓSTICO -->
+    <p class="result-eyebrow">Seu diagnóstico</p>
+    <h2 class="result-headline">Sua voz não oscila do mesmo jeito em <em>todas as situações.</em></h2>
+
+    <div id="result-dimensions"></div>
+
+    <p class="connector">Esses três pontos se conectam por uma estrutura interna. Ela tem um nome: <em>seu Código ELLE.</em></p>
+
+    <div class="desafio-block">
+      <p>Antes do Dia 1, o Perfil ELLE faz a leitura da lógica interna da sua voz. Ele identifica seu Código primário, seu Código secundário e o padrão por trás dos momentos em que ela oscila.</p>
+      <p>A partir disso, cada um dos 21 exercícios vem acompanhado de uma observação escrita para o funcionamento do seu perfil.</p>
+      <p>Você treina exatamente os pontos onde sua voz perde firmeza: na reunião, na conversa difícil, na hora em que a resposta chega tarde demais.</p>
+      <p class="tagline">Tudo em exercícios de 10 a 15 minutos por dia.</p>
     </div>
-    <div class="bonus-item">
-      <span class="bonus-num">02</span>
-      <div class="bonus-texto">
-        <strong>Manual de Arquitetura Interior <span class="bonus-de">R$67</span></strong>
-        <span>Virtudes, sombras e os padrões que sustentam sua forma de se posicionar.</span>
-      </div>
-    </div>
-    <div class="bonus-item">
-      <span class="bonus-num">03</span>
-      <div class="bonus-texto">
-        <strong>Matriz ELLE de Sustentação da Voz <span class="bonus-de">R$37</span></strong>
-        <span>Diagnóstico dos 8 pilares — preenchido no Dia 1 e reaplicado no Dia 21.</span>
-      </div>
-    </div>
-  </div>
 
-  <!-- 06. SUPORTE -->
-  <div class="suporte-box">
-    Dúvidas técnicas ou de acesso? Estamos disponíveis em <a href="mailto:contato@metodoelle.com.br">contato@metodoelle.com.br</a>
-  </div>
+    <!-- DIVISOR -->
+    <div class="offer-divider"></div>
 
-  <!-- 07. SEGUNDO CTA -->
-  <div class="valor-bloco">
-    <div class="valor-label">
-      <strong>Valor total: R$248</strong>
-      Por um único investimento de acesso inaugural.
-    </div>
-    <div class="valor-num">
-      <span class="riscado">R$248</span>
-      <span class="preco">R$97</span>
-      <span class="parcel">ou 12x de R$10,03</span>
-    </div>
-  </div>
-  <a href="https://pay.hotmart.com/B105291424M?checkoutMode=10&src=quiz" class="btn-cta-grande">
-    <span class="btn-cta-parcel">12x de R$10,03</span>
-    <span class="btn-cta-texto">ou R$97 à vista · acesso imediato</span>
-  </a>
+    <!-- 01. HEADLINE DA OFERTA -->
+    <h2 class="offer-headline">Os 21 dias da Arquitetura da Voz treinam o reflexo <em>onde ele falha.</em></h2>
 
-  <!-- 08. BÔNUS já incluídos acima nos entregáveis -->
+    <!-- 02. SUBHEADLINE REFORÇO -->
+    <p class="offer-subheadline" id="offer-subheadline">Sua voz não trava por falta de técnica. Trava porque o reflexo chega antes da consciência. Treinar o reflexo nas situações reais é o que muda.</p>
 
-  <!-- 09. GARANTIA -->
-  <div class="garantia-box">
-    <strong>7 dias de garantia incondicional.</strong> Se não fizer sentido, basta solicitar o reembolso. Sem risco. Sem burocracia. Sem precisar explicar nada.
-  </div>
-
-  <div class="divider"></div>
-
-  <!-- 10. AUTORIDADE -->
-  <div class="autoridade-mini">
-    <img src="/fran-arquiteta.jpg" alt="Fran Castro" class="autoridade-foto">
-    <div>
-      <p class="autoridade-texto-nome">Fran Castro</p>
-      <p class="autoridade-texto-cargo">Arquiteta da Inteligência Emocional</p>
-      <p class="autoridade-texto-bio">Eu sabia o que precisava ser dito. Mas não sustentava na hora. A Arquitetura da Voz nasceu dessa virada — e é isso que você começa a construir nos próximos 21 dias.</p>
-    </div>
-  </div>
-
-  <!-- DEPOIMENTOS -->
-  <div class="depo-card">
-    <p class="depo-text">"A minha vida inteira eu não disse nada, paguei, falei tchau e fui embora. Agora eu estou falando. E logo em seguida já consigo me posicionar com mais clareza."</p>
-    <p class="depo-autor">Participante — Semana 2</p>
-  </div>
-  <div class="depo-card">
-    <p class="depo-text">"Eu reagia no automático — na maioria das vezes por emoção, sem entender o que estava acontecendo. Agora faço pausa antes de responder. Já percebo uma mudança muito grande — não só na minha fala, mas no meu posicionamento."</p>
-    <p class="depo-autor">Participante — Semana 2</p>
-  </div>
-  <div class="depo-card">
-    <p class="depo-text">"Eu estou amando esse tempo de olhar pra mim. Quase nunca paro assim de forma tão intencional. Me emocionei. Estou me observando mais."</p>
-    <p class="depo-autor">Participante — durante o processo</p>
-  </div>
-
-  <!-- 11. TERCEIRO CTA FINAL -->
-  <a href="https://pay.hotmart.com/B105291424M?checkoutMode=10&src=quiz" class="btn-cta-grande">
-    <span class="btn-cta-parcel">12x de R$10,03</span>
-    <span class="btn-cta-texto">ou R$97 à vista · 7 dias de garantia</span>
-  </a>
-  <p style="text-align:center; font-size:0.8125rem; color:var(--text-muted); opacity:0.6; letter-spacing:0.05em; margin-top:0.75rem;">Acesso imediato · Hotmart · Pagamento seguro</p>
-</div>
-
-<!-- RESULTADO R2 — VOZ OSCILANTE -->
-<div id="r2" class="screen">
-  <div class="result-tag">Seu diagnóstico</div>
-  <h2 class="result-title"><span class="nome-field"></span>, sua voz <em>oscila.</em></h2>
-
-  <p class="result-body">Você fala. Mas não sustenta com consistência.</p>
-  <p class="result-body">Em alguns momentos, se posiciona com clareza. Em outros, recua, se explica demais ou se arrepende do tom depois. Não é falta de força. É falta de estabilidade interna.</p>
-  <p class="result-body">Sua voz oscila porque depende do ambiente, da reação do outro e da pressão do momento. Quando tudo está confortável, você sustenta. Quando há tensão, você perde o eixo — ou exagera, ou se retrai.</p>
-  <p class="result-body"><strong>Sua questão não é se expressar melhor. É conseguir se manter firme depois que se expressa.</strong> Sem isso, qualquer avanço vira instável.</p>
-
-  <!-- 03. ANTES E DEPOIS -->
-  <div style="border-top:1px solid var(--border); border-bottom:1px solid var(--border); padding:1.5rem 0; margin:2rem 0;">
-    <p style="font-family:'Cormorant Garamond',serif; font-size:clamp(1.2rem,2.5vw,1.5rem); font-weight:300; font-style:italic; color:var(--gold-light); line-height:1.5; margin:0;">Esse padrão tem consequências concretas — e tem saída concreta também:</p>
-  </div>
-  <div class="antes-depois">
-    <div class="ad-col">
-      <p class="ad-header sem">Antes do processo</p>
-      <ul class="ad-list sem">
-        <li>Fala, mas perde o eixo sob pressão</li>
-        <li>Se arrepende do tom ou do que disse</li>
-        <li>Oscila entre recuar e exagerar</li>
-        <li>Paga o preço depois — em culpa ou dúvida</li>
-      </ul>
-    </div>
-    <div class="ad-col">
-      <p class="ad-header com">Depois do processo</p>
-      <ul class="ad-list com">
-        <li>Se posiciona e sustenta mesmo com resistência</li>
-        <li>Fala sem precisar se arrepender depois</li>
-        <li>Mantém o eixo independente da reação do outro</li>
-        <li>Sai das conversas inteira — sem culpa acumulada</li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- 04. PRIMEIRO CTA -->
-  <p class="hook-text">A Arquitetura da Voz não é sobre aprender mais. É sobre parar de se abandonar quando mais importa.</p>
-  <div class="valor-bloco">
-    <div class="valor-label">
-      <strong>Primeiro lançamento digital</strong>
-      Acesso inaugural — não se repetirá nas próximas turmas.
-    </div>
-    <div class="valor-num">
-      <span class="preco">R$97</span>
-      <span class="parcel">ou 12x de R$10,03</span>
-    </div>
-  </div>
-  <a href="https://pay.hotmart.com/B105291424M?checkoutMode=10&src=quiz" class="btn-cta-grande">
-    <span class="btn-cta-parcel">Quero sustentar minha voz</span>
-    <span class="btn-cta-texto">Acesso imediato · 7 dias de garantia</span>
-  </a>
-
-  <div class="divider"></div>
-
-  <!-- 05. ENTREGÁVEIS -->
-  <div class="entregaveis-box">
-    <div class="entregaveis-label">O que você recebe</div>
-    <div class="entregavel-item">
-      <span class="entregavel-diamond">◆</span>
-      <div class="entregavel-texto">
-        <strong>Ebook Arquitetura da Voz</strong>
-        <span>O protocolo completo dos 21 dias — exercícios práticos, perguntas de consolidação e direcionamento claro para cada etapa.</span>
-      </div>
-    </div>
-    <div class="entregavel-item">
-      <span class="entregavel-diamond">◆</span>
-      <div class="entregavel-texto">
-        <strong>3 aulas em vídeo</strong>
-        <span>Orientações nos momentos-chave: início do processo, virada da Semana 2 e virada da Semana 3.</span>
+    <!-- 03. ANTES E DEPOIS PERSONALIZADO -->
+    <div class="antes-depois">
+      <p class="antes-depois-title">Em <span id="ad-dimensao">21 dias</span>, o que muda</p>
+      <div class="antes-depois-grid">
+        <div class="antes-col">
+          <span class="antes-col-label">Antes</span>
+          <div id="antes-items"></div>
+        </div>
+        <div class="antes-depois-arrow">→</div>
+        <div class="depois-col">
+          <span class="depois-col-label">Depois dos 21 dias</span>
+          <div id="depois-items"></div>
+        </div>
       </div>
     </div>
 
-    <div class="bonus-divider"><span class="bonus-divider-text">Bônus inclusos</span></div>
+    <!-- 04. CTA 1 (VALOR + BOTÃO) -->
+    <div class="offer-cta">
+      <p class="offer-cta-label">Acesso inaugural · Turma 01</p>
+      <p class="offer-cta-price">R$ 97</p>
+      <p class="offer-cta-installment">ou 12x de R$ 10,03 no cartão</p>
+      <p class="offer-cta-stack">Stack total dos bônus: <s>R$ 295</s> incluído no acesso</p>
+      <a class="btn-primary" id="cta-hotmart-1" href="https://pay.hotmart.com/B105291424M?checkoutMode=10&src=quiz" target="_blank" rel="noopener">Quero sustentar minha voz</a>
+      <span class="btn-meta" style="margin-top: 14px;">Acesso imediato · 7 dias de garantia</span>
+      <span class="offer-cta-window">Válido até 30 de junho · Depois volta para R$ 247</span>
+    </div>
 
-    <div class="bonus-item">
-      <span class="bonus-num">01</span>
-      <div class="bonus-texto">
-        <strong>Diagnóstico de Perfil ELLE <span class="bonus-de">R$47</span></strong>
-        <span>26 perguntas que identificam seu perfil comunicacional antes mesmo de você falar.</span>
+    <!-- 05. ENTREGÁVEIS -->
+    <div class="section-block">
+      <p class="section-eyebrow">O que está incluso</p>
+      <h3 class="section-title">O protocolo completo dos 21 dias</h3>
+      <div class="item-list">
+        <div class="item-row">
+          <div class="item-check">✓</div>
+          <div class="item-content">
+            <p class="item-name">Ebook Arquitetura da Voz</p>
+            <p class="item-desc">Protocolo de 21 dias com exercício diário de 10 a 15 minutos. Semana 1 de observação, Semana 2 de prática real, Semana 3 de consolidação.</p>
+          </div>
+        </div>
+        <div class="item-row">
+          <div class="item-check">✓</div>
+          <div class="item-content">
+            <p class="item-name">3 vídeos-aula nas viradas</p>
+            <p class="item-desc">Aulas em vídeo no início, na virada da Semana 2 e na virada da Semana 3, com a Fran conduzindo o que está em jogo em cada fase.</p>
+          </div>
+        </div>
+        <div class="item-row">
+          <div class="item-check">✓</div>
+          <div class="item-content">
+            <p class="item-name">Acesso por 1 ano</p>
+            <p class="item-desc">Você pode refazer o protocolo, revisitar exercícios e baixar todos os materiais durante 12 meses a partir da compra.</p>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="bonus-item">
-      <span class="bonus-num">02</span>
-      <div class="bonus-texto">
-        <strong>Manual de Arquitetura Interior <span class="bonus-de">R$67</span></strong>
-        <span>Virtudes, sombras e os padrões que sustentam sua forma de se posicionar.</span>
+
+    <!-- 06. SUPORTE -->
+    <div class="support-block">
+      <span class="support-icon">✓</span>
+      <p class="support-title">Você não fica sozinha</p>
+      <p class="support-text">Dúvidas ou suporte direto em <a href="mailto:contato@metodoelle.com.br">contato@metodoelle.com.br</a>. Resposta em até 24h em dias úteis.</p>
+    </div>
+
+    <!-- 07. CTA 2 -->
+    <div class="cta-final">
+      <a class="btn-primary" id="cta-hotmart-2" href="https://pay.hotmart.com/B105291424M?checkoutMode=10&src=quiz" target="_blank" rel="noopener">Quero garantir minha vaga</a>
+      <span class="btn-meta">R$ 97 · Acesso imediato · 7 dias de garantia</span>
+    </div>
+
+    <!-- 08. BÔNUS -->
+    <div class="section-block">
+      <p class="section-eyebrow">Bônus inclusos</p>
+      <h3 class="section-title">5 ferramentas que sustentam o protocolo</h3>
+      <div class="item-list">
+        <div class="item-row">
+          <div class="item-check">✓</div>
+          <div class="item-content">
+            <p class="item-name">Perfil ELLE <span class="item-value">R$ 67</span></p>
+            <p class="item-desc">26 perguntas em 2 camadas. Identifica seu Código primário e secundário em 16 combinações possíveis. A Pergunta 24 aponta exatamente onde os 21 dias começam para você.</p>
+          </div>
+        </div>
+        <div class="item-row">
+          <div class="item-check">✓</div>
+          <div class="item-content">
+            <p class="item-name">Manual de Arquitetura Interior <span class="item-value">R$ 97</span></p>
+            <p class="item-desc">Aprofundamento das 3 Fundações (Alicerce, Fachada, Cobertura), as 4 Colunas internas do seu Código com Luz e Sombra, e o medo central que opera por baixo da sua comunicação.</p>
+          </div>
+        </div>
+        <div class="item-row">
+          <div class="item-check">✓</div>
+          <div class="item-content">
+            <p class="item-name">Matriz ELLE de Sustentação da Voz <span class="item-value">R$ 47</span></p>
+            <p class="item-desc">8 pilares avaliados antes do Dia 1 e refeitos no Dia 21: Clareza interna, Regulação emocional, Medo de julgamento, Autorização interna, Assertividade prática, Limites, Presença e Consistência.</p>
+          </div>
+        </div>
+        <div class="item-row">
+          <div class="item-check">✓</div>
+          <div class="item-content">
+            <p class="item-name">Mapa das Oscilações <span class="item-value">R$ 37</span></p>
+            <p class="item-desc">Síntese visual da Semana 1 numa única página com 7 pilares: contexto, crença raiz, identidade narrativa, espelho do outro, voz crítica, crença impulsionadora e âncora.</p>
+          </div>
+        </div>
+        <div class="item-row">
+          <div class="item-check">✓</div>
+          <div class="item-content">
+            <p class="item-name">Checklist Arquitetura da Voz <span class="item-value">R$ 47</span></p>
+            <p class="item-desc">Ferramenta semanal para reuniões. Antes, durante e depois. Inclui o conceito das 3 Intensidades (Suave, Firme e Incisiva) pra você manter o protocolo vivo depois do Dia 21.</p>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="bonus-item">
-      <span class="bonus-num">03</span>
-      <div class="bonus-texto">
-        <strong>Matriz ELLE de Sustentação da Voz <span class="bonus-de">R$37</span></strong>
-        <span>Diagnóstico dos 8 pilares — preenchido no Dia 1 e reaplicado no Dia 21.</span>
+
+    <!-- DEPOIMENTO -->
+    <div class="testimonial-block">
+      <p class="testimonial-text">"Eu reagia no automático, sem entender o que estava acontecendo. <strong>Agora faço pausa antes de responder.</strong>"</p>
+      <p class="testimonial-meta">Claudia · Taubaté · Semana 2</p>
+    </div>
+
+    <!-- 09. CTA 3 -->
+    <div class="cta-final">
+      <a class="btn-primary" id="cta-hotmart-3" href="https://pay.hotmart.com/B105291424M?checkoutMode=10&src=quiz" target="_blank" rel="noopener">Quero acessar agora</a>
+      <span class="btn-meta">R$ 97 · Stack total R$ 295 incluído</span>
+    </div>
+
+    <!-- 10. GARANTIA -->
+    <div class="guarantee-block">
+      <p class="guarantee-label">Garantia 7 dias risco zero</p>
+      <p class="guarantee-title">Garantia incondicional</p>
+      <p class="guarantee-text"><strong>7 dias para testar.</strong> Se sentir que o protocolo não é para o seu momento, basta solicitar o reembolso pela Hotmart. Sem perguntas. Sem burocracia.</p>
+    </div>
+
+    <!-- 11. AUTORIDADE -->
+    <div class="authority-block">
+      <div class="authority-photo-wrap">
+        <img class="authority-photo" src="assets/fran-castro.jpg" alt="Fran Castro, Arquiteta da Inteligência Emocional">
+      </div>
+      <div class="authority-content">
+        <p class="authority-eyebrow">Quem criou o método</p>
+        <p class="authority-name">Fran Castro</p>
+        <p class="authority-role">Arquiteta da Inteligência Emocional</p>
+        <div class="authority-text">
+          <p>Em 2021, numa reunião de feedback, uma das minhas analistas me disse que ficava feliz quando eu entrava de férias e triste quando eu voltava. Essa foi a frase que mudou tudo.</p>
+          <p>Eu era gestora no serviço público e achava que sabia liderar. Sabia me comunicar. Mas o que eu comunicava, sem perceber, era <strong>distância</strong>.</p>
+          <p>A partir dali, fui estudar inteligência emocional. Imersões, formação, anos aplicando dentro da minha própria equipe. Quatro anos depois, quando saí do serviço público, essa mesma analista me disse que não sabia como ia trabalhar na segunda-feira sabendo que eu não ia estar lá.</p>
+          <p>O método não nasceu de teoria. Nasceu de uma reunião difícil, de quatro anos de ajuste deliberado e de uma mudança que aconteceu na <strong>postura, na voz e no jeito de me posicionar</strong>.</p>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- 06. SUPORTE -->
-  <div class="suporte-box">
-    Dúvidas técnicas ou de acesso? Estamos disponíveis em <a href="mailto:contato@metodoelle.com.br">contato@metodoelle.com.br</a>
-  </div>
-
-  <!-- 07. SEGUNDO CTA -->
-  <div class="valor-bloco">
-    <div class="valor-label">
-      <strong>Valor total: R$248</strong>
-      Por um único investimento de acesso inaugural.
+    <!-- 12. CTA FINAL -->
+    <div class="cta-final">
+      <a class="btn-primary" id="cta-hotmart-4" href="https://pay.hotmart.com/B105291424M?checkoutMode=10&src=quiz" target="_blank" rel="noopener">Quero começar os 21 dias</a>
+      <span class="btn-meta">R$ 97 · 12x R$ 10,03 · Acesso imediato · 7 dias de garantia</span>
     </div>
-    <div class="valor-num">
-      <span class="riscado">R$248</span>
-      <span class="preco">R$97</span>
-      <span class="parcel">ou 12x de R$10,03</span>
-    </div>
-  </div>
-  <a href="https://pay.hotmart.com/B105291424M?checkoutMode=10&src=quiz" class="btn-cta-grande">
-    <span class="btn-cta-parcel">12x de R$10,03</span>
-    <span class="btn-cta-texto">ou R$97 à vista · acesso imediato</span>
-  </a>
+  </section>
 
-  <!-- 09. GARANTIA -->
-  <div class="garantia-box">
-    <strong>7 dias de garantia incondicional.</strong> Se não fizer sentido, basta solicitar o reembolso. Sem risco. Sem burocracia. Sem precisar explicar nada.
-  </div>
+  <footer class="footer">
+    <p>Método ELLE · Arquitetura da Voz</p>
+  </footer>
 
-  <div class="divider"></div>
-
-  <!-- 10. AUTORIDADE -->
-  <div class="autoridade-mini">
-    <img src="/fran-arquiteta.jpg" alt="Fran Castro" class="autoridade-foto">
-    <div>
-      <p class="autoridade-texto-nome">Fran Castro</p>
-      <p class="autoridade-texto-cargo">Arquiteta da Inteligência Emocional</p>
-      <p class="autoridade-texto-bio">Eu sabia o que precisava ser dito. Mas não sustentava na hora. A Arquitetura da Voz nasceu dessa virada — e é isso que você começa a construir nos próximos 21 dias.</p>
-    </div>
-  </div>
-
-  <!-- DEPOIMENTO -->
-  <div class="depo-card">
-    <p class="depo-text">"Vou deixar de ser uma ouvinte passiva e começar a dar minha opinião, a discordar. Estou vendo isso como uma virada de chave."</p>
-    <p class="depo-autor">Participante — Semana 2</p>
-  </div>
-
-  <!-- 11. TERCEIRO CTA FINAL -->
-  <a href="https://pay.hotmart.com/B105291424M?checkoutMode=10&src=quiz" class="btn-cta-grande">
-    <span class="btn-cta-parcel">12x de R$10,03</span>
-    <span class="btn-cta-texto">ou R$97 à vista · 7 dias de garantia</span>
-  </a>
-  <p style="text-align:center; font-size:0.8125rem; color:var(--text-muted); opacity:0.6; letter-spacing:0.05em; margin-top:0.75rem;">Acesso imediato · Hotmart · Pagamento seguro</p>
-</div>
-
-</div>
 </div>
 
 <script>
-var scoreA = 0, scoreB = 0;
+var scoreAlicerce = 0;
+var scoreFachada = 0;
+var scoreCobertura = 0;
+var userData = { nome: '', email: '' };
+
 function goTo(id) {
   document.querySelectorAll('.screen').forEach(function(s) { s.classList.remove('active'); });
-  document.getElementById(id).classList.add('active');
-  window.scrollTo(0, 0);
-}
-function pick(btn, score, nextId) {
-  var opts = btn.closest('.options').querySelectorAll('.opt');
-  opts.forEach(function(o) { o.classList.remove('selected'); });
-  btn.classList.add('selected');
-  btn.dataset.score = score;
-  var nextBtn = document.getElementById(nextId);
-  if (nextBtn) nextBtn.classList.add('visible');
-}
-function validateForm() {
-  var nome = document.getElementById('nome').value.trim();
-  var email = document.getElementById('email').value.trim();
-  var erroNome = document.getElementById('erro-nome');
-  var erroEmail = document.getElementById('erro-email');
-  var valid = true;
-  if (!nome) { erroNome.classList.add('visible'); valid = false; } else { erroNome.classList.remove('visible'); }
-  var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!email || !emailRegex.test(email)) { erroEmail.classList.add('visible'); valid = false; } else { erroEmail.classList.remove('visible'); }
-  return valid;
-}
-function sendToBrevo(nome, email, resultado) {
-  fetch('/api/brevo', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ nome: nome, email: email, resultado: resultado })
-  }).catch(function(err) { console.log('Erro ao enviar lead:', err); });
-}
-function processResult() {
-  if (!validateForm()) return;
-  var nome = document.getElementById('nome').value.trim();
-  var email = document.getElementById('email').value.trim();
-  scoreA = 0; scoreB = 0;
-  document.querySelectorAll('.opt.selected').forEach(function(opt) {
-    if (opt.dataset.score === 'A') scoreA++;
-    else if (opt.dataset.score === 'B') scoreB++;
-  });
-  var resultado = scoreA >= scoreB ? 'r1' : 'r2';
-  goTo('s9');
-  if (typeof fbq !== 'undefined') {
-    fbq('track', 'Lead', { currency: 'BRL', value: 0, content_name: 'Quiz Arquitetura da Voz', content_category: resultado === 'r1' ? 'Voz Contida' : 'Voz Oscilante' });
+  var target = document.getElementById(id);
+  if (target) {
+    target.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
-  sendToBrevo(nome, email, resultado);
-  setTimeout(function() {
-    document.querySelectorAll('.nome-field').forEach(function(el) { el.textContent = nome; });
-    goTo(resultado);
-  }, 2400);
 }
+
+function pick(dim, points, nextId) {
+  if (dim === 'alicerce') scoreAlicerce += points;
+  if (dim === 'fachada') scoreFachada += points;
+  if (dim === 'cobertura') scoreCobertura += points;
+  goTo(nextId);
+}
+
+function submitForm() {
+  var nome = document.getElementById('nome').value.trim();
+  var email = document.getElementById('email').value.trim();
+  var errNome = document.getElementById('err-nome');
+  var errEmail = document.getElementById('err-email');
+  errNome.classList.remove('show');
+  errEmail.classList.remove('show');
+
+  var valid = true;
+  if (!nome) { errNome.classList.add('show'); valid = false; }
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { errEmail.classList.add('show'); valid = false; }
+  if (!valid) return;
+
+  userData.nome = nome;
+  userData.email = email;
+
+  goTo('s14');
+  processResult();
+}
+
+function getNivel(score) {
+  if (score <= 2) return 'sustenta';
+  if (score <= 5) return 'oscila';
+  return 'recolhe';
+}
+
+var leituras = {
+  alicerce: {
+    sustenta: 'Sua voz sustenta no Alicerce. Quando alguém invade seu tempo ou questiona seu valor, você fala na hora e fecha o assunto. Diz não sem dar voltas. Essa é sua base mais sólida.',
+    oscila: 'Sua voz oscila no Alicerce. Você fala, mas começa a se explicar. Aceita a demanda na hora e sai reorganizando tudo na correria. Quando o limite sai, já saiu enfraquecido pela justificativa.',
+    recolhe: 'Sua voz recolhe no Alicerce. Você cede primeiro e remoe depois. Aceita pedidos que não eram seus. Fica em silêncio na reunião que estendeu. Abaixa o preço antes da pessoa terminar de falar. O custo aparece na sua cabeça à noite.'
+  },
+  fachada: {
+    sustenta: 'Sua voz sustenta na Fachada. Você discorda de pessoas próximas sem perder o vínculo. Dá feedback sem dar voltas. Quando a maioria pensa diferente, fala mesmo assim.',
+    oscila: 'Sua voz oscila na Fachada. Você fala em tom mais brando do que sente. Adoça o feedback até a mensagem se perder. Quando termina, fica em dúvida se devia ter falado.',
+    recolhe: 'Sua voz recolhe na Fachada. Você concorda na hora e rumina por dias. Adia a conversa difícil por semanas até a situação piorar. O que não foi dito vai parar no corpo. O medo de quebrar a conexão chega antes da verdade.'
+  },
+  cobertura: {
+    sustenta: 'Sua voz sustenta na Cobertura. Você fala mesmo antes de ter tudo na mão. Improvisa com clareza, corrige sem confronto, se posiciona com abertura pra ajustar depois.',
+    oscila: 'Sua voz oscila na Cobertura. Você fala, mas se explica demais. Cerca cada frase de tantos "depende" que a opinião perde força. Quando termina de falar, parece que você mesma desmontou o que disse.',
+    recolhe: 'Sua voz recolhe na Cobertura. Você procura a frase perfeita, calcula o impacto, ensaia a resposta. Quando decide falar, a conversa já mudou de direção. Você chega tarde demais nas suas próprias palavras.'
+  }
+};
+
+var nomesDimensao = {
+  alicerce: 'Alicerce',
+  fachada: 'Fachada',
+  cobertura: 'Cobertura'
+};
+
+var ctasPorDimensao = {
+  alicerce: 'Quero sustentar minha voz sem ceder',
+  fachada: 'Quero sustentar minha voz sem perder a conexão',
+  cobertura: 'Quero falar antes da janela fechar'
+};
+
+var subheadlinePorDimensao = {
+  alicerce: 'Sua voz não trava por falta de firmeza. Trava porque o reflexo do silêncio chega antes da decisão de falar. Treinar esse reflexo nas situações reais é o que muda.',
+  fachada: 'Sua voz não suaviza por falta de coragem. Suaviza porque o reflexo de proteger o vínculo chega antes da decisão de discordar. Treinar esse reflexo é o que muda.',
+  cobertura: 'Sua voz não atrasa por falta de clareza. Atrasa porque o reflexo do preparo chega antes da decisão de falar. Treinar esse reflexo nas situações reais é o que muda.'
+};
+
+var antesDepoisPorDimensao = {
+  alicerce: [
+    { antes: 'Cede primeiro e remoe depois', depois: 'Defende a posição na hora' },
+    { antes: 'Aceita pedidos que não eram seus', depois: 'Diz não sem dar voltas' },
+    { antes: 'Não encerra reunião no horário combinado', depois: 'Encerra com clareza no tempo certo' },
+    { antes: 'Abaixa o preço antes da pessoa terminar', depois: 'Sustenta o valor sem mudar a postura' }
+  ],
+  fachada: [
+    { antes: 'Concorda na hora e rumina por dias', depois: 'Discorda na hora, mantém o vínculo' },
+    { antes: 'Adia conversa difícil por semanas', depois: 'Aborda no momento certo, sem adiar' },
+    { antes: 'Adoça o feedback até a mensagem se perder', depois: 'Dá feedback direto, sem dar voltas' },
+    { antes: 'Suaviza opinião pra não criar atrito', depois: 'Sustenta posição mesmo com risco de reação' }
+  ],
+  cobertura: [
+    { antes: 'Procura a frase perfeita e perde a janela', depois: 'Fala com o que tem na mão, ajusta depois' },
+    { antes: 'Cerca tudo de "depende" e a fala perde força', depois: 'Coloca opinião com clareza' },
+    { antes: 'Trava no improviso, pede pra repetir', depois: 'Improvisa com presença' },
+    { antes: 'Ensaia a correção horas depois', depois: 'Corrige na hora, sem confronto' }
+  ]
+};
+
+function processResult() {
+  var scores = { alicerce: scoreAlicerce, fachada: scoreFachada, cobertura: scoreCobertura };
+  var niveis = {
+    alicerce: getNivel(scoreAlicerce),
+    fachada: getNivel(scoreFachada),
+    cobertura: getNivel(scoreCobertura)
+  };
+
+  var dimensoes = ['alicerce', 'fachada', 'cobertura'];
+  dimensoes.sort(function(a, b) { return scores[b] - scores[a]; });
+
+  var dimMaisFragil = dimensoes[0];
+  var dimMaisFirme = dimensoes[2];
+
+  // Renderiza as 3 leituras
+  var container = document.getElementById('result-dimensions');
+  var html = '';
+  dimensoes.forEach(function(dim) {
+    var nivel = niveis[dim];
+    html += '<div class="dimension-block level-' + nivel + '">';
+    html += '<p class="dimension-label">' + nomesDimensao[dim] + ' · ' + nivel.charAt(0).toUpperCase() + nivel.slice(1) + '</p>';
+    html += '<p class="dimension-text">' + leituras[dim][nivel] + '</p>';
+    html += '</div>';
+  });
+  container.innerHTML = html;
+
+  // Subheadline personalizada
+  var subheadEl = document.getElementById('offer-subheadline');
+  if (subheadEl) subheadEl.textContent = subheadlinePorDimensao[dimMaisFragil];
+
+  // Antes e Depois personalizado
+  var antesEl = document.getElementById('antes-items');
+  var depoisEl = document.getElementById('depois-items');
+  var adDimEl = document.getElementById('ad-dimensao');
+  if (antesEl && depoisEl) {
+    var pares = antesDepoisPorDimensao[dimMaisFragil];
+    var antesHtml = '';
+    var depoisHtml = '';
+    pares.forEach(function(par) {
+      antesHtml += '<div class="antes-item">' + par.antes + '</div>';
+      depoisHtml += '<div class="depois-item">' + par.depois + '</div>';
+    });
+    antesEl.innerHTML = antesHtml;
+    depoisEl.innerHTML = depoisHtml;
+  }
+  if (adDimEl) adDimEl.textContent = '21 dias na dimensão ' + nomesDimensao[dimMaisFragil];
+
+  // Atualiza os 4 CTAs com o texto personalizado pela dimensão mais frágil
+  var cta1 = document.getElementById('cta-hotmart-1');
+  if (cta1) cta1.textContent = ctasPorDimensao[dimMaisFragil];
+
+  sendData(dimMaisFragil, dimMaisFirme, niveis);
+
+  setTimeout(function() { goTo('s15'); }, 2800);
+}
+
+function sendData(dimMaisFragil, dimMaisFirme, niveis) {
+  if (typeof fbq === 'function') {
+    fbq('track', 'Lead', {
+      content_category: 'Mapa da Voz - ' + dimMaisFragil,
+      content_name: 'Dimensão mais frágil: ' + dimMaisFragil
+    });
+  }
+
+  var payload = {
+    nome: userData.nome,
+    email: userData.email,
+    scoreAlicerce: scoreAlicerce,
+    scoreFachada: scoreFachada,
+    scoreCobertura: scoreCobertura,
+    nivelAlicerce: niveis.alicerce,
+    nivelFachada: niveis.fachada,
+    nivelCobertura: niveis.cobertura,
+    dimensaoMaisFragil: dimMaisFragil,
+    dimensaoMaisFirme: dimMaisFirme,
+    origem: 'mapa-da-voz'
+  };
+
+  if (typeof fetch === 'function') {
+    fetch('/api/brevo', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).catch(function() {});
+  }
+}
+
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '812476201902590');
+fbq('track', 'PageView');
 </script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=812476201902590&ev=PageView&noscript=1"/></noscript>
+
 </body>
 </html>
