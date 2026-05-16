@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mapa da Voz · Arquitetura da Voz</title>
+<title>Diagnóstico da Voz Sob Pressão · Arquitetura da Voz</title>
 <meta name="description" content="Diagnóstico gratuito. Onde sua voz perde sustentação antes mesmo da sua consciência reagir.">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -874,12 +874,12 @@ body::after {
   <!-- TELA 0. INTRO -->
   <section class="screen active" id="s0">
     <p class="pre-headline">O autoconhecimento chega depois. O reflexo chega antes.</p>
-    <p class="eyebrow">Mapa da Voz</p>
+    <p class="eyebrow">Diagnóstico da Voz Sob Pressão</p>
     <h1 class="headline">Onde sua voz perde sustentação <em>antes mesmo</em> da sua consciência reagir</h1>
-    <p class="subheadline">12 perguntas. Menos de 4 minutos. Um mapa da forma como sua voz oscila em situações de confronto, conexão e posicionamento.</p>
+    <p class="subheadline">12 perguntas. Menos de 4 minutos. Um diagnóstico da forma como sua voz oscila em situações de confronto, conexão e posicionamento.</p>
     <p class="instruction">Para cada cena, marque a reação que mais se repete na sua vida real. Não a resposta ideal. O diagnóstico só funciona quando você reconhece o reflexo real.</p>
     <div class="btn-wrap">
-      <button class="btn-primary" onclick="startQuiz()">Quero mapear minha voz</button>
+      <button class="btn-primary" onclick="startQuiz()">Quero fazer o diagnóstico</button>
     </div>
   </section>
 
@@ -1065,7 +1065,7 @@ body::after {
 
   <!-- TELA 14. LOADING -->
   <section class="screen" id="s14">
-    <p class="loading-msg">Mapeando os momentos em que sua voz oscila antes da consciência reagir.</p>
+    <p class="loading-msg">Identificando os momentos em que sua voz oscila antes da consciência reagir.</p>
     <div class="loading-dots"><span></span><span></span><span></span></div>
   </section>
 
@@ -1284,7 +1284,7 @@ function generateEventId() {
 function startQuiz() {
   if (typeof fbq === 'function') {
     fbq('trackCustom', 'QuizStarted', {
-      content_name: 'Mapa da Voz',
+      content_name: 'Diagnóstico da Voz Sob Pressão',
       content_category: 'Quiz Arquitetura da Voz'
     });
   }
@@ -1299,7 +1299,7 @@ function pick(dim, points, nextId) {
   // Quando a última pergunta é respondida (vai pro loading), dispara QuizCompleted e processa o resultado
   if (nextId === 's14' && typeof fbq === 'function') {
     fbq('trackCustom', 'QuizCompleted', {
-      content_name: 'Mapa da Voz',
+      content_name: 'Diagnóstico da Voz Sob Pressão',
       content_category: 'Quiz Arquitetura da Voz'
     });
   }
@@ -1438,8 +1438,8 @@ function sendData(dimMaisFragil, dimMaisFirme, niveis) {
   // Pixel client-side (com value, currency e event_id)
   if (typeof fbq === 'function') {
     fbq('track', 'Lead', {
-      content_category: 'Mapa da Voz - ' + dimMaisFragil,
-      content_name: 'Diagnóstico Arquitetura da Voz',
+      content_category: 'Diagnóstico Voz Sob Pressão - ' + dimMaisFragil,
+      content_name: 'Diagnóstico da Voz Sob Pressão',
       value: 97,
       currency: 'BRL'
     }, { eventID: leadEventId });
@@ -1455,7 +1455,7 @@ function sendData(dimMaisFragil, dimMaisFirme, niveis) {
     nivelCobertura: niveis.cobertura,
     dimensaoMaisFragil: dimMaisFragil,
     dimensaoMaisFirme: dimMaisFirme,
-    origem: 'mapa-da-voz',
+    origem: 'diagnostico-voz-sob-pressao',
     eventId: leadEventId,
     value: 97,
     currency: 'BRL'
