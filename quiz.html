@@ -103,6 +103,22 @@ body::after {
   to { opacity: 1; transform: translateY(0); }
 }
 
+.intro-cover {
+  max-width: 720px;
+  margin: 0 auto 48px;
+  text-align: center;
+}
+.intro-cover img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 8px 28px rgba(138, 110, 56, 0.15);
+}
+@media (max-width: 640px) {
+  .intro-cover { max-width: 100%; margin-bottom: 32px; }
+}
+
 .pre-headline {
   font-family: 'Inter', sans-serif;
   font-style: italic;
@@ -170,6 +186,66 @@ body::after {
   border: 1px solid var(--border);
 }
 
+/* Mechanism block (intro) */
+.mechanism-block {
+  max-width: 600px;
+  margin: 0 auto 48px;
+  padding: 32px 32px 28px;
+  background: var(--bg-2);
+  border-radius: var(--radius-lg);
+  border-left: 3px solid var(--gold);
+}
+.mechanism-intro {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+.mechanism-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.mechanism-list li {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--text);
+  padding: 10px 0 10px 28px;
+  border-top: 1px solid var(--border);
+  position: relative;
+}
+.mechanism-list li:first-child { border-top: none; }
+.mechanism-list li::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--gold);
+  transform: translateY(-50%);
+}
+@media (max-width: 640px) {
+  .mechanism-block { padding: 24px 22px; }
+  .mechanism-list li { font-size: 15px; padding-left: 24px; }
+}
+
+/* Micro CTA below button */
+.micro-cta {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+  text-align: center;
+  margin-top: 16px;
+}
+
 .btn-primary {
   display: inline-block;
   padding: 18px 36px;
@@ -195,6 +271,15 @@ body::after {
 }
 .btn-primary:active { transform: translateY(0); }
 .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+.btn-primary.btn-large {
+  padding: 22px 44px;
+  font-size: 16px;
+  letter-spacing: 0.06em;
+  box-shadow: 0 6px 20px rgba(184,147,74,0.32);
+}
+.btn-primary.btn-large:hover {
+  box-shadow: 0 8px 24px rgba(184,147,74,0.4);
+}
 .btn-wrap { text-align: center; margin-top: 16px; }
 .btn-meta {
   display: block;
@@ -926,19 +1011,27 @@ body::after {
 
   <!-- TELA 0. INTRO -->
   <section class="screen active" id="s0">
-    <p class="pre-headline">O autoconhecimento normalmente chega depois.</p>
-    <p class="eyebrow">Diagnóstico da Voz Sob Pressão</p>
-    <h1 class="headline">Na hora da conversa, o reflexo de se explicar, suavizar ou se calar chega <em>antes da clareza.</em></h1>
-    <p class="intro-emphasis">Você sabe o que queria ter dito. Horas depois, você sabe <em>exatamente</em> o que devia ter dito.</p>
-    <p class="subheadline">Esse diagnóstico mostra como sua reação muda quando existe pressão, confronto, desaprovação ou medo de atrito.</p>
-    <p class="intro-meta">São 12 perguntas rápidas sobre situações reais: reunião, opinião, limite, família, improviso e posicionamento. Leva menos de 4 minutos.</p>
-    <div class="intro-callout">
-      <p>Você não muda o que ainda acontece no automático.</p>
-      <p class="intro-callout-strong"><em>Primeiro, precisa enxergar o padrão.</em></p>
+    <div class="intro-cover">
+      <img src="capa-quiz.png" alt="Mulher em momento de escuta numa conversa íntima">
     </div>
-    <p class="instruction">Responda pela reação que mais se repete na sua vida real, não pela resposta ideal.</p>
+    <p class="pre-headline">Você não reage assim por acaso.</p>
+    <p class="eyebrow">Diagnóstico da Voz Sob Pressão</p>
+    <h1 class="headline">Você pensa no que <em>deveria ter dito</em>… quando a conversa já acabou.</h1>
+    <p class="intro-emphasis">Na pressão, confronto ou desaprovação, sua reação muda antes da sua clareza aparecer.</p>
+
+    <div class="mechanism-block">
+      <p class="mechanism-intro">Este diagnóstico identifica os padrões automáticos que fazem você:</p>
+      <ul class="mechanism-list">
+        <li>suavizar o que pensa</li>
+        <li>se explicar demais</li>
+        <li>concordar rápido pra evitar conflito</li>
+        <li>perder a própria linha de raciocínio</li>
+      </ul>
+    </div>
+
     <div class="btn-wrap">
-      <button class="btn-primary" onclick="startQuiz()">Quero fazer o diagnóstico</button>
+      <button class="btn-primary btn-large" onclick="startQuiz()">Quero entender meu padrão</button>
+      <p class="micro-cta">12 perguntas · 4 minutos · Resultado imediato</p>
     </div>
   </section>
 
