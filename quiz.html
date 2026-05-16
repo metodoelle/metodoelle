@@ -1383,7 +1383,7 @@ body::after {
       <p class="offer-cta-label">Acesso inaugural · Turma 01</p>
       <p class="offer-cta-price">R$ 97</p>
       <p class="offer-cta-installment">ou 12x de R$ 10,03 no cartão</p>
-      <a class="btn-primary" id="cta-hotmart-1" href="https://pay.hotmart.com/B105291424M?checkoutMode=10&src=quiz" target="_blank" rel="noopener">Quero sustentar minha voz</a>
+      <a class="btn-primary" id="cta-hotmart-1" href="https://pay.hotmart.com/B105291424M?checkoutMode=10&src=quiz" target="_blank" rel="noopener">Quero parar de chegar tarde nas minhas próprias palavras</a>
       <span class="btn-meta" style="margin-top: 14px;">Acesso imediato · 7 dias de garantia</span>
       <span class="offer-cta-window">Válido até 30 de junho · Depois volta para R$ 247</span>
     </div>
@@ -1424,7 +1424,7 @@ body::after {
 
     <!-- 07. CTA 2 -->
     <div class="cta-final">
-      <a class="btn-primary" id="cta-hotmart-2" href="https://pay.hotmart.com/B105291424M?checkoutMode=10&src=quiz" target="_blank" rel="noopener">Quero garantir minha vaga</a>
+      <a class="btn-primary" id="cta-hotmart-2" href="https://pay.hotmart.com/B105291424M?checkoutMode=10&src=quiz" target="_blank" rel="noopener">Quero parar de suavizar o que realmente penso</a>
       <span class="btn-meta">R$ 97 · Acesso imediato · 7 dias de garantia</span>
     </div>
 
@@ -1491,7 +1491,7 @@ body::after {
     <!-- 09. CTA 3 -->
     <div class="cta-final">
       <p class="cta-stack-summary">Stack total: <s>R$ 542</s> · acesso por <strong>R$ 97</strong></p>
-      <a class="btn-primary" id="cta-hotmart-3" href="https://pay.hotmart.com/B105291424M?checkoutMode=10&src=quiz" target="_blank" rel="noopener">Quero acessar agora</a>
+      <a class="btn-primary" id="cta-hotmart-3" href="https://pay.hotmart.com/B105291424M?checkoutMode=10&src=quiz" target="_blank" rel="noopener">Quero que minha voz chegue inteira</a>
       <span class="btn-meta">Desafio + 5 bônus inclusos · 7 dias de garantia</span>
     </div>
 
@@ -1607,7 +1607,7 @@ body::after {
 
     <!-- 12. CTA FINAL -->
     <div class="cta-final">
-      <a class="btn-primary" id="cta-hotmart-4" href="https://pay.hotmart.com/B105291424M?checkoutMode=10&src=quiz" target="_blank" rel="noopener">Quero começar os 21 dias</a>
+      <a class="btn-primary" id="cta-hotmart-4" href="https://pay.hotmart.com/B105291424M?checkoutMode=10&src=quiz" target="_blank" rel="noopener">Quero parar de desaparecer nas conversas importantes</a>
       <span class="btn-meta">R$ 97 · 12x R$ 10,03 · Acesso imediato · 7 dias de garantia</span>
     </div>
   </section>
@@ -1695,12 +1695,6 @@ var nomesDimensao = {
   cobertura: 'Cobertura'
 };
 
-var ctasPorDimensao = {
-  alicerce: 'Quero sustentar minha voz sem ceder',
-  fachada: 'Quero sustentar minha voz sem perder a conexão',
-  cobertura: 'Quero falar antes da janela fechar'
-};
-
 var antesDepoisPorDimensao = {
   alicerce: [
     { antes: 'Concorda na hora e pensa na resposta à noite', depois: 'Consegue falar sem ensaiar antes' },
@@ -1764,10 +1758,6 @@ function processResult() {
     depoisEl.innerHTML = depoisHtml;
   }
   if (adDimEl) adDimEl.textContent = '21 dias na dimensão ' + nomesDimensao[dimMaisFragil];
-
-  // Atualiza os 4 CTAs com o texto personalizado pela dimensão mais frágil
-  var cta1 = document.getElementById('cta-hotmart-1');
-  if (cta1) cta1.textContent = ctasPorDimensao[dimMaisFragil];
 
   sendData(dimMaisFragil, dimMaisFirme, niveis);
 
