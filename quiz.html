@@ -220,14 +220,7 @@ body::after {
   transition: width 400ms ease;
 }
 .progress-label {
-  font-family: 'Outfit', sans-serif;
-  font-weight: 500;
-  font-size: 12px;
-  letter-spacing: 0.22em;
-  color: var(--gold-dark);
-  text-transform: uppercase;
-  text-align: center;
-  margin-top: 14px;
+  display: none;
 }
 
 .question-title {
@@ -874,19 +867,19 @@ body::after {
 
 <div class="shell">
 
-  <header class="brand">
+  <header class="brand" id="brand-header" style="display: none;">
     <img class="brand-mark" src="logo-elle.png" alt="Método ELLE">
   </header>
 
   <!-- TELA 0. INTRO -->
   <section class="screen active" id="s0">
     <p class="pre-headline">O autoconhecimento chega depois. O reflexo chega antes.</p>
-    <p class="eyebrow">Arquitetura da Voz · Mapa da Voz</p>
+    <p class="eyebrow">Mapa da Voz</p>
     <h1 class="headline">Onde sua voz perde sustentação <em>antes mesmo</em> da sua consciência reagir</h1>
     <p class="subheadline">12 perguntas. Menos de 4 minutos. Um mapa da forma como sua voz oscila em situações de confronto, conexão e posicionamento.</p>
     <p class="instruction">Para cada cena, marque a reação que mais se repete na sua vida real. Não a resposta ideal. O diagnóstico só funciona quando você reconhece o reflexo real.</p>
     <div class="btn-wrap">
-      <button class="btn-primary" onclick="goTo('s1')">Quero mapear minha voz</button>
+      <button class="btn-primary" onclick="startQuiz()">Quero mapear minha voz</button>
     </div>
   </section>
 
@@ -1063,33 +1056,11 @@ body::after {
     </div>
     <h2 class="question-title">Você precisa se posicionar antes de ter todas as informações. O que faz?</h2>
     <div class="options">
-      <button class="option" onclick="pick('cobertura', 0, 's13')">Falo com o que tenho na mão, aberta pra ajustar depois</button>
-      <button class="option" onclick="pick('cobertura', 1, 's13')">Falo, mas cerco de tantas dúvidas que minha fala enfraquece</button>
-      <button class="option" onclick="pick('cobertura', 2, 's13')">Adio a decisão até ter clareza total</button>
-      <button class="option" onclick="pick('cobertura', 2, 's13')">Não me posiciono e deixo outra pessoa decidir</button>
+      <button class="option" onclick="pick('cobertura', 0, 's14')">Falo com o que tenho na mão, aberta pra ajustar depois</button>
+      <button class="option" onclick="pick('cobertura', 1, 's14')">Falo, mas cerco de tantas dúvidas que minha fala enfraquece</button>
+      <button class="option" onclick="pick('cobertura', 2, 's14')">Adio a decisão até ter clareza total</button>
+      <button class="option" onclick="pick('cobertura', 2, 's14')">Não me posiciono e deixo outra pessoa decidir</button>
     </div>
-  </section>
-
-  <!-- TELA 13. CAPTURA -->
-  <section class="screen" id="s13">
-    <p class="eyebrow">Quase lá</p>
-    <h2 class="headline" style="font-size: clamp(1.6rem, 4vw, 2.4rem);">Seu diagnóstico foi <em>concluído.</em></h2>
-    <p class="subheadline">Receba agora a leitura das 3 dimensões da sua voz.</p>
-    <form class="form" onsubmit="event.preventDefault(); submitForm();">
-      <div class="form-field">
-        <label class="form-label" for="nome">Seu nome</label>
-        <input class="form-input" type="text" id="nome" autocomplete="given-name" required>
-        <p class="form-error" id="err-nome">Informe seu nome.</p>
-      </div>
-      <div class="form-field">
-        <label class="form-label" for="email">Seu melhor email</label>
-        <input class="form-input" type="email" id="email" autocomplete="email" required>
-        <p class="form-error" id="err-email">Informe um email válido.</p>
-      </div>
-      <div class="btn-wrap" style="margin-top: 24px;">
-        <button class="btn-primary" type="submit">Ver meu diagnóstico</button>
-      </div>
-    </form>
   </section>
 
   <!-- TELA 14. LOADING -->
@@ -1280,8 +1251,8 @@ body::after {
     </div>
   </section>
 
-  <footer class="footer">
-    <p>Método ELLE · Arquitetura da Voz</p>
+  <footer class="footer" id="brand-footer" style="display: none;">
+    <p>Método ELLE</p>
   </footer>
 
 </div>
@@ -1290,7 +1261,7 @@ body::after {
 var scoreAlicerce = 0;
 var scoreFachada = 0;
 var scoreCobertura = 0;
-var userData = { nome: '', email: '' };
+var leadEventId = null;
 
 function goTo(id) {
   document.querySelectorAll('.screen').forEach(function(s) { s.classList.remove('active'); });
@@ -1299,33 +1270,46 @@ function goTo(id) {
     target.classList.add('active');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
+  // Mostra logo e footer "Método ELLE" apenas na tela de resultado
+  var brandHeader = document.getElementById('brand-header');
+  var brandFooter = document.getElementById('brand-footer');
+  if (brandHeader) brandHeader.style.display = (id === 's15') ? '' : 'none';
+  if (brandFooter) brandFooter.style.display = (id === 's15') ? '' : 'none';
+}
+
+function generateEventId() {
+  return 'mv_' + Date.now() + '_' + Math.random().toString(36).substring(2, 11);
+}
+
+function startQuiz() {
+  if (typeof fbq === 'function') {
+    fbq('trackCustom', 'QuizStarted', {
+      content_name: 'Mapa da Voz',
+      content_category: 'Quiz Arquitetura da Voz'
+    });
+  }
+  goTo('s1');
 }
 
 function pick(dim, points, nextId) {
   if (dim === 'alicerce') scoreAlicerce += points;
   if (dim === 'fachada') scoreFachada += points;
   if (dim === 'cobertura') scoreCobertura += points;
+
+  // Quando a última pergunta é respondida (vai pro loading), dispara QuizCompleted e processa o resultado
+  if (nextId === 's14' && typeof fbq === 'function') {
+    fbq('trackCustom', 'QuizCompleted', {
+      content_name: 'Mapa da Voz',
+      content_category: 'Quiz Arquitetura da Voz'
+    });
+  }
+
   goTo(nextId);
-}
 
-function submitForm() {
-  var nome = document.getElementById('nome').value.trim();
-  var email = document.getElementById('email').value.trim();
-  var errNome = document.getElementById('err-nome');
-  var errEmail = document.getElementById('err-email');
-  errNome.classList.remove('show');
-  errEmail.classList.remove('show');
-
-  var valid = true;
-  if (!nome) { errNome.classList.add('show'); valid = false; }
-  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { errEmail.classList.add('show'); valid = false; }
-  if (!valid) return;
-
-  userData.nome = nome;
-  userData.email = email;
-
-  goTo('s14');
-  processResult();
+  // Após pergunta 12, processa o diagnóstico
+  if (nextId === 's14') {
+    processResult();
+  }
 }
 
 function getNivel(score) {
@@ -1448,16 +1432,21 @@ function processResult() {
 }
 
 function sendData(dimMaisFragil, dimMaisFirme, niveis) {
+  // Gera event_id único para deduplicação Pixel + CAPI
+  leadEventId = generateEventId();
+
+  // Pixel client-side (com value, currency e event_id)
   if (typeof fbq === 'function') {
     fbq('track', 'Lead', {
       content_category: 'Mapa da Voz - ' + dimMaisFragil,
-      content_name: 'Dimensão mais frágil: ' + dimMaisFragil
-    });
+      content_name: 'Diagnóstico Arquitetura da Voz',
+      value: 97,
+      currency: 'BRL'
+    }, { eventID: leadEventId });
   }
 
+  // Envia para o endpoint (que dispara CAPI server-side com o mesmo event_id)
   var payload = {
-    nome: userData.nome,
-    email: userData.email,
     scoreAlicerce: scoreAlicerce,
     scoreFachada: scoreFachada,
     scoreCobertura: scoreCobertura,
@@ -1466,7 +1455,10 @@ function sendData(dimMaisFragil, dimMaisFirme, niveis) {
     nivelCobertura: niveis.cobertura,
     dimensaoMaisFragil: dimMaisFragil,
     dimensaoMaisFirme: dimMaisFirme,
-    origem: 'mapa-da-voz'
+    origem: 'mapa-da-voz',
+    eventId: leadEventId,
+    value: 97,
+    currency: 'BRL'
   };
 
   if (typeof fetch === 'function') {
