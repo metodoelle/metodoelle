@@ -523,6 +523,16 @@ body::after {
 }
 
 .cta-final { text-align: center; margin: 56px 0; }
+.cta-stack-summary {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--text-muted);
+  text-align: center;
+  margin-bottom: 20px;
+}
+.cta-stack-summary s { color: var(--text-soft); margin-right: 6px; }
+.cta-stack-summary strong { font-weight: 700; color: var(--gold-dark); }
 
 /* Bloco de oferta */
 .offer-divider {
@@ -767,6 +777,8 @@ body::after {
   line-height: 1.6;
   color: var(--text-muted);
 }
+.item-row .item-desc p { margin-bottom: 10px; }
+.item-row .item-desc p:last-child { margin-bottom: 0; }
 
 /* Suporte */
 .support-block {
@@ -812,19 +824,16 @@ body::after {
   max-width: 600px;
   margin: 56px auto;
   text-align: center;
-  padding: 36px 28px;
+  padding: 40px 28px 36px;
   background: #FFFFFF;
-  border: 2px solid var(--gold);
+  border: 1px solid var(--border);
   border-radius: var(--radius-lg);
 }
-.guarantee-label {
-  font-family: 'Outfit', sans-serif;
-  font-weight: 700;
-  font-size: 12px;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: var(--gold-dark);
-  margin-bottom: 14px;
+.guarantee-seal {
+  display: block;
+  width: 140px;
+  height: 140px;
+  margin: 0 auto 20px;
 }
 .guarantee-title {
   font-family: 'Outfit', sans-serif;
@@ -838,6 +847,11 @@ body::after {
   font-size: 15px;
   line-height: 1.7;
   color: var(--text-muted);
+  max-width: 440px;
+  margin: 0 auto;
+}
+@media (max-width: 640px) {
+  .guarantee-seal { width: 120px; height: 120px; }
 }
 .guarantee-text strong { color: var(--text); font-weight: 600; }
 
@@ -877,7 +891,7 @@ body::after {
   margin: 56px auto;
 }
 .testimonial-video {
-  max-width: 640px;
+  max-width: 560px;
   margin: 0 auto 40px;
   padding: 24px;
   background: #FFFFFF;
@@ -888,10 +902,11 @@ body::after {
 .testimonial-video:last-child { margin-bottom: 0; }
 .testimonial-video video {
   width: 100%;
+  max-width: 360px;
   height: auto;
   border-radius: var(--radius);
   display: block;
-  margin-bottom: 20px;
+  margin: 0 auto 20px;
   background: var(--bg-3);
 }
 .testimonial-quote {
@@ -974,6 +989,65 @@ body::after {
 }
 .authority-text p { margin-bottom: 14px; }
 .authority-text strong { color: var(--text); font-weight: 600; }
+
+/* FAQ */
+.faq-section {
+  max-width: 720px;
+  margin: 56px auto;
+}
+.faq-item {
+  background: #FFFFFF;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 12px;
+  overflow: hidden;
+  transition: border-color 200ms ease;
+}
+.faq-item[open] { border-color: var(--gold); }
+.faq-item summary {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1.45;
+  color: var(--text);
+  padding: 20px 56px 20px 24px;
+  cursor: pointer;
+  position: relative;
+  list-style: none;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after {
+  content: "+";
+  position: absolute;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: 'Outfit', sans-serif;
+  font-weight: 400;
+  font-size: 24px;
+  color: var(--gold-dark);
+  transition: transform 200ms ease;
+  line-height: 1;
+}
+.faq-item[open] summary::after {
+  content: "−";
+  transform: translateY(-50%);
+}
+.faq-item summary:hover { color: var(--gold-dark); }
+.faq-answer {
+  padding: 4px 24px 24px;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--text-muted);
+}
+.faq-answer p { margin-bottom: 14px; }
+.faq-answer p:last-child { margin-bottom: 0; }
+@media (max-width: 640px) {
+  .faq-item summary { padding: 18px 50px 18px 20px; font-size: 15px; }
+  .faq-item summary::after { right: 20px; }
+  .faq-answer { padding: 4px 20px 22px; font-size: 14px; }
+}
 
 @media (max-width: 640px) {
   .antes-depois { padding: 24px 18px; }
@@ -1293,7 +1367,6 @@ body::after {
       <p class="offer-cta-label">Acesso inaugural · Turma 01</p>
       <p class="offer-cta-price">R$ 97</p>
       <p class="offer-cta-installment">ou 12x de R$ 10,03 no cartão</p>
-      <p class="offer-cta-stack">Stack total dos bônus: <s>R$ 295</s> incluído no acesso</p>
       <a class="btn-primary" id="cta-hotmart-1" href="https://pay.hotmart.com/B105291424M?checkoutMode=10&src=quiz" target="_blank" rel="noopener">Quero sustentar minha voz</a>
       <span class="btn-meta" style="margin-top: 14px;">Acesso imediato · 7 dias de garantia</span>
       <span class="offer-cta-window">Válido até 30 de junho · Depois volta para R$ 247</span>
@@ -1307,15 +1380,13 @@ body::after {
         <div class="item-row">
           <div class="item-check">✓</div>
           <div class="item-content">
-            <p class="item-name">Ebook Arquitetura da Voz</p>
-            <p class="item-desc">Protocolo de 21 dias com exercício diário de 10 a 15 minutos. Semana 1 de observação, Semana 2 de prática real, Semana 3 de consolidação.</p>
-          </div>
-        </div>
-        <div class="item-row">
-          <div class="item-check">✓</div>
-          <div class="item-content">
-            <p class="item-name">3 vídeos-aula nas viradas</p>
-            <p class="item-desc">Aulas em vídeo no início, na virada da Semana 2 e na virada da Semana 3, com a Fran conduzindo o que está em jogo em cada fase.</p>
+            <p class="item-name">Desafio Arquitetura da Voz <span class="item-value">R$ 247</span></p>
+            <div class="item-desc">
+              <p>Um protocolo guiado de 21 dias para treinar sua voz nos momentos em que ela costuma suavizar, travar ou chegar tarde demais.</p>
+              <p>O material reúne exercícios práticos, perguntas de observação e direcionamentos aplicáveis às conversas reais da sua rotina.</p>
+              <p>Ao longo das 3 semanas, você trabalha situações como dizer não sem culpa, sustentar sua posição, improvisar sem se desmontar e parar de ensaiar respostas depois que a conversa já acabou.</p>
+              <p>Inclui 3 aulas que explicam os pontos centrais da jornada.</p>
+            </div>
           </div>
         </div>
         <div class="item-row">
@@ -1349,36 +1420,53 @@ body::after {
         <div class="item-row">
           <div class="item-check">✓</div>
           <div class="item-content">
-            <p class="item-name">Perfil ELLE <span class="item-value">R$ 67</span></p>
-            <p class="item-desc">26 perguntas em 2 camadas. Identifica seu Código primário e secundário em 16 combinações possíveis. A Pergunta 24 aponta exatamente onde os 21 dias começam para você.</p>
+            <p class="item-name">Diagnóstico de Perfil ELLE <span class="item-value">R$ 67</span></p>
+            <div class="item-desc">
+              <p>PDF com 26 perguntas profundas que revelam como você reage sob pressão, o que ativa seus padrões emocionais e por que certas situações te desestabilizam tanto.</p>
+              <p>No final, você descobre os dois códigos que mais influenciam sua forma de se posicionar (entre 16 combinações possíveis) e entende onde sua transformação realmente precisa começar.</p>
+            </div>
           </div>
         </div>
         <div class="item-row">
           <div class="item-check">✓</div>
           <div class="item-content">
             <p class="item-name">Manual de Arquitetura Interior <span class="item-value">R$ 97</span></p>
-            <p class="item-desc">Aprofundamento das 3 Fundações (Alicerce, Fachada, Cobertura), as 4 Colunas internas do seu Código com Luz e Sombra, e o medo central que opera por baixo da sua comunicação.</p>
+            <div class="item-desc">
+              <p>PDF com um aprofundamento completo do seu Diagnóstico de Perfil ELLE.</p>
+              <p>Você vai entender a raiz dos padrões que apareceram nas suas respostas: o que ativa suas reações, onde você se limita sem perceber e como sua estrutura emocional influencia sua comunicação, seus relacionamentos e sua forma de se posicionar.</p>
+            </div>
           </div>
         </div>
         <div class="item-row">
           <div class="item-check">✓</div>
           <div class="item-content">
             <p class="item-name">Matriz ELLE de Sustentação da Voz <span class="item-value">R$ 47</span></p>
-            <p class="item-desc">8 pilares avaliados antes do Dia 1 e refeitos no Dia 21: Clareza interna, Regulação emocional, Medo de julgamento, Autorização interna, Assertividade prática, Limites, Presença e Consistência.</p>
+            <div class="item-desc">
+              <p>PDF de uma ferramenta de autoavaliação para você enxergar com clareza como sua voz se sustenta hoje, e o que começa a mudar ao longo dos 21 dias.</p>
+              <p>Você vai medir áreas como clareza emocional, medo de julgamento, limites, presença, assertividade e consistência.</p>
+              <p>Depois, refaz a mesma leitura no final da jornada e percebe, na prática, a diferença entre apenas entender seus padrões e começar a se posicionar de outro lugar.</p>
+            </div>
           </div>
         </div>
         <div class="item-row">
           <div class="item-check">✓</div>
           <div class="item-content">
             <p class="item-name">Mapa das Oscilações <span class="item-value">R$ 37</span></p>
-            <p class="item-desc">Síntese visual da Semana 1 numa única página com 7 pilares: contexto, crença raiz, identidade narrativa, espelho do outro, voz crítica, crença impulsionadora e âncora.</p>
+            <div class="item-desc">
+              <p>PDF de um mapa visual da sua Semana 1 para te ajudar a enxergar, de forma clara, os padrões emocionais que organizam suas reações.</p>
+              <p>Você entende o que ativa suas oscilações, qual narrativa interna está sustentando seus comportamentos hoje e qual nova base emocional precisa começar a ser construída.</p>
+            </div>
           </div>
         </div>
         <div class="item-row">
           <div class="item-check">✓</div>
           <div class="item-content">
-            <p class="item-name">Checklist Arquitetura da Voz <span class="item-value">R$ 47</span></p>
-            <p class="item-desc">Ferramenta semanal para reuniões. Antes, durante e depois. Inclui o conceito das 3 Intensidades (Suave, Firme e Incisiva) pra você manter o protocolo vivo depois do Dia 21.</p>
+            <p class="item-name">Checklist de Sustentação da Voz <span class="item-value">R$ 47</span></p>
+            <div class="item-desc">
+              <p>PDF com um checklist semanal para acompanhar, na prática, como sua voz está se sustentando ao longo dos 21 dias.</p>
+              <p>Você vai perceber onde conseguiu se posicionar com consciência, onde ainda oscilou e quais padrões antigos continuam tentando assumir o controle em silêncio.</p>
+              <p>Uma ferramenta de clareza emocional para transformar percepção em mudança real.</p>
+            </div>
           </div>
         </div>
       </div>
@@ -1386,8 +1474,9 @@ body::after {
 
     <!-- 09. CTA 3 -->
     <div class="cta-final">
+      <p class="cta-stack-summary">Stack total: <s>R$ 542</s> · acesso por <strong>R$ 97</strong></p>
       <a class="btn-primary" id="cta-hotmart-3" href="https://pay.hotmart.com/B105291424M?checkoutMode=10&src=quiz" target="_blank" rel="noopener">Quero acessar agora</a>
-      <span class="btn-meta">R$ 97 · Stack total R$ 295 incluído</span>
+      <span class="btn-meta">Desafio + 5 bônus inclusos · 7 dias de garantia</span>
     </div>
 
     <!-- DEPOIMENTOS EM VÍDEO -->
@@ -1416,7 +1505,22 @@ body::after {
 
     <!-- 10. GARANTIA -->
     <div class="guarantee-block">
-      <p class="guarantee-label">Garantia 7 dias risco zero</p>
+      <svg class="guarantee-seal" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs>
+          <path id="seal-top-arc" d="M 30,100 A 70,70 0 0,1 170,100" fill="none"/>
+          <path id="seal-bottom-arc" d="M 35,115 A 65,65 0 0,0 165,115" fill="none"/>
+        </defs>
+        <circle cx="100" cy="100" r="92" fill="none" stroke="#B8934A" stroke-width="1.5"/>
+        <circle cx="100" cy="100" r="84" fill="none" stroke="#B8934A" stroke-width="0.8"/>
+        <text font-family="Outfit, sans-serif" font-size="11" font-weight="600" fill="#8A6E38" letter-spacing="3.2">
+          <textPath href="#seal-top-arc" startOffset="50%" text-anchor="middle">GARANTIA</textPath>
+        </text>
+        <text x="100" y="115" text-anchor="middle" font-family="Outfit, sans-serif" font-size="58" font-weight="500" fill="#3D2B1F">7</text>
+        <text x="100" y="140" text-anchor="middle" font-family="Outfit, sans-serif" font-size="13" font-weight="600" fill="#3D2B1F" letter-spacing="2">DIAS</text>
+        <text font-family="Outfit, sans-serif" font-size="9" font-weight="500" fill="#8A6E38" letter-spacing="2.5">
+          <textPath href="#seal-bottom-arc" startOffset="50%" text-anchor="middle">RISCO ZERO</textPath>
+        </text>
+      </svg>
       <p class="guarantee-title">Garantia incondicional</p>
       <p class="guarantee-text"><strong>7 dias para testar.</strong> Se sentir que o protocolo não é para o seu momento, basta solicitar o reembolso pela Hotmart. Sem perguntas. Sem burocracia.</p>
     </div>
@@ -1437,6 +1541,52 @@ body::after {
           <p>O método não nasceu de teoria. Nasceu de uma reunião difícil, de quatro anos de ajuste deliberado e de uma mudança que aconteceu na <strong>postura, na voz e no jeito de me posicionar</strong>.</p>
         </div>
       </div>
+    </div>
+
+    <!-- 11B. FAQ -->
+    <div class="faq-section">
+      <p class="section-eyebrow">Antes de começar</p>
+      <h3 class="section-title">Dúvidas comuns</h3>
+
+      <details class="faq-item">
+        <summary>E se eu não conseguir aplicar na hora H? O problema vai ser eu?</summary>
+        <div class="faq-answer">
+          <p>Você começa o protocolo já com o diagnóstico do seu padrão. Antes do Dia 1, você preenche o Perfil ELLE (são 26 perguntas) e descobre qual dos 4 códigos é o seu: Estruturadora, Radiante, Guardiã ou Decodificadora. Nenhuma mulher começa sem saber onde está.</p>
+          <p>E a Matriz ELLE de Sustentação da Voz, feita antes do Dia 1 e refeita no Dia 21, mostra a sua evolução em preto e branco. Você não precisa confiar em sensação. Está documentado.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Tenho rotina cheia. Vou conseguir manter 21 dias?</summary>
+        <div class="faq-answer">
+          <p>Cada exercício foi pensado pra caber entre 10 e 15 minutos. A Semana 1 nem é uma tarefa nova: você só observa as conversas que já acontecem na sua rotina. A prática real começa na Semana 2, quando você já entende onde seu padrão aparece.</p>
+          <p>O protocolo encaixa na vida que você já vive. Não tenta criar uma agenda nova pra você manter.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Já faço terapia. Faz sentido fazer o protocolo também?</summary>
+        <div class="faq-answer">
+          <p>Faz, e muito. O protocolo trabalha numa camada diferente da terapia. A terapia entra no porquê: a história, os vínculos, a origem do padrão. O protocolo entra no o que fazer: como você reage na próxima reunião, o que você fala quando o tom sobe, como você sustenta uma posição.</p>
+          <p>As duas coisas se reforçam. Você entende a raiz com a terapia, e treina o comportamento com o protocolo.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>Vou virar uma mulher dura ou perder o jeito acolhedor que sou?</summary>
+        <div class="faq-answer">
+          <p>Dureza vem de outro lugar. Quem fica calada muito tempo, quando finalmente fala, fala com explosão. Quem fala a tempo, com firmeza, não precisa explodir nem endurecer.</p>
+          <p>O protocolo é sobre sustentar a sua voz com calma e clareza. Seu jeito acolhedor não desaparece. Ele ganha base. Quem sustenta com presença, cuida ainda melhor das pessoas que ama.</p>
+        </div>
+      </details>
+
+      <details class="faq-item">
+        <summary>É possível mudar um padrão de décadas em menos de um mês?</summary>
+        <div class="faq-answer">
+          <p>Vinte e um dias é o piso comprovado pela pesquisa sobre formação de hábito (Lally, UCL, 2009). Você não vai sair daqui resolvida pra sempre. Mas vai sair com prática diária acumulada, com o Mapa das Oscilações sabendo exatamente onde sua voz trava, e com a Matriz dos 8 Pilares mostrando a diferença real entre o Dia 1 e o Dia 21.</p>
+          <p>É a base concreta que muitas mulheres tentaram construir em anos de leitura e curso, e não conseguiram. Aqui você constrói em 21 dias.</p>
+        </div>
+      </details>
     </div>
 
     <!-- 12. CTA FINAL -->
