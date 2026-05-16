@@ -115,8 +115,21 @@ body::after {
   border-radius: var(--radius-lg);
   box-shadow: 0 8px 28px rgba(138, 110, 56, 0.15);
 }
+.question-cover {
+  max-width: 600px;
+  margin: 0 auto 32px;
+  text-align: center;
+}
+.question-cover img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 6px 22px rgba(138, 110, 56, 0.12);
+}
 @media (max-width: 640px) {
   .intro-cover { max-width: 100%; margin-bottom: 32px; }
+  .question-cover { max-width: 100%; margin-bottom: 24px; }
 }
 
 .pre-headline {
@@ -202,6 +215,7 @@ body::after {
   line-height: 1.6;
   color: var(--text);
   margin-bottom: 16px;
+  text-align: center;
 }
 .mechanism-list {
   list-style: none;
@@ -213,25 +227,26 @@ body::after {
   font-weight: 500;
   font-size: 16px;
   color: var(--text);
-  padding: 10px 0 10px 28px;
+  padding: 12px 0;
   border-top: 1px solid var(--border);
-  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  text-align: center;
 }
 .mechanism-list li:first-child { border-top: none; }
 .mechanism-list li::before {
   content: "";
-  position: absolute;
-  left: 4px;
-  top: 50%;
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   background: var(--gold);
-  transform: translateY(-50%);
+  flex-shrink: 0;
 }
 @media (max-width: 640px) {
   .mechanism-block { padding: 24px 22px; }
-  .mechanism-list li { font-size: 15px; padding-left: 24px; }
+  .mechanism-list li { font-size: 15px; }
 }
 
 /* Micro CTA below button */
@@ -1067,6 +1082,9 @@ body::after {
 
   <!-- PERGUNTA 3 (Cobertura) -->
   <section class="screen" id="s3">
+    <div class="question-cover">
+      <img src="quiz-foto-1.png" alt="Mulher em momento de pausa em ambiente profissional">
+    </div>
     <div class="progress">
       <div class="progress-bar"><div class="progress-fill" style="width: 25%"></div></div>
       <p class="progress-label">Pergunta 3 de 12</p>
@@ -1112,6 +1130,9 @@ body::after {
 
   <!-- PERGUNTA 6 (Cobertura) -->
   <section class="screen" id="s6">
+    <div class="question-cover">
+      <img src="quiz-foto-2.png" alt="Mulher em conversa íntima num ambiente doméstico">
+    </div>
     <div class="progress">
       <div class="progress-bar"><div class="progress-fill" style="width: 50%"></div></div>
       <p class="progress-label">Pergunta 6 de 12</p>
@@ -1157,6 +1178,9 @@ body::after {
 
   <!-- PERGUNTA 9 (Cobertura) -->
   <section class="screen" id="s9">
+    <div class="question-cover">
+      <img src="quiz-foto-3.png" alt="Mulher em mesa de jantar entre outras pessoas">
+    </div>
     <div class="progress">
       <div class="progress-bar"><div class="progress-fill" style="width: 75%"></div></div>
       <p class="progress-label">Pergunta 9 de 12</p>
@@ -1202,6 +1226,9 @@ body::after {
 
   <!-- PERGUNTA 12 (Cobertura) -->
   <section class="screen" id="s12">
+    <div class="question-cover">
+      <img src="quiz-foto-4.png" alt="Mulher em pausa diante de uma janela, momento de respiração antes de se posicionar">
+    </div>
     <div class="progress">
       <div class="progress-bar"><div class="progress-fill" style="width: 100%"></div></div>
       <p class="progress-label">Pergunta 12 de 12</p>
