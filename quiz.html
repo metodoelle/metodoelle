@@ -439,6 +439,22 @@ body::after {
   margin: 0 auto;
 }
 
+.product-cover {
+  max-width: 560px;
+  margin: 0 auto 40px;
+  text-align: center;
+}
+.product-cover img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 8px 32px rgba(138, 110, 56, 0.18);
+}
+@media (max-width: 640px) {
+  .product-cover { max-width: 100%; margin-bottom: 32px; }
+}
+
 .offer-headline {
   font-family: 'Outfit', sans-serif;
   font-weight: 600;
@@ -755,6 +771,47 @@ body::after {
   color: var(--text-soft);
 }
 
+/* Depoimentos em vídeo */
+.testimonials-section {
+  max-width: 720px;
+  margin: 56px auto;
+}
+.testimonial-video {
+  max-width: 640px;
+  margin: 0 auto 40px;
+  padding: 24px;
+  background: #FFFFFF;
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 var(--radius-lg) var(--radius-lg) 0;
+}
+.testimonial-video:last-child { margin-bottom: 0; }
+.testimonial-video video {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+  display: block;
+  margin-bottom: 20px;
+  background: var(--bg-3);
+}
+.testimonial-quote {
+  font-family: 'Inter', sans-serif;
+  font-style: italic;
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--text);
+  margin-bottom: 14px;
+}
+.testimonial-quote em {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--gold-dark);
+}
+
+@media (max-width: 640px) {
+  .testimonial-video { padding: 20px 18px; }
+}
+
 /* Autoridade */
 .authority-block {
   max-width: 760px;
@@ -867,17 +924,19 @@ body::after {
 
 <div class="shell">
 
-  <header class="brand" id="brand-header" style="display: none;">
-    <img class="brand-mark" src="logo-elle.png" alt="Método ELLE">
-  </header>
-
   <!-- TELA 0. INTRO -->
   <section class="screen active" id="s0">
-    <p class="pre-headline">O autoconhecimento chega depois. O reflexo chega antes.</p>
+    <p class="pre-headline">O autoconhecimento normalmente chega depois.</p>
     <p class="eyebrow">Diagnóstico da Voz Sob Pressão</p>
-    <h1 class="headline">Onde sua voz perde sustentação <em>antes mesmo</em> da sua consciência reagir</h1>
-    <p class="subheadline">12 perguntas. Menos de 4 minutos. Um diagnóstico da forma como sua voz oscila em situações de confronto, conexão e posicionamento.</p>
-    <p class="instruction">Para cada cena, marque a reação que mais se repete na sua vida real. Não a resposta ideal. O diagnóstico só funciona quando você reconhece o reflexo real.</p>
+    <h1 class="headline">Na hora da conversa, o reflexo de se explicar, suavizar ou se calar chega <em>antes da clareza.</em></h1>
+    <p class="intro-emphasis">Você sabe o que queria ter dito. Horas depois, você sabe <em>exatamente</em> o que devia ter dito.</p>
+    <p class="subheadline">Esse diagnóstico mostra como sua reação muda quando existe pressão, confronto, desaprovação ou medo de atrito.</p>
+    <p class="intro-meta">São 12 perguntas rápidas sobre situações reais: reunião, opinião, limite, família, improviso e posicionamento. Leva menos de 4 minutos.</p>
+    <div class="intro-callout">
+      <p>Você não muda o que ainda acontece no automático.</p>
+      <p class="intro-callout-strong"><em>Primeiro, precisa enxergar o padrão.</em></p>
+    </div>
+    <p class="instruction">Responda pela reação que mais se repete na sua vida real, não pela resposta ideal.</p>
     <div class="btn-wrap">
       <button class="btn-primary" onclick="startQuiz()">Quero fazer o diagnóstico</button>
     </div>
@@ -892,9 +951,9 @@ body::after {
     <h2 class="question-title">Cai uma demanda no seu colo que ninguém combinou com você. O que acontece?</h2>
     <div class="options">
       <button class="option" onclick="pick('alicerce', 0, 's2')">Falo na hora que aquilo não estava combinado e proponho outro caminho</button>
-      <button class="option" onclick="pick('alicerce', 1, 's2')">Aceito e saio reorganizando minha agenda na correria</button>
-      <button class="option" onclick="pick('alicerce', 2, 's2')">Cedo o tempo sem dizer nada e me cobro depois</button>
-      <button class="option" onclick="pick('alicerce', 2, 's2')">Aceito e fico irritada o resto do dia sem dizer</button>
+      <button class="option" onclick="pick('alicerce', 1, 's2')">Aceito e começo a reorganizar minha agenda na correria</button>
+      <button class="option" onclick="pick('alicerce', 2, 's2')">Aceito sem questionar e depois fico me cobrando por não ter falado</button>
+      <button class="option" onclick="pick('alicerce', 2, 's2')">Aceito na hora e passo o resto do dia irritada em silêncio</button>
     </div>
   </section>
 
@@ -904,12 +963,12 @@ body::after {
       <div class="progress-bar"><div class="progress-fill" style="width: 16.66%"></div></div>
       <p class="progress-label">Pergunta 2 de 12</p>
     </div>
-    <h2 class="question-title">Você discorda fortemente de alguém próximo numa conversa. O que faz?</h2>
+    <h2 class="question-title">Você discorda fortemente do seu marido ou de alguém da sua família numa conversa. O que acontece?</h2>
     <div class="options">
-      <button class="option" onclick="pick('fachada', 0, 's3')">Digo que penso diferente e explico o porquê</button>
-      <button class="option" onclick="pick('fachada', 1, 's3')">Digo, mas tiro o peso pra não soar grossa</button>
-      <button class="option" onclick="pick('fachada', 2, 's3')">Concordo na hora e fico ruminando por dias</button>
-      <button class="option" onclick="pick('fachada', 2, 's3')">Mudo de assunto antes que vire briga</button>
+      <button class="option" onclick="pick('fachada', 0, 's3')">Digo que penso diferente e explico meu ponto</button>
+      <button class="option" onclick="pick('fachada', 1, 's3')">Digo, mas suavizo o tom pra não parecer grossa</button>
+      <button class="option" onclick="pick('fachada', 2, 's3')">Concordo na hora e fico remoendo aquilo por dias</button>
+      <button class="option" onclick="pick('fachada', 2, 's3')">Mudo de assunto antes que a conversa vire conflito</button>
     </div>
   </section>
 
@@ -919,12 +978,12 @@ body::after {
       <div class="progress-bar"><div class="progress-fill" style="width: 25%"></div></div>
       <p class="progress-label">Pergunta 3 de 12</p>
     </div>
-    <h2 class="question-title">Surge um assunto que você não domina totalmente, mas tem uma opinião clara. O que faz?</h2>
+    <h2 class="question-title">Surge um assunto que você não conhece tão bem, mas tem uma opinião sobre ele. O que acontece?</h2>
     <div class="options">
-      <button class="option" onclick="pick('cobertura', 0, 's4')">Falo o que penso, deixando claro que é meu ponto de vista</button>
-      <button class="option" onclick="pick('cobertura', 1, 's4')">Falo, mas cerco de tantos "depende" que minha fala perde força</button>
-      <button class="option" onclick="pick('cobertura', 2, 's4')">Espero ter mais informação antes de dar opinião</button>
-      <button class="option" onclick="pick('cobertura', 2, 's4')">Fico calada e comento depois, em particular, com alguém de confiança</button>
+      <button class="option" onclick="pick('cobertura', 0, 's4')">Falo o que penso e deixo claro que é meu ponto de vista</button>
+      <button class="option" onclick="pick('cobertura', 1, 's4')">Falo, mas coloco tantos "talvez" e "depende" que minha fala perde força</button>
+      <button class="option" onclick="pick('cobertura', 2, 's4')">Espero entender mais antes de dar minha opinião</button>
+      <button class="option" onclick="pick('cobertura', 2, 's4')">Fico quieta na hora e só comento depois com alguém de confiança</button>
     </div>
   </section>
 
@@ -934,11 +993,11 @@ body::after {
       <div class="progress-bar"><div class="progress-fill" style="width: 33.33%"></div></div>
       <p class="progress-label">Pergunta 4 de 12</p>
     </div>
-    <h2 class="question-title">Você precisa dizer um "não" que sabe que vai pegar mal. O que sua voz faz?</h2>
+    <h2 class="question-title">Você precisa dizer um "não" que sabe que vai desagradar alguém. O que acontece?</h2>
     <div class="options">
-      <button class="option" onclick="pick('alicerce', 0, 's5')">Digo o não com uma frase curta e fecho ali</button>
-      <button class="option" onclick="pick('alicerce', 1, 's5')">Digo, mas suavizo tanto que vira um talvez</button>
-      <button class="option" onclick="pick('alicerce', 2, 's5')">Travo, fico procurando justificativa e acabo dando a volta</button>
+      <button class="option" onclick="pick('alicerce', 0, 's5')">Digo o não com uma frase curta e encerro ali</button>
+      <button class="option" onclick="pick('alicerce', 1, 's5')">Digo, mas suavizo tanto que parece um talvez</button>
+      <button class="option" onclick="pick('alicerce', 2, 's5')">Travo, procuro justificativa e acabo dando voltas</button>
       <button class="option" onclick="pick('alicerce', 2, 's5')">Aceito na hora pra evitar atrito e fico remoendo depois</button>
     </div>
   </section>
@@ -949,12 +1008,12 @@ body::after {
       <div class="progress-bar"><div class="progress-fill" style="width: 41.66%"></div></div>
       <p class="progress-label">Pergunta 5 de 12</p>
     </div>
-    <h2 class="question-title">Você precisa dar um feedback difícil pra alguém que gosta. O que faz?</h2>
+    <h2 class="question-title">Você precisa dar um feedback difícil pra alguém da sua família ou do seu relacionamento. O que acontece?</h2>
     <div class="options">
-      <button class="option" onclick="pick('fachada', 0, 's6')">Falo o que precisa ser dito, direto, sem dar voltas</button>
-      <button class="option" onclick="pick('fachada', 1, 's6')">Adoço tanto a entrada que a mensagem principal se perde</button>
+      <button class="option" onclick="pick('fachada', 0, 's6')">Falo o que precisa ser dito de forma direta, sem rodeios</button>
+      <button class="option" onclick="pick('fachada', 1, 's6')">Adoço tanto a conversa que a mensagem principal se perde</button>
       <button class="option" onclick="pick('fachada', 2, 's6')">Adio a conversa por semanas até a situação piorar</button>
-      <button class="option" onclick="pick('fachada', 2, 's6')">Falo, me arrependo do tom e tento compensar depois</button>
+      <button class="option" onclick="pick('fachada', 2, 's6')">Falo no impulso, me arrependo do tom e tento compensar depois</button>
     </div>
   </section>
 
@@ -964,11 +1023,11 @@ body::after {
       <div class="progress-bar"><div class="progress-fill" style="width: 50%"></div></div>
       <p class="progress-label">Pergunta 6 de 12</p>
     </div>
-    <h2 class="question-title">Te perguntam algo direto em público e você precisa improvisar. O que faz?</h2>
+    <h2 class="question-title">Te perguntam algo direto em público e você precisa improvisar. O que acontece?</h2>
     <div class="options">
-      <button class="option" onclick="pick('cobertura', 0, 's7')">Respondo na hora, mesmo que ajuste depois</button>
-      <button class="option" onclick="pick('cobertura', 1, 's7')">Respondo, mas me embaralho e vou me corrigindo no caminho</button>
-      <button class="option" onclick="pick('cobertura', 2, 's7')">Travo, peço pra repetir e ganho tempo pensando</button>
+      <button class="option" onclick="pick('cobertura', 0, 's7')">Respondo na hora, mesmo que depois eu ajuste alguma coisa</button>
+      <button class="option" onclick="pick('cobertura', 1, 's7')">Respondo, mas me embaralho e vou me corrigindo no meio da fala</button>
+      <button class="option" onclick="pick('cobertura', 2, 's7')">Travo, peço pra repetir e tento ganhar tempo pensando</button>
       <button class="option" onclick="pick('cobertura', 2, 's7')">Dou uma resposta genérica pra sair do aperto</button>
     </div>
   </section>
@@ -979,12 +1038,12 @@ body::after {
       <div class="progress-bar"><div class="progress-fill" style="width: 58.33%"></div></div>
       <p class="progress-label">Pergunta 7 de 12</p>
     </div>
-    <h2 class="question-title">A reunião passou do horário e você tem outro compromisso. O que faz?</h2>
+    <h2 class="question-title">A reunião passou do horário e você tem outro compromisso. O que acontece?</h2>
     <div class="options">
-      <button class="option" onclick="pick('alicerce', 0, 's8')">Encerro na hora combinada e digo que preciso seguir</button>
-      <button class="option" onclick="pick('alicerce', 1, 's8')">Comento que estou no limite, mas espero alguém puxar</button>
-      <button class="option" onclick="pick('alicerce', 2, 's8')">Fico em silêncio, atrasada, esperando a reunião terminar</button>
-      <button class="option" onclick="pick('alicerce', 2, 's8')">Saio sem dizer nada e carrego a culpa o resto do dia</button>
+      <button class="option" onclick="pick('alicerce', 0, 's8')">Encerro na hora combinada e aviso que preciso sair</button>
+      <button class="option" onclick="pick('alicerce', 1, 's8')">Comento que meu horário estourou, mas espero alguém encerrar</button>
+      <button class="option" onclick="pick('alicerce', 2, 's8')">Fico em silêncio, atrasada, esperando a reunião acabar sozinha</button>
+      <button class="option" onclick="pick('alicerce', 2, 's8')">Saio sem dizer nada e fico com culpa o resto do dia</button>
     </div>
   </section>
 
@@ -994,12 +1053,12 @@ body::after {
       <div class="progress-bar"><div class="progress-fill" style="width: 66.66%"></div></div>
       <p class="progress-label">Pergunta 8 de 12</p>
     </div>
-    <h2 class="question-title">Num grupo, você pensa diferente da maioria. O que faz?</h2>
+    <h2 class="question-title">Num grupo, você pensa diferente da maioria. O que acontece?</h2>
     <div class="options">
-      <button class="option" onclick="pick('fachada', 0, 's9')">Falo o que penso mesmo sabendo que vai gerar reação</button>
-      <button class="option" onclick="pick('fachada', 1, 's9')">Falo, mas em tom mais brando do que sinto de verdade</button>
-      <button class="option" onclick="pick('fachada', 2, 's9')">Fico calada e digo "concordo" se alguém me perguntar</button>
-      <button class="option" onclick="pick('fachada', 2, 's9')">Falo e fico em dúvida se devia ter falado</button>
+      <button class="option" onclick="pick('fachada', 0, 's9')">Falo o que penso, mesmo sabendo que vai gerar reação</button>
+      <button class="option" onclick="pick('fachada', 1, 's9')">Falo, mas suavizo o tom pra não parecer exagerada</button>
+      <button class="option" onclick="pick('fachada', 2, 's9')">Fico quieta e digo "concordo" se alguém me perguntar</button>
+      <button class="option" onclick="pick('fachada', 2, 's9')">Falo e depois fico pensando se devia ter falado</button>
     </div>
   </section>
 
@@ -1009,12 +1068,12 @@ body::after {
       <div class="progress-bar"><div class="progress-fill" style="width: 75%"></div></div>
       <p class="progress-label">Pergunta 9 de 12</p>
     </div>
-    <h2 class="question-title">Você percebe que alguém disse algo errado numa conversa. O que faz?</h2>
+    <h2 class="question-title">Você percebe que alguém falou algo errado numa conversa. O que acontece?</h2>
     <div class="options">
-      <button class="option" onclick="pick('cobertura', 0, 's10')">Corrijo de forma neutra, sem confronto</button>
-      <button class="option" onclick="pick('cobertura', 1, 's10')">Corrijo, mas cerco de tanta justificativa que se perde no meio</button>
-      <button class="option" onclick="pick('cobertura', 2, 's10')">Penso em corrigir e decido que não vale o atrito</button>
-      <button class="option" onclick="pick('cobertura', 2, 's10')">Não falo na hora e fico ensaiando a correção horas depois</button>
+      <button class="option" onclick="pick('cobertura', 0, 's10')">Corrijo de forma tranquila, sem transformar em confronto</button>
+      <button class="option" onclick="pick('cobertura', 1, 's10')">Corrijo, mas me explico tanto que a mensagem se perde</button>
+      <button class="option" onclick="pick('cobertura', 2, 's10')">Penso em corrigir, mas decido deixar pra evitar desgaste</button>
+      <button class="option" onclick="pick('cobertura', 2, 's10')">Não falo nada na hora e fico ensaiando a resposta horas depois</button>
     </div>
   </section>
 
@@ -1024,12 +1083,12 @@ body::after {
       <div class="progress-bar"><div class="progress-fill" style="width: 83.33%"></div></div>
       <p class="progress-label">Pergunta 10 de 12</p>
     </div>
-    <h2 class="question-title">Alguém questiona seu preço ou sua entrega. Como sua voz reage?</h2>
+    <h2 class="question-title">Alguém questiona seu preço ou o valor do seu trabalho. O que acontece?</h2>
     <div class="options">
-      <button class="option" onclick="pick('alicerce', 0, 's11')">Defendo o valor com clareza, sem mudar a postura</button>
-      <button class="option" onclick="pick('alicerce', 1, 's11')">Argumento, mas vou me explicando até minha fala perder peso</button>
-      <button class="option" onclick="pick('alicerce', 2, 's11')">Travo na hora e só penso na resposta horas depois</button>
-      <button class="option" onclick="pick('alicerce', 2, 's11')">Abaixo o preço antes da pessoa terminar de falar</button>
+      <button class="option" onclick="pick('alicerce', 0, 's11')">Defendo meu valor com clareza, sem mudar minha postura</button>
+      <button class="option" onclick="pick('alicerce', 1, 's11')">Argumento, mas começo a me justificar demais</button>
+      <button class="option" onclick="pick('alicerce', 2, 's11')">Sinto minha confiança cair e minha fala perder firmeza</button>
+      <button class="option" onclick="pick('alicerce', 2, 's11')">Baixo o preço antes da pessoa terminar de falar</button>
     </div>
   </section>
 
@@ -1039,12 +1098,12 @@ body::after {
       <div class="progress-bar"><div class="progress-fill" style="width: 91.66%"></div></div>
       <p class="progress-label">Pergunta 11 de 12</p>
     </div>
-    <h2 class="question-title">Alguém te critica direto na frente de outras pessoas. O que faz?</h2>
+    <h2 class="question-title">Alguém te critica na frente de outras pessoas. O que acontece?</h2>
     <div class="options">
       <button class="option" onclick="pick('fachada', 0, 's12')">Escuto, penso na hora e respondo com clareza</button>
-      <button class="option" onclick="pick('fachada', 1, 's12')">Respondo, mas começo a me explicar demais no caminho</button>
-      <button class="option" onclick="pick('fachada', 2, 's12')">Travo, dou um sorriso e carrego a crítica comigo por dias</button>
-      <button class="option" onclick="pick('fachada', 2, 's12')">Reajo na defensiva e fico mal com o tom depois</button>
+      <button class="option" onclick="pick('fachada', 1, 's12')">Respondo, mas começo a me explicar demais no meio da fala</button>
+      <button class="option" onclick="pick('fachada', 2, 's12')">Travo, dou um sorriso e fico carregando aquilo por dias</button>
+      <button class="option" onclick="pick('fachada', 2, 's12')">Reajo na defensiva e depois fico mal com o tom</button>
     </div>
   </section>
 
@@ -1054,11 +1113,11 @@ body::after {
       <div class="progress-bar"><div class="progress-fill" style="width: 100%"></div></div>
       <p class="progress-label">Pergunta 12 de 12</p>
     </div>
-    <h2 class="question-title">Você precisa se posicionar antes de ter todas as informações. O que faz?</h2>
+    <h2 class="question-title">Você precisa se posicionar antes de ter certeza de tudo. O que acontece?</h2>
     <div class="options">
-      <button class="option" onclick="pick('cobertura', 0, 's14')">Falo com o que tenho na mão, aberta pra ajustar depois</button>
-      <button class="option" onclick="pick('cobertura', 1, 's14')">Falo, mas cerco de tantas dúvidas que minha fala enfraquece</button>
-      <button class="option" onclick="pick('cobertura', 2, 's14')">Adio a decisão até ter clareza total</button>
+      <button class="option" onclick="pick('cobertura', 0, 's14')">Falo com o que sei naquele momento e ajusto depois, se precisar</button>
+      <button class="option" onclick="pick('cobertura', 1, 's14')">Falo, mas coloco tantas dúvidas no meio que minha fala perde força</button>
+      <button class="option" onclick="pick('cobertura', 2, 's14')">Adio a decisão até sentir que tenho certeza suficiente</button>
       <button class="option" onclick="pick('cobertura', 2, 's14')">Não me posiciono e deixo outra pessoa decidir</button>
     </div>
   </section>
@@ -1077,23 +1136,21 @@ body::after {
 
     <div id="result-dimensions"></div>
 
-    <p class="connector">Esses três pontos se conectam por uma estrutura interna. Ela tem um nome: <em>seu Código ELLE.</em></p>
-
-    <div class="desafio-block">
-      <p>Antes do Dia 1, o Perfil ELLE faz a leitura da lógica interna da sua voz. Ele identifica seu Código primário, seu Código secundário e o padrão por trás dos momentos em que ela oscila.</p>
-      <p>A partir disso, cada um dos 21 exercícios vem acompanhado de uma observação escrita para o funcionamento do seu perfil.</p>
-      <p>Você treina exatamente os pontos onde sua voz perde firmeza: na reunião, na conversa difícil, na hora em que a resposta chega tarde demais.</p>
-      <p class="tagline">Tudo em exercícios de 10 a 15 minutos por dia.</p>
-    </div>
+    <p class="connector">Essas reações não aparecem só em uma conversa. Elas se repetem no trabalho, nos relacionamentos e nos momentos em que sua voz mais precisaria <em>chegar inteira.</em></p>
 
     <!-- DIVISOR -->
     <div class="offer-divider"></div>
 
-    <!-- 01. HEADLINE DA OFERTA -->
-    <h2 class="offer-headline">Os 21 dias da Arquitetura da Voz treinam o reflexo <em>onde ele falha.</em></h2>
+    <!-- 00. CAPA DO PRODUTO -->
+    <div class="product-cover">
+      <img src="desafio-produto.jpg" alt="Desafio Arquitetura da Voz com Fran Castro">
+    </div>
 
-    <!-- 02. SUBHEADLINE REFORÇO -->
-    <p class="offer-subheadline" id="offer-subheadline">Sua voz não trava por falta de técnica. Trava porque o reflexo chega antes da consciência. Treinar o reflexo nas situações reais é o que muda.</p>
+    <!-- 01. NOME DA OFERTA -->
+    <h2 class="offer-headline">Desafio Arquitetura da Voz</h2>
+
+    <!-- 02. PROMESSA -->
+    <p class="offer-subheadline">21 dias para treinar sua voz nos momentos em que ela costuma <em>suavizar, travar ou chegar tarde demais.</em></p>
 
     <!-- 03. ANTES E DEPOIS PERSONALIZADO -->
     <div class="antes-depois">
@@ -1207,16 +1264,34 @@ body::after {
       </div>
     </div>
 
-    <!-- DEPOIMENTO -->
-    <div class="testimonial-block">
-      <p class="testimonial-text">"Eu reagia no automático, sem entender o que estava acontecendo. <strong>Agora faço pausa antes de responder.</strong>"</p>
-      <p class="testimonial-meta">Claudia · Taubaté · Semana 2</p>
-    </div>
-
     <!-- 09. CTA 3 -->
     <div class="cta-final">
       <a class="btn-primary" id="cta-hotmart-3" href="https://pay.hotmart.com/B105291424M?checkoutMode=10&src=quiz" target="_blank" rel="noopener">Quero acessar agora</a>
       <span class="btn-meta">R$ 97 · Stack total R$ 295 incluído</span>
+    </div>
+
+    <!-- DEPOIMENTOS EM VÍDEO -->
+    <div class="testimonials-section">
+      <p class="section-eyebrow">Quem já está no Desafio</p>
+      <h3 class="section-title">Mulheres na Semana 2</h3>
+
+      <div class="testimonial-video">
+        <video controls preload="metadata" playsinline>
+          <source src="depoimento-claudia.mp4" type="video/mp4">
+          Seu navegador não suporta vídeo.
+        </video>
+        <p class="testimonial-quote">"Eu reagia no automático, na maioria das vezes por emoção, sem entender o que estava acontecendo. Agora faço pausa antes de responder. Já percebo uma mudança muito grande, não só na minha fala, mas no <em>meu posicionamento.</em>"</p>
+        <p class="testimonial-meta">Claudia · Taubaté · Semana 2</p>
+      </div>
+
+      <div class="testimonial-video">
+        <video controls preload="metadata" playsinline>
+          <source src="depoimento-maria.mp4" type="video/mp4">
+          Seu navegador não suporta vídeo.
+        </video>
+        <p class="testimonial-quote">"A minha vida inteira eu não disse nada, paguei, falei tchau e fui embora. Agora eu estou falando. E logo em seguida já consigo me posicionar com <em>mais clareza.</em>"</p>
+        <p class="testimonial-meta">Maria · Goiânia · Semana 2</p>
+      </div>
     </div>
 
     <!-- 10. GARANTIA -->
@@ -1251,9 +1326,6 @@ body::after {
     </div>
   </section>
 
-  <footer class="footer" id="brand-footer" style="display: none;">
-    <p>Método ELLE</p>
-  </footer>
 
 </div>
 
@@ -1270,11 +1342,6 @@ function goTo(id) {
     target.classList.add('active');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
-  // Mostra logo e footer "Método ELLE" apenas na tela de resultado
-  var brandHeader = document.getElementById('brand-header');
-  var brandFooter = document.getElementById('brand-footer');
-  if (brandHeader) brandHeader.style.display = (id === 's15') ? '' : 'none';
-  if (brandFooter) brandFooter.style.display = (id === 's15') ? '' : 'none';
 }
 
 function generateEventId() {
@@ -1320,19 +1387,19 @@ function getNivel(score) {
 
 var leituras = {
   alicerce: {
-    sustenta: 'Sua voz sustenta no Alicerce. Quando alguém invade seu tempo ou questiona seu valor, você fala na hora e fecha o assunto. Diz não sem dar voltas. Essa é sua base mais sólida.',
-    oscila: 'Sua voz oscila no Alicerce. Você fala, mas começa a se explicar. Aceita a demanda na hora e sai reorganizando tudo na correria. Quando o limite sai, já saiu enfraquecido pela justificativa.',
-    recolhe: 'Sua voz recolhe no Alicerce. Você cede primeiro e remoe depois. Aceita pedidos que não eram seus. Fica em silêncio na reunião que estendeu. Abaixa o preço antes da pessoa terminar de falar. O custo aparece na sua cabeça à noite.'
+    sustenta: 'Quando alguém invade o seu tempo ou questiona o seu valor, você fala na hora. Diz não com uma frase curta, sem dar voltas. Encerra a reunião no horário combinado. Aqui, sua voz já sabe se sustentar.',
+    oscila: 'Você fala, mas começa a se justificar no meio do caminho. Aceita a demanda e depois sai reorganizando tudo na correria. Quando o limite chega, já chegou enfraquecido. Você sabe o que queria dizer, só não saiu inteiro.',
+    recolhe: 'Você cede primeiro e remoe depois. Aceita pedidos que não eram seus. Fica em silêncio na reunião que estendeu. Baixa o preço antes da pessoa terminar de falar. À noite, sua cabeça repassa a cena montando a resposta que não saiu na hora.'
   },
   fachada: {
-    sustenta: 'Sua voz sustenta na Fachada. Você discorda de pessoas próximas sem perder o vínculo. Dá feedback sem dar voltas. Quando a maioria pensa diferente, fala mesmo assim.',
-    oscila: 'Sua voz oscila na Fachada. Você fala em tom mais brando do que sente. Adoça o feedback até a mensagem se perder. Quando termina, fica em dúvida se devia ter falado.',
-    recolhe: 'Sua voz recolhe na Fachada. Você concorda na hora e rumina por dias. Adia a conversa difícil por semanas até a situação piorar. O que não foi dito vai parar no corpo. O medo de quebrar a conexão chega antes da verdade.'
+    sustenta: 'Você discorda de pessoas próximas sem perder o vínculo. Dá feedback direto, sem suavizar o que precisa ser dito. Quando o grupo pensa diferente, fala mesmo assim. Aqui, sua voz já consegue permanecer.',
+    oscila: 'Você fala em tom mais brando do que sente. Adoça o feedback até a mensagem principal se perder. Quando termina, fica em dúvida se devia ter falado. A vontade de preservar o vínculo aparece antes da frase sair.',
+    recolhe: 'Você concorda na hora e fica remoendo por dias. Adia a conversa difícil por semanas até a situação piorar. O que não foi dito vai parar no corpo. O medo de quebrar a conexão chega antes da verdade.'
   },
   cobertura: {
-    sustenta: 'Sua voz sustenta na Cobertura. Você fala mesmo antes de ter tudo na mão. Improvisa com clareza, corrige sem confronto, se posiciona com abertura pra ajustar depois.',
-    oscila: 'Sua voz oscila na Cobertura. Você fala, mas se explica demais. Cerca cada frase de tantos "depende" que a opinião perde força. Quando termina de falar, parece que você mesma desmontou o que disse.',
-    recolhe: 'Sua voz recolhe na Cobertura. Você procura a frase perfeita, calcula o impacto, ensaia a resposta. Quando decide falar, a conversa já mudou de direção. Você chega tarde demais nas suas próprias palavras.'
+    sustenta: 'Você fala mesmo antes de ter tudo na mão. Improvisa com clareza, corrige sem virar confronto, se posiciona com abertura pra ajustar depois. Aqui, sua voz já consegue aparecer na hora.',
+    oscila: 'Você fala, mas se explica demais no caminho. Cerca cada frase de tantos "talvez" e "depende" que a opinião perde força. Quando termina, parece que você mesma desmontou o que disse.',
+    recolhe: 'Você procura a frase perfeita, calcula o impacto, ensaia a resposta. Quando decide falar, a conversa já mudou de direção. Você chega tarde demais nas suas próprias palavras.'
   }
 };
 
@@ -1348,18 +1415,12 @@ var ctasPorDimensao = {
   cobertura: 'Quero falar antes da janela fechar'
 };
 
-var subheadlinePorDimensao = {
-  alicerce: 'Sua voz não trava por falta de firmeza. Trava porque o reflexo do silêncio chega antes da decisão de falar. Treinar esse reflexo nas situações reais é o que muda.',
-  fachada: 'Sua voz não suaviza por falta de coragem. Suaviza porque o reflexo de proteger o vínculo chega antes da decisão de discordar. Treinar esse reflexo é o que muda.',
-  cobertura: 'Sua voz não atrasa por falta de clareza. Atrasa porque o reflexo do preparo chega antes da decisão de falar. Treinar esse reflexo nas situações reais é o que muda.'
-};
-
 var antesDepoisPorDimensao = {
   alicerce: [
-    { antes: 'Cede primeiro e remoe depois', depois: 'Defende a posição na hora' },
-    { antes: 'Aceita pedidos que não eram seus', depois: 'Diz não sem dar voltas' },
-    { antes: 'Não encerra reunião no horário combinado', depois: 'Encerra com clareza no tempo certo' },
-    { antes: 'Abaixa o preço antes da pessoa terminar', depois: 'Sustenta o valor sem mudar a postura' }
+    { antes: 'Concorda na hora e pensa na resposta à noite', depois: 'Consegue falar sem ensaiar antes' },
+    { antes: 'Aceita demandas que nem eram suas', depois: 'Coloca limite sem transformar tudo em justificativa' },
+    { antes: 'Fica presa em reuniões que já acabaram', depois: 'Sai da conversa sem carregar culpa o resto do dia' },
+    { antes: 'Baixa o preço antes de sustentar o próprio valor', depois: 'Sustenta o que pensa sem suavizar pra ser aceita' }
   ],
   fachada: [
     { antes: 'Concorda na hora e rumina por dias', depois: 'Discorda na hora, mantém o vínculo' },
@@ -1400,10 +1461,6 @@ function processResult() {
     html += '</div>';
   });
   container.innerHTML = html;
-
-  // Subheadline personalizada
-  var subheadEl = document.getElementById('offer-subheadline');
-  if (subheadEl) subheadEl.textContent = subheadlinePorDimensao[dimMaisFragil];
 
   // Antes e Depois personalizado
   var antesEl = document.getElementById('antes-items');
