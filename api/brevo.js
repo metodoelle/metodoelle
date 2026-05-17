@@ -26,12 +26,12 @@ export default async function handler(req, res) {
     resultado
   } = req.body || {};
 
-  // Não há mais obrigatoriedade de email. Apenas cadastra no Brevo se tiver email.
+  // Cadastra no Brevo apenas se tiver email
   if (nome && email) {
     try {
       const attributes = {
         FIRSTNAME: nome,
-        QUIZ_ORIGEM: origem || 'Quiz Arquitetura da Voz'
+        QUIZ_ORIGEM: origem || 'Diagnóstico da Voz Sob Pressão'
       };
 
       if (dimensaoMaisFragil) {
@@ -87,8 +87,8 @@ export default async function handler(req, res) {
           action_source: 'website',
           user_data: userData,
           custom_data: {
-            content_category: 'Mapa da Voz - ' + dimensaoMaisFragil,
-            content_name: 'Diagnóstico Arquitetura da Voz',
+            content_category: 'Diagnóstico Voz Sob Pressão - ' + dimensaoMaisFragil,
+            content_name: 'Diagnóstico da Voz Sob Pressão',
             value: value || 97,
             currency: currency || 'BRL'
           }
