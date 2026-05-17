@@ -985,21 +985,27 @@ body::after {
   text-align: left;
   margin-bottom: 12px;
 }
+.authority-signature {
+  text-align: center;
+  margin-top: 28px;
+  padding-top: 0;
+}
 .authority-name {
   font-family: 'Outfit', sans-serif;
   font-weight: 700;
-  font-size: 22px;
+  font-size: 20px;
   color: var(--text);
-  text-align: left;
+  text-align: center;
   margin-bottom: 4px;
 }
 .authority-role {
   font-family: 'Inter', sans-serif;
   font-size: 13px;
   color: var(--text-soft);
-  text-align: left;
-  margin-bottom: 24px;
+  text-align: center;
+  margin-bottom: 0;
   font-style: italic;
+  letter-spacing: 0.04em;
 }
 .authority-text {
   font-family: 'Inter', sans-serif;
@@ -1009,6 +1015,40 @@ body::after {
 }
 .authority-text p { margin-bottom: 14px; }
 .authority-text strong { color: var(--text); font-weight: 600; }
+.authority-quote {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 500;
+  font-style: italic;
+  font-size: 17px;
+  line-height: 1.5;
+  color: var(--text);
+  padding: 18px 22px;
+  margin: 18px 0 22px;
+  border-left: 3px solid var(--gold);
+  background: var(--bg-2);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+.authority-highlight {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 17px;
+  color: var(--text);
+  margin: 22px 0 18px;
+  letter-spacing: -0.005em;
+}
+.authority-final-quote {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 500;
+  font-style: italic;
+  font-size: 18px;
+  line-height: 1.45;
+  color: var(--gold-dark);
+  text-align: center;
+  margin: 32px auto 0;
+  padding: 24px 24px 0;
+  border-top: 1px solid var(--border);
+  max-width: 540px;
+}
 
 /* FAQ */
 .faq-section {
@@ -1552,14 +1592,52 @@ body::after {
         <img class="authority-photo" src="fran-quiz.jpg" alt="Fran Castro, Arquiteta da Inteligência Emocional">
       </div>
       <div class="authority-content">
-        <p class="authority-eyebrow">Quem criou o método</p>
-        <p class="authority-name">Fran Castro</p>
-        <p class="authority-role">Arquiteta da Inteligência Emocional</p>
+        <p class="authority-eyebrow">De onde nasceu o Desafio Arquitetura da Voz</p>
         <div class="authority-text">
-          <p>Em 2021, numa reunião de feedback, uma das minhas analistas me disse que ficava feliz quando eu entrava de férias e triste quando eu voltava. Essa foi a frase que mudou tudo.</p>
-          <p>Eu era gestora no serviço público e achava que sabia liderar. Sabia me comunicar. Mas o que eu comunicava, sem perceber, era <strong>distância</strong>.</p>
-          <p>A partir dali, fui estudar inteligência emocional. Imersões, formação, anos aplicando dentro da minha própria equipe. Quatro anos depois, quando saí do serviço público, essa mesma analista me disse que não sabia como ia trabalhar na segunda-feira sabendo que eu não ia estar lá.</p>
-          <p>O método não nasceu de teoria. Nasceu de uma reunião difícil, de quatro anos de ajuste deliberado e de uma mudança que aconteceu na <strong>postura, na voz e no jeito de me posicionar</strong>.</p>
+          <p>Em 2021, durante uma reunião de feedback, uma das minhas analistas disse:</p>
+
+          <blockquote class="authority-quote">"Eu fico feliz quando você entra de férias. E triste quando você volta."</blockquote>
+
+          <p>Essa foi a frase que mudou a minha vida.</p>
+
+          <p>Na época, eu era gestora no serviço público e acreditava que sabia liderar. Eu era eficiente. Resolvia problemas. Tinha clareza. Sabia exatamente o que precisava ser dito.</p>
+
+          <p>Mas havia uma coisa que eu não percebia:</p>
+
+          <p class="authority-highlight">A minha presença gerava tensão.</p>
+
+          <p>Eu me comunicava a partir da forma como eu funcionava, não da forma como as pessoas conseguiam receber.</p>
+
+          <p>Foi ali que começou a busca.</p>
+
+          <p>Passei anos estudando inteligência emocional, comportamento e comunicação sob pressão. Mas, principalmente, comecei a aplicar tudo dentro da minha própria equipe, todos os dias.</p>
+
+          <p>Com o tempo, entendi algo que mudou completamente minha forma de liderar: <strong>pessoas diferentes não se sentem seguras da mesma maneira.</strong></p>
+
+          <p>O que para mim era objetividade, para outra pessoa soava dureza. O que eu chamava de clareza, às vezes era distância emocional.</p>
+
+          <p>Quando ajustei minha comunicação, a relação inteira mudou.</p>
+
+          <p>Quatro anos depois, ao sair do serviço público, essa mesma analista me disse que não sabia como iria trabalhar na segunda-feira sabendo que eu não estaria mais lá.</p>
+
+          <p>Foi naquele momento que eu entendi: a transformação não tinha acontecido só na minha comunicação. Tinha acontecido na forma como as pessoas se sentiam perto de mim.</p>
+
+          <p class="authority-highlight">O Método ELLE e a Arquitetura da Voz nasceram daí.</p>
+
+          <p>Não da teoria. Da prática. Da tensão. Do ajuste consciente. Da reconstrução da minha própria forma de me posicionar.</p>
+
+          <p>Hoje acompanho mulheres que sabem falar, cuidar, sustentar, resolver, mas que em algum lugar do caminho perderam a própria voz dentro da vida que aprenderam a sustentar.</p>
+
+          <p>Porque encontrar sua voz não é aprender a falar mais. É conseguir se sustentar emocionalmente no que precisa ser dito.</p>
+        </div>
+
+        <blockquote class="authority-final-quote">
+          Quando uma mulher aprende a sustentar a própria voz, ela aprende a liderar a própria história.
+        </blockquote>
+
+        <div class="authority-signature">
+          <p class="authority-name">Fran Castro</p>
+          <p class="authority-role">Arquiteta da Inteligência Emocional</p>
         </div>
       </div>
     </div>
@@ -1773,12 +1851,17 @@ function sendData(dimMaisFragil, dimMaisFirme, niveis) {
   // Gera event_id único para deduplicação Pixel + CAPI
   leadEventId = generateEventId();
 
-  // Pixel client-side (com value, currency e event_id)
+  // Calcula value dinâmico baseado no nível da dimensão mais frágil
+  // Quem recolhe está mais propenso a comprar (lead de maior valor)
+  var valorPorNivel = { recolhe: 97, oscila: 67, sustenta: 27 };
+  var leadValue = valorPorNivel[niveis[dimMaisFragil]] || 97;
+
+  // Pixel client-side (com value dinâmico, currency e event_id)
   if (typeof fbq === 'function') {
     fbq('track', 'Lead', {
       content_category: 'Diagnóstico Voz Sob Pressão - ' + dimMaisFragil,
       content_name: 'Diagnóstico da Voz Sob Pressão',
-      value: 97,
+      value: leadValue,
       currency: 'BRL'
     }, { eventID: leadEventId });
   }
@@ -1795,7 +1878,7 @@ function sendData(dimMaisFragil, dimMaisFirme, niveis) {
     dimensaoMaisFirme: dimMaisFirme,
     origem: 'diagnostico-voz-sob-pressao',
     eventId: leadEventId,
-    value: 97,
+    value: leadValue,
     currency: 'BRL'
   };
 
