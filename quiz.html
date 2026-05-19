@@ -1169,18 +1169,8 @@ body::after {
 
     <p class="eyebrow intro-eyebrow-after">Diagnóstico da Voz Sob Pressão</p>
 
-    <div class="mechanism-block">
-      <p class="mechanism-intro">Este diagnóstico identifica os padrões automáticos que fazem você:</p>
-      <ul class="mechanism-list">
-        <li>suavizar o que pensa</li>
-        <li>se explicar demais</li>
-        <li>concordar rápido pra evitar conflito</li>
-        <li>perder a própria linha de raciocínio</li>
-      </ul>
-    </div>
-
     <div class="btn-wrap">
-      <button class="btn-primary btn-large" onclick="startQuiz()">Quero entender meu padrão</button>
+      <button class="btn-primary btn-large" onclick="startQuiz()">Quero saber por que não reajo</button>
       <p class="micro-cta">12 perguntas · 4 minutos · Resultado imediato</p>
     </div>
   </section>
@@ -1426,11 +1416,11 @@ body::after {
     <!-- 04. CTA 1 (VALOR + BOTÃO) -->
     <div class="offer-cta">
       <p class="offer-cta-label">Acesso inaugural · Turma 01</p>
-      <p class="offer-cta-price">R$ 97</p>
-      <p class="offer-cta-installment">ou 12x de R$ 10,03 no cartão</p>
+      <p class="offer-cta-price">R$ 47</p>
+      <p class="offer-cta-installment">ou 6x de R$ 8,82 no cartão</p>
       <a class="btn-primary" id="cta-hotmart-1" href="https://pay.hotmart.com/B105291424M?checkoutMode=10&src=quiz" target="_blank" rel="noopener">Quero parar de chegar tarde nas minhas próprias palavras</a>
       <span class="btn-meta" style="margin-top: 14px;">Acesso imediato · 7 dias de garantia</span>
-      <span class="offer-cta-window">Válido até 30 de junho · Depois volta para R$ 247</span>
+      <span class="offer-cta-window">R$ 47 até 30 de junho · Depois volta para R$ 147</span>
     </div>
 
     <!-- 05. ENTREGÁVEIS -->
@@ -1441,7 +1431,7 @@ body::after {
         <div class="item-row">
           <div class="item-check">✓</div>
           <div class="item-content">
-            <p class="item-name">Desafio Arquitetura da Voz <span class="item-value">R$ 247</span></p>
+            <p class="item-name">Desafio Arquitetura da Voz <span class="item-value">R$ 147</span></p>
             <div class="item-desc">
               <p>Um protocolo guiado de 21 dias para treinar sua voz nos momentos em que ela costuma suavizar, travar ou chegar tarde demais.</p>
               <p>O material reúne exercícios práticos, perguntas de observação e direcionamentos aplicáveis às conversas reais da sua rotina.</p>
@@ -1470,7 +1460,7 @@ body::after {
     <!-- 07. CTA 2 -->
     <div class="cta-final">
       <a class="btn-primary" id="cta-hotmart-2" href="https://pay.hotmart.com/B105291424M?checkoutMode=10&src=quiz" target="_blank" rel="noopener">Quero parar de suavizar o que realmente penso</a>
-      <span class="btn-meta">R$ 97 · Acesso imediato · 7 dias de garantia</span>
+      <span class="btn-meta">R$ 47 ou 6x de R$ 8,82 · Válido até 30 de junho</span>
     </div>
 
     <!-- 08. BÔNUS -->
@@ -1535,9 +1525,9 @@ body::after {
 
     <!-- 09. CTA 3 -->
     <div class="cta-final">
-      <p class="cta-stack-summary">Stack total: <s>R$ 542</s> · acesso por <strong>R$ 97</strong></p>
+      <p class="cta-stack-summary">Stack total: <s>R$ 442</s> · acesso por <strong>R$ 47</strong> ou 6x de R$ 8,82</p>
       <a class="btn-primary" id="cta-hotmart-3" href="https://pay.hotmart.com/B105291424M?checkoutMode=10&src=quiz" target="_blank" rel="noopener">Quero que minha voz chegue inteira</a>
-      <span class="btn-meta">Desafio + 5 bônus inclusos · 7 dias de garantia</span>
+      <span class="btn-meta">Acesso inaugural válido até 30 de junho · Depois volta para R$ 147 · 7 dias de garantia</span>
     </div>
 
     <!-- DEPOIMENTOS EM VÍDEO -->
@@ -1691,7 +1681,7 @@ body::after {
     <!-- 12. CTA FINAL -->
     <div class="cta-final">
       <a class="btn-primary" id="cta-hotmart-4" href="https://pay.hotmart.com/B105291424M?checkoutMode=10&src=quiz" target="_blank" rel="noopener">Quero parar de desaparecer nas conversas importantes</a>
-      <span class="btn-meta">R$ 97 · 12x R$ 10,03 · Acesso imediato · 7 dias de garantia</span>
+      <span class="btn-meta">R$ 47 ou 6x de R$ 8,82 · Válido até 30 de junho · 7 dias de garantia</span>
     </div>
   </section>
 
@@ -1853,8 +1843,8 @@ function sendData(dimMaisFragil, dimMaisFirme, niveis) {
 
   // Calcula value dinâmico baseado no nível da dimensão mais frágil
   // Quem recolhe está mais propenso a comprar (lead de maior valor)
-  var valorPorNivel = { recolhe: 97, oscila: 67, sustenta: 27 };
-  var leadValue = valorPorNivel[niveis[dimMaisFragil]] || 97;
+  var valorPorNivel = { recolhe: 47, oscila: 32, sustenta: 17 };
+  var leadValue = valorPorNivel[niveis[dimMaisFragil]] || 47;
 
   // Pixel client-side (com value dinâmico, currency e event_id)
   if (typeof fbq === 'function') {
