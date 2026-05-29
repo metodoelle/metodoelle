@@ -3,754 +3,2207 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Arquitetura da Voz — Fran Castro</title>
+<title>Arquitetura da Voz. Desafio 21 Dias</title>
+<meta name="description" content="Você sabe exatamente o que devia ter dito. A resposta só chega horas depois. Protocolo de 21 dias para mulheres que travam, recuam ou cedem em conversas que importam.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;1,400&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '812476201902590');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=812476201902590&ev=PageView&noscript=1"/></noscript>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
+  --bg: #FAF8F4;
+  --bg-2: #F2EDE3;
+  --bg-3: #EAE2D2;
+  --surface: #F5F0E8;
+  --dark-accent: #2A1F15;
   --gold: #B8934A;
   --gold-light: #D4AF6E;
-  --gold-pale: rgba(184,147,74,0.12);
-  --dark: #0E0C09;
-  --dark-2: #161410;
-  --dark-3: #1E1B16;
-  --dark-4: #252118;
-  --text: #F0EAE0;
-  --text-muted: #B8AFA0;
-  --border: rgba(184,147,74,0.2);
+  --gold-dark: #8A6E38;
+  --gold-pale: rgba(184,147,74,0.10);
+  --gold-glow: rgba(184,147,74,0.18);
+  --text: #3D2B1F;
+  --text-muted: #6B5847;
+  --text-soft: #94816D;
+  --border: rgba(184,147,74,0.28);
+  --border-strong: rgba(184,147,74,0.55);
+  --cta: #B8934A;
+  --cta-hover: #8A6E38;
 }
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 body {
-  background: var(--dark);
+  background: var(--bg);
   color: var(--text);
-  font-family: 'Jost', sans-serif;
-  font-weight: 400;
+  font-family: 'Inter', sans-serif;
+  font-weight: 300;
   font-size: 17px;
-  line-height: 1.85;
+  line-height: 1.75;
   overflow-x: hidden;
 }
-body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(184,147,74,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(184,147,74,0.03) 1px, transparent 1px);
-  background-size: 60px 60px;
-  pointer-events: none;
-  z-index: 0;
+img { max-width: 100%; display: block; }
+
+/* Animações */
+@keyframes fadeUpIn {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.reveal { opacity: 0; transform: translateY(28px); transition: all 0.7s cubic-bezier(.2,.7,.3,1); }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* Header */
+.site-header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(250,248,244,0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 32px;
+}
+.header-inner {
+  max-width: 1180px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.logo {
+  display: flex; align-items: center; gap: 12px;
+  color: var(--text); text-decoration: none;
+}
+.logo-img {
+  height: 44px;
+  width: auto;
+  display: block;
+}
+.header-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--text);
+  font-weight: 400;
+  flex: 1;
+  text-align: center;
+}
+.header-title em {
+  font-style: italic;
+  color: var(--gold-dark);
+  letter-spacing: 0.04em;
+  text-transform: none;
+  font-weight: 500;
+}
+.header-cta {
+  font-family: 'Outfit', sans-serif;
+  font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase;
+  font-weight: 500;
+  padding: 10px 22px;
+  background: var(--gold); color: var(--dark-accent);
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.header-cta:hover { background: var(--gold-light); }
+
+main { padding-top: 64px; }
+
+/* Layout container */
+.container { max-width: 1080px; margin: 0 auto; padding: 0 32px; }
+.container-narrow { max-width: 760px; margin: 0 auto; padding: 0 32px; }
+
+/* Section base */
+section { padding: 90px 0; }
+
+.eyebrow {
+  font-family: 'Outfit', sans-serif;
+  font-size: 12px; font-weight: 500;
+  letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--gold);
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 28px;
+}
+.eyebrow::before {
+  content: ''; width: 36px; height: 1px; background: var(--gold);
 }
 
-/* NAV */
-.site-nav {
+h1, h2, h3, h4 {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+
+/* ============================= HERO ============================= */
+.hero {
+  position: relative;
+  padding: 120px 0 100px;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(184,147,74,0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(184,147,74,0.05) 0%, transparent 50%),
+    var(--bg);
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(184,147,74,0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(184,147,74,0.025) 1px, transparent 1px);
+  background-size: 72px 72px;
+  pointer-events: none;
+}
+.hero-inner { position: relative; z-index: 2; }
+.hero-inner-grid {
+  position: relative; z-index: 2;
+  max-width: 1180px; margin: 0 auto; padding: 0 32px;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 64px;
+  align-items: center;
+}
+.hero-content { max-width: 600px; }
+.hero-image {
   display: flex;
   justify-content: center;
-  align-items: center;
-  padding: 20px 48px;
-  border-bottom: 0.5px solid rgba(184,147,74,0.15);
-  background: var(--dark);
-  position: sticky;
-  top: 0;
-  z-index: 100;
 }
-
-.container { max-width: 720px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 1; }
-.container-wide { max-width: 960px; margin: 0 auto; padding: 0 2rem; position: relative; z-index: 1; }
-
-/* TIPOGRAFIA */
-.section-title, h1, h2 { font-family: 'Cormorant Garamond', serif !important; }
-.section-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 300;
-  line-height: 1.15;
-  margin-bottom: 1.5rem;
-}
-.section-title em { font-style: italic; color: var(--gold-light); }
-
-section { padding: 6rem 0; }
-
-/* HERO */
-.hero {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  padding: 5rem 0 4rem;
+.hero-image-frame {
   position: relative;
-}
-.premissa {
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-.premissa::before { content: ''; display: block; width: 40px; height: 1px; background: var(--gold); }
-.hero-title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(2rem, 3.5vw, 3rem);
-  font-weight: 400;
-  line-height: 1.2;
-  margin-bottom: 1.25rem;
-  color: var(--text);
-}
-.hero-title em { font-style: italic; color: var(--gold-light); }
-.hero-sub {
-  font-size: 1.125rem;
-  color: var(--text-muted);
-  font-family: 'Cormorant Garamond', serif;
-  margin-bottom: 1.75rem;
-  line-height: 1.6;
-  max-width: 520px;
-}
-
-/* BUTTONS */
-.btn-primary {
-  display: inline-block;
-  background: var(--gold);
-  color: var(--dark);
-  font-family: 'Jost', sans-serif;
-  font-size: 13px;
-  font-weight: 500;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  text-decoration: none;
-  padding: 1.1rem 2.5rem;
-  transition: background 0.2s, transform 0.15s;
-  border: none;
-  cursor: pointer;
-}
-.btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
-.btn-cta-grande {
-  display: block;
   width: 100%;
-  background: var(--gold);
-  color: var(--dark);
-  font-family: 'Jost', sans-serif;
-  text-decoration: none;
-  text-align: center;
-  padding: 1.5rem 2rem 1.25rem;
-  border: none;
-  cursor: pointer;
-  transition: background 0.2s;
-  margin-bottom: 0.75rem;
+  max-width: 440px;
+  aspect-ratio: 4/5;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 220px 220px 6px 6px;
+  box-shadow: 0 30px 60px -20px rgba(184,147,74,0.25), 0 10px 30px -10px rgba(61,43,31,0.15);
 }
-.btn-cta-grande:hover { background: var(--gold-light); }
-.btn-cta-parcel { font-size: 1.5rem; font-weight: 500; letter-spacing: 0.02em; color: var(--dark); display: block; margin-bottom: 4px; }
-.btn-cta-texto { font-size: 13px; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(14,12,9,0.65); display: block; }
+.hero-image-frame::after {
+  content: '';
+  position: absolute;
+  bottom: -14px; right: -14px;
+  width: 100%; height: 100%;
+  border: 1px solid var(--gold);
+  border-radius: 220px 220px 6px 6px;
+  z-index: -1;
+}
+.hero-image-frame img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
 
-/* PALIATIVOS */
-.ident-section { background: var(--dark-2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-.ident-body { font-size: 1.0625rem; color: var(--text-muted); line-height: 2; max-width: 640px; }
-.ident-body p { margin-bottom: 1.35rem; }
-.ident-body strong { color: var(--text); font-weight: 400; }
-.ident-list { list-style: none; margin: 1.5rem 0; display: flex; flex-direction: column; gap: 0.75rem; }
-.ident-list li { display: flex; align-items: flex-start; gap: 0.75rem; font-size: 1rem; color: var(--text-muted); line-height: 1.7; }
-.ident-list li::before { content: '—'; color: var(--gold); flex-shrink: 0; opacity: 0.6; }
-.ident-fecho {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: clamp(1.3rem, 2.5vw, 1.75rem);
+.hero-headline {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(2.4rem, 6vw, 4.2rem);
   font-weight: 300;
-  color: var(--gold-light);
-  line-height: 1.4;
-  margin-top: 2.5rem;
-  padding-top: 2rem;
-  border-top: 1px solid var(--border);
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  margin-bottom: 28px;
+  max-width: 880px;
 }
-
-/* DEPOIMENTOS */
-.depo-grid { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 2.5rem; }
-.depo-card { border-left: 2px solid rgba(184,147,74,0.35); padding: 1.5rem 2rem; background: var(--dark-2); }
-.depo-text {
-  font-family: 'Cormorant Garamond', serif;
+.hero-headline em {
+  font-style: normal;
+  color: var(--gold-light);
+  font-weight: 400;
+}
+.hero-subheadline {
   font-size: 1.25rem;
   font-weight: 400;
-  line-height: 1.7;
   color: var(--text);
-  margin-bottom: 0.75rem;
+  margin-bottom: 40px;
+  max-width: 720px;
+  line-height: 1.55;
 }
-.depo-autor { font-size: 0.8125rem; letter-spacing: 0.12em; color: var(--text-muted); text-transform: uppercase; opacity: 0.6; }
-.depo-intro {
-  font-size: 1rem;
+.hero-subheadline em { font-style: italic; color: var(--gold-light); font-weight: 400; }
+
+.hero-story {
+  border-left: 2px solid var(--gold);
+  padding: 6px 0 6px 28px;
+  margin-bottom: 44px;
+  max-width: 720px;
+}
+.hero-story p {
   color: var(--text-muted);
+  margin-bottom: 18px;
   line-height: 1.8;
-  margin-bottom: 0;
-  max-width: 560px;
+}
+.hero-story p:last-child { margin-bottom: 0; }
+.hero-story strong { color: var(--text); font-weight: 500; }
+
+.hero-tech-note {
+  font-style: italic;
+  color: var(--text-soft);
+  font-size: 0.95rem;
+  max-width: 720px;
+  margin-bottom: 44px;
+  padding: 20px 24px;
+  border: 1px solid var(--border);
+  background: rgba(184,147,74,0.04);
+  line-height: 1.7;
 }
 
-/* MÉTODO */
-.metodo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 3rem; }
-.metodo-item { background: var(--dark-2); padding: 2rem; }
-.metodo-num { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 300; color: var(--gold); opacity: 0.3; line-height: 1; margin-bottom: 0.75rem; }
-.metodo-title { font-size: 0.875rem; font-weight: 500; letter-spacing: 0.05em; color: var(--text); margin-bottom: 0.5rem; text-transform: uppercase; }
-.metodo-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.75; }
+.cta-primary {
+  display: inline-flex; align-items: center; gap: 12px;
+  background: var(--gold); color: var(--dark-accent);
+  font-family: 'Outfit', sans-serif;
+  font-size: 15px; font-weight: 500;
+  letter-spacing: 0.06em;
+  padding: 20px 40px;
+  text-decoration: none;
+  transition: all 0.2s;
+  border: none; cursor: pointer;
+}
+.cta-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+.cta-primary .arrow { transition: transform 0.2s; }
+.cta-primary:hover .arrow { transform: translateX(4px); }
 
-/* MARCOS */
-.marcos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 2.5rem; }
-.marco-item { background: var(--dark-2); padding: 1.75rem 1.5rem; }
-.marco-semana { font-size: 10px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; opacity: 0.7; }
-.marco-titulo { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--text); font-weight: 400; margin-bottom: 0.75rem; }
-.marco-desc { font-size: 0.9375rem; color: var(--text-muted); line-height: 1.75; }
+.cta-note {
+  display: block;
+  font-size: 13px;
+  color: var(--text-soft);
+  margin-top: 16px;
+  letter-spacing: 0.02em;
+}
 
-/* BÔNUS */
-.bonus-section-wrap { background: var(--dark-3); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-.produto-principal {
-  border: 1px solid var(--border);
-  background: var(--dark-2);
-  padding: 2.5rem;
-  margin-bottom: 2rem;
+/* ============================= MECANISMO ============================= */
+.mechanism {
+  background: var(--bg-2);
   position: relative;
 }
-.produto-principal::before { content: ''; position: absolute; top: 0; left: 0; width: 60px; height: 1px; background: var(--gold); }
-.produto-principal::after { content: ''; position: absolute; top: 0; left: 0; width: 1px; height: 60px; background: var(--gold); }
-.produto-label {
-  font-size: 10px;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 1.25rem;
-  opacity: 0.8;
+.mechanism::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0.4;
 }
-.produto-item {
-  display: flex;
-  gap: 1rem;
-  align-items: flex-start;
-  margin-bottom: 1.25rem;
-  padding-bottom: 1.25rem;
-  border-bottom: 0.5px solid rgba(184,147,74,0.1);
+.mechanism h2 {
+  font-size: clamp(2rem, 4.5vw, 3.2rem);
+  font-weight: 300;
+  margin-bottom: 16px;
+  line-height: 1.1;
 }
-.produto-item:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
-.produto-diamond { color: var(--gold); font-size: 0.65rem; margin-top: 6px; flex-shrink: 0; }
-.produto-item-text strong { color: var(--text); font-weight: 400; display: block; margin-bottom: 0.2rem; font-size: 1rem; }
-.produto-item-text span { color: var(--text-muted); font-size: 0.9375rem; line-height: 1.7; }
-
-.bonus-divider {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 1.5rem;
-}
-.bonus-divider::before, .bonus-divider::after { content: ''; flex: 1; height: 0.5px; background: rgba(184,147,74,0.25); }
-.bonus-divider-text { font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); white-space: nowrap; }
-
-.bonus-grid-wrap { display: flex; flex-direction: column; gap: 1px; background: rgba(184,147,74,0.15); border: 1px solid rgba(184,147,74,0.15); margin-bottom: 2.5rem; }
-.bonus-item {
-  background: var(--dark-2);
-  padding: 1.75rem 2rem;
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  gap: 1.5rem;
-  align-items: start;
-}
-.bonus-num { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 300; color: var(--gold); opacity: 0.3; line-height: 1; min-width: 36px; }
-.bonus-content strong { color: var(--text); font-weight: 400; font-size: 1rem; display: block; margin-bottom: 0.35rem; }
-.bonus-content span { color: var(--text-muted); font-size: 0.9375rem; line-height: 1.7; }
-.bonus-quando { display: block; margin-top: 0.5rem; font-size: 0.875rem; color: var(--gold); opacity: 0.7; font-family: 'Cormorant Garamond', serif; }
-.bonus-valor { text-align: right; flex-shrink: 0; }
-.bonus-valor .de { font-size: 0.75rem; color: var(--text-muted); opacity: 0.5; text-decoration: line-through; display: block; letter-spacing: 0.05em; }
-.bonus-valor .preco { font-size: 0.9375rem; color: var(--gold); font-weight: 500; letter-spacing: 0.05em; }
-
-/* OFERTA */
-.valor-total {
-  background: rgba(184,147,74,0.06);
-  border: 1px solid rgba(184,147,74,0.2);
-  padding: 1.5rem 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 2rem;
-  flex-wrap: wrap;
-  gap: 1rem;
-}
-.valor-total-label { font-size: 0.9375rem; color: var(--text-muted); line-height: 1.6; }
-.valor-total-label strong { color: var(--gold-light); font-weight: 400; display: block; font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; margin-bottom: 0.25rem; }
-.valor-total-num { text-align: right; }
-.valor-total-num .tudo { font-size: 0.75rem; color: var(--text-muted); opacity: 0.5; text-decoration: line-through; display: block; letter-spacing: 0.05em; margin-bottom: 2px; }
-.valor-total-num .investimento { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 300; color: var(--gold-light); }
-.valor-total-num .parcel { font-size: 0.8125rem; color: var(--text-muted); opacity: 0.7; display: block; }
-
-.lancamento-box {
-  background: rgba(184,147,74,0.06);
-  border: 1px solid rgba(184,147,74,0.2);
-  padding: 1.25rem 1.5rem;
-  margin-bottom: 1.5rem;
-  font-size: 0.9375rem;
-  color: var(--text-muted);
+.mechanism h2 em { font-style: normal; color: var(--gold-light); font-weight: 400; }
+.mechanism .lead {
+  font-size: 1.15rem;
+  color: var(--text);
+  margin-bottom: 36px;
+  max-width: 720px;
   line-height: 1.7;
 }
-.lancamento-box strong { color: var(--gold-light); font-weight: 400; }
-.garantia {
-  margin-top: 1.5rem;
-  padding: 1.75rem 2rem;
+.mechanism p {
+  color: var(--text-muted);
+  margin-bottom: 22px;
+  line-height: 1.85;
+  max-width: 720px;
+}
+.mechanism p strong { color: var(--text); font-weight: 500; }
+.mechanism .stat-block {
+  display: flex; align-items: baseline; gap: 18px;
+  padding: 28px;
+  background: rgba(184,147,74,0.06);
+  border-left: 3px solid var(--gold);
+  margin: 32px 0;
+  max-width: 720px;
+}
+.stat-number {
+  font-family: 'Outfit', sans-serif;
+  font-size: 3rem;
+  font-weight: 300;
+  color: var(--gold-light);
+  line-height: 1;
+}
+.stat-text {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+.stat-text strong { color: var(--text); font-weight: 500; }
+
+/* ============================= FUNCIONAMENTO ============================= */
+.howitworks {
+  background:
+    radial-gradient(ellipse at 70% 30%, rgba(184,147,74,0.06) 0%, transparent 60%),
+    var(--bg);
+}
+.howitworks h2 {
+  font-size: clamp(2rem, 4.5vw, 3.2rem);
+  font-weight: 300;
+  margin-bottom: 12px;
+  line-height: 1.1;
+}
+.howitworks .lead {
+  font-size: 1.15rem;
+  color: var(--text);
+  max-width: 720px;
+  margin-bottom: 60px;
+  line-height: 1.7;
+}
+
+.furadeira-image {
+  max-width: 1080px;
+  margin: 0 auto 60px;
+  text-align: center;
+}
+.furadeira-image img {
+  margin: 0 auto;
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.weeks-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 28px;
+  max-width: 820px;
+  margin: 0 auto 48px;
+}
+.week-card {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 28px;
+  padding: 32px;
+  background: var(--bg-2);
   border: 1px solid var(--border);
-  font-size: 0.9375rem;
+  align-items: start;
+}
+.week-roman {
+  font-family: 'Outfit', sans-serif;
+  font-size: 2.4rem;
+  font-weight: 300;
+  color: var(--gold);
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+.week-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.week-subtitle {
+  font-family: 'Outfit', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+.week-text { color: var(--text-muted); line-height: 1.8; }
+.week-text strong { color: var(--text); font-weight: 500; }
+
+.matrix-block {
+  max-width: 820px; margin: 0 auto;
+  padding: 36px 40px;
+  background: linear-gradient(135deg, rgba(184,147,74,0.08) 0%, transparent 100%);
+  border: 1px solid var(--gold);
+}
+.matrix-block h3 {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.3rem; font-weight: 500;
+  margin-bottom: 14px;
+}
+.matrix-block p {
+  color: var(--text-muted);
+  line-height: 1.8;
+}
+
+.tech-note {
+  font-style: italic;
+  color: var(--text-soft);
+  font-size: 0.95rem;
+  max-width: 820px;
+  margin: 32px auto 0;
+  padding: 22px 26px;
+  border: 1px solid var(--border);
+  background: rgba(184,147,74,0.05);
+  line-height: 1.7;
+}
+
+/* ============================= PROVA ============================= */
+.proof {
+  background: var(--bg-2);
+}
+.proof h2 {
+  font-size: clamp(2rem, 4.5vw, 3.2rem);
+  font-weight: 300;
+  margin-bottom: 12px;
+  line-height: 1.1;
+  text-align: center;
+}
+.proof h2 em { font-style: normal; color: var(--gold-light); font-weight: 400; }
+.proof .lead {
+  font-size: 1.15rem;
+  color: var(--text);
+  max-width: 720px;
+  margin: 0 auto 60px;
+  line-height: 1.7;
+  text-align: center;
+}
+
+.patterns-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  max-width: 980px;
+  margin: 0 auto 48px;
+}
+
+/* === Fundações (3 cards horizontais menores antes dos 4 Códigos) === */
+.foundations-intro {
+  max-width: 760px;
+  margin: 0 auto 32px;
+  text-align: center;
+  color: var(--text);
+  line-height: 1.75;
+  font-size: 1.05rem;
+}
+.foundations-intro strong { color: var(--gold-dark); font-weight: 500; }
+.foundations-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  max-width: 980px;
+  margin: 0 auto 60px;
+}
+.foundation-card {
+  padding: 24px 22px;
+  background: rgba(184,147,74,0.05);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--gold);
+  text-align: center;
+}
+.foundation-name {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--gold-dark);
+  margin-bottom: 6px;
+}
+.foundation-quote {
+  font-family: 'Outfit', sans-serif;
+  font-style: italic;
+  font-size: 0.92rem;
+  color: var(--text);
+  margin-bottom: 14px;
+  line-height: 1.4;
+}
+.foundation-desc {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+.codes-bridge {
+  max-width: 760px;
+  margin: 0 auto 36px;
+  text-align: center;
+  color: var(--text);
+  line-height: 1.6;
+  font-size: 1rem;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 400;
+}
+.codes-bridge em { color: var(--gold-dark); font-style: italic; }
+.pattern-card {
+  padding: 36px 32px;
+  background: var(--bg-3);
+  border: 1px solid var(--border);
+  position: relative;
+  transition: border-color 0.3s, transform 0.3s;
+}
+.pattern-card:hover { border-color: var(--gold); transform: translateY(-3px); }
+.pattern-num {
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+}
+.pattern-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 16px;
+  line-height: 1.3;
+}
+.pattern-text { color: var(--text-muted); line-height: 1.75; font-size: 0.95rem; }
+.pattern-text strong { color: var(--text); font-weight: 500; }
+
+.matrix-cta {
+  max-width: 760px; margin: 0 auto;
+  padding: 28px 32px;
+  text-align: center;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.matrix-cta p {
+  color: var(--text);
+  line-height: 1.8;
+}
+.matrix-cta strong { color: var(--gold-light); font-weight: 500; }
+
+/* ============================= OFFER ============================= */
+.offer {
+  background:
+    radial-gradient(circle at 30% 50%, rgba(184,147,74,0.1) 0%, transparent 60%),
+    var(--bg);
+  position: relative;
+}
+.offer-inner { max-width: 880px; margin: 0 auto; padding: 0 32px; }
+.offer h2 {
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  font-weight: 300;
+  margin-bottom: 16px;
+  text-align: center;
+  line-height: 1.15;
+}
+.offer h2 em { font-style: normal; color: var(--gold-light); font-weight: 400; }
+.offer .lead {
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  text-align: center;
+  max-width: 640px;
+  margin: 0 auto 56px;
+  line-height: 1.7;
+}
+
+.benefits-box {
+  background: var(--bg-2);
+  border: 1px solid var(--gold);
+  padding: 44px 40px;
+  margin-bottom: 40px;
+  position: relative;
+}
+.benefits-box::before, .benefits-box::after {
+  content: '';
+  position: absolute;
+  background: var(--gold);
+}
+.benefits-box::before { top: 0; left: 0; width: 40px; height: 1px; }
+.benefits-box::after { top: 0; left: 0; width: 1px; height: 40px; }
+
+.benefits-label {
+  font-family: 'Outfit', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 28px;
+  text-align: center;
+}
+
+.benefits-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+.benefits-list li {
+  display: flex; gap: 14px; align-items: flex-start;
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+.benefits-list li::before {
+  content: '◆';
+  color: var(--gold);
+  font-size: 0.7rem;
+  margin-top: 8px;
+  flex-shrink: 0;
+}
+
+.deliverables-divider {
+  display: flex; align-items: center; gap: 14px;
+  margin: 36px 0 28px;
+}
+.deliverables-divider::before,
+.deliverables-divider::after {
+  content: '';
+  flex: 1;
+  height: 0.5px;
+  background: rgba(184,147,74,0.3);
+}
+.deliverables-divider-text {
+  font-family: 'Outfit', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+.deliverables-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-bottom: 24px;
+}
+.deliverable {
+  padding: 24px 24px;
+  background: rgba(184,147,74,0.04);
+  border-left: 2px solid var(--gold);
+}
+.deliverable-centered {
+  grid-column: 1 / -1;
+  max-width: calc(50% - 10px);
+  margin: 0 auto;
+  width: 100%;
+}
+.deliverable-name {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.deliverable-desc {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+.deliverable-desc .price-strike {
+  color: var(--gold-light);
+  font-weight: 500;
+  margin-left: 6px;
+  text-decoration: line-through;
+  opacity: 0.6;
+  font-size: 0.85rem;
+}
+
+.inaugural-block {
+  text-align: center;
+  padding: 26px 32px;
+  margin-bottom: 24px;
+  background: linear-gradient(135deg, rgba(184,147,74,0.16) 0%, rgba(184,147,74,0.08) 100%);
+  border: 2px solid var(--gold);
+  border-radius: 4px;
+  position: relative;
+}
+.inaugural-block::before {
+  content: '★';
+  position: absolute;
+  top: -14px; left: 50%;
+  transform: translateX(-50%);
+  width: 28px; height: 28px;
+  background: var(--bg);
+  color: var(--gold);
+  font-size: 0.95rem;
+  display: flex; align-items: center; justify-content: center;
+  border: 2px solid var(--gold);
+  border-radius: 50%;
+}
+.inaugural-label {
+  font-family: 'Outfit', sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+.inaugural-text {
+  color: var(--text);
+  font-size: 1.02rem;
+  line-height: 1.6;
+  font-weight: 400;
+}
+.inaugural-text strong { color: var(--gold-dark); font-weight: 600; }
+
+.price-block {
+  background: rgba(184,147,74,0.08);
+  border: 1px solid var(--gold);
+  padding: 36px 40px;
+  margin-bottom: 28px;
+  text-align: center;
+}
+.price-label {
+  font-family: 'Outfit', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+.price-strike-main {
+  color: var(--text-soft);
+  font-size: 0.95rem;
+  text-decoration: line-through;
+  margin-bottom: 6px;
+  opacity: 0.7;
+}
+.price-strike-main .strike-num { font-size: 1.2rem; }
+.price-main {
+  font-family: 'Outfit', sans-serif;
+  font-size: 3.4rem;
+  font-weight: 300;
+  color: var(--gold-light);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+.price-installments {
+  font-size: 1rem;
+  color: var(--text-muted);
+  margin-top: 8px;
+}
+.price-meta {
+  font-size: 0.85rem;
+  color: var(--text-soft);
+  margin-top: 14px;
+  letter-spacing: 0.04em;
+}
+.price-meta strong { color: var(--gold-light); font-weight: 500; }
+
+.cta-large {
+  display: block; width: 100%;
+  background: var(--gold); color: var(--dark-accent);
+  text-align: center;
+  text-decoration: none;
+  padding: 26px 32px 22px;
+  transition: background 0.2s, transform 0.2s;
+  border: none; cursor: pointer;
+  margin-bottom: 12px;
+}
+.cta-large:hover { background: var(--gold-light); transform: translateY(-1px); }
+.cta-large-main {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 500;
+  color: var(--dark-accent);
+  display: block;
+  margin-bottom: 4px;
+  letter-spacing: 0.01em;
+}
+.cta-large-sub {
+  font-family: 'Outfit', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(42,31,21,0.7);
+  display: block;
+}
+
+/* ============================= GARANTIA + SUPORTE ============================= */
+.guarantee-support {
+  background: var(--bg-2);
+  padding: 80px 0;
+}
+.gs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+.gs-card {
+  background: var(--bg-3);
+  border: 1px solid var(--border);
+  padding: 36px 32px;
+  text-align: center;
+}
+.gs-card-icon-wrap {
+  width: 68px; height: 68px;
+  margin: 0 auto 24px;
+  background: rgba(184,147,74,0.1);
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Outfit', sans-serif;
+  color: var(--gold);
+  font-size: 1.3rem; font-weight: 500;
+}
+.gs-seal {
+  width: 140px; height: 140px;
+  margin: 0 auto 24px;
+  border: 2px solid var(--gold);
+  border-radius: 50%;
+  background: rgba(184,147,74,0.06);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center;
+  position: relative;
+}
+.gs-seal::before {
+  content: '';
+  position: absolute;
+  inset: 7px;
+  border: 1px dashed var(--gold);
+  border-radius: 50%;
+  opacity: 0.55;
+}
+.gs-seal-top {
+  font-family: 'Outfit', sans-serif;
+  font-size: 9px;
+  letter-spacing: 0.28em;
+  color: var(--gold-dark);
+  font-weight: 500;
+  position: relative; z-index: 2;
+  margin-top: 14px;
+}
+.gs-seal-number {
+  font-family: 'Outfit', sans-serif;
+  font-size: 3rem;
+  font-weight: 300;
+  color: var(--gold-dark);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  position: relative; z-index: 2;
+  margin-top: 2px;
+}
+.gs-seal-dias {
+  font-family: 'Outfit', sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.38em;
+  color: var(--gold-dark);
+  font-weight: 600;
+  margin-top: 2px;
+  position: relative; z-index: 2;
+}
+.gs-seal-bottom {
+  font-family: 'Outfit', sans-serif;
+  font-size: 8px;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  position: relative; z-index: 2;
+  margin-bottom: 14px;
+}
+.gs-card-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 14px;
+}
+.gs-card-text {
+  color: var(--text-muted);
+  line-height: 1.7;
+  font-size: 0.95rem;
+}
+.gs-card-text strong { color: var(--text); font-weight: 500; }
+.gs-card-text a { color: var(--gold-light); text-decoration: none; }
+.gs-card-text a:hover { text-decoration: underline; }
+
+/* ============================= DEPOIMENTOS ============================= */
+.testimonials {
+  background: var(--bg);
+  position: relative;
+}
+.testimonials h2 {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 300;
+  text-align: center;
+  margin-bottom: 48px;
+  line-height: 1.15;
+}
+.testimonials h2 em { font-style: normal; color: var(--gold-light); font-weight: 400; }
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.testimonial {
+  background: var(--bg-2);
+  border-left: 3px solid var(--gold);
+  padding: 32px 32px;
+  position: relative;
+}
+.testimonial::before {
+  content: '"';
+  position: absolute;
+  top: 16px; left: 24px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 4rem;
+  color: var(--gold);
+  opacity: 0.18;
+  line-height: 1;
+}
+.testimonial-text {
+  color: var(--text);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin-bottom: 16px;
+  position: relative; z-index: 2;
+}
+.testimonial-author {
+  font-family: 'Outfit', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+/* ============================= QUEM SOU ============================= */
+.about {
+  background:
+    linear-gradient(135deg, var(--bg-2) 0%, var(--bg) 100%);
+  position: relative;
+  overflow: hidden;
+}
+.about::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    radial-gradient(circle at 80% 30%, rgba(184,147,74,0.10) 0%, transparent 50%);
+  pointer-events: none;
+}
+.about-inner {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 64px;
+  align-items: center;
+  position: relative; z-index: 2;
+  max-width: 1080px; margin: 0 auto; padding: 0 32px;
+}
+.about-image-wrap {
+  position: relative;
+}
+.about-image-frame {
+  width: 100%;
+  aspect-ratio: 4/5;
+  background: var(--bg-3);
+  border: 2px solid var(--gold);
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+.about-image-frame img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  filter: contrast(1.02) brightness(1.02);
+}
+.about-image-frame .placeholder {
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  text-align: center;
+  padding: 32px;
+  line-height: 1.6;
+}
+.about-image-frame::after {
+  content: '';
+  position: absolute;
+  bottom: -12px; right: -12px;
+  width: 100%; height: 100%;
+  border: 1px solid var(--gold);
+  z-index: -1;
+}
+
+.about-content .eyebrow { margin-bottom: 24px; }
+.about-content h2 {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 300;
+  line-height: 1.15;
+  margin-bottom: 12px;
+}
+.about-name {
+  font-family: 'Outfit', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 24px;
+}
+.about-content p {
   color: var(--text-muted);
   line-height: 1.85;
+  margin-bottom: 18px;
 }
-.garantia strong { color: var(--text); font-weight: 400; }
-.garantia p { margin-bottom: 0.75rem; }
-.garantia p:last-child { margin-bottom: 0; }
-
-/* AUTORIDADE */
-.autoridade-section { background: var(--dark-2); border-top: 1px solid var(--border); }
-.autoridade-inner { display: grid; grid-template-columns: 1fr 2fr; gap: 4rem; align-items: start; }
-.autoridade-foto-area { position: relative; }
-.autoridade-foto { width: 100%; aspect-ratio: 4/5; object-fit: cover; object-position: center top; filter: grayscale(15%) sepia(20%) brightness(0.85) contrast(1.05); }
-.autoridade-foto-frame { position: absolute; inset: -8px; border: 1px solid var(--border); pointer-events: none; }
-.autoridade-texto p { color: var(--text-muted); margin-bottom: 1.35rem; font-size: 1rem; line-height: 1.85; }
-.autoridade-texto p strong { color: var(--text); font-weight: 400; }
-.autoridade-nome { font-family: 'Cormorant Garamond', serif; font-size: 1.75rem; font-weight: 300; margin-bottom: 0.25rem; }
-.autoridade-cargo { font-size: 0.8125rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 2rem; }
-.autoridade-destaque {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.35rem;
-  color: var(--text);
-  border-left: 2px solid var(--gold);
-  padding-left: 1.25rem;
-  margin: 1.5rem 0;
+.about-content p strong { color: var(--text); font-weight: 500; }
+.about-quote {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 400;
+  color: var(--gold-light);
+  font-style: italic;
   line-height: 1.5;
+  padding: 24px 28px;
+  border-left: 2px solid var(--gold);
+  background: rgba(184,147,74,0.05);
+  margin-top: 24px;
 }
 
-/* FAQ */
-.faq-list { display: flex; flex-direction: column; gap: 0; margin-top: 2rem; }
-.faq-item { border-bottom: 1px solid var(--border); padding: 1.5rem 0; max-width: 580px; }
-.faq-q { font-size: 1rem; font-weight: 500; color: var(--text); margin-bottom: 0.6rem; }
-.faq-a { font-size: 0.9375rem; color: var(--text-muted); line-height: 1.8; }
-.faq-a a { color: var(--gold); text-decoration: none; }
-
-/* CTA FINAL */
-.cta-final { background: var(--dark-3); border-top: 1px solid var(--border); text-align: center; padding: 8rem 0; }
-.cta-quote { font-family: 'Cormorant Garamond', serif; font-size: 1.35rem; color: var(--text-muted); max-width: 480px; margin: 0 auto 1.5rem; line-height: 1.6; }
-.risco-box {
-  border-left: 2px solid rgba(184,147,74,0.3);
-  padding: 1.5rem 0 1.5rem 1.75rem;
-  margin: 2rem auto;
-  max-width: 480px;
+/* ============================= FAQ ============================= */
+.faq {
+  background: var(--bg);
+  padding: 90px 0;
+}
+.faq-inner { max-width: 820px; margin: 0 auto; padding: 0 32px; }
+.faq h2 {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 300;
+  text-align: center;
+  margin-bottom: 48px;
+}
+.faq-item {
+  border-bottom: 1px solid var(--border);
+}
+.faq-q {
+  width: 100%;
+  background: none; border: none;
+  color: var(--text);
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 500;
   text-align: left;
+  padding: 26px 48px 26px 0;
+  cursor: pointer;
+  position: relative;
+  letter-spacing: -0.005em;
 }
-.risco-box p { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: var(--text-muted); line-height: 1.65; }
-
-footer { background: var(--dark); border-top: 1px solid var(--border); padding: 2rem 0; text-align: center; font-size: 0.875rem; color: var(--text-muted); }
-footer a { color: var(--gold); text-decoration: none; }
-
-@media (max-width: 768px) {
-  body { font-size: 16px; }
-  .site-nav { padding: 18px 20px; }
-  .hero { min-height: auto; padding: 3rem 0; }
-  .metodo-grid { grid-template-columns: 1fr; }
-  .marcos-grid { grid-template-columns: 1fr; }
-  .autoridade-inner { grid-template-columns: 1fr; gap: 2rem; }
-  .bonus-item { grid-template-columns: auto 1fr; }
-  .bonus-valor { display: none; }
-  section { padding: 4rem 0; }
+.faq-q::after {
+  content: '+';
+  position: absolute;
+  right: 0; top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.5rem;
+  color: var(--gold);
+  font-weight: 300;
+  transition: transform 0.3s;
+}
+.faq-item.open .faq-q::after { transform: translateY(-50%) rotate(45deg); }
+.faq-a {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.4s ease;
+}
+.faq-item.open .faq-a {
+  max-height: 500px;
+  padding-bottom: 24px;
+}
+.faq-a p {
+  color: var(--text-muted);
+  line-height: 1.8;
+  padding-right: 48px;
 }
 
-@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-.premissa { animation: fadeUp 0.6s ease both; }
-.hero-title { animation: fadeUp 0.6s 0.1s ease both; }
-.hero-sub { animation: fadeUp 0.6s 0.2s ease both; }
+/* ============================= CTA FINAL ============================= */
+.cta-final {
+  background:
+    radial-gradient(circle at 50% 100%, rgba(184,147,74,0.15) 0%, transparent 70%),
+    linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+  padding: 110px 0;
+  text-align: center;
+}
+.cta-final h2 {
+  font-size: clamp(2.2rem, 5.5vw, 3.8rem);
+  font-weight: 300;
+  line-height: 1.1;
+  max-width: 880px;
+  margin: 0 auto 24px;
+  padding: 0 32px;
+  letter-spacing: -0.02em;
+}
+.cta-final h2 em { font-style: normal; color: var(--gold-light); font-weight: 400; }
+.cta-final .lead {
+  font-size: 1.15rem;
+  color: var(--text-muted);
+  max-width: 680px;
+  margin: 0 auto 40px;
+  padding: 0 32px;
+  line-height: 1.7;
+}
+
+.cta-final-price {
+  display: inline-block;
+  padding: 28px 36px;
+  background: rgba(184,147,74,0.08);
+  border: 1px solid var(--gold);
+  margin: 0 32px 32px;
+}
+.cta-final-price .strike {
+  color: var(--text-soft);
+  text-decoration: line-through;
+  font-size: 0.95rem;
+  opacity: 0.7;
+  margin-bottom: 4px;
+}
+.cta-final-price .price {
+  font-family: 'Outfit', sans-serif;
+  font-size: 2.4rem;
+  font-weight: 300;
+  color: var(--gold-light);
+  line-height: 1;
+}
+.cta-final-price .installments {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-top: 6px;
+}
+.cta-final-price .meta {
+  font-size: 0.78rem;
+  color: var(--gold-light);
+  margin-top: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 500;
+}
+
+.cta-final-button-wrap {
+  max-width: 560px; margin: 0 auto;
+  padding: 0 32px;
+}
+
+.cta-final-note {
+  margin-top: 24px;
+  font-size: 0.85rem;
+  color: var(--text-soft);
+  letter-spacing: 0.04em;
+}
+
+/* ============================= FOOTER ============================= */
+footer {
+  background: var(--bg-3);
+  border-top: 1px solid var(--border);
+  padding: 40px 0 60px;
+  text-align: center;
+}
+.footer-inner { max-width: 1080px; margin: 0 auto; padding: 0 32px; }
+.footer-name {
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 18px;
+}
+.footer-links {
+  display: flex; justify-content: center; gap: 28px;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+}
+.footer-links a {
+  color: var(--text-soft);
+  text-decoration: none;
+  font-size: 13px;
+  letter-spacing: 0.04em;
+}
+.footer-links a:hover { color: var(--gold-light); }
+.footer-compliance {
+  font-size: 11px;
+  color: var(--text-soft);
+  opacity: 0.5;
+  max-width: 580px; margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* ============================= CTA FLUTUANTE MOBILE ============================= */
+.mobile-cta {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: rgba(250,248,244,0.96);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid var(--gold);
+  padding: 12px 16px;
+  z-index: 99;
+  display: none;
+}
+.mobile-cta a {
+  display: block;
+  width: 100%;
+  background: var(--gold); color: var(--dark-accent);
+  text-align: center;
+  text-decoration: none;
+  padding: 14px;
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+/* ============================= ABOUT PIVOT ============================= */
+.about-pivot {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--gold-light);
+  margin: 22px 0;
+  padding: 18px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  line-height: 1.4;
+}
+
+/* ============================= EROSION (Como uma mulher perde a voz) ============================= */
+.erosion {
+  background:
+    radial-gradient(circle at 50% 50%, rgba(184,147,74,0.08) 0%, transparent 70%),
+    linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+  padding: 100px 0;
+  position: relative;
+}
+.erosion-inner {
+  max-width: 760px; margin: 0 auto; padding: 0 32px;
+}
+.erosion h2 {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 300;
+  line-height: 1.15;
+  margin-bottom: 12px;
+  text-align: center;
+}
+.erosion .lead {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: var(--gold-light);
+  font-style: italic;
+  text-align: center;
+  line-height: 1.4;
+  margin-bottom: 56px;
+}
+.erosion-ages {
+  list-style: none;
+  margin: 0 0 48px;
+  border-left: 1px solid var(--border);
+  padding-left: 28px;
+}
+.erosion-ages li {
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+  padding: 14px 0;
+  color: var(--text-muted);
+  line-height: 1.7;
+  border-bottom: 1px solid var(--border);
+}
+.erosion-ages li:last-child { border-bottom: none; }
+.erosion-ages li::before {
+  content: attr(data-age);
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 300;
+  color: var(--gold);
+  letter-spacing: -0.01em;
+  min-width: 60px;
+  flex-shrink: 0;
+  line-height: 1;
+}
+.erosion-twist {
+  padding: 28px 32px;
+  background: rgba(184,147,74,0.05);
+  border-left: 3px solid var(--gold);
+  margin-bottom: 36px;
+  color: var(--text);
+  line-height: 1.7;
+  font-size: 1.05rem;
+}
+.erosion-twist strong { color: var(--text); font-weight: 500; }
+.erosion-closing {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--gold-light);
+  text-align: center;
+  line-height: 1.35;
+  margin-top: 36px;
+}
+
+/* ============================= CALLOUT (microfrases entre seções) ============================= */
+.callout {
+  text-align: center;
+  padding: 56px 32px;
+  background: var(--bg);
+  position: relative;
+}
+.callout::before, .callout::after {
+  content: '';
+  display: block;
+  width: 60px; height: 1px;
+  background: var(--gold);
+  opacity: 0.5;
+  margin: 0 auto 24px;
+}
+.callout::after { margin: 24px auto 0; }
+.callout p {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(1.3rem, 3vw, 1.8rem);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--text);
+  line-height: 1.4;
+  max-width: 720px;
+  margin: 0 auto;
+}
+.callout p em { font-style: italic; color: var(--gold-light); }
+
+/* ============================= HERO. NOVOS BLOCOS ============================= */
+.hero-scene {
+  margin: 40px 0 36px;
+  max-width: 720px;
+}
+.hero-scene p {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(1.4rem, 3vw, 1.9rem);
+  font-weight: 300;
+  color: var(--text);
+  line-height: 1.3;
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+.hero-scene p.hero-scene-bridge {
+  margin-top: 18px;
+  font-size: clamp(1.15rem, 2.4vw, 1.4rem);
+  color: var(--text-muted);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.45;
+}
+.hero-thesis {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(1.5rem, 3.5vw, 2.1rem);
+  font-weight: 400;
+  color: var(--text);
+  line-height: 1.35;
+  margin: 36px 0 40px;
+  max-width: 720px;
+  padding: 22px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.hero-thesis em { font-style: italic; color: var(--gold-light); }
+.hero-offer {
+  max-width: 720px;
+  margin-bottom: 32px;
+  padding: 22px 28px;
+  background: rgba(184,147,74,0.06);
+  border-left: 3px solid var(--gold);
+}
+.hero-offer-name {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: var(--gold-light);
+  letter-spacing: 0.02em;
+  margin-bottom: 6px;
+}
+.hero-offer-desc {
+  color: var(--text);
+  font-size: 1.02rem;
+  line-height: 1.6;
+}
+
+/* ============================= SCENE (a cena longa, antes era no hero) ============================= */
+.scene {
+  background: var(--bg-2);
+  padding: 90px 0;
+  position: relative;
+}
+.scene::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0.35;
+}
+.scene-inner {
+  max-width: 760px; margin: 0 auto; padding: 0 32px;
+  text-align: center;
+}
+.scene-story {
+  text-align: left;
+  border-left: 2px solid var(--gold);
+  padding-left: 28px;
+  margin-bottom: 32px;
+}
+.scene-story p {
+  color: var(--text-muted);
+  font-size: 1.02rem;
+  line-height: 1.85;
+  margin-bottom: 18px;
+}
+.scene-story p:last-child { margin-bottom: 0; }
+.scene-story p strong { color: var(--text); font-weight: 500; }
+.scene-tech-note {
+  font-style: italic;
+  color: var(--text-soft);
+  font-size: 0.95rem;
+  text-align: left;
+  padding: 22px 26px;
+  border: 1px solid var(--border);
+  background: rgba(184,147,74,0.05);
+  line-height: 1.7;
+}
+
+/* ============================= AUDIENCE (Para Quem É / NÃO É) ============================= */
+.audience {
+  background: var(--bg);
+  padding: 100px 0;
+}
+.audience-inner {
+  max-width: 1080px; margin: 0 auto; padding: 0 32px;
+}
+.audience h2 {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 300;
+  line-height: 1.15;
+  margin-bottom: 12px;
+  text-align: center;
+}
+.audience h2 em { font-style: normal; color: var(--gold-light); font-weight: 400; }
+.audience .lead {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.1rem;
+  color: var(--text-muted);
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto 56px;
+  line-height: 1.7;
+}
+.audience-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  margin-bottom: 56px;
+}
+.audience-card {
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  padding: 28px 26px;
+  position: relative;
+  transition: border-color 0.3s, transform 0.3s;
+}
+.audience-card:hover { border-color: var(--gold); transform: translateY(-3px); }
+.audience-card-num {
+  font-family: 'Outfit', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+}
+.audience-card-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+.audience-card-text {
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  line-height: 1.65;
+}
+.not-for {
+  max-width: 760px; margin: 0 auto;
+  padding: 32px 36px;
+  background: rgba(224,90,90,0.05);
+  border-left: 3px solid #c97064;
+}
+.not-for-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #c97064;
+  margin-bottom: 16px;
+}
+.not-for-list {
+  list-style: none;
+  display: grid;
+  gap: 12px;
+}
+.not-for-list li {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  display: flex; gap: 12px; align-items: flex-start;
+}
+.not-for-list li::before {
+  content: '×';
+  color: #c97064;
+  font-size: 1.1rem;
+  line-height: 1;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+/* ============================= ANALOGY BLOCK ============================= */
+.analogy {
+  background: linear-gradient(135deg, var(--bg) 0%, var(--bg-2) 100%);
+  padding: 80px 0;
+  text-align: center;
+}
+.analogy-inner { max-width: 820px; margin: 0 auto; padding: 0 32px; }
+.analogy-label {
+  font-family: 'Outfit', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 24px;
+}
+.analogy-text {
+  font-family: 'Outfit', sans-serif;
+  font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+  font-weight: 300;
+  line-height: 1.35;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+.analogy-text strong {
+  color: var(--gold-light);
+  font-weight: 400;
+}
+
+/* ============================= RESPONSIVE ============================= */
+@media (max-width: 880px) {
+  section { padding: 70px 0; }
+  .header-cta { display: none; }
+  .header-title { font-size: 11px; letter-spacing: 0.18em; }
+  .container, .container-narrow, .offer-inner { padding: 0 24px; }
+  .hero { padding: 90px 0 70px; }
+  .week-card { grid-template-columns: 60px 1fr; gap: 20px; padding: 26px; }
+  .week-roman { font-size: 2rem; }
+  .patterns-grid { grid-template-columns: 1fr; }
+  .foundations-grid { grid-template-columns: 1fr; }
+  .deliverables-grid { grid-template-columns: 1fr; }
+  .deliverable-centered { max-width: 100%; }
+  .gs-grid { grid-template-columns: 1fr; }
+  .testimonials-grid { grid-template-columns: 1fr; }
+  .about-inner { grid-template-columns: 1fr; gap: 40px; }
+  .hero-inner-grid { grid-template-columns: 1fr; gap: 32px; padding: 0 24px; }
+  .hero-image { order: -1; }
+  .hero-image-frame { max-width: 320px; }
+  .about-image-wrap { max-width: 320px; margin: 0 auto; }
+  .audience-grid { grid-template-columns: 1fr; }
+  .mobile-cta { display: block; }
+  main { padding-bottom: 80px; }
+  .hero-headline { font-size: 2.2rem; }
+  .price-main { font-size: 2.8rem; }
+  .cta-final h2 { font-size: 2rem; }
+}
 </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav class="site-nav">
-  <a href="/" aria-label="Método ELLE">
-    <svg width="140" height="38" viewBox="0 0 140 38" xmlns="http://www.w3.org/2000/svg">
-      <path d="M7 19 A12 12 0 1 1 31 19" fill="none" stroke="#B8934A" stroke-width="1"/>
-      <line x1="19" y1="5" x2="19" y2="33" stroke="#B8934A" stroke-width="1.75"/>
-      <text x="78" y="15" font-family="'Raleway', sans-serif" font-size="7" fill="#7A6E65" font-weight="500" letter-spacing="3" text-anchor="middle">MÉTODO</text>
-      <text x="78" y="30" font-family="'Playfair Display', serif" font-size="15" fill="#F0EAE0" font-weight="400" letter-spacing="4" text-anchor="middle">ELLE</text>
-    </svg>
-  </a>
-</nav>
+<!-- ===================== HEADER ===================== -->
+<header class="site-header">
+  <div class="header-inner">
+    <p class="header-title"><em>Desafio Arquitetura da Voz</em></p>
+    <a href="https://pay.hotmart.com/B105291424M?checkoutMode=10" class="header-cta">Quero parar de chegar tarde nas minhas palavras</a>
+  </div>
+</header>
 
-<!-- 1. PROMESSA (HERO) -->
+<main>
+
+<!-- ===================== HERO (enxuto, 2 colunas) ===================== -->
 <section class="hero">
-  <div style="max-width:760px; margin:0 auto; padding:0 2rem; position:relative; z-index:1; width:100%;">
-    <div class="premissa">Para quem sabe o que precisa dizer</div>
-    <h1 class="hero-title">Você não precisa se diminuir para caber.<br>Em 21 dias, <em>pare de sair das conversas com o peso do que não disse.</em></h1>
-    <p class="hero-sub">Travar na hora que mais importa tem nome. E tem saída.</p>
+  <div class="hero-inner-grid">
+    <div class="hero-content">
+      <div class="eyebrow reveal">21 dias para sustentar sua voz</div>
 
-    <div style="margin: 2rem 0; position: relative; width: 100%; max-width: 640px; border: 1px solid var(--border);">
-      <video src="/video_arquitetura_da_voz.mp4" controls playsinline preload="metadata" style="width: 100%; display: block; background: var(--dark-2);" poster="/fran-castro.jpg"></video>
+      <p class="hero-subheadline reveal">Você sabe exatamente o que deveria ter dito.</p>
+
+      <p class="hero-subheadline reveal">O problema é que a frase só aparece quando tudo já acabou.</p>
+
+      <div class="hero-scene reveal">
+        <p>Na reunião.</p>
+        <p>Na call.</p>
+        <p>No jantar de domingo.</p>
+      </div>
+
+      <h1 class="hero-headline reveal">A resposta não falta. <em>Ela chega tarde.</em></h1>
+
+      <div class="hero-offer reveal">
+        <p class="hero-offer-name">Desafio Arquitetura da Voz</p>
+        <p class="hero-offer-desc">21 dias para identificar o padrão que silencia sua presença e aprender a sustentar sua voz no momento em que ela é necessária.</p>
+      </div>
+
+      <a href="https://pay.hotmart.com/B105291424M?checkoutMode=10" class="cta-primary reveal">
+        Quero parar de chegar tarde nas minhas palavras
+        <span class="arrow">→</span>
+      </a>
+      <span class="cta-note">Acesso imediato · 7 dias de garantia</span>
     </div>
 
-    <ul style="list-style: none; margin-bottom: 2rem;">
-      <li style="display: flex; gap: 0.75rem; align-items: flex-start; margin-bottom: 1rem; font-size: 1rem; color: var(--text-muted);">
-        <span style="color: var(--gold); flex-shrink: 0; margin-top: 4px;">—</span>
-        Por que você, mesmo sabendo exatamente o que dizer, se cala justamente quando mais importa
-      </li>
-      <li style="display: flex; gap: 0.75rem; align-items: flex-start; margin-bottom: 1rem; font-size: 1rem; color: var(--text-muted);">
-        <span style="color: var(--gold); flex-shrink: 0; margin-top: 4px;">—</span>
-        O padrão invisível que faz você se ajustar, ceder e sair de conversas difíceis menor do que entrou
-      </li>
-      <li style="display: flex; gap: 0.75rem; align-items: flex-start; font-size: 1rem; color: var(--text-muted);">
-        <span style="color: var(--gold); flex-shrink: 0; margin-top: 4px;">—</span>
-        Como interromper esse ciclo em 21 dias, sem endurecer, sem se apagar e sem perder quem você é
-      </li>
-    </ul>
-
-    <a href="https://pay.hotmart.com/B105291424M?checkoutMode=10&src=paginadevenda" class="btn-primary">Quero interromper esse padrão agora</a>
-    <p style="margin-top:1rem; font-size:0.875rem; color:var(--text-muted); letter-spacing:0.05em;">7 dias de garantia · acesso imediato</p>
+    <div class="hero-image reveal">
+      <div class="hero-image-frame">
+        <img src="fran-hero.jpg" alt="Fran Castro · Arquiteta da Inteligência Emocional">
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- 2. PALIATIVOS -->
-<section class="ident-section">
-  <div class="container">
-    <h2 class="section-title">Você sabe exatamente o que deveria dizer.<br><em>Mas na hora — trava.</em></h2>
-    <div class="ident-body">
-      <p>Procura as palavras certas. Espera o momento ideal. E quando percebe… já passou.</p>
-      <p>Depois, a conversa continua na sua cabeça. O que você deveria ter dito. O que deixou passar. O que engoliu para evitar conflito.</p>
-      <p>Você evita confronto. Se adapta para não incomodar. Tenta manter o clima. Mas, aos poucos, isso te apaga.</p>
-      <p>E começa a aparecer:</p>
-      <ul class="ident-list">
-        <li>Te interrompem — e seguem como se fosse normal</li>
-        <li>Sua opinião é ignorada logo depois que você fala</li>
-        <li>Decidem por você</li>
-        <li>Você não é levada tão a sério quanto poderia</li>
+<!-- ===================== SCENE (história longa, antes era no hero) ===================== -->
+<section class="scene">
+  <div class="scene-inner">
+    <div class="eyebrow reveal" style="justify-content: center;">A cena que se repete</div>
+
+    <div class="scene-story reveal">
+      <p>Você chega em casa e passa horas reconstruindo uma conversa que terminou muito antes.</p>
+
+      <p>A frase que deveria ter saído.<br>O argumento que apareceu tarde.<br>O momento exato em que alguém passou por cima da sua ideia e você não disse nada.</p>
+
+      <p>Acontece na reunião.<br>Acontece no almoço de domingo.<br>Acontece quando alguém interrompe o que você estava dizendo.<br>Acontece quando você concorda por fora e discorda por dentro.</p>
+
+      <p>O silêncio passa. <strong>O que dói é a mulher que aparece horas depois.</strong></p>
+
+      <p>Clara.<br>Firme.<br>Articulada.<br>Com a resposta certa na ponta da língua.<br>Sem ninguém mais para escutar.</p>
+
+      <p>É aí que muitas mulheres concluem que não sabem se posicionar. <strong>Mas o problema é outro.</strong></p>
+
+      <p><strong>A resposta existe.</strong> Ela só não chega quando você precisa dela.</p>
+    </div>
+
+    <p class="scene-tech-note reveal">
+      Existe uma razão para isso. Quando o cérebro percebe risco de conflito, julgamento ou rejeição, ele prioriza proteção antes de expressão. Você continua pensando, sabendo, sentindo. Mas perde acesso à parte de você que conseguiria sustentar aquela voz naquele momento. Por isso a resposta aparece mais tarde, quando o risco passou, quando você está segura, quando a conversa já acabou.
+    </p>
+  </div>
+</section>
+
+<!-- ===================== EROSION ===================== -->
+<section class="erosion">
+  <div class="erosion-inner">
+    <div class="eyebrow reveal" style="justify-content: center;">Como acontece, sem perceber</div>
+    <h2 class="reveal">Como uma mulher aprende a chegar tarde nas próprias palavras</h2>
+
+    <p class="lead reveal">Isso não acontece de uma vez. Ninguém acorda numa terça-feira e perde a própria voz. Acontece conversa por conversa.</p>
+
+    <p class="reveal">Você ainda discordava.<br>Ainda tinha opinião.<br>Ainda sabia o que queria.</p>
+
+    <p class="reveal">Mas começou a perceber que algumas respostas geravam conflito. Que algumas opiniões custavam aprovação. Que algumas verdades deixavam pessoas desconfortáveis.</p>
+
+    <p class="reveal">Então você começou a escolher o que não dizer.</p>
+
+    <p class="reveal">Primeiro conscientemente. Depois automaticamente.</p>
+
+    <p class="reveal">Até que um dia ficou difícil perceber a diferença entre adaptação e identidade.</p>
+
+    <p class="reveal">Você continua pensando. Continua sentindo. Continua sabendo.</p>
+
+    <p class="reveal">Mas, na hora de se posicionar, <strong>a proteção chega antes da expressão.</strong></p>
+
+    <p class="reveal">Por isso você concorda quando queria questionar. Cede quando queria sustentar. Aceita quando queria negociar.</p>
+
+    <p class="reveal">E responde "pra mim tanto faz" quando alguém pergunta o que você quer.</p>
+
+    <p class="reveal"><strong>A resposta existe.</strong> Faz muito tempo que ela não é a primeira voz que você escuta.</p>
+
+    <p class="erosion-closing reveal">Sua voz continua ali. <em>Só aprendeu a ficar por último.</em></p>
+  </div>
+</section>
+
+<!-- ===================== AUDIENCE (Para Quem É / Para Quem NÃO É) ===================== -->
+<section class="audience">
+  <div class="audience-inner">
+    <div class="eyebrow reveal" style="justify-content: center;">Antes de continuar</div>
+    <h2 class="reveal">Para quem <em>esse protocolo foi feito</em></h2>
+    <p class="lead reveal">Seis padrões que a Arquitetura da Voz interrompe direto. Se você se reconhece em pelo menos um, esse trabalho é para você.</p>
+
+    <div class="audience-grid">
+      <div class="audience-card reveal">
+        <p class="audience-card-num">01</p>
+        <h3 class="audience-card-title">Você pensa a resposta depois</h3>
+        <p class="audience-card-text">Você sai da conversa sabendo exatamente o que deveria ter dito. O problema é que a clareza chega quando a conversa já acabou.</p>
+      </div>
+
+      <div class="audience-card reveal">
+        <p class="audience-card-num">02</p>
+        <h3 class="audience-card-title">Você cede mais do que gostaria</h3>
+        <p class="audience-card-text">Aceita prazos, pedidos e decisões que não representam o que realmente queria sustentar.</p>
+      </div>
+
+      <div class="audience-card reveal">
+        <p class="audience-card-num">03</p>
+        <h3 class="audience-card-title">Você suaviza para não gerar desconforto</h3>
+        <p class="audience-card-text">Mede palavras, adoça opiniões e deixa partes importantes de fora para preservar a paz.</p>
+      </div>
+
+      <div class="audience-card reveal">
+        <p class="audience-card-num">04</p>
+        <h3 class="audience-card-title">Você diz "tanto faz" com frequência</h3>
+        <p class="audience-card-text">Você tem opinião. Faz muito tempo que ela não é a primeira voz que você escuta.</p>
+      </div>
+
+      <div class="audience-card reveal">
+        <p class="audience-card-num">05</p>
+        <h3 class="audience-card-title">Você entende o padrão, mas ele continua acontecendo</h3>
+        <p class="audience-card-text">Já leu livros. Já fez terapia. Já refletiu sobre o assunto. Mas a cena continua se repetindo nas conversas reais.</p>
+      </div>
+
+      <div class="audience-card reveal">
+        <p class="audience-card-num">06</p>
+        <h3 class="audience-card-title">Você sente que existe uma versão mais firme dentro de você</h3>
+        <p class="audience-card-text">Ela aparece sozinha horas depois. Organizada. Clara. Articulada. O desafio é fazer essa mulher chegar na hora certa.</p>
+      </div>
+    </div>
+
+    <div class="not-for reveal">
+      <p class="not-for-title">Para quem NÃO é</p>
+      <ul class="not-for-list">
+        <li>Mulheres que buscam técnica de oratória ou treinamento de fala em público</li>
+        <li>Quem espera substituir acompanhamento psicológico ou psiquiátrico</li>
+        <li>Quem não tem 10 a 15 minutos por dia para o exercício diário</li>
+        <li>Quem quer resultado sem prática em conversa real</li>
+        <li>Mulheres que já conseguem sustentar com naturalidade aquilo que pensam, sentem e querem dizer</li>
       </ul>
-      <p>Você percebe tudo isso. E mesmo assim… não muda.</p>
-      <p><strong>Não é falta de consciência. E não é falta de capacidade.</strong> É porque você nunca aprendeu a sustentar sua voz sem medo, sem culpa e sem se perder no processo.</p>
-      <div style="margin: 2rem 0; border-left: 2px solid rgba(184,147,74,0.3); padding: 1.5rem 2rem; background: rgba(184,147,74,0.04);">
-        <p style="font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; color: var(--text-muted); line-height: 1.75; margin-bottom: 0.5rem;">"Eu sinto que preciso melhorar minha comunicação dessa forma — que ela seja ouvida, entendida e sentida, sem precisar me preocupar tanto com o desconforto do outro. Estou assim inflada de cursos e métodos e estudos, mas…"</p>
-        <p style="font-size: 0.8125rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); opacity: 0.55;">Participante — antes de começar</p>
-      </div>
-      <div class="ident-fecho">Você não trava porque não sabe o que dizer. Você trava porque um padrão decide por você antes da fala sair. Quando você muda o padrão, muda o que sai.</div>
     </div>
   </div>
 </section>
 
-<!-- 3. DEPOIMENTOS -->
-<section style="background:var(--dark); border-bottom:1px solid var(--border);">
+<!-- ===================== PROVA SOCIAL ANTECIPADA ===================== -->
+<section class="testimonials" style="padding: 70px 0;">
   <div class="container">
-    <h2 class="section-title">O que as primeiras mulheres já estão <em>vivendo</em></h2>
-    <p class="depo-intro">Esses relatos são do desafio guiado — ainda na metade do caminho. <strong style="color:var(--gold-light); font-weight:400;">Imagine o que acontece quando você tem os 21 dias completos.</strong></p>
-    <div class="depo-grid">
-
-      <!-- DEPOIMENTO 1 — VÍDEO -->
-      <div class="depo-card depo-card-video">
-        <video
-          src="https://raw.githubusercontent.com/metodoelle/metodoelle/main/Eu%20reagia%20no%20autom%C3%A1tico%20%E2%80%94%20na%20maioria%20das%20vezes%20por%20emo%C3%A7%C3%A3o.mp4"
-          controls
-          playsinline
-          preload="metadata"
-          style="width:100%; display:block; background:var(--dark); margin-bottom:1rem; border:1px solid var(--border);"
-        ></video>
-        <p class="depo-text" style="font-size:1.05rem;">"Eu reagia no automático — na maioria das vezes por emoção, sem entender o que estava acontecendo. Agora faço pausa antes de responder. Já percebo uma mudança muito grande — não só na minha fala, mas no meu posicionamento."</p>
-        <p class="depo-autor">Participante — Semana 2</p>
-      </div>
-
-      <!-- DEPOIMENTO 2 — VÍDEO -->
-      <div class="depo-card depo-card-video">
-        <video
-          src="https://raw.githubusercontent.com/metodoelle/metodoelle/main/a%20minha%20vida%20interia%20eu%20n%C3%A3o%20disse%20nada.mp4"
-          controls
-          playsinline
-          preload="metadata"
-          style="width:100%; display:block; background:var(--dark); margin-bottom:1rem; border:1px solid var(--border);"
-        ></video>
-        <p class="depo-text" style="font-size:1.05rem;">"A minha vida inteira eu não disse nada, paguei, falei tchau e fui embora. Agora eu estou falando. E logo em seguida já consigo me posicionar com mais clareza."</p>
-        <p class="depo-autor">Participante — Semana 2</p>
-      </div>
-
-      <!-- DEPOIMENTO 3 — TEXTO -->
-      <div class="depo-card">
-        <p class="depo-text">"Eu estou amando esse tempo de olhar pra mim. Quase nunca paro assim de forma tão intencional. O que mais mexeu comigo foi perceber quantas crenças eu ainda tinha — e o quanto ainda era guiada pelo passado. Me emocionei. Estou me observando mais."</p>
-        <p class="depo-autor">Participante — durante o processo</p>
-      </div>
-
-      <!-- DEPOIMENTO 4 — TEXTO -->
-      <div class="depo-card">
-        <p class="depo-text">"Vou deixar de ser uma ouvinte passiva e começar a dar minha opinião, a discordar. Porque a minha tendência era nunca discordar. Estou vendo isso como uma virada de chave."</p>
-        <p class="depo-autor">Participante — Semana 2</p>
-      </div>
-
-      <!-- DEPOIMENTO 5 — TEXTO -->
-      <div class="depo-card">
-        <p class="depo-text">"Hoje eu me posicionei — mas reparei que não saiu natural ainda. Mas já sei o que preciso fazer. E isso já é diferente de antes."</p>
-        <p class="depo-autor">Participante — Semana 2</p>
-      </div>
-
-      <!-- DEPOIMENTO 6 — TEXTO -->
-      <div class="depo-card">
-        <p class="depo-text">"É um caminho sem volta — porque primeiro saber quem realmente somos é indescritível. E vamos seguindo, dia a dia."</p>
-        <p class="depo-autor">Participante — após a segunda semana</p>
-      </div>
-
-    </div>
-    <div style="text-align:center; margin-top:3rem;">
-      <a href="https://pay.hotmart.com/B105291424M?checkoutMode=10&src=paginadevenda" class="btn-primary">Quero viver isso também</a>
-    </div>
-  </div>
-</section>
-
-<!-- 4. ENTREGÁVEIS / MÉTODO -->
-<section style="background:var(--dark-2); border-top:1px solid var(--border); border-bottom:1px solid var(--border);">
-  <div class="container">
-    <h2 class="section-title">Não é sobre <em>técnica.</em><br>É sobre estrutura.</h2>
-    <p style="color:var(--text-muted); max-width:520px; line-height:1.85; font-size:1rem; margin-bottom:0;">A Arquitetura da Voz atua no lugar de onde sua fala nasce — não apenas no que você diz. Em 21 dias, você passa por três camadas:</p>
-    <div class="metodo-grid">
-      <div class="metodo-item">
-        <div class="metodo-num">01</div>
-        <div class="metodo-title">Consciência</div>
-        <div class="metodo-desc">Você identifica onde se cala, entende o que te trava e começa a enxergar os padrões que operam no automático.</div>
-      </div>
-      <div class="metodo-item">
-        <div class="metodo-num">02</div>
-        <div class="metodo-title">Ajuste</div>
-        <div class="metodo-desc">Você aprende a pausar antes de reagir, organizar sua fala, dizer "não" sem culpa e discordar sem se justificar.</div>
-      </div>
-      <div class="metodo-item">
-        <div class="metodo-num">03</div>
-        <div class="metodo-title">Consolidação</div>
-        <div class="metodo-desc">Sua presença passa a sustentar sua voz. Postura. Tom. Silêncio. Posicionamento real nos ambientes que te desafiam.</div>
-      </div>
-      <div class="metodo-item" style="border-top: 1px solid rgba(184,147,74,0.2);">
-        <div class="metodo-num" style="opacity:0.45;">21</div>
-        <div class="metodo-title">Dia 21 — Integração</div>
-        <div class="metodo-desc">Você revisa seu processo, compara com o ponto de partida e enxerga, com clareza, o que mudou. Não é perfeição — é a conclusão de uma etapa.</div>
-      </div>
-    </div>
-
-    <h2 class="section-title" style="margin-top:4rem;">O processo<br>semana a <em>semana</em></h2>
-
-    <!-- PROGRESSÃO SEMANAL ATUALIZADA -->
-    <div class="marcos-grid">
-      <div class="marco-item">
-        <div class="marco-semana">Semana 1</div>
-        <div class="marco-titulo">Consciência</div>
-        <div class="marco-desc">A primeira semana não é sobre falar melhor. É sobre reconhecer onde você para de falar. Através do Mapa das Oscilações da Voz, você registra situações reais da semana: onde sentiu dificuldade de se posicionar, o que fez no automático e o que teria dito se sua voz estivesse sustentada. Ao final, você para de acreditar que o problema é incapacidade. Você enxerga o padrão.</div>
-      </div>
-      <div class="marco-item">
-        <div class="marco-semana">Semana 2</div>
-        <div class="marco-titulo">Ativação</div>
-        <div class="marco-desc">A segunda semana é prática. Através do exercício Ação de Voz Intencional, você interrompe o automático em situações reais, uma por dia: dizer não sem justificar, expressar uma opinião de forma direta, sustentar silêncio sem se explicar. O desconforto continua. O que muda é que você aprende que ele não destrói você. Ao final, você não faz mais o que sabe que deveria fazer. Você faz.</div>
-      </div>
-      <div class="marco-item">
-        <div class="marco-semana">Semana 3</div>
-        <div class="marco-titulo">Sustentação</div>
-        <div class="marco-desc">A terceira semana resolve o que a maioria das abordagens ignora: conseguir falar uma vez não é o mesmo que conseguir manter. Você escolhe uma situação real e sustenta sua postura até o final, sem voltar atrás, sem se explicar, sem compensar depois. Ao final, sua voz não depende mais do ambiente estar favorável. Ela depende de você.</div>
-      </div>
-    </div>
-
-    <div style="margin-top:3rem; text-align:center;">
-      <a href="https://pay.hotmart.com/B105291424M?checkoutMode=10&src=paginadevenda" class="btn-primary">Quero começar a sustentar minha voz</a>
-    </div>
-  </div>
-</section>
-
-<!-- 5. BÔNUS -->
-<section class="bonus-section-wrap">
-  <div class="container">
-    <h2 class="section-title">Tudo que você precisa<br>para os <em>21 dias</em></h2>
-    <p style="color:var(--text-muted); font-size:1rem; margin-bottom:2.5rem; line-height:1.85; max-width:560px;">Organizado para que você nunca precise adivinhar o que fazer em nenhum momento do processo.</p>
-
-    <div class="produto-principal">
-      <div class="produto-label">Produto principal</div>
-      <div class="produto-item">
-        <span class="produto-diamond">◆</span>
-        <div class="produto-item-text">
-          <strong>Ebook Arquitetura da Voz</strong>
-          <span>O protocolo completo dos 21 dias, com exercícios práticos e perguntas de consolidação para cada etapa.</span>
-        </div>
-      </div>
-      <div class="produto-item">
-        <span class="produto-diamond">◆</span>
-        <div class="produto-item-text">
-          <strong>3 vídeos-aula</strong>
-          <span>Um para cada semana, assistido no início de cada etapa para orientar o que vem a seguir.</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="bonus-divider">
-      <span class="bonus-divider-text">Bônus inclusos</span>
-    </div>
-
-    <!-- BÔNUS ATUALIZADOS -->
-    <div class="bonus-grid-wrap">
-      <div class="bonus-item">
-        <div class="bonus-num">01</div>
-        <div class="bonus-content">
-          <strong>Diagnóstico de Perfil ELLE</strong>
-          <span>26 perguntas em dois blocos. Os primeiros 20 mapeiam como você se comporta sob pressão externa. Os últimos 6 identificam o sistema interno que governa suas reações. O resultado é seu perfil comunicacional e emocional dentro do Método ELLE.</span>
-          <em class="bonus-quando">O ponto de partida do protocolo. Aplicado antes do Dia 1.</em>
-        </div>
-        <div class="bonus-valor">
-          <span class="de">R$47</span>
-          <span class="preco">Incluso</span>
-        </div>
-      </div>
-      <div class="bonus-item">
-        <div class="bonus-num">02</div>
-        <div class="bonus-content">
-          <strong>Manual de Arquitetura Interior</strong>
-          <span>Leitura aprofundada do seu perfil ELLE. Cada tipo explicado em detalhe para que você entenda não só o que faz, mas por que faz e como isso afeta sua voz nas conversas que importam.</span>
-          <em class="bonus-quando">Complementa o diagnóstico. Usado ao longo das três semanas.</em>
-        </div>
-        <div class="bonus-valor">
-          <span class="de">R$67</span>
-          <span class="preco">Incluso</span>
-        </div>
-      </div>
-      <div class="bonus-item">
-        <div class="bonus-num">03</div>
-        <div class="bonus-content">
-          <strong>Matriz ELLE de Sustentação da Voz</strong>
-          <span>Avaliação em 8 pilares aplicada duas vezes: no Dia 1 e no Dia 21. Você entra sabendo onde está. Termina vendo exatamente o que mudou.</span>
-          <em class="bonus-quando">Marcador de progresso. Do Dia 1 ao Dia 21.</em>
-        </div>
-        <div class="bonus-valor">
-          <span class="de">R$37</span>
-          <span class="preco">Incluso</span>
-        </div>
+    <div class="eyebrow reveal" style="justify-content: center;">Quem já viveu o protocolo</div>
+    <div style="max-width: 760px; margin: 0 auto;">
+      <div class="testimonial reveal">
+        <p class="testimonial-text" style="font-size: 1.25rem; line-height: 1.55;">"Eu reagia no automático, sem entender o que estava acontecendo. <strong style="color: var(--gold-dark);">Agora faço pausa antes de responder.</strong>"</p>
+        <p class="testimonial-author">Claudia · Taubaté · Semana 2</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- 6. OFERTA -->
-<section style="background:var(--dark-2); border-bottom:1px solid var(--border);" id="investimento">
+<!-- ===================== MECANISMO ===================== -->
+<section class="mechanism">
   <div class="container">
-    <h2 class="section-title">Um único investimento<br>para os <em>21 dias completos</em></h2>
+    <div class="eyebrow reveal">O mecanismo</div>
+    <h2 class="reveal">O <em>Reflexo Silenciador</em></h2>
+    <p class="lead reveal">Existe um intervalo entre perceber o que precisa ser dito e conseguir dizer.</p>
 
-    <div class="valor-total">
-      <div class="valor-total-label">
-        <strong>Valor total se adquiridos separadamente</strong>
-        Você acessa tudo por um único investimento — no primeiro lançamento digital do método.
+    <p class="reveal">Esse intervalo é independente da sua inteligência, da sua personalidade e da sua capacidade de comunicação.</p>
+
+    <p class="reveal">Ele acontece porque existe um reflexo mais rápido do que a sua intenção.</p>
+
+    <p class="reveal">Quando alguém fala mais alto.<br>Quando demonstra impaciência.<br>Quando você sente risco de julgamento, rejeição ou conflito.</p>
+
+    <p class="reveal">Alguma coisa dentro de você decide antes que você decida.</p>
+
+    <p class="reveal"><strong>O corpo tensiona.<br>O pensamento embaralha.<br>A resposta recua.</strong></p>
+
+    <p class="reveal">E a conversa segue sem ela.</p>
+
+    <p class="reveal">Por isso a frase aparece horas depois.<br>Quando você está segura.<br>Quando o risco passou.<br>Quando ninguém mais está ouvindo.</p>
+
+    <p class="reveal">Quem diz "é só se impor" não está entendendo o problema.</p>
+
+    <p class="reveal">O reflexo acontece antes da escolha.<br>Antes da coragem.<br>Antes da técnica.<br>Antes da intenção.</p>
+
+    <p class="reveal" style="margin-top: 32px;"><strong>E você não está sozinha nisso.</strong></p>
+
+    <div class="stat-block reveal">
+      <span class="stat-number">80%</span>
+      <span class="stat-text">das mulheres afirmam não se sentir ouvidas no ambiente profissional, segundo pesquisa da <strong>Todas Group</strong>.</span>
+    </div>
+
+    <p class="reveal">A pesquisa <strong>"A Mulher na Comunicação"</strong>, da Aberje, aponta a desigualdade de tratamento entre gêneros como um dos principais desafios enfrentados pelas mulheres nas organizações.</p>
+
+    <p class="reveal">A neurocientista <strong>Naomi Eisenberger</strong>, da UCLA, demonstrou que o cérebro processa rejeição social utilizando circuitos semelhantes aos envolvidos na dor física.</p>
+
+    <p class="reveal" style="margin-top: 32px;">Suavizar a fala, evitar conflito ou recuar diante de determinadas situações é uma adaptação. Uma proteção que se tornou padrão.</p>
+
+    <p class="reveal">O problema é que aquilo que começou como proteção pode acabar se tornando identidade.</p>
+
+    <p class="reveal" style="margin-top: 32px;"><strong>E padrão muda em um lugar específico: no instante em que ele está acontecendo. Quando você aprende a reconhecer o reflexo no momento exato em que ele opera.</strong></p>
+
+    <p class="reveal"><em>É exatamente aí que a Arquitetura da Voz começa.</em></p>
+  </div>
+</section>
+
+<!-- ===================== FUNCIONAMENTO ===================== -->
+<section class="howitworks">
+  <div class="container">
+    <div style="text-align: center; margin-bottom: 40px;">
+      <div class="eyebrow reveal" style="justify-content: center;">Como funciona na prática</div>
+      <h2 class="reveal">21 dias para fazer sua voz <em>chegar na hora certa</em></h2>
+      <p class="lead reveal" style="margin: 16px auto 0; max-width: 640px;">É um protocolo para diminuir o intervalo entre o que você pensa, o que sente e o que consegue dizer.</p>
+    </div>
+
+    <p class="reveal" style="text-align: center; max-width: 560px; margin: 0 auto 56px; font-size: 1rem; line-height: 1.8;">
+      Cada exercício leva poucos minutos.<br>
+      Cabe entre o café e a primeira reunião.<br>
+      <strong>Mas acontece na vida real. Nas conversas que importam.</strong>
+    </p>
+
+    <div class="furadeira-image reveal">
+      <img src="../furadeira/furadeira.png" alt="Método Arquitetura da Voz em 3 fases: Consciência, Ativação e Sustentação">
+    </div>
+
+    <div class="weeks-list">
+      <div class="week-card reveal">
+        <div class="week-roman">I</div>
+        <div>
+          <p class="week-subtitle">Semana 1 · Consciência</p>
+          <h3 class="week-title">Percebendo o momento em que sua voz recua</h3>
+          <p class="week-text">Antes de mudar qualquer comportamento, você aprende a enxergá-lo. Em quais situações sua resposta chega tarde. Com quais pessoas. Em quais conversas. Em qual segundo você começa a se adaptar antes de se expressar. <strong>Pela primeira vez, o padrão deixa de ser invisível.</strong></p>
+        </div>
       </div>
-      <div class="valor-total-num">
-        <span class="tudo">R$248</span>
-        <span class="investimento">R$97</span>
-        <span class="parcel">ou 12x de R$10,03</span>
+
+      <div class="week-card reveal">
+        <div class="week-roman">II</div>
+        <div>
+          <p class="week-subtitle">Semana 2 · Ativação</p>
+          <h3 class="week-title">Interrompendo o reflexo</h3>
+          <p class="week-text">Você começa a praticar novas respostas em situações cotidianas. <strong>Dizer não com tranquilidade. Discordar com elegância. Sustentar uma opinião com firmeza.</strong> O objetivo é continuar sendo você quando a pressão aparece.</p>
+        </div>
+      </div>
+
+      <div class="week-card reveal">
+        <div class="week-roman">III</div>
+        <div>
+          <p class="week-subtitle">Semana 3 · Sustentação</p>
+          <h3 class="week-title">Transformando presença em hábito</h3>
+          <p class="week-text">Aqui você deixa de depender de coragem momentânea. A nova forma de se posicionar começa a ganhar consistência. <strong>Mais clareza. Mais firmeza. Menos adaptação automática. Menos horas reconstruindo conversas que já terminaram.</strong></p>
+        </div>
       </div>
     </div>
 
-    <div class="lancamento-box">
-      <strong>Este é o primeiro lançamento digital do método.</strong> O investimento de R$97 é de acesso inaugural — e não se repetirá nas próximas turmas.
+    <p class="reveal" style="text-align: center; max-width: 600px; margin: 64px auto 56px; font-size: 1.05rem; line-height: 1.9;">
+      Ao final dos 21 dias, a pergunta deixa de ser<br>
+      <em>"Por que eu não falei?"</em><br><br>
+      E passa a ser<br>
+      <em>"Por que eu esperei tanto tempo para começar?"</em>
+    </p>
+
+    <div class="matrix-block reveal">
+      <p class="eyebrow" style="justify-content: center; margin-bottom: 16px;">A medição</p>
+      <h3>Você mede antes. E mede depois.</h3>
+      <p>Antes do Dia 1, você preenche a <strong>Matriz ELLE de Sustentação da Voz</strong>. Oito pilares mostram onde sua voz está hoje: <em>Clareza interna · Regulação emocional · Medo de julgamento · Autorização interna · Assertividade prática · Limites e posicionamento · Presença e linguagem · Consistência</em>.</p>
+      <p>No Dia 21, você responde novamente.</p>
+      <p><strong>A diferença entre as duas matrizes transforma percepção em evidência.</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== PROVA ===================== -->
+<section class="proof">
+  <div class="container">
+    <div class="eyebrow reveal" style="justify-content: center;">O Perfil ELLE</div>
+    <h2 class="reveal">Os <em>4 Códigos</em> do Perfil ELLE</h2>
+    <p class="foundations-intro reveal">
+      Existem quatro formas distintas de uma mulher se posicionar, reagir e se comunicar no mundo. O Método ELLE chama esses padrões de <strong>4 Códigos do Perfil ELLE</strong>. Você opera predominantemente em um deles, com elementos de um segundo.
+    </p>
+
+    <div class="patterns-grid">
+      <div class="pattern-card reveal">
+        <p class="pattern-num">Código 01</p>
+        <h3 class="pattern-title">A Estruturadora</h3>
+        <p class="pattern-text"><em>Código da Força.</em> Você pensa em resultados antes de pensar em processos. Sua mente já chegou no destino enquanto as outras leem o mapa. <strong>Sua voz pode soar dura quando o que você quer é sustentar.</strong></p>
+      </div>
+
+      <div class="pattern-card reveal">
+        <p class="pattern-num">Código 02</p>
+        <h3 class="pattern-title">A Radiante</h3>
+        <p class="pattern-text"><em>Código do Brilho.</em> Onde você chega, algo acende. Foi feita para conectar, inspirar. <strong>Seu desafio é sustentar posição mesmo quando o ambiente não responde como você espera.</strong></p>
+      </div>
+
+      <div class="pattern-card reveal">
+        <p class="pattern-num">Código 03</p>
+        <h3 class="pattern-title">A Guardiã</h3>
+        <p class="pattern-text"><em>Código do Acolhimento.</em> Você é a base e o abrigo. Ouve o que não foi dito, chega antes que peçam. <strong>Dizer não e discordar são os maiores desafios do seu código.</strong></p>
+      </div>
+
+      <div class="pattern-card reveal">
+        <p class="pattern-num">Código 04</p>
+        <h3 class="pattern-title">A Decodificadora</h3>
+        <p class="pattern-text"><em>Código da Essência.</em> Você é o sistema que ninguém vê e do qual tudo depende. Vê o que os outros não veem. <strong>O custo do seu código é o silêncio por perfeccionismo.</strong></p>
+      </div>
     </div>
 
-    <p style="font-size:1rem; color:var(--text-muted); margin-bottom:2rem; line-height:1.8;">Uma sessão de coaching pode custar R$300. Aqui você tem 21 dias de processo estruturado, com diagnóstico, manual e aulas gravadas. Por R$97.</p>
+    <div class="matrix-cta reveal">
+      <p>O <strong>Perfil ELLE</strong> identifica seu código primário e secundário em 26 perguntas. O <strong>Manual de Arquitetura Interior</strong> aprofunda a leitura completa da sua estrutura interna.</p>
+    </div>
 
-    <a href="https://pay.hotmart.com/B105291424M?checkoutMode=10&src=paginadevenda" class="btn-cta-grande">
-      <span class="btn-cta-parcel">12x de R$10,03</span>
-      <span class="btn-cta-texto">ou R$97 à vista · 7 dias de garantia</span>
+    <p class="tech-note">
+      Comportamento muda quando você entende de onde vem o padrão e por onde começar. O Perfil ELLE é uma leitura da sua estrutura interna, organizada em quatro códigos que sustentam ou sabotam sua voz dependendo de como você opera com eles.
+    </p>
+  </div>
+</section>
+
+<!-- ===================== ANALOGIA ===================== -->
+<section class="analogy reveal">
+  <div class="analogy-inner">
+    <p class="analogy-label">Pense assim</p>
+    <p class="analogy-text">É como <strong>uma academia para a sua voz</strong>. Você não vira outra pessoa em 21 dias. Você cria o hábito de sustentar o que pensa nas situações que antes te calavam.</p>
+  </div>
+</section>
+
+<!-- ===================== OFERTA ===================== -->
+<section class="offer">
+  <div class="offer-inner">
+    <div class="eyebrow reveal" style="justify-content: center;">A oferta</div>
+    <h2 class="reveal">O que muda nas conversas <em>que mais importam</em></h2>
+    <p class="lead reveal">
+      Você não vira outra pessoa em 21 dias. Você continua sendo você. <strong>A diferença é que sua voz para de chegar atrasada.</strong>
+    </p>
+
+    <p class="reveal" style="max-width: 560px; margin: 24px auto 0; font-size: 1rem; line-height: 1.9; text-align: center;">
+      A frase aparece quando ainda importa.<br>
+      O limite aparece antes do excesso.<br>
+      A opinião aparece antes da adaptação.<br>
+      A resposta aparece antes do arrependimento.
+    </p>
+
+    <p class="reveal" style="max-width: 600px; margin: 32px auto 48px; font-size: 1rem; line-height: 1.7; text-align: center;">
+      E isso muda conversas que talvez você tenha aceitado como inevitáveis por anos.
+    </p>
+
+    <div class="benefits-box reveal">
+      <p class="benefits-label">O que você leva</p>
+
+      <ul class="benefits-list">
+        <li>Sair de uma conversa difícil sem passar a noite reconstruindo o que deveria ter dito</li>
+        <li>Dizer "não" com tranquilidade e fechar o assunto na primeira frase</li>
+        <li>Sustentar uma opinião quando alguém discorda de você</li>
+        <li>Receber uma crítica direta e seguir inteira por dentro</li>
+        <li>Parar de suavizar tanto sua mensagem que ela perde o próprio sentido</li>
+        <li>Reconhecer o momento exato em que você começa a se abandonar numa conversa</li>
+        <li>Sentir que a mulher das 22h finalmente chegou às 17h</li>
+        <li>Dormir em paz depois de uma conversa importante</li>
+        <li>Responder com presença em vez de reagir por proteção</li>
+        <li>Voltar a confiar na própria voz</li>
+      </ul>
+
+      <div class="deliverables-divider">
+        <span class="deliverables-divider-text">Produto principal</span>
+      </div>
+
+      <div class="deliverables-grid" style="grid-template-columns: 1fr;">
+        <div class="deliverable">
+          <p class="deliverable-name">Desafio Arquitetura da Voz <span class="price-strike">R$ 147</span></p>
+          <p class="deliverable-desc">Um protocolo de 21 dias para diminuir a distância entre o que você pensa e o que consegue dizer. Exercícios diários, perguntas de consolidação e 3 vídeos-aula nos pontos de virada.</p>
+        </div>
+      </div>
+
+      <div class="deliverables-divider">
+        <span class="deliverables-divider-text">+ Bônus inclusos</span>
+      </div>
+
+      <div class="deliverables-grid">
+        <div class="deliverable">
+          <p class="deliverable-name">Diagnóstico de Perfil ELLE <span class="price-strike">R$ 67</span></p>
+          <p class="deliverable-desc">Descubra por que sua voz desaparece justamente nas conversas que mais importam.</p>
+        </div>
+        <div class="deliverable">
+          <p class="deliverable-name">Manual de Arquitetura Interior <span class="price-strike">R$ 97</span></p>
+          <p class="deliverable-desc">Entenda o que sua comunicação está tentando proteger há anos.</p>
+        </div>
+        <div class="deliverable">
+          <p class="deliverable-name">Matriz ELLE de Sustentação da Voz <span class="price-strike">R$ 47</span></p>
+          <p class="deliverable-desc">Veja sua voz antes do processo. Veja sua voz depois do processo. E descubra exatamente o que mudou.</p>
+        </div>
+        <div class="deliverable">
+          <p class="deliverable-name">Mapa das Oscilações <span class="price-strike">R$ 37</span></p>
+          <p class="deliverable-desc">Descubra os momentos exatos em que você começa a se abandonar para manter a paz.</p>
+        </div>
+        <div class="deliverable deliverable-centered">
+          <p class="deliverable-name">Checklist de Sustentação da Voz <span class="price-strike">R$ 47</span></p>
+          <p class="deliverable-desc">Uma ferramenta semanal pra manter sua voz inteira depois do Dia 21. Nas conversas que mais costumam te fazer recuar.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="inaugural-block reveal">
+      <p class="inaugural-label">Acesso inaugural · Janela de lançamento</p>
+      <p class="inaugural-text">Este é o <strong>primeiro lançamento digital</strong> da Arquitetura da Voz. Durante a janela inaugural, o acesso completo está disponível por <strong>R$ 47</strong>, válido <strong>até 30 de junho</strong>. Após o encerramento desta fase, o valor volta para <strong>R$ 247</strong>.</p>
+    </div>
+
+    <div class="price-block reveal">
+      <p class="price-label">Acesso inaugural · Até 30 de junho</p>
+      <p class="price-strike-main">De <span class="strike-num">R$ 247</span></p>
+      <p class="price-main">R$ 47</p>
+      <p class="price-installments">ou 9x de R$ 5,87</p>
+      <p class="price-meta"><strong>Pagamento único · Acesso por 1 ano</strong></p>
+    </div>
+
+    <p class="reveal" style="text-align: center; max-width: 560px; margin: 8px auto 20px; font-size: 1rem; line-height: 1.6; color: var(--gold-dark); font-weight: 500;">
+      A mulher das 22h não precisa esperar a próxima conversa.<br>
+      <span style="color: var(--text); font-weight: 400;">Acesso inaugural por R$ 47.</span>
+    </p>
+
+    <a href="https://pay.hotmart.com/B105291424M?checkoutMode=10" class="cta-large reveal">
+      <span class="cta-large-main">Quero chegar a tempo nas minhas palavras</span>
+      <span class="cta-large-sub">Acesso imediato · 7 dias de garantia</span>
     </a>
+  </div>
+</section>
 
-    <!-- 7. GARANTIA ATUALIZADA -->
-    <div class="garantia">
-      <p><strong>7 dias de garantia incondicional.</strong></p>
-      <p>Se em até 7 dias você sentir que o protocolo não é para você, solicite o reembolso direto pela plataforma Hotmart e o valor é devolvido integralmente, sem perguntas e sem burocracia.</p>
-      <p>Você não precisa justificar. Não precisa provar nada. A decisão é sua.</p>
-      <p>A garantia existe porque o método foi construído para funcionar. E porque a única forma de você descobrir isso é entrando sem risco.</p>
+<!-- ===================== GARANTIA + SUPORTE ===================== -->
+<section class="guarantee-support">
+  <div class="gs-grid">
+    <div class="gs-card reveal">
+      <div class="gs-card-icon-wrap">✓</div>
+      <h3 class="gs-card-title">Você não fica sozinha</h3>
+      <p class="gs-card-text">Dúvidas ou suporte direto em <a href="mailto:contato@metodoelle.com.br">contato@metodoelle.com.br</a>. Resposta em até 24h em dias úteis.</p>
+    </div>
+    <div class="gs-card reveal">
+      <div class="gs-seal">
+        <span class="gs-seal-top">GARANTIA</span>
+        <span class="gs-seal-number">7</span>
+        <span class="gs-seal-dias">DIAS</span>
+        <span class="gs-seal-bottom">RISCO ZERO</span>
+      </div>
+      <h3 class="gs-card-title">Garantia incondicional</h3>
+      <p class="gs-card-text"><strong>7 dias para testar.</strong> Se sentir que o protocolo não é para o seu momento, basta solicitar o reembolso pela Hotmart. Sem perguntas. Sem burocracia.</p>
     </div>
   </div>
 </section>
 
-<!-- 8. AUTORIDADE ATUALIZADA -->
-<section class="autoridade-section">
-  <div class="container-wide">
-    <div class="autoridade-inner">
-      <div class="autoridade-foto-area">
-        <img src="/fran-arquiteta.jpg" alt="Fran Castro" class="autoridade-foto" style="object-position: center top;">
-        <div class="autoridade-foto-frame"></div>
-      </div>
-      <div class="autoridade-texto">
-        <h2 class="section-title" style="margin-bottom: 0.5rem;">De onde veio o Método Elle e a Arquitetura da Voz</h2>
-        <h3 class="autoridade-nome">Fran Castro</h3>
-        <p class="autoridade-cargo">Arquiteta da Inteligência Emocional</p>
-        <p>Em 2021, numa reunião de feedback, uma das minhas analistas me disse que ficava feliz quando eu entrava de férias e triste quando eu voltava.</p>
-        <p>Essa foi a frase que mudou tudo.</p>
-        <p>Eu era gestora no serviço público e achava que sabia liderar. Tinha clareza do que precisava ser dito. Sabia me comunicar. Mas o que eu comunicava, sem perceber, era distância.</p>
-        <p>A partir dali, fui estudar inteligência emocional de forma séria. Imersões, formação, anos aplicando dentro da minha própria equipe. Aprendi que eu tinha um perfil dominante e que parte da minha equipe era estável. Eu estava conversando com elas do jeito que eu funcionava, não do jeito que elas precisavam ser tratadas. Quando mudei isso, a relação inteira mudou.</p>
-        <div class="autoridade-destaque">Quatro anos depois, quando saí do serviço público, essa mesma analista me disse que não sabia como ia trabalhar na segunda-feira sabendo que eu não ia estar lá.</div>
-        <p>O método não nasceu de teoria. Nasceu de uma reunião difícil, de quatro anos de ajuste deliberado e de uma mudança que aconteceu na postura, na voz e no jeito de me posicionar.</p>
-        <p>Desde que saí do serviço público, acompanho mulheres individualmente e conduzi um desafio guiado de 21 dias, ajudando cada uma a encontrar a própria voz. Não a voz que funciona para todo mundo. A que sustenta quem elas são.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- 9. FAQ -->
-<section style="background:var(--dark); border-top:1px solid var(--border);">
+<!-- ===================== DEPOIMENTOS ===================== -->
+<section class="testimonials">
   <div class="container">
-    <h2 class="section-title">Perguntas <em>frequentes</em></h2>
-    <div class="faq-list">
-      <div class="faq-item">
-        <p class="faq-q">Isso funciona para mim?</p>
-        <p class="faq-a">Se você se identificou com o que leu até aqui — funciona. Não é sobre aprender a falar melhor. É sobre interromper o padrão que te faz travar antes mesmo de falar.</p>
+    <div class="eyebrow reveal" style="justify-content: center;">Quem já viveu o protocolo</div>
+    <h2 class="reveal">As mulheres que <em>pararam de sair caladas</em></h2>
+
+    <div class="testimonials-grid">
+      <div class="testimonial reveal">
+        <p class="testimonial-text">"Eu reagia automaticamente, na maior parte das vezes por emoção, sem entender direito o que estava acontecendo. Quando eu precisava me posicionar, eu me calava ou não conseguia me expressar de forma correta. Ao invés de resolver o problema, eu percebia que muitas vezes o problema piorava. Já percebo uma mudança muito grande no meu comportamento, na minha fala, no meu posicionamento no trabalho, na igreja."</p>
+        <p class="testimonial-author">Claudia · Taubaté · Semana 2</p>
       </div>
-      <div class="faq-item">
-        <p class="faq-q">Não tenho tempo.</p>
-        <p class="faq-a">São 10 a 15 minutos por dia. Não é sobre tempo — é sobre presença. 10 minutos no automático não mudam nada. 10 minutos com atenção mudam o suficiente.</p>
-      </div>
-      <div class="faq-item">
-        <p class="faq-q">Já tentei melhorar minha comunicação antes.</p>
-        <p class="faq-a">Provavelmente você tentou ajustar a forma. Aqui você ajusta a origem. Sem mudar o padrão, qualquer técnica vira esforço — não mudança.</p>
-      </div>
-      <div class="faq-item">
-        <p class="faq-q">São 21 dias seguidos?</p>
-        <p class="faq-a">Sim. É uma jornada com progressão intencional. Se pular um dia, não precisa voltar para compensar — continue de onde parou.</p>
-      </div>
-      <div class="faq-item">
-        <p class="faq-q">Como funciona o acesso?</p>
-        <p class="faq-a">Após a compra, você recebe acesso imediato pela Hotmart. Tudo já organizado — você entra e começa.</p>
-      </div>
-      <div class="faq-item">
-        <p class="faq-q">E se não funcionar para mim?</p>
-        <p class="faq-a">Você tem 7 dias de garantia incondicional. Solicite o reembolso direto pela Hotmart. Sem risco. Sem explicação.</p>
-      </div>
-      <div class="faq-item">
-        <p class="faq-q">Como entro em contato?</p>
-        <p class="faq-a">Para dúvidas técnicas ou de acesso: <a href="mailto:contato@metodoelle.com.br">contato@metodoelle.com.br</a></p>
+
+      <div class="testimonial reveal">
+        <p class="testimonial-text">"A minha vida inteira eu não disse nada. Eu pagava, falava tchau e procurava outra. Mas está cada dia mais difícil achar outra. Você tem que dizer, se posicionar, ensinar. Apesar de eu ainda não estar sendo tão assertiva, eu estou falando. Quando discordava de algum ponto, eu guardava pra mim, no máximo me posicionava se tivesse votação. Agora estou falando, e me posicionando com mais clareza."</p>
+        <p class="testimonial-author">Maria · Goiânia · Semana 2</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CTA FINAL -->
+<!-- ===================== QUEM SOU ===================== -->
+<section class="about">
+  <div class="about-inner">
+    <div class="about-image-wrap reveal">
+      <div class="about-image-frame">
+        <img src="fran-castro.jpg" alt="Fran Castro · Arquiteta da Inteligência Emocional">
+      </div>
+    </div>
+
+    <div class="about-content">
+      <div class="eyebrow reveal">De onde nasceu o Desafio Arquitetura da Voz</div>
+      <h2 class="reveal">Fran Castro</h2>
+      <p class="about-name reveal">Arquiteta da Inteligência Emocional</p>
+
+      <p class="reveal">Em 2021, durante uma reunião de feedback, uma das minhas analistas disse:</p>
+
+      <p class="about-quote reveal" style="margin: 20px 0; font-size: 1.15rem;">"Eu fico feliz quando você entra de férias. E triste quando você volta."</p>
+
+      <p class="reveal">Eu era gestora no serviço público. Achava que sabia liderar. Era eficiente, tinha clareza, sabia o que precisava ser dito.</p>
+
+      <p class="reveal">Mas havia uma coisa que eu não percebia.</p>
+
+      <p class="about-pivot reveal">A minha presença gerava tensão.</p>
+
+      <p class="reveal">Eu me comunicava a partir do meu funcionamento, sem considerar como as pessoas recebiam. O que para mim era objetividade, soava dureza. O que eu chamava de clareza, virava distância.</p>
+
+      <p class="reveal">Quando ajustei minha comunicação, a relação inteira mudou.</p>
+
+      <p class="reveal">Quatro anos depois, ao sair do serviço público, essa mesma analista me disse que não sabia como iria trabalhar na segunda-feira sabendo que eu não estaria mais lá.</p>
+
+      <p class="about-pivot reveal">O Método ELLE nasceu daí. Não da teoria, da prática.</p>
+
+      <p class="reveal">Hoje acompanho mulheres que sabem falar, cuidar, sustentar, resolver, mas que em algum lugar do caminho perderam a própria voz dentro da vida que aprenderam a sustentar.</p>
+
+      <p class="reveal">Encontrar sua voz é conseguir se sustentar emocionalmente no que precisa ser dito.</p>
+
+      <p class="about-quote reveal">"Quando uma mulher aprende a sustentar a própria voz, ela aprende a liderar a própria história."</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FAQ ===================== -->
+<section class="faq">
+  <div class="faq-inner">
+    <div class="eyebrow reveal" style="justify-content: center;">Dúvidas comuns</div>
+    <h2 class="reveal">Antes de começar</h2>
+
+    <div class="faq-item reveal">
+      <button class="faq-q">E se eu não conseguir aplicar na hora H? O problema vai ser eu?</button>
+      <div class="faq-a"><p>Você começa o protocolo já com o diagnóstico do seu padrão. Antes do Dia 1, você preenche o Perfil ELLE (são 26 perguntas) e descobre qual dos 4 códigos é o seu: Estruturadora, Radiante, Guardiã ou Decodificadora. Nenhuma mulher começa sem saber onde está. E a Matriz ELLE de Sustentação da Voz, feita antes do Dia 1 e refeita no Dia 21, mostra a sua evolução em preto e branco. Você não precisa confiar em sensação. Está documentado.</p></div>
+    </div>
+
+    <div class="faq-item reveal">
+      <button class="faq-q">Tenho rotina cheia. Vou conseguir manter 21 dias?</button>
+      <div class="faq-a"><p>Cada exercício foi pensado pra caber entre 10 e 15 minutos. A Semana 1 nem é uma tarefa nova: você só observa as conversas que já acontecem na sua rotina. A prática real começa na Semana 2, quando você já entende onde seu padrão aparece. O protocolo encaixa na vida que você já vive. Não tenta criar uma agenda nova pra você manter.</p></div>
+    </div>
+
+    <div class="faq-item reveal">
+      <button class="faq-q">Já faço terapia. Faz sentido fazer o protocolo também?</button>
+      <div class="faq-a"><p>Faz, e muito. O protocolo trabalha numa camada diferente da terapia. A terapia entra no porquê: a história, os vínculos, a origem do padrão. O protocolo entra no o que fazer: como você reage na próxima reunião, o que você fala quando o tom sobe, como você sustenta uma posição. As duas coisas se reforçam. Você entende a raiz com a terapia, e treina o comportamento com o protocolo.</p></div>
+    </div>
+
+    <div class="faq-item reveal">
+      <button class="faq-q">Vou virar uma mulher dura ou perder o jeito acolhedor que sou?</button>
+      <div class="faq-a"><p>Não. Dureza vem de outro lugar. Quem fica calada muito tempo, quando finalmente fala, fala com explosão. Quem fala a tempo, com firmeza, não precisa explodir nem endurecer. O protocolo é sobre sustentar a sua voz com calma e clareza. Seu jeito acolhedor não desaparece. Ele ganha base. Quem sustenta com presença, cuida ainda melhor das pessoas que ama.</p></div>
+    </div>
+
+    <div class="faq-item reveal">
+      <button class="faq-q">É possível mudar um padrão de décadas em menos de um mês?</button>
+      <div class="faq-a"><p>Vinte e um dias é o piso comprovado pela pesquisa sobre formação de hábito (Lally, UCL, 2009). Você não vai sair daqui resolvida pra sempre. Mas vai sair com prática diária acumulada, com o Mapa das Oscilações sabendo exatamente onde sua voz trava, e com a Matriz dos 8 Pilares mostrando a diferença real entre o Dia 1 e o Dia 21. É a base concreta que muitas mulheres tentaram construir em anos de leitura e curso, e não conseguiram. Aqui você constrói em 21 dias.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CTA FINAL ===================== -->
 <section class="cta-final">
-  <div class="container">
-    <h2 class="section-title">Você não precisa se diminuir para caber.</h2>
-    <p class="cta-quote">Ou você pode continuar saindo das conversas com o peso do que não disse.</p>
-    <p style="font-size:1rem; color:var(--text-muted); max-width:480px; margin:0 auto 1.5rem; line-height:1.85;">A Arquitetura da Voz não é sobre aprender mais. É sobre parar de se abandonar quando mais importa.</p>
-    <div class="risco-box">
-      <p>Se nada mudar, você continua vivendo as mesmas situações — sabendo o que deveria dizer, e não dizendo.</p>
-    </div>
-    <a href="https://pay.hotmart.com/B105291424M?checkoutMode=10&src=paginadevenda" class="btn-cta-grande" style="max-width:480px; margin:0 auto 1rem;">
-      <span class="btn-cta-parcel">12x de R$10,03</span>
-      <span class="btn-cta-texto">ou R$97 à vista · 7 dias de garantia</span>
+  <div class="eyebrow reveal" style="justify-content: center;">A decisão</div>
+  <h2 class="reveal">A próxima conversa difícil <em>tem uma resposta.</em></h2>
+  <p class="lead reveal">A próxima conversa difícil já está no calendário. Ela vai acontecer de qualquer jeito. A única decisão é se você chega nela com o mesmo padrão de sempre, ou com 21 dias de prática diária acumulada.</p>
+
+  <div class="cta-final-price reveal">
+    <p class="strike">De R$ 247</p>
+    <p class="price">R$ 47</p>
+    <p class="installments">ou 9x de R$ 5,87</p>
+    <p class="meta">Acesso por 1 ano · Janela de lançamento</p>
+  </div>
+
+  <p class="reveal" style="font-size: 0.9rem; color: var(--gold-dark); max-width: 580px; margin: -8px auto 28px; padding: 0 32px; letter-spacing: 0.04em; font-weight: 500;">★ R$ 47 só até 30 de junho. Depois, R$ 247.</p>
+
+  <div class="cta-final-button-wrap">
+    <a href="https://pay.hotmart.com/B105291424M?checkoutMode=10" class="cta-large reveal">
+      <span class="cta-large-main">Quero chegar a tempo nas minhas palavras</span>
+      <span class="cta-large-sub">Acesso imediato · 7 dias de garantia</span>
     </a>
-    <p style="font-size:0.875rem; color:var(--text-muted); opacity:0.6; letter-spacing:0.05em;">Acesso imediato · Hotmart · Pagamento seguro</p>
+    <p class="cta-final-note">Pagamento seguro via Hotmart · Acesso imediato no e-mail</p>
   </div>
 </section>
 
+</main>
+
+<!-- ===================== FOOTER ===================== -->
 <footer>
-  <div class="container">
-    <p>© 2026 Fran Castro — Arquiteta da Inteligência Emocional · <a href="/">Método ELLE</a></p>
+  <div class="footer-inner">
+    <p class="footer-name">Método ELLE · Arquitetura da Voz</p>
+    <div class="footer-links">
+      <a href="mailto:contato@metodoelle.com.br">Contato</a>
+      <a href="#">Política de Privacidade</a>
+      <a href="#">Termos de Uso</a>
+    </div>
+    <p class="footer-compliance">Este produto é um programa de desenvolvimento pessoal e comunicacional. Não substitui acompanhamento psicológico, terapêutico ou psiquiátrico.</p>
   </div>
 </footer>
+
+<!-- ===================== CTA FLUTUANTE MOBILE ===================== -->
+<div class="mobile-cta">
+  <a href="https://pay.hotmart.com/B105291424M?checkoutMode=10">Quero chegar a tempo nas minhas palavras · R$ 47</a>
+</div>
+
+<script>
+// Scroll reveal animations
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      revealObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+// FAQ accordion
+document.querySelectorAll('.faq-q').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const item = btn.parentElement;
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  });
+});
+</script>
 
 </body>
 </html>
