@@ -8,7 +8,8 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="capa-quiz.jpg" fetchpriority="high">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
 :root {
@@ -47,7 +48,7 @@ body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background-image: url('quiz-fundo.png');
+  background-image: url('quiz-fundo.jpg');
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -1165,7 +1166,7 @@ body::after {
   <!-- TELA 0. INTRO -->
   <section class="screen active" id="s0">
     <div class="intro-cover">
-      <img src="capa-quiz.png" alt="Mulher em momento de escuta numa conversa íntima">
+      <img src="capa-quiz.jpg" alt="Mulher em momento de escuta numa conversa íntima">
     </div>
 
     <p class="eyebrow intro-eyebrow-top">Diagnóstico da Voz Sob Pressão</p>
@@ -1214,7 +1215,7 @@ body::after {
   <!-- PERGUNTA 3 (Cobertura) -->
   <section class="screen" id="s3">
     <div class="question-cover">
-      <img src="quiz-foto-1.png" alt="Mulher em momento de pausa em ambiente profissional">
+      <img src="quiz-foto-1.jpg" alt="Mulher em momento de pausa em ambiente profissional" loading="lazy">
     </div>
     <div class="progress">
       <div class="progress-bar"><div class="progress-fill" style="width: 25%"></div></div>
@@ -1262,7 +1263,7 @@ body::after {
   <!-- PERGUNTA 6 (Cobertura) -->
   <section class="screen" id="s6">
     <div class="question-cover">
-      <img src="quiz-foto-2.png" alt="Mulher em conversa íntima num ambiente doméstico">
+      <img src="quiz-foto-2.jpg" alt="Mulher em conversa íntima num ambiente doméstico" loading="lazy">
     </div>
     <div class="progress">
       <div class="progress-bar"><div class="progress-fill" style="width: 50%"></div></div>
@@ -1310,7 +1311,7 @@ body::after {
   <!-- PERGUNTA 9 (Cobertura) -->
   <section class="screen" id="s9">
     <div class="question-cover">
-      <img src="quiz-foto-3.png" alt="Mulher em mesa de jantar entre outras pessoas">
+      <img src="quiz-foto-3.jpg" alt="Mulher em mesa de jantar entre outras pessoas" loading="lazy">
     </div>
     <div class="progress">
       <div class="progress-bar"><div class="progress-fill" style="width: 75%"></div></div>
@@ -1358,7 +1359,7 @@ body::after {
   <!-- PERGUNTA 12 (Cobertura) -->
   <section class="screen" id="s12">
     <div class="question-cover">
-      <img src="quiz-foto-4.png" alt="Mulher em pausa diante de uma janela, momento de respiração antes de se posicionar">
+      <img src="quiz-foto-4.jpg" alt="Mulher em pausa diante de uma janela, momento de respiração antes de se posicionar" loading="lazy">
     </div>
     <div class="progress">
       <div class="progress-bar"><div class="progress-fill" style="width: 100%"></div></div>
@@ -1394,7 +1395,7 @@ body::after {
 
     <!-- 00. CAPA DO PRODUTO -->
     <div class="product-cover">
-      <img src="desafio-produto.jpeg" alt="Desafio Arquitetura da Voz com Fran Castro">
+      <img src="desafio-produto.jpeg" alt="Desafio Arquitetura da Voz com Fran Castro" loading="lazy">
     </div>
 
     <!-- 01. NOME DA OFERTA -->
@@ -1542,7 +1543,7 @@ body::after {
       <h3 class="section-title">Mulheres na Semana 2</h3>
 
       <div class="testimonial-video">
-        <video controls preload="metadata" playsinline>
+        <video controls preload="none" playsinline>
           <source src="depoimento-claudia.mp4" type="video/mp4">
           Seu navegador não suporta vídeo.
         </video>
@@ -1551,7 +1552,7 @@ body::after {
       </div>
 
       <div class="testimonial-video">
-        <video controls preload="metadata" playsinline>
+        <video controls preload="none" playsinline>
           <source src="depoimento-maria.mp4" type="video/mp4">
           Seu navegador não suporta vídeo.
         </video>
@@ -1585,7 +1586,7 @@ body::after {
     <!-- 11. AUTORIDADE -->
     <div class="authority-block">
       <div class="authority-photo-wrap">
-        <img class="authority-photo" src="fran-quiz.jpg" alt="Fran Castro, Arquiteta da Inteligência Emocional">
+        <img class="authority-photo" src="fran-quiz.jpg" alt="Fran Castro, Arquiteta da Inteligência Emocional" loading="lazy">
       </div>
       <div class="authority-content">
         <p class="authority-eyebrow">De onde nasceu o Desafio Arquitetura da Voz</p>
