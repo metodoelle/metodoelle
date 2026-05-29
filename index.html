@@ -7,65 +7,82 @@
   <meta name="description" content="Para a mulher que aprendeu a ceder. E decidiu parar. Método ELLE — Arquitetura da Inteligência Emocional por Fran Castro." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="image" href="/fran-quiz.jpg" fetchpriority="high" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
+    :root {
+      --bg: #FAF8F4;
+      --bg-2: #F2EDE3;
+      --bg-3: #EAE2D2;
+      --surface: #FFFFFF;
+      --gold: #B8934A;
+      --gold-light: #D4AF6E;
+      --gold-dark: #8A6E38;
+      --text: #3D2B1F;
+      --text-muted: #6B5847;
+      --text-soft: #94816D;
+      --text-faint: #B8AFA0;
+      --accent: #8A6E38;
+      --border: rgba(184,147,74,0.28);
+      --border-strong: rgba(184,147,74,0.55);
+    }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body { background: #1C1917; color: #F5ECD7; font-family: 'Raleway', sans-serif; -webkit-font-smoothing: antialiased; }
+    body { background: var(--bg); color: var(--text); font-family: 'Raleway', sans-serif; -webkit-font-smoothing: antialiased; }
 
     /* NAV */
-    nav { display: flex; justify-content: space-between; align-items: center; padding: 24px 48px; border-bottom: 0.5px solid #2E2922; position: sticky; top: 0; background: #1C1917; z-index: 100; }
+    nav { display: flex; justify-content: space-between; align-items: center; padding: 24px 48px; border-bottom: 0.5px solid var(--border); position: sticky; top: 0; background: var(--bg); z-index: 100; }
     .nav-links { display: flex; gap: 32px; }
-    .nav-link { font-size: 11px; color: #7A6E65; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 400; text-decoration: none; transition: color 0.2s; }
-    .nav-link:hover { color: #A8956A; }
+    .nav-link { font-size: 11px; color: var(--text-soft); letter-spacing: 0.1em; text-transform: uppercase; font-weight: 400; text-decoration: none; transition: color 0.2s; }
+    .nav-link:hover { color: var(--gold-dark); }
 
     /* HERO */
-    .hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 580px; }
+    .hero { display: grid; grid-template-columns: 1.1fr 1fr; min-height: 480px; }
     .hero-text { padding: 72px 56px 72px 48px; display: flex; flex-direction: column; justify-content: center; }
-    .hero-eyebrow { font-size: 10px; color: #7A6E65; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 24px; font-weight: 400; }
-    .hero-title { font-family: 'Playfair Display', serif; font-size: 40px; color: #F5ECD7; line-height: 1.2; font-weight: 400; margin-bottom: 20px; }
-    .hero-title em { color: #A8956A; font-style: italic; }
-    .hero-divider { width: 40px; height: 0.5px; background: #A8956A; margin-bottom: 28px; }
-    .hero-desc { font-size: 14px; color: #9A8E82; line-height: 1.85; font-weight: 300; max-width: 400px; }
-    .hero-img { overflow: hidden; background: #0F0D0C; }
-    .hero-img img { width: 100%; height: 100%; object-fit: cover; object-position: center top; opacity: 0.88; display: block; }
+    .hero-eyebrow { font-size: 10px; color: var(--gold-dark); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 24px; font-weight: 500; }
+    .hero-title { font-family: 'Playfair Display', serif; font-size: 40px; color: var(--text); line-height: 1.2; font-weight: 400; margin-bottom: 20px; }
+    .hero-title em { color: var(--gold-dark); font-style: italic; }
+    .hero-divider { width: 40px; height: 0.5px; background: var(--gold); margin-bottom: 28px; }
+    .hero-desc { font-size: 14px; color: var(--text-muted); line-height: 1.85; font-weight: 300; max-width: 400px; }
+    .hero-img { overflow: hidden; background: var(--bg-2); }
+    .hero-img img { width: 100%; height: 100%; object-fit: cover; object-position: center 25%; display: block; }
 
     /* SECTIONS */
-    .section { padding: 80px 48px; border-top: 0.5px solid #2E2922; }
-    .section-label { font-size: 10px; color: #A8956A; letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 36px; font-weight: 500; }
+    .section { padding: 80px 48px; border-top: 0.5px solid var(--border); }
+    .section-label { font-size: 10px; color: var(--gold-dark); letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 36px; font-weight: 500; }
 
     /* DOR */
-    .dor-title { font-family: 'Playfair Display', serif; font-size: 30px; color: #F5ECD7; line-height: 1.3; max-width: 580px; margin-bottom: 24px; }
-    .dor-body { font-size: 14px; color: #9A8E82; line-height: 1.9; max-width: 580px; font-weight: 300; }
-    .dor-body strong { color: #C4B08A; font-weight: 400; }
-    .elle-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: #2E2922; margin-top: 48px; }
-    .elle-card { background: #1C1917; padding: 36px 32px; }
-    .elle-card-num { font-size: 10px; color: #7A6E65; letter-spacing: 0.15em; margin-bottom: 14px; }
-    .elle-card-title { font-family: 'Playfair Display', serif; font-size: 19px; color: #F5ECD7; margin-bottom: 12px; }
-    .elle-card-body { font-size: 13px; color: #9A8E82; line-height: 1.8; font-weight: 300; }
+    .dor-title { font-family: 'Playfair Display', serif; font-size: 30px; color: var(--text); line-height: 1.3; max-width: 580px; margin-bottom: 24px; }
+    .dor-body { font-size: 14px; color: var(--text-muted); line-height: 1.9; max-width: 580px; font-weight: 300; }
+    .dor-body strong { color: var(--gold-dark); font-weight: 500; }
+    .elle-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); margin-top: 48px; }
+    .elle-card { background: var(--surface); padding: 36px 32px; }
+    .elle-card-num { font-size: 10px; color: var(--text-soft); letter-spacing: 0.15em; margin-bottom: 14px; }
+    .elle-card-title { font-family: 'Playfair Display', serif; font-size: 19px; color: var(--text); margin-bottom: 12px; }
+    .elle-card-body { font-size: 13px; color: var(--text-muted); line-height: 1.8; font-weight: 300; }
 
     /* FRAN */
     .fran-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 56px; align-items: start; }
-    .fran-img-box { border-radius: 2px; aspect-ratio: 3/4; overflow: hidden; }
+    .fran-img-box { border-radius: 2px; aspect-ratio: 3/4; overflow: hidden; background: var(--bg-2); }
     .fran-img-box img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
-    .fran-title { font-family: 'Playfair Display', serif; font-size: 28px; color: #F5ECD7; line-height: 1.3; margin-bottom: 20px; }
-    .fran-body { font-size: 14px; color: #9A8E82; line-height: 1.9; font-weight: 300; margin-bottom: 18px; }
-    .fran-body strong { color: #C4B08A; font-weight: 400; }
-    .fran-assinatura { font-family: 'Playfair Display', serif; font-size: 15px; color: #A8956A; font-style: italic; margin-top: 28px; }
+    .fran-title { font-family: 'Playfair Display', serif; font-size: 28px; color: var(--text); line-height: 1.3; margin-bottom: 20px; }
+    .fran-body { font-size: 14px; color: var(--text-muted); line-height: 1.9; font-weight: 300; margin-bottom: 18px; }
+    .fran-body strong { color: var(--gold-dark); font-weight: 500; }
+    .fran-assinatura { font-family: 'Playfair Display', serif; font-size: 15px; color: var(--gold-dark); font-style: italic; margin-top: 28px; }
 
     /* PRODUTO */
-    .produto-intro-title { font-family: 'Playfair Display', serif; font-size: 26px; color: #F5ECD7; margin-bottom: 10px; }
-    .produto-intro-desc { font-size: 13px; color: #9A8E82; font-weight: 300; }
-    .produto-card { border: 0.5px solid #3A3328; border-radius: 2px; padding: 40px 36px; display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: center; margin-top: 36px; }
-    .produto-label { font-size: 10px; color: #7A6E65; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 12px; }
-    .produto-title { font-family: 'Playfair Display', serif; font-size: 24px; color: #F5ECD7; margin-bottom: 10px; }
-    .produto-desc { font-size: 13px; color: #9A8E82; line-height: 1.8; font-weight: 300; max-width: 460px; }
-    .produto-cta { background: #A8956A; color: #1C1917; font-family: 'Raleway', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; padding: 16px 32px; border: none; cursor: pointer; white-space: nowrap; border-radius: 1px; text-decoration: none; display: inline-block; transition: background 0.2s; }
-    .produto-cta:hover { background: #C4A870; }
+    .produto-intro-title { font-family: 'Playfair Display', serif; font-size: 26px; color: var(--text); margin-bottom: 10px; }
+    .produto-intro-desc { font-size: 13px; color: var(--text-muted); font-weight: 300; }
+    .produto-card { border: 0.5px solid var(--border); border-radius: 2px; padding: 40px 36px; display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: center; margin-top: 36px; background: var(--surface); }
+    .produto-label { font-size: 10px; color: var(--text-soft); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 12px; }
+    .produto-title { font-family: 'Playfair Display', serif; font-size: 24px; color: var(--text); margin-bottom: 10px; }
+    .produto-desc { font-size: 13px; color: var(--text-muted); line-height: 1.8; font-weight: 300; max-width: 460px; }
+    .produto-cta { background: var(--gold); color: #FFFFFF; font-family: 'Raleway', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; padding: 16px 32px; border: none; cursor: pointer; white-space: nowrap; border-radius: 1px; text-decoration: none; display: inline-block; transition: background 0.2s; }
+    .produto-cta:hover { background: var(--gold-dark); }
 
     /* FOOTER */
-    footer { padding: 44px 48px; border-top: 0.5px solid #2E2922; display: flex; justify-content: space-between; align-items: center; }
-    .footer-copy { font-size: 11px; color: #4A4540; }
+    footer { padding: 44px 48px; border-top: 0.5px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: var(--bg-2); }
+    .footer-copy { font-size: 11px; color: var(--text-faint); }
 
     /* MOBILE */
     @media (max-width: 768px) {
@@ -88,10 +105,10 @@
   <nav>
     <a href="/" aria-label="Método ELLE">
       <svg width="160" height="44" viewBox="0 0 160 44" xmlns="http://www.w3.org/2000/svg">
-        <path d="M8 22 A14 14 0 1 1 36 22" fill="none" stroke="#A8956A" stroke-width="1"/>
-        <line x1="22" y1="5" x2="22" y2="39" stroke="#A8956A" stroke-width="2"/>
-        <text x="88" y="17" font-family="'Raleway', sans-serif" font-size="8" fill="#7A6E65" font-weight="500" letter-spacing="3" text-anchor="middle">MÉTODO</text>
-        <text x="88" y="35" font-family="'Playfair Display', serif" font-size="18" fill="#F5ECD7" font-weight="400" letter-spacing="5" text-anchor="middle">ELLE</text>
+        <path d="M8 22 A14 14 0 1 1 36 22" fill="none" stroke="#B8934A" stroke-width="1"/>
+        <line x1="22" y1="5" x2="22" y2="39" stroke="#B8934A" stroke-width="2"/>
+        <text x="88" y="17" font-family="'Raleway', sans-serif" font-size="8" fill="#94816D" font-weight="500" letter-spacing="3" text-anchor="middle">MÉTODO</text>
+        <text x="88" y="35" font-family="'Playfair Display', serif" font-size="18" fill="#3D2B1F" font-weight="400" letter-spacing="5" text-anchor="middle">ELLE</text>
       </svg>
     </a>
     <div class="nav-links">
@@ -109,29 +126,29 @@
       <p class="hero-desc">O Método ELLE existe para a mulher que percebeu que o que a limita não está fora dela. E que decidiu parar de se diminuir, se calar ou se ajustar para caber.</p>
     </div>
     <div class="hero-img">
-      <img src="/fran-castro.jpg" alt="Fran Castro — Arquiteta da Inteligência Emocional" />
+      <img src="/fran-quiz.jpg" alt="Fran Castro, Arquiteta da Inteligência Emocional" />
     </div>
   </section>
 
   <section class="section" id="metodo">
     <div class="section-label">O padrão</div>
     <h2 class="dor-title">Você não perdeu a força.<br>Você aprendeu que usá-la custava caro.</h2>
-    <p class="dor-body">Em algum momento ficou claro que se posicionar gerava conflito. Que discordar afastava. Que ocupar espaço incomodava. Então você foi cedendo — <strong>aos poucos, com inteligência, por sobrevivência.</strong><br><br>O problema é que ceder virou identidade. E agora você sente que perdeu algo de si no caminho. E quer se reconhecer de novo.</p>
+    <p class="dor-body">Em algum momento ficou claro que se posicionar gerava conflito. Que discordar afastava. Que ocupar espaço incomodava. Então você foi cedendo, <strong>aos poucos, com inteligência, por sobrevivência.</strong><br><br>O problema é que ceder virou identidade. E agora você sente que perdeu algo de si no caminho. E quer se reconhecer de novo.</p>
     <div class="elle-grid">
       <div class="elle-card">
         <div class="elle-card-num">01</div>
         <div class="elle-card-title">Restauração</div>
-        <div class="elle-card-body">Você não precisa se tornar alguém novo. Precisa recuperar o que foi silenciado — a voz, a posição, a presença inteira.</div>
+        <div class="elle-card-body">Você não precisa se tornar alguém novo. Precisa recuperar o que foi silenciado: a voz, a posição, a presença inteira.</div>
       </div>
       <div class="elle-card">
         <div class="elle-card-num">02</div>
         <div class="elle-card-title">Método</div>
-        <div class="elle-card-body">Inteligência emocional com estrutura real. Diagnóstico, ferramentas, aplicação prática. Não entusiasmo — profundidade.</div>
+        <div class="elle-card-body">Inteligência emocional com estrutura real. Diagnóstico, ferramentas, aplicação prática. Não entusiasmo, profundidade.</div>
       </div>
       <div class="elle-card">
         <div class="elle-card-num">03</div>
         <div class="elle-card-title">Liderança real</div>
-        <div class="elle-card-body">Quando você para de se diminuir, a liderança aparece como consequência. Não como conquista — como restauração.</div>
+        <div class="elle-card-body">Quando você para de se diminuir, a liderança aparece como consequência. Não como conquista, como restauração.</div>
       </div>
       <div class="elle-card">
         <div class="elle-card-num">04</div>
@@ -145,16 +162,16 @@
     <div class="section-label">Fran Castro</div>
     <div class="fran-grid">
       <div class="fran-img-box">
-        <img src="/fran-arquiteta.jpg" alt="Fran Castro" />
+        <img src="/fran-castro.jpg" alt="Fran Castro" loading="lazy" />
       </div>
       <div>
         <h2 class="fran-title">Você já entendeu o problema.<br>Só que ainda não conseguiu parar.</h2>
-        <p class="fran-body">Eu sei — eu vi esse ciclo se repetir centenas de vezes. E até porque eu mesma já estive dentro dele.</p>
-        <p class="fran-body">Sou arquiteta de formação. E aprendi cedo: estrutura não é rigidez — é o que sustenta o que é vivo. Foi isso que levei para o trabalho com inteligência emocional feminina.</p>
+        <p class="fran-body">Eu sei. Eu vi esse ciclo se repetir centenas de vezes. E até porque eu mesma já estive dentro dele.</p>
+        <p class="fran-body">Sou arquiteta de formação. E aprendi cedo: estrutura não é rigidez, é o que sustenta o que é vivo. Foi isso que levei para o trabalho com inteligência emocional feminina.</p>
         <p class="fran-body"><strong>O Método ELLE não nasceu de teoria.</strong> Nasceu de campo. De imersões. De mulheres reais presas em ciclos previsíveis: o silêncio para evitar conflito, a adaptação para ser aceita, e a perda gradual de si mesma.</p>
         <p class="fran-body">Eu não trabalho para que a mulher entenda mais. Trabalho para que ela pare de se abandonar em tempo real.</p>
         <p class="fran-body">Por isso o Método ELLE não ensina técnica. Interrompe padrão.</p>
-        <div class="fran-assinatura">Fran Castro — Arquiteta da Inteligência Emocional</div>
+        <div class="fran-assinatura">Fran Castro, Arquiteta da Inteligência Emocional</div>
       </div>
     </div>
   </section>
@@ -177,16 +194,16 @@
     <div style="display:flex; flex-direction:column; align-items:center; gap:24px; width:100%;">
       <a href="/" aria-label="Método ELLE">
         <svg width="120" height="34" viewBox="0 0 120 34" xmlns="http://www.w3.org/2000/svg">
-          <path d="M6 17 A11 11 0 1 1 28 17" fill="none" stroke="#5A534E" stroke-width="1"/>
-          <line x1="17" y1="4" x2="17" y2="30" stroke="#5A534E" stroke-width="1.5"/>
-          <text x="66" y="13" font-family="'Raleway',sans-serif" font-size="7" fill="#4A4540" font-weight="500" letter-spacing="2" text-anchor="middle">MÉTODO</text>
-          <text x="66" y="26" font-family="'Playfair Display',serif" font-size="14" fill="#5A534E" font-weight="400" letter-spacing="3" text-anchor="middle">ELLE</text>
+          <path d="M6 17 A11 11 0 1 1 28 17" fill="none" stroke="#94816D" stroke-width="1"/>
+          <line x1="17" y1="4" x2="17" y2="30" stroke="#94816D" stroke-width="1.5"/>
+          <text x="66" y="13" font-family="'Raleway',sans-serif" font-size="7" fill="#94816D" font-weight="500" letter-spacing="2" text-anchor="middle">MÉTODO</text>
+          <text x="66" y="26" font-family="'Playfair Display',serif" font-size="14" fill="#94816D" font-weight="400" letter-spacing="3" text-anchor="middle">ELLE</text>
         </svg>
       </a>
       <div style="display:flex; gap:32px; align-items:center; flex-wrap:wrap; justify-content:center;">
-        <a href="https://instagram.com/metodoelle" target="_blank" rel="noopener" style="font-size:11px; color:#7A6E65; letter-spacing:0.12em; text-decoration:none; text-transform:uppercase; font-family:'Raleway',sans-serif; transition:color 0.2s;" onmouseover="this.style.color='#A8956A'" onmouseout="this.style.color='#7A6E65'">@metodoelle</a>
-        <span style="color:#3A3328; font-size:10px;">·</span>
-        <a href="mailto:contato@metodoelle.com.br" style="font-size:11px; color:#7A6E65; letter-spacing:0.12em; text-decoration:none; text-transform:uppercase; font-family:'Raleway',sans-serif; transition:color 0.2s;" onmouseover="this.style.color='#A8956A'" onmouseout="this.style.color='#7A6E65'">contato@metodoelle.com.br</a>
+        <a href="https://instagram.com/metodoelle" target="_blank" rel="noopener" style="font-size:11px; color:#94816D; letter-spacing:0.12em; text-decoration:none; text-transform:uppercase; font-family:'Raleway',sans-serif; transition:color 0.2s;" onmouseover="this.style.color='#8A6E38'" onmouseout="this.style.color='#94816D'">@metodoelle</a>
+        <span style="color:#B8AFA0; font-size:10px;">·</span>
+        <a href="mailto:contato@metodoelle.com.br" style="font-size:11px; color:#94816D; letter-spacing:0.12em; text-decoration:none; text-transform:uppercase; font-family:'Raleway',sans-serif; transition:color 0.2s;" onmouseover="this.style.color='#8A6E38'" onmouseout="this.style.color='#94816D'">contato@metodoelle.com.br</a>
       </div>
       <div class="footer-copy">© 2026 Método ELLE Desenvolvimento e Evolução Interior</div>
     </div>
