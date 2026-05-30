@@ -702,6 +702,11 @@ h1, h2, h3, h4 {
   background: rgba(184,147,74,0.04);
   border-left: 2px solid var(--gold);
 }
+.deliverable-principal {
+  background: #FFFFFF;
+  box-shadow: 0 4px 18px rgba(61, 43, 31, 0.06);
+  border-left: 3px solid var(--gold);
+}
 .deliverable-mockups {
   display: flex;
   gap: 10px;
@@ -858,6 +863,29 @@ h1, h2, h3, h4 {
   margin-bottom: 12px;
 }
 .cta-large:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+.cta-intermediate-wrap {
+  text-align: center;
+  margin: 36px auto 48px;
+  max-width: 760px;
+  padding: 0 24px;
+}
+.cta-intermediate {
+  display: inline-block;
+  background: var(--gold);
+  color: #FFFFFF;
+  font-family: 'Outfit', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  padding: 16px 32px;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: background 0.2s, transform 0.2s;
+}
+.cta-intermediate:hover { background: var(--gold-dark); transform: translateY(-1px); }
+.cta-intermediate .arrow { margin-left: 8px; display: inline-block; transition: transform 0.2s; }
+.cta-intermediate:hover .arrow { transform: translateX(4px); }
 .cta-large-main {
   font-family: 'Outfit', sans-serif;
   font-size: 1.4rem;
@@ -1873,7 +1901,7 @@ footer {
 </section>
 
 <!-- ===================== PROVA SOCIAL ANTECIPADA ===================== -->
-<section class="testimonials" style="padding: 20px 0 50px 0;">
+<section class="testimonials" style="padding: 20px 0 30px 0;">
   <div class="container">
     <div style="max-width: 760px; margin: 0 auto;">
       <div class="testimonial reveal">
@@ -1883,6 +1911,12 @@ footer {
     </div>
   </div>
 </section>
+
+<div class="cta-intermediate-wrap reveal">
+  <a href="https://pay.hotmart.com/B105291424M?checkoutMode=10" class="cta-intermediate">
+    Quero parar de reagir no automático <span class="arrow">→</span>
+  </a>
+</div>
 
 <!-- ===================== FUNCIONAMENTO ===================== -->
 <section class="howitworks">
@@ -1962,6 +1996,12 @@ footer {
   </div>
 
   <p class="transformacao-teaser reveal">Esse é apenas um dos 3 padrões emocionais que você descobre no <strong>Diagnóstico de Perfil ELLE</strong>.</p>
+
+  <div class="cta-intermediate-wrap reveal" style="margin-top: 40px;">
+    <a href="https://pay.hotmart.com/B105291424M?checkoutMode=10" class="cta-intermediate">
+      Quero essa transformação <span class="arrow">→</span>
+    </a>
+  </div>
 </section>
 
 
@@ -1991,7 +2031,7 @@ footer {
       </div>
 
       <div class="deliverables-grid" style="grid-template-columns: 1fr;">
-        <div class="deliverable">
+        <div class="deliverable deliverable-principal">
           <div class="deliverable-mockups">
             <img src="capa-arq-voz.jpg" alt="Capa do Desafio Arquitetura da Voz" loading="lazy">
             <img src="dia-1-arq-voz.jpg" alt="Página do Dia 1 do Desafio Arquitetura da Voz" loading="lazy">
@@ -2002,7 +2042,7 @@ footer {
           <p class="deliverable-desc">Ao longo das 3 semanas, você trabalha situações como dizer não sem culpa, sustentar sua posição, improvisar sem se desmontar e parar de ensaiar respostas depois que a conversa já acabou.</p>
           <p class="deliverable-desc">Inclui 3 aulas que explicam os pontos centrais da jornada.</p>
         </div>
-        <div class="deliverable">
+        <div class="deliverable deliverable-principal">
           <p class="deliverable-name">Acesso por 1 ano</p>
           <p class="deliverable-desc">Você pode refazer o protocolo, revisitar exercícios e baixar todos os materiais durante 12 meses a partir da compra.</p>
         </div>
@@ -2056,12 +2096,12 @@ footer {
     </div>
 
     <div class="inaugural-block reveal">
-      <p class="inaugural-label">Acesso inaugural · Janela de lançamento</p>
-      <p class="inaugural-text">Este é o <strong>primeiro lançamento digital</strong> da Arquitetura da Voz. Durante a janela inaugural, o acesso completo está disponível por <strong>R$ 47</strong>, válido <strong>até 30 de junho</strong>. Após o encerramento desta fase, o valor volta para <strong>R$ 147</strong>.</p>
+      <p class="inaugural-label">Condição inaugural</p>
+      <p class="inaugural-text">Esta é a <strong>primeira turma digital</strong> da Arquitetura da Voz. Por isso, durante esta fase de lançamento, o acesso completo está disponível por <strong>R$ 47</strong>. Após o encerramento desta condição inaugural, o valor será ajustado para <strong>R$ 147</strong>. Se você sente que chegou a hora de fazer sua voz aparecer quando ainda importa, este é o momento de entrar.</p>
     </div>
 
     <div class="price-block reveal">
-      <p class="price-label">Acesso inaugural · Até 30 de junho</p>
+      <p class="price-label">Acesso inaugural · Primeira turma digital</p>
       <p class="price-strike-main">Valor total: <span class="strike-num">R$ 442</span></p>
       <p class="price-main">R$ 47</p>
       <p class="price-installments">ou 6x de R$ 8,82</p>
@@ -2206,11 +2246,11 @@ footer {
     <p class="meta">Acesso por 1 ano · Janela de lançamento</p>
   </div>
 
-  <p class="reveal" style="font-size: 0.9rem; color: var(--gold-dark); max-width: 580px; margin: -8px auto 28px; padding: 0 32px; letter-spacing: 0.04em; font-weight: 500;">★ R$ 47 só até 30 de junho. Depois, R$ 147.</p>
+  <p class="reveal" style="font-size: 0.9rem; color: var(--gold-dark); max-width: 580px; margin: -8px auto 28px; padding: 0 32px; letter-spacing: 0.04em; font-weight: 500;">★ R$ 47 na condição inaugural. Depois, R$ 147.</p>
 
   <div class="cta-final-button-wrap">
     <a href="https://pay.hotmart.com/B105291424M?checkoutMode=10" class="cta-large reveal">
-      <span class="cta-large-main">Quero chegar a tempo nas minhas palavras</span>
+      <span class="cta-large-main">Quero ser protagonista da próxima conversa</span>
       <span class="cta-large-sub">Acesso imediato · 7 dias de garantia</span>
     </a>
     <p class="cta-final-note">Pagamento seguro via Hotmart · Acesso imediato no e-mail</p>
