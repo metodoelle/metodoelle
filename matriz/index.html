@@ -3,38 +3,44 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Matriz ELLE — Arquitetura da Voz</title>
+<title>Matriz ELLE - Arquitetura da Voz</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;1,400&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 :root {
+  --bg: #FAF8F4;
+  --bg-2: #F2EDE3;
+  --bg-3: #EAE2D2;
+  --surface: #FFFFFF;
   --gold: #B8934A;
   --gold-light: #D4AF6E;
-  --gold-pale: rgba(184,147,74,0.12);
-  --dark: #0E0C09;
-  --dark-2: #161410;
-  --dark-3: #1E1B16;
-  --text: #F0EAE0;
-  --text-muted: #B8AFA0;
-  --border: rgba(184,147,74,0.2);
+  --gold-dark: #8A6E38;
+  --gold-pale: rgba(184,147,74,0.10);
+  --text: #3D2B1F;
+  --text-muted: #6B5847;
+  --text-soft: #94816D;
+  --text-faint: #B8AFA0;
+  --border: rgba(184,147,74,0.28);
+  --border-strong: rgba(184,147,74,0.55);
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 body {
-  background: var(--dark);
+  background: var(--bg);
   color: var(--text);
   font-family: 'Jost', sans-serif;
   font-weight: 300;
   line-height: 1.7;
   min-height: 100vh;
+  position: relative;
 }
 body::before {
   content: '';
   position: fixed;
   inset: 0;
-  background-image:
-    linear-gradient(rgba(184,147,74,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(184,147,74,0.03) 1px, transparent 1px);
-  background-size: 60px 60px;
+  background-image: url('quiz-fundo.jpg');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.35;
   pointer-events: none;
   z-index: 0;
 }
@@ -43,8 +49,8 @@ body::before {
   justify-content: space-between;
   align-items: center;
   padding: 18px 32px;
-  border-bottom: 0.5px solid rgba(184,147,74,0.15);
-  background: var(--dark);
+  border-bottom: 0.5px solid var(--border);
+  background: var(--bg);
   position: relative;
   z-index: 10;
 }
@@ -52,13 +58,13 @@ body::before {
 .site-nav-link {
   font-family: 'Raleway', sans-serif;
   font-size: 10px;
-  color: #7A6E65;
+  color: var(--text-soft);
   letter-spacing: 0.15em;
   text-transform: uppercase;
   font-weight: 400;
   transition: color 0.2s;
 }
-.site-nav-link:hover { color: #A8956A; }
+.site-nav-link:hover { color: var(--gold-dark); }
 .wrap {
   max-width: 680px;
   margin: 0 auto;
@@ -71,7 +77,7 @@ body::before {
   font-weight: 500;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--gold-dark);
   margin-bottom: 0.75rem;
   display: flex;
   align-items: center;
@@ -90,8 +96,9 @@ body::before {
   font-weight: 300;
   line-height: 1.1;
   margin-bottom: 0.5rem;
+  color: var(--text);
 }
-.titulo em { font-style: italic; color: var(--gold-light); }
+.titulo em { font-style: italic; color: var(--gold-dark); }
 .subtitulo {
   font-size: 0.9375rem;
   color: var(--text-muted);
@@ -102,7 +109,7 @@ body::before {
   width: 50px;
   height: 1px;
   background: var(--gold);
-  opacity: 0.4;
+  opacity: 0.6;
   margin: 2rem 0;
 }
 #tela-senha {
@@ -114,9 +121,10 @@ body::before {
 .senha-box {
   border: 1px solid var(--border);
   padding: 2.5rem;
-  background: var(--dark-2);
+  background: var(--surface);
   position: relative;
   max-width: 420px;
+  box-shadow: 0 2px 12px rgba(184,147,74,0.06);
 }
 .senha-box::before {
   content: '';
@@ -136,8 +144,9 @@ body::before {
   font-size: 13px;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--gold-dark);
   margin-bottom: 0.75rem;
+  font-weight: 500;
 }
 .senha-desc {
   font-size: 0.875rem;
@@ -147,7 +156,7 @@ body::before {
 }
 .senha-input {
   width: 100%;
-  background: var(--dark);
+  background: var(--bg);
   border: 1px solid var(--border);
   color: var(--text);
   font-family: 'Jost', sans-serif;
@@ -158,16 +167,16 @@ body::before {
   transition: border-color 0.2s;
 }
 .senha-input:focus { border-color: var(--gold); }
-.senha-input::placeholder { color: var(--text-muted); opacity: 0.5; }
+.senha-input::placeholder { color: var(--text-faint); }
 .senha-erro {
   font-size: 0.8125rem;
-  color: #C0392B;
+  color: #B23A28;
   margin-bottom: 0.75rem;
   display: none;
 }
 .btn {
   background: var(--gold);
-  color: var(--dark);
+  color: #FFFFFF;
   font-family: 'Jost', sans-serif;
   font-size: 12px;
   font-weight: 500;
@@ -179,7 +188,7 @@ body::before {
   width: 100%;
   transition: background 0.2s;
 }
-.btn:hover { background: var(--gold-light); }
+.btn:hover { background: var(--gold-dark); }
 .btn:disabled { opacity: 0.5; cursor: default; }
 #tela-ferramenta { display: none; }
 .instrucao {
@@ -189,9 +198,9 @@ body::before {
   margin-bottom: 2rem;
   padding: 1.25rem 1.5rem;
   border-left: 2px solid var(--gold);
-  background: var(--dark-2);
+  background: var(--bg-2);
 }
-.instrucao strong { color: var(--text); font-weight: 400; }
+.instrucao strong { color: var(--text); font-weight: 500; }
 .campos-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -213,7 +222,7 @@ body::before {
   margin-bottom: 4px;
 }
 .campo-input {
-  background: var(--dark-2);
+  background: var(--surface);
   border: 1px solid var(--border);
   color: var(--text);
   font-family: 'Jost', sans-serif;
@@ -232,14 +241,15 @@ body::before {
   display: inline-block;
   margin-top: 2px;
   width: fit-content;
+  font-weight: 500;
 }
-.nivel-cede { background: rgba(160,42,42,0.15); color: #E07070; }
-.nivel-oscila { background: rgba(186,117,23,0.15); color: #D4A060; }
-.nivel-esforco { background: rgba(59,109,17,0.15); color: #90C060; }
-.nivel-natural { background: rgba(8,80,65,0.15); color: #60C0A0; }
+.nivel-cede { background: rgba(178,58,40,0.12); color: #B23A28; }
+.nivel-oscila { background: rgba(186,117,23,0.12); color: #BA7517; }
+.nivel-esforco { background: rgba(75,120,28,0.12); color: #4B781C; }
+.nivel-natural { background: rgba(8,100,80,0.12); color: #086450; }
 .radar-wrap {
   border: 1px solid var(--border);
-  background: var(--dark-2);
+  background: var(--surface);
   padding: 1.5rem;
   margin-bottom: 2rem;
   display: flex;
@@ -261,7 +271,7 @@ body::before {
 .leg-dot { width: 6px; height: 6px; border-radius: 50%; }
 .btn-diag {
   background: var(--gold);
-  color: var(--dark);
+  color: #FFFFFF;
   font-family: 'Jost', sans-serif;
   font-size: 12px;
   font-weight: 500;
@@ -274,11 +284,11 @@ body::before {
   margin-bottom: 1.5rem;
   transition: background 0.2s;
 }
-.btn-diag:hover { background: var(--gold-light); }
+.btn-diag:hover { background: var(--gold-dark); }
 .btn-diag:disabled { opacity: 0.5; cursor: default; }
 .diag-box {
   border: 1px solid var(--border);
-  background: var(--dark-2);
+  background: var(--surface);
   padding: 2rem;
   margin-bottom: 2rem;
   display: none;
@@ -296,7 +306,7 @@ body::before {
   font-weight: 500;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--gold-dark);
   margin-bottom: 1.25rem;
 }
 .diag-texto {
@@ -319,7 +329,7 @@ body::before {
 .btn-reset {
   background: none;
   border: none;
-  color: var(--text-muted);
+  color: var(--text-soft);
   font-size: 0.8125rem;
   cursor: pointer;
   text-decoration: underline;
@@ -337,8 +347,8 @@ body::before {
     <svg width="140" height="38" viewBox="0 0 140 38" xmlns="http://www.w3.org/2000/svg">
       <path d="M7 19 A12 12 0 1 1 31 19" fill="none" stroke="#B8934A" stroke-width="1"/>
       <line x1="19" y1="5" x2="19" y2="33" stroke="#B8934A" stroke-width="1.75"/>
-      <text x="78" y="15" font-family="'Raleway', sans-serif" font-size="7" fill="#7A6E65" font-weight="500" letter-spacing="3" text-anchor="middle">MÉTODO</text>
-      <text x="78" y="30" font-family="'Playfair Display', serif" font-size="15" fill="#F0EAE0" font-weight="400" letter-spacing="4" text-anchor="middle">ELLE</text>
+      <text x="78" y="15" font-family="'Raleway', sans-serif" font-size="7" fill="#94816D" font-weight="500" letter-spacing="3" text-anchor="middle">MÉTODO</text>
+      <text x="78" y="30" font-family="'Playfair Display', serif" font-size="15" fill="#3D2B1F" font-weight="400" letter-spacing="4" text-anchor="middle">ELLE</text>
     </svg>
   </a>
   <a href="/" class="site-nav-link">← Voltar ao site</a>
@@ -364,15 +374,15 @@ body::before {
     <h1 class="titulo">Matriz <em>ELLE</em><br>de Sustentação da Voz</h1>
     <p class="subtitulo">Atribua uma nota de 0 a 10 para cada pilar com base no seu comportamento real.</p>
     <div class="instrucao">
-      <strong>Como usar:</strong> Responda com base em como você realmente age — não como gostaria de agir.
+      <strong>Como usar:</strong> Responda com base em como você realmente age, não como gostaria de agir.
       Após preencher os 8 pilares, clique em <strong>Gerar meu diagnóstico</strong> para receber sua leitura personalizada.
       <br>Tire um print ao final para guardar seu mapa. Reaplique no Dia 21 e compare.
     </div>
     <div class="legenda">
-      <div class="leg-item"><div class="leg-dot" style="background:#E07070"></div> 0–3 sua voz cede</div>
-      <div class="leg-item"><div class="leg-dot" style="background:#D4A060"></div> 4–6 sua voz oscila</div>
-      <div class="leg-item"><div class="leg-dot" style="background:#90C060"></div> 7–8 sustenta com esforço</div>
-      <div class="leg-item"><div class="leg-dot" style="background:#60C0A0"></div> 9–10 sustenta naturalmente</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#B23A28"></div> 0 a 3 sua voz cede</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#BA7517"></div> 4 a 6 sua voz oscila</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#4B781C"></div> 7 a 8 sustenta com esforço</div>
+      <div class="leg-item"><div class="leg-dot" style="background:#086450"></div> 9 a 10 sustenta naturalmente</div>
     </div>
     <div class="campos-grid" id="campos"></div>
     <div class="radar-wrap">
@@ -402,10 +412,10 @@ const pilares = [
   { id: 'consistencia', label: 'Consistência', desc: 'constância no posicionamento' },
 ];
 function getNivel(v) {
-  if (v <= 3) return { classe: 'nivel-cede', texto: '0–3 · sua voz cede' };
-  if (v <= 6) return { classe: 'nivel-oscila', texto: '4–6 · sua voz oscila' };
-  if (v <= 8) return { classe: 'nivel-esforco', texto: '7–8 · sustenta com esforço' };
-  return { classe: 'nivel-natural', texto: '9–10 · sustenta naturalmente' };
+  if (v <= 3) return { classe: 'nivel-cede', texto: '0 a 3 sua voz cede' };
+  if (v <= 6) return { classe: 'nivel-oscila', texto: '4 a 6 sua voz oscila' };
+  if (v <= 8) return { classe: 'nivel-esforco', texto: '7 a 8 sustenta com esforço' };
+  return { classe: 'nivel-natural', texto: '9 a 10 sustenta naturalmente' };
 }
 function verificarSenha() {
   const input = document.getElementById('senha-input').value.trim().toLowerCase();
@@ -435,7 +445,7 @@ function construirCampos() {
     div.innerHTML = `
       <span class="campo-label">${p.label}</span>
       <span class="campo-desc">${p.desc}</span>
-      <input type="number" class="campo-input" id="${p.id}" min="0" max="10" step="1" placeholder="0 – 10" oninput="atualizar()">
+      <input type="number" class="campo-input" id="${p.id}" min="0" max="10" step="1" placeholder="0 a 10" oninput="atualizar()">
       <span class="nivel" id="nivel_${p.id}" style="display:none"></span>
     `;
     grid.appendChild(div);
@@ -456,7 +466,7 @@ function iniciarRadar() {
       labels: pilares.map(p => p.label),
       datasets: [{
         data: new Array(8).fill(0),
-        backgroundColor: 'rgba(184, 147, 74, 0.15)',
+        backgroundColor: 'rgba(184, 147, 74, 0.18)',
         borderColor: '#B8934A',
         borderWidth: 2,
         pointBackgroundColor: '#B8934A',
@@ -469,10 +479,10 @@ function iniciarRadar() {
       scales: {
         r: {
           min: 0, max: 10,
-          ticks: { stepSize: 2, font: { size: 10 }, color: '#B8AFA0', backdropColor: 'transparent' },
-          grid: { color: 'rgba(184,147,74,0.1)' },
-          angleLines: { color: 'rgba(184,147,74,0.1)' },
-          pointLabels: { font: { size: 11, family: 'Jost' }, color: '#F0EAE0' }
+          ticks: { stepSize: 2, font: { size: 10 }, color: '#6B5847', backdropColor: 'transparent' },
+          grid: { color: 'rgba(184,147,74,0.15)' },
+          angleLines: { color: 'rgba(184,147,74,0.15)' },
+          pointLabels: { font: { size: 11, family: 'Jost' }, color: '#3D2B1F' }
         }
       },
       plugins: {
@@ -551,4 +561,3 @@ function resetar() {
 </script>
 </body>
 </html>
-
