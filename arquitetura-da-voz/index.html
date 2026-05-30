@@ -1451,6 +1451,14 @@ footer {
 }
 .scene-story p:last-child { margin-bottom: 0; }
 .scene-story p strong { color: var(--text); font-weight: 500; }
+.scene-story p.scene-lead {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.35rem, 2.6vw, 1.75rem);
+  line-height: 1.4;
+  color: var(--text);
+  font-weight: 400;
+  margin-bottom: 32px;
+}
 .scene-tech-note {
   font-style: italic;
   color: var(--text-soft);
@@ -1668,7 +1676,7 @@ footer {
 <section class="scene">
   <div class="scene-inner">
     <div class="scene-story reveal">
-      <p>Você chega em casa e passa horas reconstruindo uma conversa que teve mais cedo.</p>
+      <p class="scene-lead">Você chega em casa e passa horas reconstruindo uma conversa que teve mais cedo.</p>
 
       <p>A frase que deveria ter saído.<br>O argumento que apareceu tarde.<br>O momento exato em que passaram por cima da sua ideia e você ficou em silêncio.</p>
 
