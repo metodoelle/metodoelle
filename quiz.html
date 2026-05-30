@@ -1785,19 +1785,19 @@ function getNivel(score) {
 
 var leituras = {
   alicerce: {
-    sustenta: 'Quando alguém invade o seu tempo ou questiona o seu valor, você fala na hora. Diz não com uma frase curta, sem dar voltas. Encerra a reunião no horário combinado. Aqui, sua voz já sabe se sustentar.',
-    oscila: 'Você fala, mas começa a se justificar no meio do caminho. Aceita a demanda e depois sai reorganizando tudo na correria. Quando o limite chega, já chegou enfraquecido. Você sabe o que queria dizer, só não saiu inteiro.',
-    recolhe: 'Você cede primeiro e remoe depois. Aceita pedidos que não eram seus. Fica em silêncio na reunião que estendeu. Baixa o preço antes da pessoa terminar de falar. À noite, sua cabeça repassa a cena montando a resposta que não saiu na hora.'
+    sustenta: 'Em decisões e prazos, sua voz já chega na hora. Quando alguém invade o seu tempo ou questiona o seu valor, você fala direto. Diz não com uma frase curta. Encerra a reunião no horário combinado.',
+    oscila: 'Em decisões e prazos, você fala mas começa a se justificar no meio do caminho. Aceita a demanda e depois sai reorganizando tudo na correria. Quando o limite chega, já chegou enfraquecido. Você sabe o que queria dizer, só não saiu inteiro.',
+    recolhe: 'Em decisões e prazos, você aceita o que não cabe. Concorda com cronogramas impossíveis, baixa o preço antes de defender o próprio valor, fica em silêncio na reunião que estendeu. À noite, a cabeça repassa: "por que eu não falei?".'
   },
   fachada: {
-    sustenta: 'Você discorda de pessoas próximas sem perder o vínculo. Dá feedback direto, sem suavizar o que precisa ser dito. Quando o grupo pensa diferente, fala mesmo assim. Aqui, sua voz já consegue permanecer.',
-    oscila: 'Você fala em tom mais brando do que sente. Adoça o feedback até a mensagem principal se perder. Quando termina, fica em dúvida se devia ter falado. A vontade de preservar o vínculo aparece antes da frase sair.',
-    recolhe: 'Você concorda na hora e fica remoendo por dias. Adia a conversa difícil por semanas até a situação piorar. O que não foi dito vai parar no corpo. O medo de quebrar a conexão chega antes da verdade.'
+    sustenta: 'Em conversas com pessoas próximas, sua voz permanece. Você discorda mantendo o vínculo. Dá feedback direto, com clareza no que precisa ser dito. Quando o grupo pensa diferente, fala mesmo assim.',
+    oscila: 'Em conversas com pessoas próximas, você fala em tom mais brando do que sente. Adoça o feedback até a mensagem principal se perder. Quando termina, fica em dúvida se devia ter falado. A vontade de preservar o vínculo aparece antes da frase sair.',
+    recolhe: 'Em conversas com pessoas próximas, você suaviza pra preservar o vínculo. Adia a conversa difícil até a situação ficar insustentável. O que não foi dito vai parar no corpo. O medo de quebrar a conexão chega antes da verdade.'
   },
   cobertura: {
-    sustenta: 'Você fala mesmo antes de ter tudo na mão. Improvisa com clareza, corrige sem virar confronto, se posiciona com abertura pra ajustar depois. Aqui, sua voz já consegue aparecer na hora.',
-    oscila: 'Você fala, mas se explica demais no caminho. Cerca cada frase de tantos "talvez" e "depende" que a opinião perde força. Quando termina, parece que você mesma desmontou o que disse.',
-    recolhe: 'Você procura a frase perfeita, calcula o impacto, ensaia a resposta. Quando decide falar, a conversa já mudou de direção. Você chega tarde demais nas suas próprias palavras.'
+    sustenta: 'Em momentos que exigem pensar antes de falar, sua voz aparece com clareza. Você se posiciona mesmo com perguntas em aberto. Improvisa com nitidez, corrige mantendo o tom da conversa.',
+    oscila: 'Em momentos que exigem pensar antes de falar, você fala mas se explica demais no caminho. Cerca cada frase de tantos "talvez" e "depende" que a opinião perde força. Quando termina, parece que você mesma desmontou o que disse.',
+    recolhe: 'Em momentos que exigem pensar antes de falar, você procura a frase perfeita. Calcula o impacto, ensaia a resposta. Quando decide falar, a conversa já mudou de direção. Você chega tarde demais nas suas próprias palavras.'
   }
 };
 
@@ -1842,15 +1842,12 @@ function processResult() {
   var dimMaisFragil = dimensoes[0];
   var dimMaisFirme = dimensoes[2];
 
-  // Renderiza as 3 leituras
+  // Renderiza as 3 leituras como texto corrido (sem boxes e sem labels técnicos)
   var container = document.getElementById('result-dimensions');
   var html = '';
   dimensoes.forEach(function(dim) {
     var nivel = niveis[dim];
-    html += '<div class="dimension-block level-' + nivel + '">';
-    html += '<p class="dimension-label">' + nomesDimensao[dim] + ' · ' + nivel.charAt(0).toUpperCase() + nivel.slice(1) + '</p>';
     html += '<p class="dimension-text">' + leituras[dim][nivel] + '</p>';
-    html += '</div>';
   });
   container.innerHTML = html;
 
