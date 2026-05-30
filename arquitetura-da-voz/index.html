@@ -638,6 +638,41 @@ h1, h2, h3, h4 {
   background: rgba(184,147,74,0.04);
   border-left: 2px solid var(--gold);
 }
+.deliverable-mockups {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 18px;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.deliverable-mockups img {
+  flex: 0 1 auto;
+  max-width: 110px;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0 6px 18px rgba(61, 43, 31, 0.14);
+  display: block;
+}
+.deliverable-mockups.single img {
+  max-width: 150px;
+}
+.deliverable-mockups.wide img {
+  max-width: 200px;
+}
+.deliverable-matriz-note {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--gold-dark);
+  font-style: italic;
+  margin-top: 10px;
+  margin-bottom: 4px;
+  line-height: 1.5;
+}
+@media (max-width: 640px) {
+  .deliverable-mockups { justify-content: center; }
+  .deliverable-mockups img { max-width: 90px; }
+  .deliverable-mockups.single img { max-width: 130px; }
+}
 .deliverable-centered {
   grid-column: 1 / -1;
   max-width: calc(50% - 10px);
@@ -1906,6 +1941,10 @@ footer {
 
       <div class="deliverables-grid" style="grid-template-columns: 1fr;">
         <div class="deliverable">
+          <div class="deliverable-mockups">
+            <img src="capa-arq-voz.jpg" alt="Capa do Desafio Arquitetura da Voz" loading="lazy">
+            <img src="dia-1-arq-voz.jpg" alt="Página do Dia 1 do Desafio Arquitetura da Voz" loading="lazy">
+          </div>
           <p class="deliverable-name">Desafio Arquitetura da Voz <span class="price-strike">R$ 147</span></p>
           <p class="deliverable-desc">Um protocolo guiado de 21 dias para treinar sua voz nos momentos em que ela costuma suavizar, travar ou chegar tarde demais.</p>
           <p class="deliverable-desc">O material reúne exercícios práticos, perguntas de observação e direcionamentos aplicáveis às conversas reais da sua rotina.</p>
@@ -1924,22 +1963,41 @@ footer {
 
       <div class="deliverables-grid">
         <div class="deliverable">
+          <div class="deliverable-mockups">
+            <img src="perfil-elle-capa.jpg" alt="Capa do Diagnóstico de Perfil ELLE" loading="lazy">
+            <img src="perfil-elle.jpg" alt="Interior do Diagnóstico de Perfil ELLE" loading="lazy">
+          </div>
           <p class="deliverable-name">Diagnóstico de Perfil ELLE <span class="price-strike">R$ 67</span></p>
           <p class="deliverable-desc">Descubra por que sua voz desaparece justamente nas conversas que mais importam.</p>
         </div>
         <div class="deliverable">
+          <div class="deliverable-mockups">
+            <img src="manual-arq-capa.jpg" alt="Capa do Manual de Arquitetura Interior" loading="lazy">
+            <img src="manual-arq.jpg" alt="Interior do Manual de Arquitetura Interior" loading="lazy">
+          </div>
           <p class="deliverable-name">Manual de Arquitetura Interior <span class="price-strike">R$ 97</span></p>
           <p class="deliverable-desc">Entenda o que sua comunicação está tentando proteger há anos.</p>
         </div>
         <div class="deliverable">
+          <div class="deliverable-mockups">
+            <img src="matriz-eel-pdf.jpg" alt="Matriz ELLE de Sustentação da Voz em PDF" loading="lazy">
+            <img src="matriz-digital.jpg" alt="Ferramenta digital da Matriz ELLE" loading="lazy">
+          </div>
           <p class="deliverable-name">Matriz ELLE de Sustentação da Voz <span class="price-strike">R$ 47</span></p>
           <p class="deliverable-desc">Veja sua voz antes do processo. Veja sua voz depois do processo. E descubra exatamente o que mudou.</p>
+          <span class="deliverable-matriz-note">Disponível em PDF para impressão e em ferramenta digital exclusiva das alunas, com gráfico de evolução automático.</span>
         </div>
         <div class="deliverable">
+          <div class="deliverable-mockups single">
+            <img src="mapa-oscilacoes.jpg" alt="Mapa das Oscilações" loading="lazy">
+          </div>
           <p class="deliverable-name">Mapa das Oscilações <span class="price-strike">R$ 37</span></p>
           <p class="deliverable-desc">Descubra os momentos exatos em que você começa a se abandonar para manter a paz.</p>
         </div>
         <div class="deliverable deliverable-centered">
+          <div class="deliverable-mockups single">
+            <img src="checklist.jpg" alt="Checklist de Sustentação da Voz" loading="lazy">
+          </div>
           <p class="deliverable-name">Checklist de Sustentação da Voz <span class="price-strike">R$ 47</span></p>
           <p class="deliverable-desc">Uma ferramenta semanal pra manter sua voz inteira depois do Dia 21. Nas conversas que mais costumam te fazer recuar.</p>
         </div>
