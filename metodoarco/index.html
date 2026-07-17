@@ -269,6 +269,16 @@ strong{color:var(--ink);font-weight:500}
   text-align:center;color:#9aa3ad;font-style:italic;font-family:var(--serif);font-size:1.2rem;background:rgba(255,255,255,.02)
 }
 .prova .final{max-width:760px;margin:0 auto;text-align:center;font-family:var(--serif);font-style:italic;font-size:1.4rem;color:#fff}
+.eco-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;max-width:820px;margin:40px auto}
+.eco-card{background:rgba(255,255,255,.04);border:1px solid rgba(199,168,118,.22);border-radius:var(--radius);padding:28px 28px}
+.eco-card h3{color:#fff;font-size:1.3rem;margin-bottom:6px}
+.eco-card p{color:#aeb6c0;font-size:.95rem;margin-bottom:18px}
+.eco-status{font-family:var(--sans);font-size:.66rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;padding:7px 15px;border-radius:100px;display:inline-block}
+.eco-status.on{color:#1F2A37;background:var(--gold-soft)}
+.eco-status.build{color:var(--gold-soft);border:1px solid rgba(199,168,118,.45)}
+.prova .eco-close{max-width:760px;margin:0 auto 40px;text-align:center;color:#cdd3da;font-size:1.05rem}
+.prova .eco-close strong{color:#fff}
+@media(max-width:640px){.eco-grid{grid-template-columns:1fr}}
 
 /* ===================== STACK / OFERTA ===================== */
 .stack h2{max-width:880px}
@@ -649,9 +659,31 @@ strong{color:var(--ink);font-weight:500}
       <p>Isso só faz sentido porque o meu trabalho não termina no diagnóstico, na estratégia ou na construção da oferta. Eu acompanho a construção até ela entrar em operação. Se a estrutura não gerar resultado, eu também não sou beneficiada por ela.</p>
       <p>Por isso o diagnóstico é seletivo. Nem todo conhecimento está pronto para ser transformado em produto. Nem todo negócio está no momento certo para entrar no processo. A seleção existe porque eu só assumo projetos nos quais consigo enxergar potencial real de construção e crescimento.</p>
       <p>Essa decisão não nasce de teoria. Nasce da combinação de mais de duas décadas projetando estruturas, anos desenvolvendo produtos e centenas de diagnósticos realizados com profissionais de diferentes mercados. Antes de virar método, essa lógica já resolvia problemas reais. Hoje ela foi organizada dentro do ARCO.</p>
-      <p>Neste momento, existem projetos em construção dentro da metodologia. Conforme esses resultados forem amadurecendo e os parceiros autorizarem a divulgação, eles passarão a compor esta página.</p>
+      <p>Antes de virar uma página, o ARCO já está construindo negócios. Com a Leli Ávila, especialista em desenvolvimento feminino cristão, estou desenhando um ecossistema completo, do posicionamento ao produto.</p>
     </div>
-    <div class="case-slot">Espaço reservado para o primeiro estudo de caso, com antes e depois e resultado concreto.</div>
+    <div class="eco-grid">
+      <div class="eco-card">
+        <h3>Casa das Damas</h3>
+        <p>Comunidade com aulas mensais. A base que aproxima e sustenta o público ao longo do tempo.</p>
+        <span class="eco-status on">Em operação</span>
+      </div>
+      <div class="eco-card">
+        <h3>Desafio 1 em 7</h3>
+        <p>Desafio de entrada que transforma seguidor em participante. Já na segunda turma.</p>
+        <span class="eco-status on">Em operação · 2ª turma</span>
+      </div>
+      <div class="eco-card">
+        <h3>Chave REFEM</h3>
+        <p>Curso de 21 aulas de reprogramação mental feminina. O produto de aprofundamento.</p>
+        <span class="eco-status build">Em construção</span>
+      </div>
+      <div class="eco-card">
+        <h3>Damas Day</h3>
+        <p>Evento presencial em Brasília. A experiência que conecta a comunidade ao vivo.</p>
+        <span class="eco-status build">Em construção</span>
+      </div>
+    </div>
+    <p class="eco-close">Um conhecimento. Quatro produtos que se sustentam entre si: a comunidade alimenta o desafio, o desafio alimenta o curso, o curso alimenta o evento. Não são peças soltas. <strong>É uma estrutura. É isso que o ARCO constrói.</strong></p>
     <p class="final">Se existir potencial, eu vou mostrar onde ele está. Se não existir, eu vou dizer isso também. Porque toda estrutura sólida começa pela verdade sobre o terreno.</p>
   </div>
 </section>
