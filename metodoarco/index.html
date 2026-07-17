@@ -338,6 +338,15 @@ strong{color:var(--ink);font-weight:500}
 .diagnostico .foot{max-width:760px;margin:40px auto 0;text-align:center;font-size:1.02rem}
 @media(max-width:820px){.diag-steps{grid-template-columns:1fr}}
 
+.hero-note{max-width:600px;margin:22px auto 0;font-size:.98rem;color:var(--muted)}
+.diag-outcome{max-width:720px;margin:44px auto 0;background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:var(--radius);padding:34px 36px;box-shadow:0 10px 30px rgba(31,42,55,.04)}
+.diag-outcome h3{font-size:1.3rem;margin-bottom:18px}
+.diag-outcome ul{list-style:none}
+.diag-outcome li{position:relative;padding:0 0 14px 30px;font-size:1rem}
+.diag-outcome li:last-child{padding-bottom:0}
+.diag-outcome li::before{content:"";position:absolute;left:2px;top:7px;width:13px;height:8px;border-left:2px solid var(--gold);border-bottom:2px solid var(--gold);transform:rotate(-45deg)}
+.final .creed{font-family:var(--serif);font-style:italic;font-size:clamp(1.6rem,2.6vw,2.1rem);color:var(--gold-soft);max-width:700px;margin:0 auto 34px}
+
 /* ===================== OFERTA FINAL ===================== */
 .final{text-align:center;background:
   radial-gradient(ellipse at 50% -20%, rgba(176,137,79,.12), transparent 55%), var(--navy-deep);color:#cdd3da}
@@ -396,6 +405,7 @@ strong{color:var(--ink);font-weight:500}
       <li>Construa um negócio que cresce por estrutura, não por esforço cada vez maior.</li>
     </ul>
     <a href="#aplicar" class="btn">Quero entender meu potencial</a>
+    <p class="hero-note">O Diagnóstico ARCO não mede o seu conhecimento. Ele identifica a estrutura que falta para transformar esse conhecimento em um negócio previsível.</p>
   </div>
 </section>
 
@@ -495,7 +505,7 @@ strong{color:var(--ink);font-weight:500}
 <section class="cta-band">
   <div class="wrap reveal">
     <h2>Nem todo especialista precisa da mesma estratégia. Por isso o primeiro passo é sempre o mesmo: <span class="em">um diagnóstico</span>.</h2>
-    <p>No Diagnóstico ARCO, antes de qualquer decisão, a gente analisa o que você já construiu, identifica os gargalos que estão segurando o crescimento e desenha qual arquitetura faz sentido para o seu negócio hoje. Só depois disso faz sentido falar em próximo passo.</p>
+    <p>No Diagnóstico ARCO, antes de qualquer decisão, a gente analisa o que você já construiu, identifica os gargalos que estão segurando o crescimento e desenha qual arquitetura faz sentido para o seu negócio hoje. Só depois disso faz sentido falar em próximo passo. E quando esse próximo passo existe, ele é uma parceria em que eu só ganho quando o seu negócio funciona.</p>
     <div class="video-frame">
       <div class="play"></div>
       <span>Vídeo · 2 minutos</span>
@@ -743,12 +753,10 @@ strong{color:var(--ink);font-weight:500}
     <div class="layout">
       <div class="photo"><img src="/metodoarco/fran-castro.jpg" alt="Fran Castro" loading="lazy"></div>
       <div class="text">
-        <p>Durante 24 anos trabalhando com arquitetura, aprendi uma regra simples. Nada sólido é construído sem projeto. Toda estrutura que permanece de pé começou muito antes da primeira parede.</p>
-        <p>Anos depois, trabalhando como product owner, encontrei o mesmo padrão em outro lugar. Pessoas brilhantes desenvolviam soluções valiosas, mas muitas vezes tinham dificuldade para transformar esse valor em algo que o mercado entendesse e comprasse. O problema já não era estrutural. Era comercial.</p>
-        <p>Mais tarde, conduzindo diagnósticos de identidade e posicionamento, uma terceira peça apareceu. Comecei a encontrar profissionais extremamente competentes, com conhecimento profundo, resultados reais e anos de experiência. Mas negócios pequenos demais para aquilo que sabiam.</p>
-        <p>Foi quando uma pergunta começou a se repetir. Como alguém pode dominar tanto um assunto e ainda depender exclusivamente de indicação, agenda e esforço próprio para crescer?</p>
-        <p>A resposta apareceu na interseção dessas três experiências. Arquitetura me ensinou que toda construção precisa de uma planta. Produtos me ensinaram que conhecimento precisa ganhar forma. Diagnósticos me ensinaram que a maioria das pessoas não consegue enxergar sozinha o valor que possui.</p>
-        <p>O ARCO nasceu desse encontro, da combinação entre estrutura, produto e posicionamento. Hoje, esse é o trabalho que mais me interessa. Olhar para um conhecimento disperso e enxergar a planta do negócio que ele pode se tornar.</p>
+        <p>Durante 24 anos com arquitetura, aprendi uma regra simples. Nada sólido é construído sem projeto. Toda estrutura que permanece de pé começou muito antes da primeira parede.</p>
+        <p>Depois, como product owner e conduzindo centenas de diagnósticos de posicionamento, encontrei o mesmo padrão fora do canteiro de obras. Profissionais brilhantes, com conhecimento profundo e resultados reais, presos a negócios pequenos demais para aquilo que sabiam. O problema já não era estrutural. Era comercial.</p>
+        <p>A pergunta que passou a se repetir foi essa. Como alguém domina tanto um assunto e ainda depende de indicação, agenda e esforço próprio para crescer? A resposta apareceu na interseção das três experiências. Arquitetura ensina que toda construção precisa de uma planta. Produto ensina que conhecimento precisa ganhar forma. Diagnóstico ensina que quase ninguém enxerga sozinho o próprio valor.</p>
+        <p>O ARCO nasceu desse encontro. Hoje é o trabalho que mais me interessa. Olhar para um conhecimento disperso e enxergar a planta do negócio que ele pode se tornar.</p>
         <div class="signature">Fran Castro</div>
       </div>
     </div>
@@ -825,7 +833,16 @@ strong{color:var(--ink);font-weight:500}
         <p>Se fizer sentido avançar, marcamos uma conversa estratégica. Nela, avaliamos juntos se existe aderência para uma parceria e qual seria o primeiro passo de construção. Se não fizer sentido agora, eu digo com honestidade.</p>
       </div>
     </div>
-    <p class="foot">Nenhuma etapa envolve pagamento ou compromisso. O diagnóstico existe para avaliar aderência, não para vender.</p>
+    <div class="diag-outcome">
+      <h3>Ao final do Diagnóstico ARCO, você terá clareza sobre:</h3>
+      <ul>
+        <li>Onde o seu negócio perde previsibilidade hoje.</li>
+        <li>Qual é o seu principal gargalo estrutural neste momento.</li>
+        <li>O próximo passo que faz sentido construir primeiro.</li>
+        <li>Se o Método ARCO é, ou não, a melhor solução para o seu momento.</li>
+      </ul>
+    </div>
+    <p class="foot">Nenhuma etapa envolve pagamento ou compromisso, e você sai com essa clareza independentemente de avançarmos juntos. O diagnóstico existe para avaliar aderência, não para vender.</p>
   </div>
 </section>
 
@@ -846,6 +863,7 @@ strong{color:var(--ink);font-weight:500}
       <p>E pelo mesmo motivo que o processo é seletivo, o risco também é compartilhado. <strong>Eu só avanço quando acredito no potencial do negócio. E só ganho quando ele funciona.</strong></p>
     </div>
     <p class="q">Especialistas constroem conhecimento. Negócios constroem estruturas. Quando as duas coisas finalmente se encontram, o crescimento deixa de depender do acaso.</p>
+    <p class="creed">Posicionamento precede monetização. Estrutura precede escala.</p>
     <a href="/metodoarco/diagnostico" class="btn btn-gold" id="cta-final">Quero aplicar para o Diagnóstico ARCO</a>
     <p class="cta-note">A aplicação leva poucos minutos. O diagnóstico existe para avaliar aderência, não para assumir qualquer compromisso.</p>
   </div>
@@ -855,7 +873,7 @@ strong{color:var(--ink);font-weight:500}
 <footer class="footer">
   <div class="wrap">
     <span class="brand">MÉTODO <span style="color:var(--gold-soft)">ARCO</span></span>
-    <p>Posicionamento precede monetização. Estrutura precede escala.</p>
+    <p>Entrada por diagnóstico e seleção.</p>
   </div>
 </footer>
 
