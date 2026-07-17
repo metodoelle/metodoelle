@@ -36,6 +36,8 @@ h1,h2,h3{font-family:var(--serif);color:var(--ink);font-weight:500;line-height:1
 .form-wrap{max-width:720px;margin:-28px auto 0;padding:0 24px 100px}
 form{background:var(--surface);border:1px solid var(--line);border-radius:6px;box-shadow:var(--shadow);padding:14px clamp(22px,4vw,46px) 46px}
 
+.step-indic{font-family:var(--sans);font-size:.7rem;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);text-align:center;padding:26px 0 2px}
+
 .part{padding:34px 0 6px;border-top:1px solid var(--line)}
 .part:first-of-type{border-top:none}
 .part-label{font-family:var(--sans);font-size:.7rem;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
@@ -65,7 +67,12 @@ textarea{resize:vertical;min-height:96px;line-height:1.6}
 .choice span{font-size:.97rem;color:var(--body)}
 .choice:has(input:checked){border-color:var(--gold);background:rgba(176,137,79,.06)}
 
-.submit-row{margin-top:40px;text-align:center}
+/* tela de transição entre etapas */
+.transition{background:var(--bg-alt);border:1px solid var(--line);border-radius:var(--radius);padding:34px 30px;margin:6px 0 4px;text-align:center}
+.transition h2{font-size:1.7rem;margin-bottom:12px}
+.transition p{max-width:540px;margin:0 auto;color:var(--body)}
+
+.nav-row{margin-top:38px;text-align:center}
 .btn{
   display:inline-block;font-family:var(--sans);font-size:.82rem;font-weight:600;letter-spacing:.18em;
   text-transform:uppercase;color:#fff;background:var(--ink);padding:20px 46px;border:none;border-radius:var(--radius);
@@ -74,6 +81,8 @@ textarea{resize:vertical;min-height:96px;line-height:1.6}
 .btn:hover{background:var(--gold);transform:translateY(-2px)}
 .btn:disabled{opacity:.6;cursor:default;transform:none}
 .foot-note{color:var(--muted);font-size:.9rem;margin-top:16px}
+.link-back{display:inline-block;margin-top:20px;color:var(--gold);text-decoration:none;font-size:.9rem;letter-spacing:.04em;background:none;border:none;cursor:pointer;font-family:var(--sans)}
+.link-back:hover{text-decoration:underline}
 .back{display:inline-block;margin-top:28px;color:var(--gold);text-decoration:none;font-size:.9rem;letter-spacing:.04em}
 .back:hover{text-decoration:underline}
 
@@ -99,166 +108,254 @@ textarea{resize:vertical;min-height:96px;line-height:1.6}
   <div class="brand">MÉTODO <span>ARCO</span></div>
   <span class="eyebrow">Aplicação</span>
   <h1>Diagnóstico ARCO</h1>
-  <p>Antes de conversarmos, preciso entender o seu momento. O Método ARCO trabalha com poucos parceiros por vez, e o diagnóstico existe para avaliar se faz sentido construir essa estrutura no seu caso. Leva poucos minutos. Não existe resposta certa aqui, então responda com o que é real para você, não com o que parece certo. Quanto mais honesto você for, mais útil o diagnóstico vai ser, independentemente de avançarmos juntos ou não.</p>
+  <p>Antes de conversarmos, preciso entender o seu negócio de verdade. Este diagnóstico existe para mapear onde está o seu maior gargalo e avaliar se faz sentido construir essa estrutura no seu caso. Leva poucos minutos. Não existe resposta certa aqui, então responda com o que é real para você, não com o que parece certo. Quanto mais honesto você for, mais útil o diagnóstico vai ser, independentemente de avançarmos juntos ou não.</p>
 </div>
 
 <div class="form-wrap">
   <form id="arco-form" action="https://api.web3forms.com/submit" method="POST">
-    <!-- CHAVE WEB3FORMS: substituir pela sua access_key gratuita (web3forms.com) -->
     <input type="hidden" name="access_key" value="a26fdfa7-6c87-46ba-98ae-c42027bd394f">
-    <input type="hidden" name="subject" value="Nova aplicação — Diagnóstico ARCO">
+    <input type="hidden" name="subject" value="Nova aplicação para o Diagnóstico ARCO">
     <input type="hidden" name="from_name" value="Diagnóstico ARCO">
     <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off">
 
-    <!-- PARTE 1 -->
-    <div class="part">
-      <div class="part-label">Parte 1</div>
-      <h2>Quem é você e o que entrega</h2>
+    <!-- ============ ETAPA 1: DIAGNÓSTICO ============ -->
+    <div id="step1">
+      <div class="step-indic">Etapa 1 de 2 · Diagnóstico</div>
 
-      <div class="field">
-        <label>Nome completo <span class="req">*</span></label>
-        <input type="text" name="01. Nome completo" required>
+      <!-- BLOCO 1 -->
+      <div class="part">
+        <div class="part-label">Bloco 1</div>
+        <h2>Quem é você e o que você resolve</h2>
+
+        <div class="field">
+          <label>Nome completo <span class="req">*</span></label>
+          <input type="text" name="01. Nome completo" required>
+        </div>
+        <div class="field">
+          <label>Melhor e-mail para contato <span class="req">*</span></label>
+          <input type="email" name="email" required>
+        </div>
+        <div class="field">
+          <label>WhatsApp para contato <span class="req">*</span></label>
+          <input type="text" name="02. WhatsApp" placeholder="(00) 00000-0000" required>
+        </div>
+        <div class="field">
+          <label>Se um cliente perguntasse "o que exatamente você resolve?", como você responderia? <span class="req">*</span></label>
+          <input type="text" name="03. O que voce resolve" required>
+        </div>
+        <div class="field">
+          <label>Links onde eu consigo te conhecer melhor <span class="opt-note">(Instagram, site, LinkedIn, YouTube. Pode deixar em branco o que não tiver.)</span></label>
+          <textarea name="04. Links"></textarea>
+        </div>
       </div>
-      <div class="field">
-        <label>Melhor e-mail para contato <span class="req">*</span></label>
-        <input type="email" name="email" required>
+
+      <!-- BLOCO 2 -->
+      <div class="part">
+        <div class="part-label">Bloco 2</div>
+        <h2>Como o seu negócio funciona hoje</h2>
+
+        <div class="field">
+          <label>Como as pessoas chegam até você atualmente. <span class="req">*</span></label>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="05. Como chegam" value="Quase tudo por indicação" required><span>Quase tudo por indicação</span></label>
+            <label class="choice"><input type="radio" name="05. Como chegam" value="Indicação e um pouco de conteúdo"><span>Indicação e um pouco de conteúdo</span></label>
+            <label class="choice"><input type="radio" name="05. Como chegam" value="Conteúdo e redes sociais"><span>Conteúdo e redes sociais</span></label>
+            <label class="choice"><input type="radio" name="05. Como chegam" value="Já invisto em anúncios"><span>Já invisto em anúncios</span></label>
+          </div>
+          <input type="text" name="05b. Como chegam (outro)" placeholder="Outro (descreva)" style="margin-top:10px">
+        </div>
+
+        <div class="field">
+          <label>Hoje, a sua receita vem principalmente de quê. <span class="req">*</span></label>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="06. Origem da receita" value="Atendimento individual" required><span>Atendimento individual (sessão, consulta, hora)</span></label>
+            <label class="choice"><input type="radio" name="06. Origem da receita" value="Mentoria ou grupo"><span>Mentoria ou acompanhamento em grupo</span></label>
+            <label class="choice"><input type="radio" name="06. Origem da receita" value="Produto digital existente"><span>Produto digital (curso, programa) que já existe</span></label>
+            <label class="choice"><input type="radio" name="06. Origem da receita" value="Uma mistura"><span>Uma mistura dos acima</span></label>
+          </div>
+          <input type="text" name="06b. Origem da receita (descreva)" placeholder="Se for uma mistura, descreva" style="margin-top:10px">
+        </div>
+
+        <div class="field">
+          <label>Você consegue explicar por que um cliente compra de você, ou sente que as vendas acontecem sem um padrão claro? Descreva. <span class="req">*</span></label>
+          <textarea name="07. Por que compram de voce" required></textarea>
+        </div>
+
+        <div class="field">
+          <label>Em um mês comum, a sua renda é previsível ou oscila bastante. Descreva com suas palavras. <span class="req">*</span></label>
+          <textarea name="08. Previsibilidade da renda" required></textarea>
+        </div>
       </div>
-      <div class="field">
-        <label>WhatsApp para contato <span class="req">*</span></label>
-        <input type="text" name="02. WhatsApp" placeholder="(00) 00000-0000" required>
+
+      <!-- BLOCO 3 -->
+      <div class="part">
+        <div class="part-label">Bloco 3</div>
+        <h2>O quanto o negócio depende de você</h2>
+
+        <div class="field">
+          <label>Hoje, o seu negócio depende principalmente de quê para acontecer. <span class="req">*</span></label>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="09. Do que o negocio depende" value="De eu vender" required><span>De eu vender</span></label>
+            <label class="choice"><input type="radio" name="09. Do que o negocio depende" value="De eu atender"><span>De eu atender</span></label>
+            <label class="choice"><input type="radio" name="09. Do que o negocio depende" value="De eu produzir conteúdo"><span>De eu produzir conteúdo</span></label>
+            <label class="choice"><input type="radio" name="09. Do que o negocio depende" value="De uma equipe"><span>De uma equipe</span></label>
+            <label class="choice"><input type="radio" name="09. Do que o negocio depende" value="De processos que rodam sem mim"><span>De processos que rodam sem mim</span></label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Se você não trabalhasse pelos próximos 30 dias, quanto do seu faturamento ainda aconteceria. <span class="req">*</span></label>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="10. Faturamento sem voce 30 dias" value="Praticamente nada" required><span>Praticamente nada</span></label>
+            <label class="choice"><input type="radio" name="10. Faturamento sem voce 30 dias" value="Uma parte pequena"><span>Uma parte pequena</span></label>
+            <label class="choice"><input type="radio" name="10. Faturamento sem voce 30 dias" value="Cerca da metade"><span>Cerca da metade</span></label>
+            <label class="choice"><input type="radio" name="10. Faturamento sem voce 30 dias" value="A maior parte"><span>A maior parte</span></label>
+            <label class="choice"><input type="radio" name="10. Faturamento sem voce 30 dias" value="Praticamente tudo"><span>Praticamente tudo</span></label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Qual o principal limite que você sente hoje para crescer. <span class="req">*</span></label>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="11. Principal limite" value="Agenda cheia" required><span>Minha agenda já está cheia e não cabe mais ninguém</span></label>
+            <label class="choice"><input type="radio" name="11. Principal limite" value="Dependência de indicação"><span>Dependo de indicação e não controlo quando aparece</span></label>
+            <label class="choice"><input type="radio" name="11. Principal limite" value="Não sei transformar em produto"><span>Não sei como transformar o que sei em um produto</span></label>
+            <label class="choice"><input type="radio" name="11. Principal limite" value="Tenho produto, não vendo com constância"><span>Tenho produto, mas não consigo vender com constância</span></label>
+          </div>
+          <input type="text" name="11b. Principal limite (outro)" placeholder="Outro (descreva)" style="margin-top:10px">
+        </div>
+
+        <div class="field">
+          <label>Hoje, qual destas frases melhor descreve o seu negócio. <span class="req">*</span></label>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="12. Frase que descreve o negocio" value="Tenho clientes, mas tudo depende de mim" required><span>Tenho clientes, mas tudo depende de mim</span></label>
+            <label class="choice"><input type="radio" name="12. Frase que descreve o negocio" value="Tenho produto, mas não vendo continuamente"><span>Tenho produto, mas não consigo vender continuamente</span></label>
+            <label class="choice"><input type="radio" name="12. Frase que descreve o negocio" value="Tenho vendas, mas não consigo crescer"><span>Tenho vendas, mas não consigo crescer</span></label>
+            <label class="choice"><input type="radio" name="12. Frase que descreve o negocio" value="Tenho crescimento, mas falta organização"><span>Tenho crescimento, mas sinto que falta organização</span></label>
+            <label class="choice"><input type="radio" name="12. Frase que descreve o negocio" value="Ainda não consegui estruturar nada"><span>Ainda não consegui estruturar nada</span></label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Se eu analisasse o seu negócio hoje, onde você acredita que eu encontraria o maior desperdício. <span class="req">*</span></label>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="13. Maior desperdicio" value="Tempo" required><span>Tempo</span></label>
+            <label class="choice"><input type="radio" name="13. Maior desperdicio" value="Dinheiro"><span>Dinheiro</span></label>
+            <label class="choice"><input type="radio" name="13. Maior desperdicio" value="Energia"><span>Energia</span></label>
+            <label class="choice"><input type="radio" name="13. Maior desperdicio" value="Clientes"><span>Clientes</span></label>
+            <label class="choice"><input type="radio" name="13. Maior desperdicio" value="Oportunidades"><span>Oportunidades</span></label>
+            <label class="choice"><input type="radio" name="13. Maior desperdicio" value="Não sei responder"><span>Não sei responder</span></label>
+          </div>
+        </div>
       </div>
-      <div class="field">
-        <label>Em uma frase, o que você ensina, trata ou resolve para as pessoas. <span class="req">*</span></label>
-        <input type="text" name="03. O que ensina/resolve" required>
+
+      <!-- BLOCO 4 -->
+      <div class="part">
+        <div class="part-label">Bloco 4</div>
+        <h2>A prova do que você já construiu</h2>
+
+        <div class="field">
+          <label>Descreva o resultado mais relevante que você já gerou para um cliente, aluno, paciente ou mentorado. O que mudou na vida dessa pessoa. Se possível, inclua números, prazo ou qualquer evidência concreta da transformação. <span class="req">*</span></label>
+          <textarea name="14. Resultado mais relevante" required></textarea>
+        </div>
+        <div class="field">
+          <label>Você consegue apontar mais de um caso assim, ou foi algo pontual. <span class="req">*</span></label>
+          <textarea name="15. Mais de um caso" required></textarea>
+        </div>
+        <div class="field">
+          <label>Você já tentou criar ou vender um produto digital antes. Se sim, o que aconteceu. <span class="req">*</span></label>
+          <textarea name="16. Ja tentou produto digital" required></textarea>
+        </div>
+        <div class="field">
+          <label>Qual resultado os seus clientes conseguem com você que dificilmente conseguiriam com outro profissional. <span class="req">*</span></label>
+          <textarea name="17. Resultado que so voce entrega" required></textarea>
+        </div>
       </div>
-      <div class="field">
-        <label>Links onde eu consigo te conhecer melhor <span class="opt-note">(Instagram, site, LinkedIn, YouTube. Pode deixar em branco o que não tiver.)</span></label>
-        <textarea name="04. Links"></textarea>
+
+      <!-- BLOCO 5 -->
+      <div class="part">
+        <div class="part-label">Bloco 5</div>
+        <h2>O seu momento</h2>
+
+        <div class="field">
+          <label>Complete a frase. Hoje eu acordo sabendo que... <span class="req">*</span></label>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="18. Hoje eu acordo sabendo que" value="Já sei de onde virão meus próximos clientes" required><span>Já sei de onde virão meus próximos clientes</span></label>
+            <label class="choice"><input type="radio" name="18. Hoje eu acordo sabendo que" value="Tenho uma ideia, mas não consigo prever"><span>Tenho uma ideia, mas não consigo prever</span></label>
+            <label class="choice"><input type="radio" name="18. Hoje eu acordo sabendo que" value="Cada mês começa praticamente do zero"><span>Cada mês começa praticamente do zero</span></label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label>Qual seria o impacto para você se nada mudasse nos próximos 12 meses e o seu negócio continuasse exatamente como está hoje. <span class="req">*</span></label>
+          <textarea name="19. Impacto se nada mudar em 12 meses" required></textarea>
+        </div>
+
+        <div class="field">
+          <label>Por que agora. O que mudou para você buscar isso neste momento. <span class="req">*</span></label>
+          <textarea name="20. Por que agora" required></textarea>
+        </div>
+      </div>
+
+      <div class="nav-row">
+        <button type="button" class="btn" id="continue-btn">Continuar</button>
+        <p class="foot-note">Falta pouco. A última etapa leva menos de um minuto.</p>
       </div>
     </div>
 
-    <!-- PARTE 2 -->
-    <div class="part">
-      <div class="part-label">Parte 2</div>
-      <h2>Como o seu negócio funciona hoje</h2>
+    <!-- ============ ETAPA 2: COMPATIBILIDADE ============ -->
+    <div id="step2" style="display:none">
+      <div class="step-indic">Etapa 2 de 2 · Compatibilidade</div>
 
-      <div class="field">
-        <label>Como as pessoas chegam até você atualmente. <span class="req">*</span></label>
-        <div class="choices">
-          <label class="choice"><input type="radio" name="05. Como chegam" value="Quase tudo por indicação" required><span>Quase tudo por indicação</span></label>
-          <label class="choice"><input type="radio" name="05. Como chegam" value="Indicação e um pouco de conteúdo"><span>Indicação e um pouco de conteúdo</span></label>
-          <label class="choice"><input type="radio" name="05. Como chegam" value="Conteúdo e redes sociais"><span>Conteúdo e redes sociais</span></label>
-          <label class="choice"><input type="radio" name="05. Como chegam" value="Já invisto em anúncios"><span>Já invisto em anúncios</span></label>
+      <div class="transition">
+        <h2>Obrigada pela honestidade até aqui.</h2>
+        <p>As suas respostas já mostram o momento do seu negócio com clareza. Falta só uma parte, e talvez a mais importante: entender se o modo como o ARCO trabalha combina com o que você procura. Aqui também não existe resposta certa.</p>
+      </div>
+
+      <div class="part">
+        <div class="part-label">Compatibilidade com o Método ARCO</div>
+        <h2>O modelo de trabalho</h2>
+
+        <div class="field">
+          <label>O conteúdo intelectual do produto (aulas, método, materiais) precisa sair de você. Você está disposto a reservar tempo para gravar ou produzir esse conteúdo a partir de um roteiro. <span class="req">*</span></label>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="21. Disposicao para gravar" value="Sim, entendo que depende de mim" required><span>Sim, entendo que essa parte depende de mim</span></label>
+            <label class="choice"><input type="radio" name="21. Disposicao para gravar" value="Receio quanto ao tempo, mas quero entender"><span>Tenho receio quanto ao tempo, mas quero entender como funciona</span></label>
+            <label class="choice"><input type="radio" name="21. Disposicao para gravar" value="Prefiro terceirizar tudo"><span>Prefiro terceirizar tudo</span></label>
+          </div>
         </div>
-        <input type="text" name="05b. Como chegam (outro)" placeholder="Outro (descreva)" style="margin-top:10px">
-      </div>
 
-      <div class="field">
-        <label>Hoje, a sua receita vem principalmente de quê. <span class="req">*</span></label>
-        <div class="choices">
-          <label class="choice"><input type="radio" name="06. Origem da receita" value="Atendimento individual" required><span>Atendimento individual (sessão, consulta, hora)</span></label>
-          <label class="choice"><input type="radio" name="06. Origem da receita" value="Mentoria ou grupo"><span>Mentoria ou acompanhamento em grupo</span></label>
-          <label class="choice"><input type="radio" name="06. Origem da receita" value="Produto digital existente"><span>Produto digital (curso, programa) que já existe</span></label>
-          <label class="choice"><input type="radio" name="06. Origem da receita" value="Uma mistura"><span>Uma mistura dos acima</span></label>
+        <div class="field">
+          <label>O ARCO é uma parceria de remuneração por percentual sobre o faturamento, sem valor de entrada, e trabalha com construção antes de venda. Isso faz sentido para o que você procura. <span class="req">*</span></label>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="22. Modelo faz sentido" value="Sim, faz sentido" required><span>Sim, faz sentido</span></label>
+            <label class="choice"><input type="radio" name="22. Modelo faz sentido" value="Ainda tenho dúvidas, mas quero conversar"><span>Ainda tenho dúvidas, mas quero conversar</span></label>
+            <label class="choice"><input type="radio" name="22. Modelo faz sentido" value="Procurava algo pontual e rápido"><span>Eu procurava uma solução pontual e rápida</span></label>
+          </div>
         </div>
-        <input type="text" name="06b. Origem da receita (descreva)" placeholder="Se for uma mistura, descreva" style="margin-top:10px">
-      </div>
 
-      <div class="field">
-        <label>Em um mês comum, a sua renda é previsível ou oscila bastante. Descreva com suas palavras. <span class="req">*</span></label>
-        <textarea name="07. Previsibilidade da renda" required></textarea>
-      </div>
-
-      <div class="field">
-        <label>Qual o principal limite que você sente hoje para crescer. <span class="req">*</span></label>
-        <div class="choices">
-          <label class="choice"><input type="radio" name="08. Principal limite" value="Agenda cheia" required><span>Minha agenda já está cheia e não cabe mais ninguém</span></label>
-          <label class="choice"><input type="radio" name="08. Principal limite" value="Dependência de indicação"><span>Dependo de indicação e não controlo quando aparece</span></label>
-          <label class="choice"><input type="radio" name="08. Principal limite" value="Não sei transformar em produto"><span>Não sei como transformar o que sei em um produto</span></label>
-          <label class="choice"><input type="radio" name="08. Principal limite" value="Tenho produto, não vendo com constância"><span>Tenho produto, mas não consigo vender com constância</span></label>
+        <div class="field">
+          <label>Se o diagnóstico indicar que existe potencial para avançarmos juntos, você está disposto a investir tempo e energia na construção do negócio durante os próximos meses. <span class="req">*</span></label>
+          <div class="choices">
+            <label class="choice"><input type="radio" name="23. Disposicao de investir tempo" value="Sim" required><span>Sim</span></label>
+            <label class="choice"><input type="radio" name="23. Disposicao de investir tempo" value="Talvez"><span>Talvez</span></label>
+            <label class="choice"><input type="radio" name="23. Disposicao de investir tempo" value="Não tenho certeza"><span>Não tenho certeza</span></label>
+          </div>
         </div>
-        <input type="text" name="08b. Principal limite (outro)" placeholder="Outro (descreva)" style="margin-top:10px">
-      </div>
-    </div>
 
-    <!-- PARTE 3 -->
-    <div class="part">
-      <div class="part-label">Parte 3</div>
-      <h2>A prova do que você já construiu</h2>
-
-      <div class="field">
-        <label>Descreva o resultado mais relevante que você já gerou para um cliente, aluno, paciente ou mentorado. O que mudou na vida dessa pessoa. Se possível, inclua números, prazo ou qualquer evidência concreta da transformação. <span class="req">*</span></label>
-        <textarea name="09. Resultado mais relevante" required></textarea>
-      </div>
-      <div class="field">
-        <label>Você consegue apontar mais de um caso assim, ou foi algo pontual. <span class="req">*</span></label>
-        <textarea name="10. Mais de um caso" required></textarea>
-      </div>
-      <div class="field">
-        <label>Você já tentou criar ou vender um produto digital antes. Se sim, o que aconteceu. <span class="req">*</span></label>
-        <textarea name="11. Ja tentou produto digital" required></textarea>
-      </div>
-      <div class="field">
-        <label>O que você acredita que faz melhor do que a maioria das pessoas da sua área. <span class="req">*</span></label>
-        <textarea name="12. O que faz melhor que a maioria" required></textarea>
-      </div>
-    </div>
-
-    <!-- PARTE 4 -->
-    <div class="part">
-      <div class="part-label">Parte 4</div>
-      <h2>Momento, urgência e disposição</h2>
-
-      <div class="field">
-        <label>Qual seria o impacto para você se nada mudasse nos próximos 12 meses e o seu negócio continuasse exatamente como está hoje. <span class="req">*</span></label>
-        <textarea name="13. Impacto se nada mudar em 12 meses" required></textarea>
-      </div>
-
-      <div class="field">
-        <label>O conteúdo intelectual do produto (aulas, método, materiais) precisa sair de você. Você está disposto a reservar tempo para gravar ou produzir esse conteúdo a partir de um roteiro. <span class="req">*</span></label>
-        <div class="choices">
-          <label class="choice"><input type="radio" name="14. Disposicao para gravar" value="Sim, entendo que depende de mim" required><span>Sim, entendo que essa parte depende de mim</span></label>
-          <label class="choice"><input type="radio" name="14. Disposicao para gravar" value="Receio quanto ao tempo, mas quero entender"><span>Tenho receio quanto ao tempo, mas quero entender como funciona</span></label>
-          <label class="choice"><input type="radio" name="14. Disposicao para gravar" value="Prefiro terceirizar tudo"><span>Prefiro terceirizar tudo</span></label>
+        <div class="field">
+          <label>Tem algo que você gostaria que eu soubesse antes da nossa conversa. <span class="opt-note">(opcional)</span></label>
+          <textarea name="24. Algo mais"></textarea>
         </div>
       </div>
 
-      <div class="field">
-        <label>O ARCO é uma parceria de remuneração por percentual sobre o faturamento, sem valor de entrada, e trabalha com construção antes de venda. Isso faz sentido para o que você procura. <span class="req">*</span></label>
-        <div class="choices">
-          <label class="choice"><input type="radio" name="15. Modelo faz sentido" value="Sim, faz sentido" required><span>Sim, faz sentido</span></label>
-          <label class="choice"><input type="radio" name="15. Modelo faz sentido" value="Ainda tenho dúvidas, mas quero conversar"><span>Ainda tenho dúvidas, mas quero conversar</span></label>
-          <label class="choice"><input type="radio" name="15. Modelo faz sentido" value="Procurava algo pontual e rápido"><span>Eu procurava uma solução pontual e rápida</span></label>
-        </div>
+      <div class="submit-row nav-row">
+        <button type="submit" class="btn" id="submit-btn">Enviar minha aplicação</button>
+        <p class="foot-note">Suas respostas chegam direto para a Fran. Você recebe um retorno por e-mail ou WhatsApp.</p>
+        <div class="error-msg" id="error-msg">Não consegui enviar agora. Confira sua conexão e tente novamente, ou me chame no WhatsApp.</div>
+        <br>
+        <button type="button" class="link-back" id="back-step">Voltar e revisar minhas respostas</button>
       </div>
-
-      <div class="field">
-        <label>Se o diagnóstico indicar que existe potencial para avançarmos juntos, você está disposto a investir tempo e energia na construção do negócio durante os próximos meses. <span class="req">*</span></label>
-        <div class="choices">
-          <label class="choice"><input type="radio" name="16. Disposicao de investir tempo" value="Sim" required><span>Sim</span></label>
-          <label class="choice"><input type="radio" name="16. Disposicao de investir tempo" value="Talvez"><span>Talvez</span></label>
-          <label class="choice"><input type="radio" name="16. Disposicao de investir tempo" value="Não tenho certeza"><span>Não tenho certeza</span></label>
-        </div>
-      </div>
-
-      <div class="field">
-        <label>Por que agora. O que mudou para você buscar isso neste momento. <span class="req">*</span></label>
-        <textarea name="17. Por que agora" required></textarea>
-      </div>
-      <div class="field">
-        <label>Há quanto tempo você atua nessa área. <span class="req">*</span></label>
-        <input type="text" name="18. Tempo de atuacao" required>
-      </div>
-      <div class="field">
-        <label>Tem algo que você gostaria que eu soubesse antes da nossa conversa. <span class="opt-note">(opcional)</span></label>
-        <textarea name="19. Algo mais"></textarea>
-      </div>
-    </div>
-
-    <div class="submit-row">
-      <button type="submit" class="btn" id="submit-btn">Enviar minha aplicação</button>
-      <p class="foot-note">Suas respostas chegam direto para a Fran. Você recebe um retorno por e-mail ou WhatsApp.</p>
-      <div class="error-msg" id="error-msg">Não consegui enviar agora. Confira sua conexão e tente novamente, ou me chame no WhatsApp.</div>
     </div>
   </form>
 
@@ -277,10 +374,32 @@ textarea{resize:vertical;min-height:96px;line-height:1.6}
 
 <script>
 const form=document.getElementById('arco-form');
+const step1=document.getElementById('step1');
+const step2=document.getElementById('step2');
+const continueBtn=document.getElementById('continue-btn');
+const backStep=document.getElementById('back-step');
 const btn=document.getElementById('submit-btn');
 const errorMsg=document.getElementById('error-msg');
 const success=document.getElementById('success');
 const backLink=document.getElementById('back-link');
+
+// avançar da Etapa 1 para a Etapa 2, validando os campos obrigatórios da Etapa 1
+continueBtn.addEventListener('click',()=>{
+  const reqs=step1.querySelectorAll('input[required],textarea[required]');
+  for(const el of reqs){
+    if(!el.checkValidity()){ el.reportValidity(); return; }
+  }
+  step1.style.display='none';
+  step2.style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+
+// voltar para a Etapa 1
+backStep.addEventListener('click',()=>{
+  step2.style.display='none';
+  step1.style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+});
 
 form.addEventListener('submit',async(e)=>{
   e.preventDefault();
