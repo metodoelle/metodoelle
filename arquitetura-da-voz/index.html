@@ -421,36 +421,82 @@ h1, h2, h3, h4 {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   gap: 32px;
-  max-width: 880px;
+  max-width: 920px;
   margin: 0 auto;
-  align-items: start;
+  align-items: stretch;
 }
-.transformacao-col { display: flex; flex-direction: column; gap: 14px; }
+.transformacao-col {
+  display: flex; flex-direction: column; gap: 0;
+  position: relative;
+  padding: 24px 8px 8px;
+  border-radius: 4px;
+}
+.transformacao-col-antes {
+  background: rgba(107,88,71,0.04);
+  border: 1px solid rgba(107,88,71,0.15);
+}
+.transformacao-col-depois {
+  background: linear-gradient(180deg, rgba(184,147,74,0.10) 0%, rgba(184,147,74,0.04) 100%);
+  border: 1px solid var(--gold);
+  box-shadow: 0 8px 24px -8px rgba(184,147,74,0.25);
+}
 .transformacao-col-label {
   font-family: 'Outfit', sans-serif;
   font-size: 11px;
-  letter-spacing: 0.25em;
+  letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: var(--gold-dark);
-  margin-bottom: 8px;
+  margin-bottom: 20px;
   text-align: center;
   font-weight: 600;
 }
+.transformacao-col-antes .transformacao-col-label {
+  color: var(--text-soft);
+}
+.transformacao-col-depois .transformacao-col-label {
+  color: var(--gold-dark);
+}
 .transformacao-item {
-  padding: 16px 20px;
-  background: #FFFFFF;
-  border-left: 2px solid var(--gold);
+  padding: 14px 18px;
   font-size: 14px;
-  line-height: 1.5;
-  color: var(--text-muted);
+  line-height: 1.55;
   text-align: left;
+  position: relative;
+  margin-bottom: 12px;
+}
+.transformacao-col-antes .transformacao-item {
+  background: rgba(255,255,255,0.5);
+  color: var(--text-soft);
+  border-left: 2px solid rgba(107,88,71,0.25);
+}
+.transformacao-col-depois .transformacao-item {
+  background: #FFFFFF;
+  color: var(--text);
+  border-left: 3px solid var(--gold);
+  font-weight: 400;
+}
+.transformacao-col .transformacao-item:not(:last-child)::after {
+  content: '↓';
+  position: absolute;
+  left: 50%;
+  bottom: -14px;
+  transform: translateX(-50%);
+  font-family: 'Outfit', sans-serif;
+  font-size: 16px;
+  line-height: 1;
+  z-index: 2;
+}
+.transformacao-col-antes .transformacao-item:not(:last-child)::after {
+  color: rgba(107,88,71,0.35);
+}
+.transformacao-col-depois .transformacao-item:not(:last-child)::after {
+  color: var(--gold);
 }
 .transformacao-seta {
-  font-size: 28px;
+  font-size: 32px;
   color: var(--gold);
   font-weight: 300;
   align-self: center;
-  margin-top: 36px;
+  padding-top: 8px;
 }
 .transformacao-teaser {
   margin-top: 48px;
@@ -1720,7 +1766,7 @@ footer {
 <header class="site-header">
   <div class="header-inner">
     <p class="header-title"><em>Desafio Arquitetura da Voz</em></p>
-    <a href="https://pay.hotmart.com/B105291424M?checkoutMode=10" class="header-cta">Quero parar de chegar tarde nas minhas palavras</a>
+    <a href="https://pay.hotmart.com/B105291424M?checkoutMode=10" class="header-cta">Quero garantir minha vaga</a>
   </div>
 </header>
 
@@ -1738,13 +1784,17 @@ footer {
 
       <h1 class="hero-headline reveal">A resposta não falta. <em>Ela chega tarde.</em></h1>
 
+      <p class="hero-subheadline reveal" style="font-family: 'Outfit', sans-serif; font-size: 1.35rem; font-weight: 400; font-style: italic; color: var(--gold-dark); margin-top: 4px; margin-bottom: 24px; line-height: 1.4;">21 dias para parar de se diminuir e sustentar sua voz.</p>
+
+      <p class="reveal" style="max-width: 560px; margin: 0 0 32px; padding: 20px 24px; background: rgba(184,147,74,0.06); border-left: 3px solid var(--gold); font-size: 1.02rem; line-height: 1.7; color: var(--text);">Ela não chega tarde porque você não sabe falar. <strong>Ela chega tarde porque um padrão invisível interrompe sua expressão segundos antes da sua voz aparecer.</strong> Chamamos isso de <em style="color: var(--gold-dark); font-style: italic; font-weight: 500;">Reflexo Silenciador</em>.</p>
+
       <div class="hero-offer reveal">
         <p class="hero-offer-name">Desafio Arquitetura da Voz</p>
         <p class="hero-offer-desc">21 dias para identificar o padrão que silencia sua presença e aprender a sustentar sua voz no momento em que ela é necessária.</p>
       </div>
 
       <a href="https://pay.hotmart.com/B105291424M?checkoutMode=10" class="cta-primary reveal">
-        Quero parar de chegar tarde nas minhas palavras
+        Quero garantir minha vaga
         <span class="arrow">→</span>
       </a>
       <span class="cta-note">Acesso imediato · 7 dias de garantia</span>
@@ -1908,7 +1958,7 @@ footer {
 
 <div class="cta-intermediate-wrap reveal">
   <a href="https://pay.hotmart.com/B105291424M?checkoutMode=10" class="cta-intermediate">
-    Quero parar de reagir no automático <span class="arrow">→</span>
+    Quero garantir minha vaga <span class="arrow">→</span>
   </a>
 </div>
 
@@ -1967,12 +2017,18 @@ footer {
 </section>
 
 
+<!-- ===================== PULL QUOTE MARIA ===================== -->
+<section class="callout">
+  <p class="reveal">"A minha vida inteira eu não disse nada. <em>Eu pagava, falava tchau e procurava outra.</em>"</p>
+  <p class="reveal" style="font-family: 'Outfit', sans-serif; font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); font-style: normal; margin-top: 24px;">Maria · Goiânia · Semana 2</p>
+</section>
+
 <!-- ===================== TRANSFORMAÇÃO (ANTES/DEPOIS) ===================== -->
 <section class="transformacao">
   <h2 class="reveal">A transformação <em>dos 21 dias</em></h2>
 
   <div class="transformacao-grid reveal">
-    <div class="transformacao-col">
+    <div class="transformacao-col transformacao-col-antes">
       <p class="transformacao-col-label">Antes</p>
       <div class="transformacao-item">Concorda na hora e pensa na resposta à noite</div>
       <div class="transformacao-item">Aceita demandas que nem eram suas</div>
@@ -1980,7 +2036,7 @@ footer {
       <div class="transformacao-item">Baixa o preço antes de sustentar o próprio valor</div>
     </div>
     <div class="transformacao-seta">→</div>
-    <div class="transformacao-col">
+    <div class="transformacao-col transformacao-col-depois">
       <p class="transformacao-col-label">Depois dos 21 dias</p>
       <div class="transformacao-item">Fala com naturalidade no momento exato</div>
       <div class="transformacao-item">Diz "esse não é meu" e segue em paz</div>
@@ -1993,7 +2049,7 @@ footer {
 
   <div class="cta-intermediate-wrap reveal" style="margin-top: 40px;">
     <a href="https://pay.hotmart.com/B105291424M?checkoutMode=10" class="cta-intermediate">
-      Quero essa transformação <span class="arrow">→</span>
+      Quero garantir minha vaga <span class="arrow">→</span>
     </a>
   </div>
 </section>
@@ -2052,50 +2108,50 @@ footer {
             <img src="perfil-elle-capa.jpg" alt="Capa do Diagnóstico de Perfil ELLE" loading="lazy">
             <img src="perfil-elle.jpg" alt="Interior do Diagnóstico de Perfil ELLE" loading="lazy">
           </div>
-          <p class="deliverable-name">Diagnóstico de Perfil ELLE <span class="price-strike">R$ 67</span></p>
-          <p class="deliverable-desc">Descubra por que sua voz desaparece justamente nas conversas que mais importam.</p>
+          <p class="deliverable-name">Descubra por que sua voz desaparece justamente nas conversas que mais importam</p>
+          <p class="deliverable-desc">Inclui o <strong>Diagnóstico de Perfil ELLE</strong>. Um mapeamento dos 4 códigos emocionais que ditam como você se comunica. <span class="price-strike">R$ 67</span></p>
         </div>
         <div class="deliverable">
           <div class="deliverable-mockups">
             <img src="manual-arq-capa.jpg" alt="Capa do Manual de Arquitetura Interior" loading="lazy">
             <img src="manual-arq.jpg" alt="Interior do Manual de Arquitetura Interior" loading="lazy">
           </div>
-          <p class="deliverable-name">Manual de Arquitetura Interior <span class="price-strike">R$ 97</span></p>
-          <p class="deliverable-desc">Entenda o que sua comunicação está tentando proteger há anos.</p>
+          <p class="deliverable-name">Entenda o que sua comunicação está tentando proteger há anos</p>
+          <p class="deliverable-desc">Inclui o <strong>Manual de Arquitetura Interior</strong>. O mapa completo das camadas emocionais que operam antes das suas palavras chegarem. <span class="price-strike">R$ 97</span></p>
         </div>
         <div class="deliverable">
           <div class="deliverable-mockups">
             <img src="matriz-eel-pdf.jpg" alt="Matriz ELLE de Sustentação da Voz em PDF" loading="lazy">
             <img src="matriz-digital.jpg" alt="Ferramenta digital da Matriz ELLE" loading="lazy">
           </div>
-          <p class="deliverable-name">Matriz ELLE de Sustentação da Voz <span class="price-strike">R$ 47</span></p>
-          <p class="deliverable-desc">Faça um diagnóstico de onde está sua voz antes do desafio e no Dia 21. E descubra exatamente o que mudou. A diferença entre as duas matrizes transforma percepção em evidência.</p>
+          <p class="deliverable-name">Veja em preto e branco o quanto sua voz mudou entre o Dia 1 e o Dia 21</p>
+          <p class="deliverable-desc">Inclui a <strong>Matriz ELLE de Sustentação da Voz</strong>. Diagnóstico em 8 pilares antes do desafio e no Dia 21. A diferença entre as duas matrizes transforma percepção em evidência. <span class="price-strike">R$ 47</span></p>
           <span class="deliverable-matriz-note">Disponível em PDF para impressão e em ferramenta digital exclusiva das alunas.</span>
         </div>
         <div class="deliverable">
           <div class="deliverable-mockups single">
             <img src="mapa-oscilacoes.jpg" alt="Mapa das Oscilações" loading="lazy">
           </div>
-          <p class="deliverable-name">Mapa das Oscilações <span class="price-strike">R$ 37</span></p>
-          <p class="deliverable-desc">Descubra os momentos exatos em que você começa a se abandonar para manter a paz.</p>
+          <p class="deliverable-name">Descubra os momentos exatos em que você começa a se abandonar para manter a paz</p>
+          <p class="deliverable-desc">Inclui o <strong>Mapa das Oscilações</strong>. Síntese visual da Semana 1 em uma única página. <span class="price-strike">R$ 37</span></p>
         </div>
         <div class="deliverable deliverable-centered">
           <div class="deliverable-mockups single">
             <img src="checklist.jpg" alt="Checklist de Sustentação da Voz" loading="lazy">
           </div>
-          <p class="deliverable-name">Checklist de Sustentação da Voz <span class="price-strike">R$ 47</span></p>
-          <p class="deliverable-desc">Uma ferramenta semanal pra manter sua voz inteira depois do Dia 21. Nas conversas que mais costumam te fazer recuar.</p>
+          <p class="deliverable-name">Mantenha sua voz inteira depois do Dia 21 nas conversas que mais te fazem recuar</p>
+          <p class="deliverable-desc">Inclui o <strong>Checklist de Sustentação da Voz</strong>. Ferramenta semanal com as 3 Intensidades (Suave, Firme, Incisiva). <span class="price-strike">R$ 47</span></p>
         </div>
       </div>
     </div>
 
     <div class="inaugural-block reveal">
-      <p class="inaugural-label">Condição inaugural</p>
-      <p class="inaugural-text">Esta é a <strong>primeira turma digital</strong> da Arquitetura da Voz. Por isso, durante esta fase de lançamento, o acesso completo está disponível por <strong>R$ 47</strong>. Após o encerramento desta condição inaugural, o valor será ajustado para <strong>R$ 147</strong>. Se você sente que chegou a hora de fazer sua voz aparecer quando ainda importa, este é o momento de entrar.</p>
+      <p class="inaugural-label">Condição inaugural · 100 vagas</p>
+      <p class="inaugural-text">Esta é a <strong>primeira turma digital</strong> da Arquitetura da Voz e por isso o acesso está disponível por <strong>R$ 47</strong> para as <strong>100 primeiras alunas</strong>. Depois que essas 100 vagas forem preenchidas, o valor volta para <strong>R$ 147</strong>. Se você sente que chegou a hora de fazer sua voz aparecer quando ainda importa, este é o momento de entrar.</p>
     </div>
 
     <div class="price-block reveal">
-      <p class="price-label">Acesso inaugural · Primeira turma digital</p>
+      <p class="price-label">Acesso inaugural · Turma de 100 vagas</p>
       <p class="price-strike-main">Valor total: <span class="strike-num">R$ 442</span></p>
       <p class="price-main">R$ 47</p>
       <p class="price-installments">ou 6x de R$ 8,82</p>
@@ -2108,9 +2164,29 @@ footer {
     </p>
 
     <a href="https://pay.hotmart.com/B105291424M?checkoutMode=10" class="cta-large reveal">
-      <span class="cta-large-main">Quero chegar a tempo nas minhas palavras</span>
+      <span class="cta-large-main">Quero garantir minha vaga</span>
       <span class="cta-large-sub">Acesso imediato · 7 dias de garantia</span>
     </a>
+  </div>
+</section>
+
+<!-- ===================== DEPOIMENTOS ===================== -->
+<section class="testimonials">
+  <div class="container">
+    <div class="eyebrow reveal" style="justify-content: center;">Quem já viveu o protocolo</div>
+    <h2 class="reveal">As mulheres que <em>pararam de sair caladas</em></h2>
+
+    <div class="testimonials-grid">
+      <div class="testimonial reveal">
+        <p class="testimonial-text">"Eu reagia automaticamente, na maior parte das vezes por emoção, sem entender direito o que estava acontecendo. Quando eu precisava me posicionar, eu me calava ou não conseguia me expressar de forma correta. Ao invés de resolver o problema, eu percebia que muitas vezes o problema piorava. Já percebo uma mudança muito grande no meu comportamento, na minha fala, no meu posicionamento no trabalho, na igreja."</p>
+        <p class="testimonial-author">Claudia · Taubaté · Semana 2</p>
+      </div>
+
+      <div class="testimonial reveal">
+        <p class="testimonial-text">"A minha vida inteira eu não disse nada. Eu pagava, falava tchau e procurava outra. Mas está cada dia mais difícil achar outra. Você tem que dizer, se posicionar, ensinar. Apesar de eu ainda não estar sendo tão assertiva, eu estou falando. Quando discordava de algum ponto, eu guardava pra mim, no máximo me posicionava se tivesse votação. Agora estou falando, e me posicionando com mais clareza."</p>
+        <p class="testimonial-author">Maria · Goiânia · Semana 2</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -2131,26 +2207,6 @@ footer {
       </div>
       <h3 class="gs-card-title">Garantia incondicional</h3>
       <p class="gs-card-text"><strong>7 dias para testar.</strong> Se sentir que o protocolo não é para o seu momento, basta solicitar o reembolso pela Hotmart. Sem perguntas. Sem burocracia.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ===================== DEPOIMENTOS ===================== -->
-<section class="testimonials">
-  <div class="container">
-    <div class="eyebrow reveal" style="justify-content: center;">Quem já viveu o protocolo</div>
-    <h2 class="reveal">As mulheres que <em>pararam de sair caladas</em></h2>
-
-    <div class="testimonials-grid">
-      <div class="testimonial reveal">
-        <p class="testimonial-text">"Eu reagia automaticamente, na maior parte das vezes por emoção, sem entender direito o que estava acontecendo. Quando eu precisava me posicionar, eu me calava ou não conseguia me expressar de forma correta. Ao invés de resolver o problema, eu percebia que muitas vezes o problema piorava. Já percebo uma mudança muito grande no meu comportamento, na minha fala, no meu posicionamento no trabalho, na igreja."</p>
-        <p class="testimonial-author">Claudia · Taubaté · Semana 2</p>
-      </div>
-
-      <div class="testimonial reveal">
-        <p class="testimonial-text">"A minha vida inteira eu não disse nada. Eu pagava, falava tchau e procurava outra. Mas está cada dia mais difícil achar outra. Você tem que dizer, se posicionar, ensinar. Apesar de eu ainda não estar sendo tão assertiva, eu estou falando. Quando discordava de algum ponto, eu guardava pra mim, no máximo me posicionava se tivesse votação. Agora estou falando, e me posicionando com mais clareza."</p>
-        <p class="testimonial-author">Maria · Goiânia · Semana 2</p>
-      </div>
     </div>
   </div>
 </section>
@@ -2240,11 +2296,11 @@ footer {
     <p class="meta">Acesso por 1 ano · Janela de lançamento</p>
   </div>
 
-  <p class="reveal" style="font-size: 0.9rem; color: var(--gold-dark); max-width: 580px; margin: -8px auto 28px; padding: 0 32px; letter-spacing: 0.04em; font-weight: 500;">★ R$ 47 na condição inaugural. Depois, R$ 147.</p>
+  <p class="reveal" style="font-size: 0.9rem; color: var(--gold-dark); max-width: 580px; margin: -8px auto 28px; padding: 0 32px; letter-spacing: 0.04em; font-weight: 500;">★ R$ 47 para as 100 primeiras alunas. Depois, R$ 147.</p>
 
   <div class="cta-final-button-wrap">
     <a href="https://pay.hotmart.com/B105291424M?checkoutMode=10" class="cta-large reveal">
-      <span class="cta-large-main">Quero ser protagonista da próxima conversa</span>
+      <span class="cta-large-main">Quero garantir minha vaga</span>
       <span class="cta-large-sub">Acesso imediato · 7 dias de garantia</span>
     </a>
     <p class="cta-final-note">Pagamento seguro via Hotmart · Acesso imediato no e-mail</p>
@@ -2266,7 +2322,7 @@ footer {
 
 <!-- ===================== CTA FLUTUANTE MOBILE ===================== -->
 <div class="mobile-cta">
-  <a href="https://pay.hotmart.com/B105291424M?checkoutMode=10">Quero chegar a tempo nas minhas palavras · R$ 47</a>
+  <a href="https://pay.hotmart.com/B105291424M?checkoutMode=10">Quero garantir minha vaga</a>
 </div>
 
 <script>
