@@ -13,6 +13,8 @@
     { "src": "/metodoarco/diagnostico/", "dest": "/metodoarco/diagnostico/index.html" },
     { "src": "/metodoarco", "dest": "/metodoarco/index.html" },
     { "src": "/metodoarco/", "dest": "/metodoarco/index.html" },
+    { "src": "/imersao-evo-sorocaba", "dest": "/imersao-evo-sorocaba/index.html" },
+    { "src": "/imersao-evo-sorocaba/", "dest": "/imersao-evo-sorocaba/index.html" },
     { "src": "/(.+\\.(png|jpg|jpeg|gif|svg|ico|css|js|html))", "dest": "/$1" },
     { "src": "/", "dest": "/index.html" }
   ]

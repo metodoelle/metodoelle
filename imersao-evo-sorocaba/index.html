@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Imersão Método EVO | Sorocaba - SP</title>
+<meta name="description" content="Imersão presencial Inteligência Emocional Método EVO. 16 a 18 de outubro, em Sorocaba - SP. Com Marcio Micheli.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0a0a0d;
+    --bg-soft: #111116;
+    --card: #16161d;
+    --card-border: rgba(255,255,255,0.08);
+    --text: #f5f5f7;
+    --text-muted: #a6a6b0;
+    --teal: #4fe3c1;
+    --blue: #4f8ff5;
+    --purple: #9827f5;
+    --orange: #f5580a;
+    --gradient: linear-gradient(90deg, var(--teal), var(--blue), var(--purple), var(--orange));
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter', sans-serif;
+    line-height:1.5;
+    overflow-x:hidden;
+  }
+
+  h1,h2,h3,h4{
+    font-family:'Sora', sans-serif;
+    font-weight:800;
+    line-height:1.15;
+  }
+
+  img{max-width:100%;display:block;}
+
+  a{text-decoration:none;color:inherit;}
+
+  .container{
+    max-width:1120px;
+    margin:0 auto;
+    padding:0 24px;
+  }
+
+  section{padding:80px 0;}
+
+  .eyebrow{
+    display:inline-block;
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--purple);
+    margin-bottom:14px;
+  }
+
+  .btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    padding:16px 32px;
+    border-radius:100px;
+    font-family:'Sora', sans-serif;
+    font-weight:700;
+    font-size:15px;
+    letter-spacing:0.01em;
+    border:none;
+    cursor:pointer;
+    transition:transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .btn-primary{
+    background:var(--purple);
+    color:#fff;
+    box-shadow:0 8px 24px rgba(152,39,245,0.35);
+  }
+
+  .btn-primary:hover{
+    transform:translateY(-2px);
+    box-shadow:0 12px 32px rgba(152,39,245,0.5);
+  }
+
+  .btn-block{width:100%;}
+
+  /* HERO */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    padding:140px 0 100px;
+    background:
+      linear-gradient(180deg, rgba(6,6,9,0.55) 0%, rgba(6,6,9,0.75) 55%, var(--bg) 100%),
+      linear-gradient(90deg, rgba(6,6,9,0.85) 0%, rgba(6,6,9,0.4) 60%),
+      url('img/hero-bg.jpg') center 20% / cover no-repeat;
+  }
+
+  .hero-content{
+    position:relative;
+    z-index:2;
+    max-width:640px;
+  }
+
+  .hero-logo-wrap{
+    display:inline-block;
+    background:rgba(255,255,255,0.96);
+    padding:14px 20px;
+    border-radius:16px;
+    margin-bottom:32px;
+    box-shadow:0 8px 24px rgba(0,0,0,0.35);
+  }
+
+  .hero-logo{
+    height:80px;
+    width:auto;
+    display:block;
+  }
+
+  .hero h1{
+    font-size:clamp(32px, 5vw, 52px);
+    color:#fff;
+    margin-bottom:28px;
+  }
+
+  .hero .btn-primary{margin-bottom:40px;}
+
+  .hero-info{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+    border-top:1px solid rgba(255,255,255,0.15);
+    padding-top:28px;
+  }
+
+  .info-row{
+    display:flex;
+    align-items:flex-start;
+    gap:14px;
+  }
+
+  .info-icon{
+    width:38px;
+    height:38px;
+    flex-shrink:0;
+    border-radius:10px;
+    background:rgba(255,255,255,0.08);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:18px;
+  }
+
+  .info-row strong{
+    display:block;
+    font-family:'Sora', sans-serif;
+    font-weight:700;
+    font-size:15px;
+  }
+
+  .info-row span{
+    color:var(--text-muted);
+    font-size:14px;
+  }
+
+  /* CRONOGRAMA */
+  .section-head{
+    text-align:center;
+    max-width:600px;
+    margin:0 auto 56px;
+  }
+
+  .section-head h2{
+    font-size:clamp(26px, 4vw, 38px);
+    margin-bottom:12px;
+  }
+
+  .section-head p{
+    color:var(--text-muted);
+    font-size:16px;
+  }
+
+  .cronograma-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:24px;
+  }
+
+  .dia-card{
+    background:var(--card);
+    border:1px solid var(--card-border);
+    border-radius:20px;
+    padding:32px 28px;
+    border-top:4px solid var(--teal);
+  }
+
+  .dia-card:nth-child(2){border-top-color:var(--purple);}
+  .dia-card:nth-child(3){border-top-color:var(--orange);}
+
+  .dia-card h3{
+    font-size:20px;
+    margin-bottom:4px;
+  }
+
+  .dia-card .dia-sub{
+    color:var(--text-muted);
+    font-size:13px;
+    margin-bottom:20px;
+    display:block;
+  }
+
+  .dia-card ul{
+    list-style:none;
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+  }
+
+  .dia-card li{
+    font-size:14px;
+    color:var(--text-muted);
+    padding-left:22px;
+    position:relative;
+  }
+
+  .dia-card li::before{
+    content:'';
+    position:absolute;
+    left:0;
+    top:6px;
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:var(--gradient);
+  }
+
+  /* QUOTE */
+  .quote-section{
+    position:relative;
+    padding:100px 0;
+    background:
+      linear-gradient(180deg, rgba(10,10,13,0.9), rgba(10,10,13,0.97)),
+      url('img/abraco-bg.jpg') center / cover no-repeat;
+    text-align:center;
+  }
+
+  .quote-section blockquote{
+    max-width:760px;
+    margin:0 auto;
+    font-family:'Sora', sans-serif;
+    font-weight:700;
+    font-size:clamp(24px, 3.6vw, 36px);
+    line-height:1.4;
+  }
+
+  .quote-section blockquote span{
+    background:var(--gradient);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+
+  /* OFERTA */
+  .oferta-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:24px;
+    align-items:stretch;
+  }
+
+  .plano-card{
+    background:var(--card);
+    border:1px solid var(--card-border);
+    border-radius:20px;
+    padding:36px 28px;
+    display:flex;
+    flex-direction:column;
+    position:relative;
+  }
+
+  .plano-card.destaque{
+    border-color:var(--purple);
+    box-shadow:0 0 0 1px var(--purple), 0 20px 50px rgba(152,39,245,0.25);
+    transform:translateY(-10px);
+  }
+
+  .plano-badge{
+    position:absolute;
+    top:-14px;
+    left:50%;
+    transform:translateX(-50%);
+    background:var(--gradient);
+    color:#fff;
+    font-family:'Sora', sans-serif;
+    font-weight:700;
+    font-size:12px;
+    letter-spacing:0.04em;
+    text-transform:uppercase;
+    padding:6px 18px;
+    border-radius:100px;
+    white-space:nowrap;
+  }
+
+  .plano-nome{
+    font-family:'Sora', sans-serif;
+    font-weight:700;
+    font-size:15px;
+    letter-spacing:0.03em;
+    text-transform:uppercase;
+    color:var(--text-muted);
+    margin-bottom:8px;
+  }
+
+  .plano-desc{
+    color:var(--text-muted);
+    font-size:14px;
+    margin-bottom:20px;
+  }
+
+  .plano-de{
+    color:var(--text-muted);
+    font-size:14px;
+    margin-bottom:6px;
+  }
+
+  .plano-de s{
+    color:#82828c;
+  }
+
+  .plano-preco{
+    font-family:'Sora', sans-serif;
+    font-weight:800;
+    font-size:38px;
+    margin-bottom:4px;
+  }
+
+  .plano-preco .por{
+    font-family:'Inter', sans-serif;
+    font-weight:600;
+    font-size:16px;
+    color:var(--text-muted);
+    margin-right:6px;
+  }
+
+  .plano-preco small{
+    font-size:14px;
+    font-weight:600;
+    color:var(--text-muted);
+  }
+
+  .plano-por-pessoa{
+    color:var(--text-muted);
+    font-size:13px;
+    margin-bottom:24px;
+  }
+
+  .plano-card ul{
+    list-style:none;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin-bottom:28px;
+    flex-grow:1;
+  }
+
+  .plano-card li{
+    font-size:14px;
+    color:var(--text);
+    padding-left:24px;
+    position:relative;
+  }
+
+  .plano-card li::before{
+    content:'✓';
+    position:absolute;
+    left:0;
+    color:var(--teal);
+    font-weight:700;
+  }
+
+  .btn-outline{
+    background:transparent;
+    border:1px solid var(--card-border);
+    color:var(--text);
+  }
+
+  .btn-outline:hover{
+    border-color:var(--purple);
+    background:rgba(152,39,245,0.1);
+  }
+
+  /* AUTORIDADE */
+  .autoridade{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:56px;
+    align-items:center;
+  }
+
+  .autoridade-foto{
+    border-radius:24px;
+    overflow:hidden;
+    border:1px solid var(--card-border);
+  }
+
+  .autoridade-texto h2{
+    font-size:clamp(26px, 3.6vw, 36px);
+    margin-bottom:16px;
+  }
+
+  .autoridade-texto p{
+    color:var(--text-muted);
+    font-size:16px;
+    margin-bottom:18px;
+  }
+
+  .tag-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-top:22px;
+  }
+
+  .tag{
+    border:1px solid rgba(152,39,245,0.4);
+    color:var(--purple);
+    background:rgba(152,39,245,0.08);
+    font-size:13px;
+    font-weight:600;
+    padding:8px 16px;
+    border-radius:100px;
+  }
+
+  /* CTA FINAL */
+  .cta-final{
+    text-align:center;
+    background:var(--bg-soft);
+  }
+
+  .cta-final h2{
+    max-width:720px;
+    margin:0 auto 32px;
+    font-size:clamp(24px, 3.6vw, 34px);
+  }
+
+  .cta-final h2 span{
+    background:var(--gradient);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+
+  footer{
+    padding:40px 0;
+    text-align:center;
+    border-top:1px solid var(--card-border);
+  }
+
+  footer img{
+    height:28px;
+    margin:0 auto 12px;
+  }
+
+  footer p{
+    color:var(--text-muted);
+    font-size:13px;
+  }
+
+  @media (max-width: 860px){
+    section{padding:60px 0;}
+    .cronograma-grid, .oferta-grid, .autoridade{grid-template-columns:1fr;}
+    .plano-card.destaque{transform:none;}
+    .hero{padding:120px 0 70px; background-position:center 15%;}
+    .autoridade{gap:36px;}
+    .autoridade-texto{order:2;}
+    .autoridade-foto{order:1; max-width:340px; margin:0 auto;}
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="container">
+    <div class="hero-content">
+      <div class="hero-logo-wrap">
+        <img src="img/ime-logo.png" alt="Imersão Inteligência Emocional Método EVO" class="hero-logo">
+      </div>
+      <h1>Supere suas limitações e alcance os resultados que você merece!</h1>
+      <a href="#oferta" class="btn btn-primary">Quero superar minhas limitações</a>
+
+      <div class="hero-info">
+        <div class="info-row">
+          <div class="info-icon">📍</div>
+          <div>
+            <strong>Sorocaba - SP</strong>
+            <span>Grand Hotel Royal, Rua Dr. Álvaro Soares, 451, Centro</span>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon">🏛️</div>
+          <div>
+            <strong>Imersão Presencial</strong>
+            <span>Transmissão ao vivo, direto de Brasília</span>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-icon">📅</div>
+          <div>
+            <strong>16 a 18 de outubro</strong>
+            <span>3 dias de imersão</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="cronograma">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Cronograma</span>
+      <h2>Conheça o conteúdo que será ministrado</h2>
+    </div>
+    <div class="cronograma-grid">
+      <div class="dia-card">
+        <h3>Primeiro Dia</h3>
+        <span class="dia-sub">Sexta-feira · 10h às 20h</span>
+        <ul>
+          <li>Início da jornada e ativação da essência</li>
+          <li>Entendimento profundo da mente e das emoções</li>
+          <li>Processo de mudança e primeiros desbloqueios</li>
+          <li>Ciclo da Autossabotagem e como quebrar padrões</li>
+          <li>Dor emocional, origem das dores e gatilhos inconscientes</li>
+          <li>Exercícios de consciência e "Diga o Fraco"</li>
+          <li>A Cabana, parte 1 e 2 (imersão emocional guiada)</li>
+        </ul>
+      </div>
+      <div class="dia-card">
+        <h3>Segundo Dia</h3>
+        <span class="dia-sub">Sábado · 10h às 20h</span>
+        <ul>
+          <li>Consequências do Ressignificar</li>
+          <li>Blindagem da mente e reações emocionais</li>
+          <li>Gosto Disso, como criar novos caminhos</li>
+          <li>Reconexão com identidade e propósito</li>
+          <li>Dream List, clareza do futuro</li>
+          <li>Gratidão e honra (pais, professores, história)</li>
+          <li>PODER, criatividade, intuição e mudança de estado</li>
+          <li>Identidade e pilares do poder</li>
+        </ul>
+      </div>
+      <div class="dia-card">
+        <h3>Terceiro Dia</h3>
+        <span class="dia-sub">Domingo · 10h às 20h</span>
+        <ul>
+          <li>Grito, Eu Sou Livre e Profecia</li>
+          <li>Folha Verde, escolha e merecimento</li>
+          <li>Prosperidade, generosidade e abundância</li>
+          <li>Pirâmide da Generosidade</li>
+          <li>PODER, identidade e destino</li>
+          <li>Venda da Semente (chave de virada)</li>
+          <li>Blindar a Mente, protocolo final</li>
+          <li>Depoimentos e ressignificação final</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="quote-section">
+  <div class="container">
+    <blockquote>Acredite, você pode alcançar <span>sua melhor versão</span> com os recursos que tem disponível hoje.</blockquote>
+  </div>
+</section>
+
+<section id="oferta">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Garanta sua vaga</span>
+      <h2>Escolha como você vai viver essa imersão</h2>
+      <p>3 dias em Sorocaba, Imersão Método EVO com Marcio Micheli. Leve alguém com você e reduza o valor por pessoa.</p>
+    </div>
+    <div class="oferta-grid">
+      <div class="plano-card">
+        <div class="plano-nome">Ingresso Individual</div>
+        <div class="plano-desc">Para quem vai viver a imersão sozinho.</div>
+        <div class="plano-de">De <s>R$ 2.497</s></div>
+        <div class="plano-preco"><span class="por">por</span>R$ 390<small>/pessoa</small></div>
+        <div class="plano-por-pessoa">1 pessoa</div>
+        <ul>
+          <li>3 dias completos de imersão presencial</li>
+          <li>Acesso a todo o conteúdo do Método EVO</li>
+          <li>Material de apoio da imersão</li>
+        </ul>
+        <a href="https://pay2.metodoevo.com.br/?uid=95794cfc-aae1-4df7-9d69-439c66966beb" class="btn btn-outline btn-block">Garantir minha vaga</a>
+      </div>
+
+      <div class="plano-card destaque">
+        <div class="plano-badge">Mais escolhido</div>
+        <div class="plano-nome">Ingresso Duplo</div>
+        <div class="plano-desc">Para viver a imersão ao lado de alguém.</div>
+        <div class="plano-de">De <s>R$ 4.994</s></div>
+        <div class="plano-preco"><span class="por">por</span>R$ 640<small>/total</small></div>
+        <div class="plano-por-pessoa">2 pessoas · R$ 320 por pessoa</div>
+        <ul>
+          <li>3 dias completos de imersão presencial</li>
+          <li>Acesso a todo o conteúdo do Método EVO</li>
+          <li>Material de apoio da imersão</li>
+          <li>Experiência compartilhada com quem você ama</li>
+        </ul>
+        <a href="https://pay2.metodoevo.com.br/?uid=60b7008b-78dd-437c-b099-a6e483f54afa" class="btn btn-primary btn-block">Garantir minhas vagas</a>
+      </div>
+
+      <div class="plano-card">
+        <div class="plano-nome">Ingresso Triplo</div>
+        <div class="plano-desc">Para viver a imersão em grupo, com o menor valor por pessoa.</div>
+        <div class="plano-de">De <s>R$ 7.491</s></div>
+        <div class="plano-preco"><span class="por">por</span>R$ 780<small>/total</small></div>
+        <div class="plano-por-pessoa">3 pessoas · R$ 260 por pessoa</div>
+        <ul>
+          <li>3 dias completos de imersão presencial</li>
+          <li>Acesso a todo o conteúdo do Método EVO</li>
+          <li>Material de apoio da imersão</li>
+          <li>Menor valor por pessoa entre os 3 planos</li>
+        </ul>
+        <a href="https://pay2.metodoevo.com.br/?uid=d1fbbfd9-84dd-44a4-8c5c-4ef94d38b5d5" class="btn btn-outline btn-block">Garantir minhas vagas</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="mentor">
+  <div class="container">
+    <div class="autoridade">
+      <div class="autoridade-foto">
+        <img src="img/marcio-autoridade.png" alt="Marcio Micheli, mentor da Imersão Método EVO">
+      </div>
+      <div class="autoridade-texto">
+        <span class="eyebrow">Com quem você vai aprender</span>
+        <h2>Marcio Micheli</h2>
+        <p>Mentor, criador da Metodologia EVO e referência em inteligência emocional aplicada à vida, liderança, família, negócios e propósito.</p>
+        <p>Um encontro onde o mentor está presente, conduz, direciona e caminha junto.</p>
+        <div class="tag-row">
+          <span class="tag">Metodologia EVO</span>
+          <span class="tag">Inteligência Emocional</span>
+          <span class="tag">Liderança</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-final">
+  <div class="container">
+    <h2>Se você sente que já despertou, mas sabe que precisa <span>aprofundar, alinhar e avançar</span>, este encontro foi criado para você.</h2>
+    <a href="https://wa.me/5561996937724?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20Imers%C3%A3o%20M%C3%A9todo%20EVO%20em%20Sorocaba%20e%20quero%20mais%20informa%C3%A7%C3%B5es." class="btn btn-primary" target="_blank" rel="noopener">Quero mais informações</a>
+  </div>
+</section>
+
+<footer>
+  <img src="img/evo-logo-horizontal.png" alt="Método EVO">
+  <p>Imersão Inteligência Emocional Método EVO &middot; 16 a 18 de outubro &middot; Sorocaba - SP</p>
+</footer>
+
+</body>
+</html>
