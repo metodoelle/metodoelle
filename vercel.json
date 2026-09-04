@@ -15,6 +15,8 @@
     { "src": "/metodoarco/", "dest": "/metodoarco/index.html" },
     { "src": "/imersao-evo-sorocaba", "dest": "/imersao-evo-sorocaba/index.html" },
     { "src": "/imersao-evo-sorocaba/", "dest": "/imersao-evo-sorocaba/index.html" },
+    { "src": "/imersaoevo-semlimites", "dest": "/imersaoevo-semlimites/index.html" },
+    { "src": "/imersaoevo-semlimites/", "dest": "/imersaoevo-semlimites/index.html" },
     { "src": "/(.+\\.(png|jpg|jpeg|gif|svg|ico|css|js|html))", "dest": "/$1" },
     { "src": "/", "dest": "/index.html" }
   ]
