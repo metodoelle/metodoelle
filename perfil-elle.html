@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diagnóstico de Perfil ELLE · Fran Castro</title>
+<meta name="description" content="Descubra seu perfil primário e secundário de comunicação e presença emocional dentro do Método ELLE.">
+<link rel="icon" href="logo-elle.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" as="image" href="perfil-elle-capa.jpg" fetchpriority="high">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #FAF8F4;
+  --bg-2: #F2EDE3;
+  --bg-3: #EAE2D2;
+  --gold: #B8934A;
+  --gold-light: #D4AF6E;
+  --gold-dark: #8A6E38;
+  --gold-pale: rgba(184,147,74,0.10);
+  --gold-faint: rgba(184,147,74,0.05);
+  --text: #3D2B1F;
+  --text-muted: #6B5847;
+  --text-soft: #94816D;
+  --border: rgba(184,147,74,0.28);
+  --border-strong: rgba(184,147,74,0.55);
+  --radius: 8px;
+  --radius-lg: 12px;
+  --maxw: 760px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.7;
+  min-height: 100vh;
+}
+
+.shell {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 48px 24px 64px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.screen { display: none; flex-direction: column; animation: fadeIn 0.5s ease forwards; }
+.screen.active { display: flex; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.intro-cover { max-width: 420px; margin: 0 auto 40px; text-align: center; }
+.intro-cover img { width: 100%; height: auto; display: block; border-radius: var(--radius-lg); box-shadow: 0 8px 28px rgba(138,110,56,0.18); }
+
+.eyebrow {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.3em;
+  color: var(--gold-dark);
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+.eyebrow::before, .eyebrow::after { content: ""; flex: 0 0 24px; height: 1px; background: var(--border-strong); }
+
+.headline {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: clamp(2rem, 5.5vw, 3.1rem);
+  line-height: 1.12;
+  color: var(--text);
+  text-align: center;
+  margin-bottom: 20px;
+  letter-spacing: -0.015em;
+}
+
+.subheadline {
+  font-family: 'Outfit', sans-serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 18px;
+  color: var(--gold-dark);
+  text-align: center;
+  max-width: 480px;
+  margin: 0 auto 32px;
+}
+
+.instruction {
+  font-size: 15px;
+  color: var(--text-soft);
+  text-align: center;
+  max-width: 520px;
+  margin: 0 auto 40px;
+}
+
+.btn-wrap { text-align: center; margin-top: 16px; }
+.btn-primary {
+  display: inline-block;
+  padding: 18px 36px;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  color: #FFFFFF;
+  background: var(--gold);
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px rgba(184,147,74,0.24);
+}
+.btn-primary:hover { background: var(--gold-dark); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(184,147,74,0.28); }
+.btn-primary:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+.btn-primary.btn-large { padding: 22px 44px; font-size: 16px; letter-spacing: 0.06em; box-shadow: 0 6px 20px rgba(184,147,74,0.32); }
+.btn-secondary {
+  display: inline-block;
+  padding: 16px 30px;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 500;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.btn-secondary:hover { border-color: var(--gold); color: var(--gold-dark); background: var(--gold-faint); }
+.btn-meta { display: block; margin-top: 14px; font-family: 'Outfit', sans-serif; font-size: 12px; color: var(--text-soft); letter-spacing: 0.12em; text-transform: uppercase; }
+
+.rule-list { max-width: 560px; margin: 0 auto 34px; }
+.rule-item { display: flex; gap: 16px; padding: 16px 18px; background: #FFFFFF; border: 1px solid var(--border); border-left: 3px solid var(--gold); border-radius: 0 var(--radius) var(--radius) 0; margin-bottom: 12px; text-align: left; }
+.rule-num { font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 20px; color: var(--gold-dark); min-width: 20px; }
+.rule-text { font-size: 14.5px; color: var(--text); line-height: 1.55; }
+.rule-text strong { color: var(--gold-dark); }
+
+.progress { margin-bottom: 36px; }
+.progress-bar { height: 2px; background: var(--bg-3); border-radius: 2px; overflow: hidden; }
+.progress-fill { height: 100%; background: var(--gold); width: 0%; transition: width 400ms ease; }
+.progress-label { font-family: 'Outfit', sans-serif; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-soft); text-align: center; margin-top: 12px; }
+
+.question-title {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 500;
+  font-size: clamp(1.35rem, 3.4vw, 1.8rem);
+  line-height: 1.32;
+  color: var(--text);
+  text-align: center;
+  margin-bottom: 34px;
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.options { display: flex; flex-direction: column; gap: 12px; max-width: 620px; margin: 0 auto; width: 100%; }
+.option {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 18px 22px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  font-size: 15.5px;
+  line-height: 1.5;
+  color: var(--text);
+  background: #FFFFFF;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+.option:hover { border-color: var(--gold); background: var(--bg-2); transform: translateX(4px); }
+.option:focus { outline: 2px solid var(--gold); outline-offset: 2px; }
+.option.selected { border-color: var(--gold); background: var(--gold-pale); }
+
+.back-link {
+  margin: 22px auto 0;
+  background: none;
+  border: none;
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px;
+  color: var(--text-soft);
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+.back-link.visible { opacity: 1; pointer-events: auto; }
+
+.loading-msg {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 500;
+  font-size: clamp(1.2rem, 3vw, 1.5rem);
+  line-height: 1.4;
+  color: var(--text);
+  text-align: center;
+  margin: 80px auto 24px;
+  max-width: 520px;
+}
+.loading-dots { text-align: center; }
+.loading-dots span { display: inline-block; width: 6px; height: 6px; background: var(--gold); border-radius: 50%; margin: 0 4px; animation: blink 1.4s infinite; }
+.loading-dots span:nth-child(2) { animation-delay: 0.2s; }
+.loading-dots span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes blink { 0%, 60%, 100% { opacity: 0.2; } 30% { opacity: 1; } }
+
+.result-eyebrow { font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 12px; letter-spacing: 0.32em; color: var(--gold-dark); text-transform: uppercase; text-align: center; margin-bottom: 18px; }
+.result-title { font-family: 'Outfit', sans-serif; font-weight: 600; font-size: clamp(1.7rem, 4.4vw, 2.3rem); color: var(--text); text-align: center; margin-bottom: 8px; }
+.result-lead { font-family: 'Outfit', sans-serif; font-style: italic; font-size: 16px; color: var(--gold-dark); text-align: center; margin-bottom: 32px; }
+
+.bars { max-width: 380px; margin: 0 auto 40px; }
+.bar-row { display: grid; grid-template-columns: 104px 1fr 26px; align-items: center; gap: 10px; margin-bottom: 9px; }
+.bar-label { font-family: 'Outfit', sans-serif; font-size: 13px; color: var(--text-muted); text-align: right; }
+.bar-track { height: 6px; background: var(--bg-3); border-radius: 3px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 3px; background: var(--gold); transition: width 600ms ease; }
+.bar-count { font-family: 'Outfit', sans-serif; font-size: 12px; color: var(--gold-dark); }
+
+.profile-block {
+  background: #FFFFFF;
+  border-left: 3px solid var(--gold);
+  border-top: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 30px 28px;
+  margin-bottom: 22px;
+}
+.profile-block.secundario { border-left-color: var(--gold-light); background: var(--gold-faint); }
+.profile-label { font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 11.5px; letter-spacing: 0.22em; color: var(--gold-dark); text-transform: uppercase; margin-bottom: 8px; }
+.profile-name { font-family: 'Outfit', sans-serif; font-weight: 600; font-size: clamp(1.5rem, 4vw, 1.9rem); color: var(--text); margin-bottom: 2px; }
+.profile-codigo { font-family: 'Outfit', sans-serif; font-style: italic; font-weight: 400; font-size: 14.5px; color: var(--gold-dark); margin-bottom: 18px; }
+.profile-block p { font-size: 15px; color: var(--text); margin-bottom: 14px; }
+.profile-block p:last-of-type { margin-bottom: 0; }
+.profile-atencao { background: var(--gold-faint); border-left: 2px solid var(--gold-dark); padding: 14px 16px; border-radius: 0 6px 6px 0; font-size: 14px; }
+.profile-manual { font-style: italic; font-size: 13.5px; color: var(--text-soft); border-top: 1px solid var(--border); padding-top: 14px; margin-top: 18px; }
+
+.section-note { font-size: 14px; color: var(--text-soft); line-height: 1.65; max-width: 620px; margin: 0 auto 24px; }
+
+.divider { display: flex; align-items: center; justify-content: center; gap: 14px; margin: 52px 0 8px; }
+.divider .trace { width: 44px; height: 1px; background: var(--border-strong); }
+.divider .diamond { width: 6px; height: 6px; background: var(--gold); transform: rotate(45deg); flex-shrink: 0; }
+
+.b2-block { background: #FFFFFF; border: 1px solid var(--border); border-radius: var(--radius); padding: 24px 26px; margin-bottom: 16px; }
+.b2-tag { font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 11px; letter-spacing: 0.14em; color: var(--gold-dark); text-transform: uppercase; margin-bottom: 6px; }
+.b2-title { font-family: 'Outfit', sans-serif; font-weight: 500; font-size: 19px; color: var(--text); margin-bottom: 14px; }
+.b2-answer { font-size: 13.5px; font-style: italic; color: var(--text-soft); border-left: 2px solid var(--gold); padding-left: 12px; margin-bottom: 14px; }
+.b2-leitura { font-size: 15px; color: var(--text); line-height: 1.65; }
+.b2-destaque { margin-top: 14px; background: var(--text); color: var(--bg); font-family: 'Outfit', sans-serif; font-style: italic; font-size: 13.5px; padding: 13px 16px; border-radius: 6px; }
+
+.closing { text-align: center; margin: 52px 0 40px; }
+.closing p { font-family: 'Outfit', sans-serif; font-style: italic; font-size: clamp(1.05rem, 2.6vw, 1.3rem); line-height: 1.55; color: var(--text); max-width: 460px; margin: 0 auto 12px; }
+.closing .lead-line { font-family: 'Outfit', sans-serif; font-style: normal; font-weight: 600; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold-dark); margin-bottom: 20px; }
+
+.manual-block { background: #FFFFFF; border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 36px 30px; margin: 0 0 36px; text-align: center; }
+.manual-block h3 { font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 21px; color: var(--text); margin-bottom: 10px; }
+.manual-block p { font-size: 14px; color: var(--text-muted); max-width: 460px; margin: 0 auto 22px; }
+.manual-hint { font-size: 12px; color: var(--text-soft); margin-top: 14px; font-style: italic; }
+
+.result-actions { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-top: 8px; }
+
+.footer { margin-top: 60px; padding-top: 28px; border-top: 1px solid var(--border); text-align: center; font-family: 'Outfit', sans-serif; font-size: 12px; color: var(--text-soft); letter-spacing: 0.14em; text-transform: uppercase; }
+
+/* ============ TRANCA (SENHA) ============ */
+body.tranca-fechada .shell { filter: blur(8px); pointer-events: none; user-select: none; }
+.tranca-modal { position: fixed; inset: 0; background: rgba(61,43,31,0.55); backdrop-filter: blur(4px); display: none; align-items: center; justify-content: center; z-index: 999; padding: 24px; }
+.tranca-modal.aberta { display: flex; }
+.tranca-card { background: var(--bg); max-width: 420px; width: 100%; padding: 44px 34px; border-radius: var(--radius-lg); text-align: center; border: 1px solid var(--border); box-shadow: 0 30px 70px rgba(61,43,31,0.25); }
+.tranca-eyebrow { font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 11px; letter-spacing: 0.28em; color: var(--gold-dark); text-transform: uppercase; margin-bottom: 18px; }
+.tranca-titulo { font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 26px; color: var(--text); margin-bottom: 12px; }
+.tranca-sub { font-size: 14.5px; color: var(--text-muted); line-height: 1.55; margin-bottom: 26px; }
+.tranca-form { display: flex; flex-direction: column; gap: 12px; }
+.tranca-input { background: #FFFFFF; border: 1px solid var(--border); color: var(--text); padding: 15px 16px; border-radius: var(--radius); font-family: 'Inter', sans-serif; font-size: 15px; text-align: center; }
+.tranca-input::placeholder { color: var(--text-soft); font-style: italic; }
+.tranca-input:focus { outline: none; border-color: var(--gold); }
+.tranca-erro { font-size: 12.5px; color: #B23A3A; margin-top: 2px; height: 16px; opacity: 0; transition: opacity 0.2s ease; }
+.tranca-erro.visivel { opacity: 1; }
+
+@media print {
+  .no-print { display: none !important; }
+  .screen { display: none !important; }
+  #s-result { display: flex !important; }
+}
+
+@media (max-width: 640px) {
+  .shell { padding: 32px 20px 48px; }
+  .option { padding: 16px 18px; font-size: 15px; }
+  .profile-block, .manual-block { padding: 24px 20px; }
+  .bar-row { grid-template-columns: 84px 1fr 22px; }
+}
+</style>
+</head>
+<body class="tranca-fechada">
+
+<!-- ============ TRANCA (SENHA) ============ -->
+<div class="tranca-modal aberta" id="tranca-modal">
+  <div class="tranca-card">
+    <div class="tranca-eyebrow">Método ELLE</div>
+    <div class="tranca-titulo">Diagnóstico de Perfil ELLE</div>
+    <p class="tranca-sub">Este diagnóstico é exclusivo para alunas do Método ELLE.<br>Digite a senha que você recebeu.</p>
+    <form class="tranca-form" id="tranca-form" autocomplete="off">
+      <input type="text" class="tranca-input" id="tranca-input" placeholder="Sua senha de acesso" autocapitalize="off" autocorrect="off" spellcheck="false">
+      <button type="submit" class="btn-primary" id="tranca-btn">Entrar</button>
+      <div class="tranca-erro" id="tranca-erro">Senha não confere. Tente de novo.</div>
+    </form>
+  </div>
+</div>
+
+<div class="shell">
+
+  <!-- TELA 0. INTRO -->
+  <section class="screen active" id="s0">
+    <div class="intro-cover"><img src="perfil-elle-capa.jpg" alt="Diagnóstico de Perfil ELLE, por Fran Castro"></div>
+    <p class="eyebrow">Método ELLE</p>
+    <h1 class="headline">Diagnóstico de Perfil ELLE</h1>
+    <p class="subheadline">Descubra como você se posiciona, reage e se comunica.</p>
+    <p class="instruction">São 26 situações do dia a dia, divididas em dois blocos. O Bloco 1 mostra como você age. O Bloco 2 mostra de onde vêm seus padrões. No final, você recebe seu perfil primário e secundário.</p>
+    <div class="btn-wrap">
+      <button class="btn-primary btn-large" onclick="goTo('s-instrucoes')">Começar o diagnóstico</button>
+      <p class="btn-meta">26 perguntas · cerca de 8 minutos · resultado imediato</p>
+    </div>
+  </section>
+
+  <!-- TELA 1. COMO USAR -->
+  <section class="screen" id="s-instrucoes">
+    <p class="eyebrow">Antes de começar</p>
+    <h2 class="headline" style="font-size: clamp(1.6rem, 4vw, 2.2rem);">Como usar o diagnóstico</h2>
+    <p class="instruction">Responda com base em como você <strong style="color: var(--gold-dark);">realmente reage</strong>, não como gostaria de reagir. A honestidade é o que torna o resultado preciso.</p>
+    <div class="rule-list">
+      <div class="rule-item"><div class="rule-num">1</div><div class="rule-text">Leia cada situação com calma e escolha a opção que <strong>mais representa</strong> o que você costuma fazer.</div></div>
+      <div class="rule-item"><div class="rule-num">2</div><div class="rule-text">Não existe resposta certa ou errada. O diagnóstico não avalia, só revela um padrão.</div></div>
+      <div class="rule-item"><div class="rule-num">3</div><div class="rule-text">O <strong>Bloco 1</strong> tem 20 situações e revela seu perfil primário e secundário. O <strong>Bloco 2</strong> tem 6 situações e revela o que sustenta esse padrão por dentro.</div></div>
+    </div>
+    <div class="btn-wrap"><button class="btn-primary" onclick="App.startQuestions()">Estou pronta</button></div>
+  </section>
+
+  <!-- TELA 2. PERGUNTAS -->
+  <section class="screen" id="s-pergunta">
+    <div class="progress">
+      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+      <p class="progress-label" id="progressLabel">Bloco 1 · pergunta 1 de 20</p>
+    </div>
+    <h2 class="question-title" id="questionText"></h2>
+    <div class="options" id="optionsWrap"></div>
+    <div style="text-align:center;"><button class="back-link" id="backBtn" onclick="App.voltar()">&larr; Voltar</button></div>
+  </section>
+
+  <!-- TELA 3. PROCESSANDO -->
+  <section class="screen" id="s-processando">
+    <p class="loading-msg" id="loadingMsg">Somando suas respostas...</p>
+    <div class="loading-dots"><span></span><span></span><span></span></div>
+  </section>
+
+  <!-- TELA 4. RESULTADO -->
+  <section class="screen" id="s-result">
+    <div id="resultContent"></div>
+  </section>
+
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  /* ================= TRANCA (SENHA) ================= */
+  var TRANCA_HASH = '371a0c848026514ebadc8e60db5ede476b458770eef5a13384a0891e983b3420';
+  var TRANCA_STORAGE = 'perfil-elle-tranca';
+
+  async function calcularHash(texto) {
+    var encoder = new TextEncoder();
+    var data = encoder.encode(texto.toLowerCase().trim());
+    var hashBuffer = await crypto.subtle.digest('SHA-256', data);
+    var hashArray = Array.from(new Uint8Array(hashBuffer));
+    return hashArray.map(function (b) { return b.toString(16).padStart(2, '0'); }).join('');
+  }
+
+  function abrirApp() {
+    document.body.classList.remove('tranca-fechada');
+    var modal = document.getElementById('tranca-modal');
+    modal.classList.remove('aberta');
+    setTimeout(function () { modal.style.display = 'none'; }, 300);
+    try { localStorage.setItem(TRANCA_STORAGE, '1'); } catch (e) {}
+  }
+
+  try {
+    if (localStorage.getItem(TRANCA_STORAGE) === '1') {
+      document.body.classList.remove('tranca-fechada');
+      document.getElementById('tranca-modal').classList.remove('aberta');
+      document.getElementById('tranca-modal').style.display = 'none';
+    }
+  } catch (e) {}
+
+  document.getElementById('tranca-form').addEventListener('submit', async function (ev) {
+    ev.preventDefault();
+    var input = document.getElementById('tranca-input');
+    var erro = document.getElementById('tranca-erro');
+    var btn = document.getElementById('tranca-btn');
+    var valor = input.value;
+    if (!valor) return;
+    btn.disabled = true;
+    erro.classList.remove('visivel');
+    try {
+      var hash = await calcularHash(valor);
+      if (hash === TRANCA_HASH) {
+        abrirApp();
+      } else {
+        erro.textContent = 'Senha não confere. Tente de novo.';
+        erro.classList.add('visivel');
+        input.value = '';
+        input.focus();
+      }
+    } catch (e) {
+      erro.textContent = 'Erro ao validar. Recarregue a página.';
+      erro.classList.add('visivel');
+    } finally {
+      btn.disabled = false;
+    }
+  });
+
+  setTimeout(function () {
+    var input = document.getElementById('tranca-input');
+    if (input && document.getElementById('tranca-modal').classList.contains('aberta')) input.focus();
+  }, 400);
+
+  /* ================= DADOS: BLOCO 1 ================= */
+  var LETRAS = ['A', 'B', 'C', 'D'];
+
+  var BLOCO1 = [
+    { q: 'Você está em uma reunião e percebe que a conversa está indo na direção errada. O que você faz?',
+      o: ['Intervém logo e redireciona a pauta.', 'Espera o momento certo e tenta trazer leveza ao redirecionamento.', 'Fica incomodada, mas deixa o grupo seguir para não criar atrito.', 'Observa mais um pouco para ter certeza antes de falar.'] },
+    { q: 'Alguém repete sua ideia na reunião como se fosse dele. Qual é sua reação interna imediata?',
+      o: ['Irritação clara: você precisa retomar a autoria agora.', 'Mágoa misturada com vontade de que alguém note o que aconteceu.', 'Você deixa passar para não criar constrangimento.', 'Você analisa se vale a pena intervir ou se é melhor guardar a energia.'] },
+    { q: 'Você errou em público, disse algo impreciso numa conversa importante. Como reage?',
+      o: ['Corrige imediatamente e segue em frente sem drama.', 'Fica preocupada com o que as pessoas pensaram de você.', 'Se desculpa mais do que o necessário e fica ruminando depois.', 'Analisa o que falhou e como evitar na próxima vez.'] },
+    { q: 'Alguém próximo te pede um favor que você não tem condições de atender agora. Você:',
+      o: ['Diz não com clareza, sem muita explicação.', 'Quer dizer não, mas se preocupa com como a pessoa vai receber.', 'Acaba dizendo sim mesmo sentindo que não devia.', 'Analisa todas as variáveis antes de dar uma resposta.'] },
+    { q: 'Você vai apresentar uma ideia importante para um grupo. O que acontece internamente?',
+      o: ['Foco no resultado: você quer que a ideia seja aprovada.', 'Preocupação com a reação das pessoas: você quer que gostem.', 'Ansiedade sobre como vai afetar a dinâmica do grupo.', 'Preocupação em ter todos os dados antes de falar.'] },
+    { q: 'Você discorda de uma decisão que já foi tomada em grupo. O que você faz?',
+      o: ['Fala a discordância de forma direta, mesmo que cause desconforto.', 'Tenta encontrar uma forma de trazer o ponto sem quebrar o clima.', 'Engole a discordância para não desfazer o que já foi acordado.', 'Espera o momento certo e apresenta sua análise com dados.'] },
+    { q: 'Você faz uma publicação importante nas redes e ela não tem o engajamento que esperava. O que sente?',
+      o: ['Indiferença: o que importa é o conteúdo, não o número.', 'Frustração real: a ausência de resposta te afeta mais do que deveria.', 'Preocupação se o conteúdo ofendeu ou desagradou alguém.', 'Análise do que poderia ter sido diferente na entrega.'] },
+    { q: 'Quando você está sob pressão, como sua comunicação costuma mudar?',
+      o: ['Fica mais direta e objetiva, às vezes mais dura do que gostaria.', 'Fala mais, busca conexão, precisa ser ouvida.', 'Se recolhe, evita confronto, tenta manter a paz.', 'Fica mais silenciosa, precisa processar antes de qualquer resposta.'] },
+    { q: 'Você está conduzindo uma conversa importante e a outra pessoa muda de assunto. Você:',
+      o: ['Retoma o foco imediatamente: não deixa o tema escapar.', 'Acompanha um pouco o desvio para manter a conexão, depois volta.', 'Deixa o assunto mudar para não parecer insistente.', 'Nota o desvio mas pondera se vale a pena retomar ou deixar fluir.'] },
+    { q: 'Como você costuma reagir quando recebe um elogio em público?',
+      o: ['Agradece com naturalidade e segue em frente.', 'Fica visivelmente feliz: conexão e reconhecimento te energizam.', 'Fica um pouco sem jeito, tende a minimizar ou dividir o mérito.', 'Agradece, mas internamente avalia se o elogio é preciso ou exagerado.'] },
+    { q: 'Você percebe que alguém do grupo está sendo injusto com outra pessoa. O que você faz?',
+      o: ['Intervém diretamente: injustiça não passa sem comentário.', 'Busca aliviar a tensão e cuidar de quem foi afetada.', 'Sente muito, mas evita se envolver para não piorar.', 'Observa, avalia a situação e age com cuidado e precisão.'] },
+    { q: 'Você precisa dar um feedback difícil para alguém. Como você se prepara?',
+      o: ['Organiza o que precisa ser dito e vai direto ao ponto.', 'Pensa muito em como a pessoa vai receber antes de falar.', 'Adia o quanto pode: não quer machucar nem criar distância.', 'Estrutura os argumentos com cuidado e busca o momento certo.'] },
+    { q: 'Em uma conversa em que você tem razão mas a outra pessoa insiste no erro dela, você:',
+      o: ['Sustenta sua posição com firmeza até o ponto ser compreendido.', 'Continua tentando, mas fica frustrada se não for reconhecida.', 'Cede para encerrar o conflito, mesmo sabendo que tem razão.', 'Apresenta mais dados e argumentos até a lógica prevalecer.'] },
+    { q: 'O que mais te incomoda quando você não consegue se expressar como gostaria?',
+      o: ['Sensação de perda de controle sobre a situação.', 'Medo de ter sido mal interpretada ou de não ter agradado.', 'Culpa por ter criado tensão ou magoado alguém.', 'Frustração por não ter dito a coisa certa da forma certa.'] },
+    { q: 'Você está num ambiente onde ninguém te conhece. Como você se posiciona?',
+      o: ['Observa rapidamente e assume espaço quando vê oportunidade.', 'Cria conexão logo: você se sente bem sendo vista e reconhecida.', 'Aguarda ser incluída antes de se abrir.', 'Prefere observar, entender as dinâmicas antes de se posicionar.'] },
+    { q: 'Depois de uma conversa difícil, o que você costuma sentir?',
+      o: ['Alívio por ter resolvido, ou frustração por não ter ido longe o suficiente.', 'Preocupação com o que a outra pessoa achou de você.', 'Exaustão emocional e questionamento se valeu a pena.', 'Análise do que funcionou e do que poderia ter sido melhor.'] },
+    { q: 'Uma pessoa próxima fica em silêncio depois de algo que você disse. O que você sente?',
+      o: ['Curiosidade: você quer saber o que está passando pela cabeça dela.', 'Ansiedade imediata: o silêncio parece rejeição.', 'Culpa automática: você assume que fez algo errado.', 'Você aguarda: prefere deixar a pessoa processar antes de perguntar.'] },
+    { q: 'Qual dessas situações te paralisa mais?',
+      o: ['Perder o controle de uma situação importante.', 'Ser ignorada ou não reconhecida pelo grupo.', 'Saber que alguém ficou magoado por sua causa.', 'Falar antes de ter certeza e errar em público.'] },
+    { q: 'Você é convidada para falar em público sobre algo que domina. Como se sente?',
+      o: ['Confiante: é uma oportunidade de impacto e você vai usar.', 'Animada e um pouco ansiosa: você quer que o público goste.', 'Honrada, mas com receio de se expor demais.', 'Preparada, mas preocupada em não deixar nenhuma lacuna no conteúdo.'] },
+    { q: 'Quando você precisa pedir algo que importa muito para você, o que acontece?',
+      o: ['Apresenta o pedido de forma objetiva e espera uma resposta clara.', 'Cuida muito do tom para que a pessoa queira dizer sim.', 'Demora para pedir: não quer parecer exigente ou dependente.', 'Estrutura bem o pedido antes de fazer, para não deixar margem para recusa.'] }
+  ];
+
+  /* ================= DADOS: BLOCO 2 ================= */
+  var BLOCO2 = [
+    { q: 'Você acaba de tomar uma decisão importante sozinha. Antes de ver o resultado, o que passa pela sua cabeça?',
+      sub: 'O que organiza sua relação com decisão',
+      o: ['Eu decidi. Agora é executar.', 'Será que as pessoas vão entender por que fiz isso?', 'Espero não ter decepcionado ninguém com essa escolha.', 'Analisei tudo que tinha disponível, mas e o que eu não considerei?'],
+      l: {
+        A: 'Sua segurança vem da ação. Decidir e executar é onde você se ancora. O risco está em confundir velocidade com clareza.',
+        B: 'Sua segurança precisa de compreensão. Não é aprovação que você busca, é ser entendida. O risco está em postergar decisões para evitar mal-entendidos.',
+        C: 'Sua segurança está ligada ao vínculo. Você decide, mas carrega o peso de quem pode ter sido afetada. O risco está em usar o impacto nos outros como critério maior do que o seu próprio julgamento.',
+        D: 'Sua segurança vem da análise. Você confia no processo, não no resultado. O risco está em tratar o imprevisível como ameaça em vez de variável natural.'
+      } },
+    { q: 'Você está passando por um momento difícil e ninguém pergunta como você está. O que sente?',
+      sub: 'O que organiza sua necessidade de ser vista',
+      o: ['Incômodo: você prefere resolver sozinha mesmo, mas o silêncio pesa de um jeito diferente.', 'Uma dor real: ser invisível no momento em que mais precisava ser vista.', 'Você não esperava ser vista. Continua cuidando dos outros mesmo assim.', 'Você processa internamente. Só compartilha quando já entendeu o que está sentindo.'],
+      l: {
+        A: 'Você prefere autonomia à dependência, mas o silêncio dos outros ainda pesa. Você não pede para ser vista, e ressente quando não é.',
+        B: 'Ser vista não é vaidade. É uma necessidade real do seu sistema. Quando isso não acontece nos momentos que importam, a dor é genuína e vai além da situação.',
+        C: 'Você aprendeu a não esperar. Continua cuidando mesmo sem ser cuidada, e raramente nomeia o custo disso.',
+        D: 'Você processa antes de compartilhar. Isso te protege de exposição prematura, mas também pode te isolar nos momentos em que precisaria de suporte mais imediato.'
+      } },
+    { q: 'Alguém que você respeita discorda de uma escolha que você fez por si mesma. O que acontece dentro de você?',
+      sub: 'O que organiza sua relação com autoridade externa',
+      o: ['Uma resistência imediata. Sua escolha, sua vida.', 'Uma dúvida que não deveria existir: a opinião dele ainda te move mais do que você gostaria.', 'Você começa a se questionar se a escolha foi egoísta.', 'Você reconsidera, não por pressão, mas porque qualquer dado novo merece análise.'],
+      l: {
+        A: 'Você tem território interno bem definido. A opinião do outro não entra sem convite. O risco está em fechar a escuta quando ela seria útil.',
+        B: 'A opinião de quem você admira ainda tem acesso direto à sua dúvida. Não é fraqueza, é o custo de valorizar profundamente certas perspectivas. O trabalho é criar filtro sem criar muro.',
+        C: 'Você converte discordância em culpa antes de processar se a crítica tem fundamento. O questionamento começa em você antes de chegar ao outro.',
+        D: 'Você usa discordância como dado, não como ameaça. Isso é maturidade. O risco está em reconsiderar demais quando a decisão já estava certa.'
+      } },
+    { q: 'Você imagina uma versão de si mesma completamente livre, sem precisar provar nada, sem medo de julgamento. O que essa versão faz de diferente?',
+      sub: 'Onde está seu aprisionamento',
+      o: ['Age sem precisar justificar cada decisão para ninguém.', 'Ocupa espaço sem verificar se está agradando antes.', 'Fala o que pensa sem calcular o impacto na relação.', 'Lança sem esperar estar cem por cento pronta.'],
+      l: {
+        A: 'Você ainda sente que precisa justificar suas decisões. A liberdade que você busca é a de agir sem prestar contas antes de agir.',
+        B: 'Você ainda verifica a temperatura do ambiente antes de ocupar espaço. A liberdade que você busca é a de existir sem medir o impacto primeiro.',
+        C: 'Você ainda calcula o custo relacional de cada fala antes de falar. A liberdade que você busca é a de se expressar sem gerenciar a reação do outro em tempo real.',
+        D: 'Você ainda espera estar completamente pronta antes de se lançar. A liberdade que você busca é a de agir com 80% de certeza e confiar no resto.'
+      },
+      destaque: 'Esta resposta é o ponto de entrada mais preciso para os 21 dias.' },
+    { q: 'Você está num grupo e percebe que está sendo ignorada, não por hostilidade, só por descuido. Como reage internamente?',
+      sub: 'O que ser ignorada ativa em você',
+      o: ['Irritação contida. Você não precisa de permissão para ocupar espaço.', 'Uma ferida pequena mas real. Ser ignorada ativa algo que vai além da situação.', 'Você assume que não tinha nada relevante a contribuir mesmo.', 'Você observa para entender se é um padrão antes de concluir qualquer coisa.'],
+      l: {
+        A: 'Ser ignorada ativa sua resistência. Você não precisa de permissão, mas o descuido dos outros ainda toca algo real. O padrão que vai trabalhar nos 21 dias é a diferença entre não precisar de validação e não precisar de reconhecimento.',
+        B: 'Ser ignorada ativa uma dor que vai além da situação. Ela toca uma crença mais funda sobre seu lugar e seu valor. O padrão que vai trabalhar nos 21 dias é sustentar sua presença independente da resposta do ambiente.',
+        C: 'Ser ignorada ativa a crença de que você não tinha nada relevante a oferecer. A invisibilidade vira confirmação. O padrão que vai trabalhar nos 21 dias é separar a resposta do outro da validade do que você tem a dizer.',
+        D: 'Você observa antes de concluir. Isso é inteligência. O risco está em usar a análise para evitar sentir o que a situação ativou.'
+      } },
+    { q: 'No fim de um dia em que você deu muito de si, o que você mais precisa?',
+      sub: 'Como você se recupera',
+      o: ['Silêncio e controle do próprio tempo. Recuperar o território interno.', 'Alguém que pergunte como foi. Ser recebida, não só ouvida.', 'Saber que todo mundo ficou bem. A sua recarga depende disso.', 'Tempo para processar sozinha o que aconteceu antes de qualquer contato.'],
+      l: {
+        A: 'Você se recupera no silêncio e na autonomia. Quando isso é invadido, você não recupera, você apenas continua. O risco está em confundir autossuficiência com resistência ao cuidado.',
+        B: 'Você se recupera sendo recebida. Não apenas ouvida: recebida. Quando isso não acontece, você carrega o cansaço sozinha e ressente em silêncio.',
+        C: 'Sua recarga depende de saber que todos estão bem. Antes de cuidar de você, você verifica se o ambiente está em paz. O custo disso é alto e raramente nomeado.',
+        D: 'Você se recupera no processamento solitário. Contato antes disso soa como invasão. O risco está em isolar-se num momento em que conexão seria parte da recuperação.'
+      } }
+  ];
+
+  /* ================= DADOS: OS QUATRO PERFIS ================= */
+  var PERFIS = {
+    A: { nome: 'Estruturadora', codigo: 'Código da Força',
+      hook: 'Você pensa em resultados antes de pensar em processos. Não por frieza: por arquitetura. Sua mente já chegou no destino enquanto as outras ainda estão lendo o mapa. Você vê o que precisa ser feito, organiza o caminho e move.',
+      fundacao: 'Sua fundação é o Alicerce, o sistema que processa o mundo pela ação e pela presença. O que move o Alicerce é a necessidade de autonomia. De ter chão firme. De saber que você controla o suficiente para que nada desabe.',
+      equilibrio: 'Quando esse sistema está em equilíbrio, você é inabalável no melhor sentido: uma presença que sustenta sem oprimir, que lidera sem dominar. Quando está sobrecarregado, o controle vira o único idioma que você fala.',
+      atencao: 'Você pode suavizar sua fala por medo de parecer autoritária, não por insegurança, mas por consciência do impacto que tem. O trabalho dos 21 dias vai te ajudar a distinguir quando suavizar é estratégia e quando é autossabotagem.',
+      manual: 'O Manual de Arquitetura Interior explora em profundidade o Alicerce, as 4 colunas da Estruturadora e o medo que você raramente nomeia.' },
+    B: { nome: 'Radiante', codigo: 'Código do Brilho',
+      hook: 'Aonde você chega, algo acende. Não é performance: é natureza. Você foi feita para conectar, para inspirar, para fazer o outro sentir que a vida tem mais cor do que parecia há cinco minutos.',
+      fundacao: 'Sua fundação é a Fachada, na expressão que irradia. O que move esse sistema é a necessidade de ser vista. De saber que sua presença chegou. De sentir que o brilho que você carrega tocou alguém de verdade.',
+      equilibrio: 'Quando esse sistema está em equilíbrio, você é uma força de conexão genuína. Quando está sobrecarregado, o brilho começa a trabalhar para fora em vez de nascer de dentro. A conexão vira dependência. A presença vira performance.',
+      atencao: 'Seu maior desafio não é se comunicar: é se comunicar sem precisar que todos gostem do que ouvem. Os 21 dias vão trabalhar sua capacidade de sustentar posição mesmo quando o ambiente não responde como você espera.',
+      manual: 'O Manual de Arquitetura Interior explora em profundidade a Fachada, as 4 colunas da Radiante e o medo que você raramente nomeia.' },
+    C: { nome: 'Guardiã', codigo: 'Código do Acolhimento',
+      hook: 'Você é a fundação e o abrigo. Você ouve o que não foi dito, sente o que o outro ainda não conseguiu nomear, chega antes que peçam. Há algo em você que transmite: aqui é seguro, aqui você pode ser você.',
+      fundacao: 'Sua fundação também é a Fachada, na expressão que acolhe. Onde a Radiante precisa ser vista, você precisa ser necessária. Onde ela busca admiração, você busca pertencimento. O que move esse sistema é a necessidade de vínculo: de saber que você importa, que sua presença sustenta.',
+      equilibrio: 'Quando esse sistema está em equilíbrio, você é uma força de cura genuína. Quando está sobrecarregado, você começa a se apagar para que os outros apareçam. O cuidado vira custo. E você segue dando mesmo quando já não tem mais nada para dar.',
+      atencao: 'Dizer não e discordar são os maiores desafios do seu perfil, não por falta de opinião, mas porque seu sistema emocional interpreta confronto como ruptura. Os 21 dias vão construir a distinção entre limite e abandono.',
+      manual: 'O Manual de Arquitetura Interior explora em profundidade a Fachada, as 4 colunas da Guardiã e o medo que você raramente nomeia.' },
+    D: { nome: 'Decodificadora', codigo: 'Código da Essência',
+      hook: 'Você é o sistema que ninguém vê, e do qual tudo depende. Você vê o que os outros não veem. Enquanto todo mundo está reagindo ao problema, você já identificou a causa. Enquanto o grupo ainda está processando, você já mapeou três cenários e calculou qual tem mais probabilidade de dar certo.',
+      fundacao: 'Sua fundação é a Cobertura, o sistema que processa o mundo pela mente e pela antecipação. O que move a Cobertura é a necessidade de compreensão. De ter clareza antes de se expor. De saber que quando você se move, você se move com precisão.',
+      equilibrio: 'Quando esse sistema está em equilíbrio, você é uma inteligência rara a serviço do que importa. Quando está sobrecarregado, a análise vira paralisia. A precisão vira perfeccionismo. E você fica com a análise impecável de uma oportunidade que já foi.',
+      atencao: 'O maior custo do seu perfil é o silêncio por perfeccionismo. Você tem o argumento, mas espera o momento perfeito que nunca chega. Os 21 dias vão trabalhar sua capacidade de falar com 80% de certeza e sustentar a posição mesmo assim.',
+      manual: 'O Manual de Arquitetura Interior explora em profundidade a Cobertura, as 4 colunas da Decodificadora e o medo que você raramente nomeia.' }
+  };
+
+  var MANUAL_URL = 'https://sun.eduzz.com/G92KEQ57WE?np=3&p=1';
+
+  /* ================= ESTADO ================= */
+  var App = {};
+  var TOTAL_B1 = BLOCO1.length;
+  var TOTAL_B2 = BLOCO2.length;
+  var TOTAL = TOTAL_B1 + TOTAL_B2;
+  var perguntaAtual = 0;
+  var respostasB1 = [];
+  var respostasB2 = [];
+  var respondendo = false;
+
+  function $(id) { return document.getElementById(id); }
+
+  function goTo(id) {
+    document.querySelectorAll('.screen').forEach(function (s) { s.classList.remove('active'); });
+    var target = $(id);
+    if (target) { target.classList.add('active'); window.scrollTo({ top: 0, behavior: 'smooth' }); }
+  }
+  window.goTo = goTo;
+
+  App.startQuestions = function () {
+    perguntaAtual = 0;
+    respostasB1 = new Array(TOTAL_B1).fill(null);
+    respostasB2 = new Array(TOTAL_B2).fill(null);
+    goTo('s-pergunta');
+    renderPergunta();
+  };
+
+  function renderPergunta() {
+    respondendo = false;
+    var noBloco2 = perguntaAtual >= TOTAL_B1;
+    var item = noBloco2 ? BLOCO2[perguntaAtual - TOTAL_B1] : BLOCO1[perguntaAtual];
+
+    $('progressLabel').textContent = noBloco2
+      ? 'Bloco 2 · pergunta ' + (perguntaAtual - TOTAL_B1 + 1) + ' de ' + TOTAL_B2
+      : 'Bloco 1 · pergunta ' + (perguntaAtual + 1) + ' de ' + TOTAL_B1;
+
+    $('questionText').textContent = item.q;
+
+    var pct = Math.round((perguntaAtual / TOTAL) * 100);
+    $('progressFill').style.width = pct + '%';
+    $('backBtn').classList.toggle('visible', perguntaAtual > 0);
+
+    var wrap = $('optionsWrap');
+    wrap.innerHTML = '';
+    item.o.forEach(function (texto, i) {
+      var btn = document.createElement('button');
+      btn.className = 'option';
+      btn.type = 'button';
+      btn.textContent = texto;
+      var respostaAtual = noBloco2 ? respostasB2[perguntaAtual - TOTAL_B1] : respostasB1[perguntaAtual];
+      if (respostaAtual === LETRAS[i]) btn.classList.add('selected');
+      btn.onclick = function () {
+        if (respondendo) return;
+        respondendo = true;
+        Array.prototype.forEach.call(wrap.children, function (b) { b.classList.remove('selected'); });
+        btn.classList.add('selected');
+        if (noBloco2) respostasB2[perguntaAtual - TOTAL_B1] = LETRAS[i];
+        else respostasB1[perguntaAtual] = LETRAS[i];
+        setTimeout(avancar, 300);
+      };
+      wrap.appendChild(btn);
+    });
+  }
+
+  function avancar() {
+    perguntaAtual++;
+    if (perguntaAtual < TOTAL) {
+      renderPergunta();
+    } else {
+      $('progressFill').style.width = '100%';
+      goTo('s-processando');
+      rodarProcessamento();
+    }
+  }
+
+  App.voltar = function () {
+    if (perguntaAtual > 0) { perguntaAtual--; renderPergunta(); }
+  };
+
+  function rodarProcessamento() {
+    var mensagens = ['Somando suas respostas...', 'Identificando seu perfil primário...', 'Montando sua leitura completa...'];
+    var i = 0;
+    var el = $('loadingMsg');
+    el.textContent = mensagens[0];
+    var interval = setInterval(function () {
+      i++;
+      if (i < mensagens.length) {
+        el.style.opacity = 0;
+        setTimeout(function () { el.textContent = mensagens[i]; el.style.opacity = 1; }, 220);
+      }
+    }, 800);
+
+    setTimeout(function () {
+      clearInterval(interval);
+      var resultado = calcularResultado(respostasB1);
+      renderResultado(resultado);
+      goTo('s-result');
+    }, 2500);
+  }
+
+  /* ================= CÁLCULO DO RESULTADO ================= */
+  function calcularResultado(respostas) {
+    var contagem = { A: 0, B: 0, C: 0, D: 0 };
+    respostas.forEach(function (l) { contagem[l]++; });
+
+    var ordenado = LETRAS.slice().sort(function (a, b) { return contagem[b] - contagem[a]; });
+    var maxCount = contagem[ordenado[0]];
+    var topo = LETRAS.filter(function (l) { return contagem[l] === maxCount; });
+
+    if (topo.length > 1) {
+      return { contagem: contagem, empatePrimario: true, empatados: topo, primario: null, secundario: null };
+    }
+
+    var primario = topo[0];
+    var resto = LETRAS.filter(function (l) { return l !== primario; });
+    var maxResto = Math.max.apply(null, resto.map(function (l) { return contagem[l]; }));
+    var topoResto = resto.filter(function (l) { return contagem[l] === maxResto; });
+
+    return { contagem: contagem, empatePrimario: false, empatados: [], primario: primario, secundario: topoResto };
+  }
+
+  /* ================= RENDER DO RESULTADO ================= */
+  function barrasHtml(contagem) {
+    var maxVal = Math.max(1, contagem.A, contagem.B, contagem.C, contagem.D);
+    var html = '<div class="bars">';
+    LETRAS.forEach(function (l) {
+      var pct = Math.round((contagem[l] / maxVal) * 100);
+      html += '<div class="bar-row">' +
+        '<div class="bar-label">' + PERFIS[l].nome + '</div>' +
+        '<div class="bar-track"><div class="bar-fill" style="width:' + pct + '%"></div></div>' +
+        '<div class="bar-count">' + contagem[l] + '</div>' +
+      '</div>';
+    });
+    html += '</div>';
+    return html;
+  }
+
+  function cardPerfil(letra, secundario) {
+    var p = PERFIS[letra];
+    return '<div class="profile-block' + (secundario ? ' secundario' : '') + '">' +
+      '<div class="profile-label">' + (secundario ? 'Perfil secundário' : 'Perfil primário') + '</div>' +
+      '<div class="profile-name">' + p.nome + '</div>' +
+      '<div class="profile-codigo">' + p.codigo + '</div>' +
+      '<p>' + p.hook + '</p>' +
+      '<p>' + p.fundacao + '</p>' +
+      '<p>' + p.equilibrio + '</p>' +
+      '<p class="profile-atencao">' + p.atencao + '</p>' +
+      '<p class="profile-manual">' + p.manual + '</p>' +
+    '</div>';
+  }
+
+  function renderResultado(r) {
+    var html = '';
+
+    html += '<p class="result-eyebrow">Seu diagnóstico de Perfil ELLE</p>' +
+      '<h2 class="result-title">' + (r.empatePrimario ? 'Dois padrões, força equivalente' : 'A leitura da sua planta') + '</h2>' +
+      '<p class="result-lead">Perfil não é destino. É ponto de partida.</p>' +
+      barrasHtml(r.contagem);
+
+    if (r.empatePrimario) {
+      html += '<p class="section-note">Seu resultado apontou empate entre ' + r.empatados.map(function (l) { return PERFIS[l].nome; }).join(' e ') +
+        '. Isso significa que os dois padrões operam com força parecida em você. Leia as duas descrições abaixo com calma e perceba qual delas ressoa mais com quem você é hoje.</p>';
+      r.empatados.forEach(function (l) { html += cardPerfil(l, false); });
+    } else {
+      html += cardPerfil(r.primario, false);
+      var secList = Array.isArray(r.secundario) ? r.secundario : [r.secundario];
+      html += '<p class="section-note">O diagnóstico revelou dois números: o perfil com mais respostas e o perfil com o segundo maior número. O primário é onde seus padrões automáticos operam com mais força. O secundário é a camada que aparece especialmente sob pressão, em contextos de intimidade ou quando o código primário está sobrecarregado. Leia a descrição abaixo como uma lente complementar, não como um segundo código separado, mas como a camada que completa a planta da sua casa.</p>';
+      secList.forEach(function (l) { html += cardPerfil(l, true); });
+    }
+
+    html += '<div class="divider"><span class="trace"></span><span class="diamond"></span><span class="trace"></span></div>' +
+      '<p class="result-eyebrow" style="margin-top:14px;">Bloco 2 · seu sistema interno</p>' +
+      '<p class="result-lead" style="margin-bottom:34px;">O que acontece quando ninguém está olhando.</p>';
+
+    BLOCO2.forEach(function (item, idx) {
+      var letra = respostasB2[idx];
+      var i = LETRAS.indexOf(letra);
+      html += '<div class="b2-block">' +
+        '<div class="b2-tag">Pergunta ' + (21 + idx) + '</div>' +
+        '<div class="b2-title">' + item.sub + '</div>' +
+        '<div class="b2-answer">' + item.o[i] + '</div>' +
+        '<div class="b2-leitura">' + item.l[letra] + '</div>' +
+        (item.destaque ? '<div class="b2-destaque">' + item.destaque + '</div>' : '') +
+      '</div>';
+    });
+
+    html += '<div class="closing">' +
+      '<p class="lead-line">Fran Castro · Arquiteta da Inteligência Emocional</p>' +
+      '<p>O Bloco 1 mostrou como você age.<br>O Bloco 2 mostrou de onde vêm seus padrões.</p>' +
+      '<p>Os 21 dias da Arquitetura da Voz vão te mostrar exatamente onde e como construir a partir daqui.</p>' +
+    '</div>';
+
+    html += '<div class="manual-block">' +
+      '<h3>Continue no Manual de Arquitetura Interior</h3>' +
+      '<p>O diagnóstico mostrou o seu padrão. O manual explora em profundidade a fundação por trás dele: o Alicerce, a Fachada, a Cobertura, os quatro Códigos completos e as combinações entre perfil primário e secundário.</p>' +
+      '<a class="btn-primary" href="' + MANUAL_URL + '" target="_blank" rel="noopener">Ler o Manual de Arquitetura Interior</a>' +
+      '<p class="manual-hint">Abre em uma nova aba. Seu resultado continua aqui.</p>' +
+    '</div>';
+
+    html += '<div class="result-actions no-print">' +
+      '<button class="btn-secondary" onclick="window.print()">Salvar resultado em PDF</button>' +
+      '<button class="btn-secondary" onclick="App.restart()">Refazer diagnóstico</button>' +
+    '</div>';
+
+    html += '<div class="footer">Fran Castro · Método ELLE · Diagnóstico de Perfil ELLE</div>';
+
+    $('resultContent').innerHTML = html;
+  }
+
+  App.restart = function () {
+    if (!confirm('Tem certeza que quer refazer o diagnóstico? Isso vai apagar seu resultado atual.')) return;
+    goTo('s0');
+  };
+
+  window.App = App;
+
+})();
+</script>
+
+</body>
+</html>

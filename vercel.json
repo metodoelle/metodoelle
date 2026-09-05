@@ -5,6 +5,8 @@
     { "src": "/api/brevo", "dest": "/api/brevo.js" },
     { "src": "/quiz", "dest": "/quiz.html" },
     { "src": "/quiz/", "dest": "/quiz.html" },
+    { "src": "/perfil-elle", "dest": "/perfil-elle.html" },
+    { "src": "/perfil-elle/", "dest": "/perfil-elle.html" },
     { "src": "/arquitetura-da-voz", "dest": "/arquitetura-da-voz/index.html" },
     { "src": "/arquitetura-da-voz/", "dest": "/arquitetura-da-voz/index.html" },
     { "src": "/matriz", "dest": "/matriz/index.html" },
