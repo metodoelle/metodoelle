@@ -168,6 +168,31 @@
     font-size:14px;
   }
 
+  /* PRONTO */
+  .pronto-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:16px;
+  }
+
+  .pronto-item{
+    background:var(--card);
+    border:1px solid var(--card-border);
+    border-radius:14px;
+    padding:20px 22px;
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+    font-size:15px;
+    font-weight:600;
+  }
+
+  .pronto-item .check{
+    color:var(--teal);
+    font-weight:700;
+    flex-shrink:0;
+  }
+
   /* CRONOGRAMA */
   .section-head{
     text-align:center;
@@ -473,7 +498,7 @@
 
   @media (max-width: 860px){
     section{padding:60px 0;}
-    .cronograma-grid, .oferta-grid, .autoridade{grid-template-columns:1fr;}
+    .cronograma-grid, .oferta-grid, .autoridade, .pronto-grid{grid-template-columns:1fr;}
     .plano-card.destaque{transform:none;}
     .hero{padding:120px 0 70px; background-position:center 15%;}
     .autoridade{gap:36px;}
@@ -516,6 +541,23 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="pronto-section">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Chegou a hora</span>
+      <h2>Este encontro é para você que está pronto para</h2>
+    </div>
+    <div class="pronto-grid">
+      <div class="pronto-item"><span class="check">✓</span> Crescer emocionalmente</div>
+      <div class="pronto-item"><span class="check">✓</span> Se curar de verdade</div>
+      <div class="pronto-item"><span class="check">✓</span> Liderar com consciência</div>
+      <div class="pronto-item"><span class="check">✓</span> Viver propósito sem romantização</div>
+      <div class="pronto-item"><span class="check">✓</span> Amar pessoas radicalmente, com saúde</div>
+      <div class="pronto-item"><span class="check">✓</span> Deixar um legado real</div>
     </div>
   </div>
 </section>
