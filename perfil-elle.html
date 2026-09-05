@@ -257,12 +257,9 @@ body {
 .divider .trace { width: 44px; height: 1px; background: var(--border-strong); }
 .divider .diamond { width: 6px; height: 6px; background: var(--gold); transform: rotate(45deg); flex-shrink: 0; }
 
-.b2-block { background: #FFFFFF; border: 1px solid var(--border); border-radius: var(--radius); padding: 24px 26px; margin-bottom: 16px; }
-.b2-tag { font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 11px; letter-spacing: 0.14em; color: var(--gold-dark); text-transform: uppercase; margin-bottom: 6px; }
-.b2-title { font-family: 'Outfit', sans-serif; font-weight: 500; font-size: 19px; color: var(--text); margin-bottom: 14px; }
-.b2-answer { font-size: 13.5px; font-style: italic; color: var(--text-soft); border-left: 2px solid var(--gold); padding-left: 12px; margin-bottom: 14px; }
-.b2-leitura { font-size: 15px; color: var(--text); line-height: 1.65; }
-.b2-destaque { margin-top: 14px; background: var(--text); color: var(--bg); font-family: 'Outfit', sans-serif; font-style: italic; font-size: 13.5px; padding: 13px 16px; border-radius: 6px; }
+.sistema-interno { background: #FFFFFF; border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 32px 30px; margin-bottom: 24px; }
+.sistema-interno p { font-size: 15.5px; color: var(--text); line-height: 1.75; margin-bottom: 18px; }
+.sistema-interno p:last-child { margin-bottom: 0; }
 
 .closing { text-align: center; margin: 52px 0 40px; }
 .closing p { font-family: 'Outfit', sans-serif; font-style: italic; font-size: clamp(1.05rem, 2.6vw, 1.3rem); line-height: 1.55; color: var(--text); max-width: 460px; margin: 0 auto 12px; }
@@ -301,7 +298,7 @@ body.tranca-fechada .shell { filter: blur(8px); pointer-events: none; user-selec
 @media (max-width: 640px) {
   .shell { padding: 32px 20px 48px; }
   .option { padding: 16px 18px; font-size: 15px; }
-  .profile-block, .manual-block { padding: 24px 20px; }
+  .profile-block, .manual-block, .sistema-interno { padding: 24px 20px; }
   .bar-row { grid-template-columns: 84px 1fr 22px; }
 }
 </style>
@@ -487,59 +484,58 @@ body.tranca-fechada .shell { filter: blur(8px); pointer-events: none; user-selec
   /* ================= DADOS: BLOCO 2 ================= */
   var BLOCO2 = [
     { q: 'Você acaba de tomar uma decisão importante sozinha. Antes de ver o resultado, o que passa pela sua cabeça?',
-      sub: 'O que organiza sua relação com decisão',
+      intro: 'Quando você decide algo sozinha e ainda não viu o resultado, ',
       o: ['Eu decidi. Agora é executar.', 'Será que as pessoas vão entender por que fiz isso?', 'Espero não ter decepcionado ninguém com essa escolha.', 'Analisei tudo que tinha disponível, mas e o que eu não considerei?'],
       l: {
-        A: 'Sua segurança vem da ação. Decidir e executar é onde você se ancora. O risco está em confundir velocidade com clareza.',
-        B: 'Sua segurança precisa de compreensão. Não é aprovação que você busca, é ser entendida. O risco está em postergar decisões para evitar mal-entendidos.',
-        C: 'Sua segurança está ligada ao vínculo. Você decide, mas carrega o peso de quem pode ter sido afetada. O risco está em usar o impacto nos outros como critério maior do que o seu próprio julgamento.',
-        D: 'Sua segurança vem da análise. Você confia no processo, não no resultado. O risco está em tratar o imprevisível como ameaça em vez de variável natural.'
+        A: 'o que te dá segurança é agir. Depois de decidir, você já quer estar executando. O cuidado é não confundir pressa com clareza.',
+        B: 'o que você mais busca não é aprovação, é ser entendida. O cuidado é não adiar decisões só para evitar um mal-entendido.',
+        C: 'você carrega o peso de quem pode ter sido afetado pela escolha. O cuidado é não deixar a opinião dos outros pesar mais do que o seu próprio julgamento.',
+        D: 'o que te dá segurança é ter analisado bem antes. O imprevisto não é ameaça, é só parte natural de qualquer decisão.'
       } },
     { q: 'Você está passando por um momento difícil e ninguém pergunta como você está. O que sente?',
-      sub: 'O que organiza sua necessidade de ser vista',
+      intro: 'Quando você está num momento difícil e ninguém pergunta como você está, ',
       o: ['Incômodo: você prefere resolver sozinha mesmo, mas o silêncio pesa de um jeito diferente.', 'Uma dor real: ser invisível no momento em que mais precisava ser vista.', 'Você não esperava ser vista. Continua cuidando dos outros mesmo assim.', 'Você processa internamente. Só compartilha quando já entendeu o que está sentindo.'],
       l: {
-        A: 'Você prefere autonomia à dependência, mas o silêncio dos outros ainda pesa. Você não pede para ser vista, e ressente quando não é.',
-        B: 'Ser vista não é vaidade. É uma necessidade real do seu sistema. Quando isso não acontece nos momentos que importam, a dor é genuína e vai além da situação.',
-        C: 'Você aprendeu a não esperar. Continua cuidando mesmo sem ser cuidada, e raramente nomeia o custo disso.',
-        D: 'Você processa antes de compartilhar. Isso te protege de exposição prematura, mas também pode te isolar nos momentos em que precisaria de suporte mais imediato.'
+        A: 'incomoda, mesmo você preferindo resolver as coisas sozinha. O silêncio dos outros pesa de um jeito diferente, mesmo sem você pedir atenção.',
+        B: 'dói de verdade. Ser vista não é vaidade para você, é uma necessidade real. Quando isso não acontece nas horas que importam, a dor é genuína.',
+        C: 'você nem espera ser vista, e continua cuidando dos outros do mesmo jeito. Vale notar o custo disso, que você raramente coloca em palavras.',
+        D: 'você processa por dentro e só compartilha depois de entender o que sente. Isso te protege, mas também pode te isolar nas horas em que você precisaria de apoio mais rápido.'
       } },
     { q: 'Alguém que você respeita discorda de uma escolha que você fez por si mesma. O que acontece dentro de você?',
-      sub: 'O que organiza sua relação com autoridade externa',
+      intro: 'Quando alguém que você respeita discorda de uma escolha sua, ',
       o: ['Uma resistência imediata. Sua escolha, sua vida.', 'Uma dúvida que não deveria existir: a opinião dele ainda te move mais do que você gostaria.', 'Você começa a se questionar se a escolha foi egoísta.', 'Você reconsidera, não por pressão, mas porque qualquer dado novo merece análise.'],
       l: {
-        A: 'Você tem território interno bem definido. A opinião do outro não entra sem convite. O risco está em fechar a escuta quando ela seria útil.',
-        B: 'A opinião de quem você admira ainda tem acesso direto à sua dúvida. Não é fraqueza, é o custo de valorizar profundamente certas perspectivas. O trabalho é criar filtro sem criar muro.',
-        C: 'Você converte discordância em culpa antes de processar se a crítica tem fundamento. O questionamento começa em você antes de chegar ao outro.',
-        D: 'Você usa discordância como dado, não como ameaça. Isso é maturidade. O risco está em reconsiderar demais quando a decisão já estava certa.'
+        A: 'você sente uma resistência imediata: a escolha é sua, a vida é sua. O cuidado é não fechar a escuta quando ela poderia te ajudar.',
+        B: 'a opinião dessa pessoa ainda mexe com você mais do que gostaria. Não é fraqueza, é o preço de valorizar de verdade certas opiniões. O trabalho é ouvir sem se anular.',
+        C: 'você já começa a se perguntar se foi egoísta. Você costuma transformar discordância em culpa antes mesmo de checar se a crítica faz sentido.',
+        D: 'você reconsidera, não por pressão, mas porque todo dado novo merece ser olhado. O cuidado é não voltar atrás numa decisão que já estava certa.'
       } },
     { q: 'Você imagina uma versão de si mesma completamente livre, sem precisar provar nada, sem medo de julgamento. O que essa versão faz de diferente?',
-      sub: 'Onde está seu aprisionamento',
+      intro: 'Numa versão sua completamente livre, sem precisar provar nada, ',
       o: ['Age sem precisar justificar cada decisão para ninguém.', 'Ocupa espaço sem verificar se está agradando antes.', 'Fala o que pensa sem calcular o impacto na relação.', 'Lança sem esperar estar cem por cento pronta.'],
       l: {
-        A: 'Você ainda sente que precisa justificar suas decisões. A liberdade que você busca é a de agir sem prestar contas antes de agir.',
-        B: 'Você ainda verifica a temperatura do ambiente antes de ocupar espaço. A liberdade que você busca é a de existir sem medir o impacto primeiro.',
-        C: 'Você ainda calcula o custo relacional de cada fala antes de falar. A liberdade que você busca é a de se expressar sem gerenciar a reação do outro em tempo real.',
-        D: 'Você ainda espera estar completamente pronta antes de se lançar. A liberdade que você busca é a de agir com 80% de certeza e confiar no resto.'
-      },
-      destaque: 'Esta resposta é o ponto de entrada mais preciso para os 21 dias.' },
+        A: 'essa versão agiria sem precisar justificar cada decisão para ninguém. A liberdade que você busca é agir sem prestar contas antes de agir.',
+        B: 'essa versão ocuparia espaço sem checar se está agradando todo mundo antes. A liberdade que você busca é existir sem medir o impacto o tempo todo.',
+        C: 'essa versão falaria o que pensa sem calcular o efeito em cada relação. A liberdade que você busca é se expressar sem controlar a reação do outro em tempo real.',
+        D: 'essa versão lançaria o que precisa lançar sem esperar estar cem por cento pronta. A liberdade que você busca é agir com 80% de certeza e confiar no resto. Essa é a resposta mais precisa sobre por onde começar os 21 dias.'
+      } },
     { q: 'Você está num grupo e percebe que está sendo ignorada, não por hostilidade, só por descuido. Como reage internamente?',
-      sub: 'O que ser ignorada ativa em você',
+      intro: 'Quando você percebe que está sendo ignorada num grupo, sem que seja por má vontade de ninguém, ',
       o: ['Irritação contida. Você não precisa de permissão para ocupar espaço.', 'Uma ferida pequena mas real. Ser ignorada ativa algo que vai além da situação.', 'Você assume que não tinha nada relevante a contribuir mesmo.', 'Você observa para entender se é um padrão antes de concluir qualquer coisa.'],
       l: {
-        A: 'Ser ignorada ativa sua resistência. Você não precisa de permissão, mas o descuido dos outros ainda toca algo real. O padrão que vai trabalhar nos 21 dias é a diferença entre não precisar de validação e não precisar de reconhecimento.',
-        B: 'Ser ignorada ativa uma dor que vai além da situação. Ela toca uma crença mais funda sobre seu lugar e seu valor. O padrão que vai trabalhar nos 21 dias é sustentar sua presença independente da resposta do ambiente.',
-        C: 'Ser ignorada ativa a crença de que você não tinha nada relevante a oferecer. A invisibilidade vira confirmação. O padrão que vai trabalhar nos 21 dias é separar a resposta do outro da validade do que você tem a dizer.',
-        D: 'Você observa antes de concluir. Isso é inteligência. O risco está em usar a análise para evitar sentir o que a situação ativou.'
+        A: 'você sente uma irritação contida: você não precisa de permissão para ocupar espaço. O trabalho é notar a diferença entre não precisar de validação e não precisar de reconhecimento.',
+        B: 'dói mais do que a situação em si merecia. Isso toca uma crença mais funda sobre o seu lugar e o seu valor. O trabalho é sustentar sua presença mesmo quando o ambiente não responde do jeito que você esperava.',
+        C: 'você assume que não tinha nada relevante a dizer mesmo. O trabalho é separar a resposta do outro do valor real do que você tem a oferecer.',
+        D: 'você observa antes de concluir qualquer coisa, o que é inteligente. O cuidado é não usar essa análise para evitar sentir o que a situação realmente ativou em você.'
       } },
     { q: 'No fim de um dia em que você deu muito de si, o que você mais precisa?',
-      sub: 'Como você se recupera',
+      intro: 'No fim de um dia em que você deu muito de si, ',
       o: ['Silêncio e controle do próprio tempo. Recuperar o território interno.', 'Alguém que pergunte como foi. Ser recebida, não só ouvida.', 'Saber que todo mundo ficou bem. A sua recarga depende disso.', 'Tempo para processar sozinha o que aconteceu antes de qualquer contato.'],
       l: {
-        A: 'Você se recupera no silêncio e na autonomia. Quando isso é invadido, você não recupera, você apenas continua. O risco está em confundir autossuficiência com resistência ao cuidado.',
-        B: 'Você se recupera sendo recebida. Não apenas ouvida: recebida. Quando isso não acontece, você carrega o cansaço sozinha e ressente em silêncio.',
-        C: 'Sua recarga depende de saber que todos estão bem. Antes de cuidar de você, você verifica se o ambiente está em paz. O custo disso é alto e raramente nomeado.',
-        D: 'Você se recupera no processamento solitário. Contato antes disso soa como invasão. O risco está em isolar-se num momento em que conexão seria parte da recuperação.'
+        A: 'o que você mais precisa é de silêncio e de controle do seu próprio tempo. Quando isso é invadido, você não descansa de verdade, só continua. O cuidado é não confundir se virar sozinha com resistir a ser cuidada.',
+        B: 'o que você mais precisa é ser recebida, não só ouvida. Quando isso não acontece, você carrega o cansaço sozinha e guarda o ressentimento em silêncio.',
+        C: 'a sua recarga depende de saber que todo mundo ficou bem. Antes de cuidar de você, você confere se o ambiente está em paz. Esse custo é alto e raramente é nomeado.',
+        D: 'você precisa de um tempo sozinha para processar o que aconteceu antes de qualquer contato. O cuidado é não se isolar justamente no momento em que uma boa conversa ajudaria você a recarregar.'
       } }
   ];
 
@@ -571,7 +567,7 @@ body.tranca-fechada .shell { filter: blur(8px); pointer-events: none; user-selec
       manual: 'O Manual de Arquitetura Interior explora em profundidade a Cobertura, as 4 colunas da Decodificadora e o medo que você raramente nomeia.' }
   };
 
-  var MANUAL_URL = 'https://sun.eduzz.com/G92KEQ57WE?np=3&p=1';
+  var MANUAL_URL = 'https://drive.google.com/file/d/1jCWRAY6-MG-6QztwFx3IBn-DOj4Rhhec/view?usp=sharing';
 
   /* ================= ESTADO ================= */
   var App = {};
@@ -581,6 +577,8 @@ body.tranca-fechada .shell { filter: blur(8px); pointer-events: none; user-selec
   var perguntaAtual = 0;
   var respostasB1 = [];
   var respostasB2 = [];
+  var ordensB1 = [];
+  var ordensB2 = [];
   var respondendo = false;
 
   function $(id) { return document.getElementById(id); }
@@ -592,10 +590,26 @@ body.tranca-fechada .shell { filter: blur(8px); pointer-events: none; user-selec
   }
   window.goTo = goTo;
 
+  function embaralhar4() {
+    var a = [0, 1, 2, 3];
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+    }
+    return a;
+  }
+
   App.startQuestions = function () {
     perguntaAtual = 0;
     respostasB1 = new Array(TOTAL_B1).fill(null);
     respostasB2 = new Array(TOTAL_B2).fill(null);
+    // Embaralha a ordem visual das 4 opções em cada pergunta, uma única vez por sessão.
+    // No PDF original a letra A é sempre Estruturadora, B sempre Radiante, C sempre Guardiã,
+    // D sempre Decodificadora (para permitir soma manual no papel). Sem embaralhar, a posição
+    // na tela vira um padrão previsível depois de algumas perguntas, e quem responde passa a
+    // escolher pela posição em vez de pelo conteúdo da situação.
+    ordensB1 = BLOCO1.map(embaralhar4);
+    ordensB2 = BLOCO2.map(embaralhar4);
     goTo('s-pergunta');
     renderPergunta();
   };
@@ -603,11 +617,13 @@ body.tranca-fechada .shell { filter: blur(8px); pointer-events: none; user-selec
   function renderPergunta() {
     respondendo = false;
     var noBloco2 = perguntaAtual >= TOTAL_B1;
-    var item = noBloco2 ? BLOCO2[perguntaAtual - TOTAL_B1] : BLOCO1[perguntaAtual];
+    var idx = noBloco2 ? perguntaAtual - TOTAL_B1 : perguntaAtual;
+    var item = noBloco2 ? BLOCO2[idx] : BLOCO1[idx];
+    var ordem = noBloco2 ? ordensB2[idx] : ordensB1[idx];
 
     $('progressLabel').textContent = noBloco2
-      ? 'Bloco 2 · pergunta ' + (perguntaAtual - TOTAL_B1 + 1) + ' de ' + TOTAL_B2
-      : 'Bloco 1 · pergunta ' + (perguntaAtual + 1) + ' de ' + TOTAL_B1;
+      ? 'Bloco 2 · pergunta ' + (idx + 1) + ' de ' + TOTAL_B2
+      : 'Bloco 1 · pergunta ' + (idx + 1) + ' de ' + TOTAL_B1;
 
     $('questionText').textContent = item.q;
 
@@ -617,20 +633,22 @@ body.tranca-fechada .shell { filter: blur(8px); pointer-events: none; user-selec
 
     var wrap = $('optionsWrap');
     wrap.innerHTML = '';
-    item.o.forEach(function (texto, i) {
+    ordem.forEach(function (letraIndex) {
+      var texto = item.o[letraIndex];
+      var letra = LETRAS[letraIndex];
       var btn = document.createElement('button');
       btn.className = 'option';
       btn.type = 'button';
       btn.textContent = texto;
-      var respostaAtual = noBloco2 ? respostasB2[perguntaAtual - TOTAL_B1] : respostasB1[perguntaAtual];
-      if (respostaAtual === LETRAS[i]) btn.classList.add('selected');
+      var respostaAtual = noBloco2 ? respostasB2[idx] : respostasB1[idx];
+      if (respostaAtual === letra) btn.classList.add('selected');
       btn.onclick = function () {
         if (respondendo) return;
         respondendo = true;
         Array.prototype.forEach.call(wrap.children, function (b) { b.classList.remove('selected'); });
         btn.classList.add('selected');
-        if (noBloco2) respostasB2[perguntaAtual - TOTAL_B1] = LETRAS[i];
-        else respostasB1[perguntaAtual] = LETRAS[i];
+        if (noBloco2) respostasB2[idx] = letra;
+        else respostasB1[idx] = letra;
         setTimeout(avancar, 300);
       };
       wrap.appendChild(btn);
@@ -745,19 +763,14 @@ body.tranca-fechada .shell { filter: blur(8px); pointer-events: none; user-selec
 
     html += '<div class="divider"><span class="trace"></span><span class="diamond"></span><span class="trace"></span></div>' +
       '<p class="result-eyebrow" style="margin-top:14px;">Bloco 2 · seu sistema interno</p>' +
-      '<p class="result-lead" style="margin-bottom:34px;">O que acontece quando ninguém está olhando.</p>';
+      '<p class="result-lead" style="margin-bottom:28px;">O que acontece quando ninguém está olhando.</p>';
 
+    html += '<div class="sistema-interno">';
     BLOCO2.forEach(function (item, idx) {
       var letra = respostasB2[idx];
-      var i = LETRAS.indexOf(letra);
-      html += '<div class="b2-block">' +
-        '<div class="b2-tag">Pergunta ' + (21 + idx) + '</div>' +
-        '<div class="b2-title">' + item.sub + '</div>' +
-        '<div class="b2-answer">' + item.o[i] + '</div>' +
-        '<div class="b2-leitura">' + item.l[letra] + '</div>' +
-        (item.destaque ? '<div class="b2-destaque">' + item.destaque + '</div>' : '') +
-      '</div>';
+      html += '<p>' + item.intro + item.l[letra] + '</p>';
     });
+    html += '</div>';
 
     html += '<div class="closing">' +
       '<p class="lead-line">Fran Castro · Arquiteta da Inteligência Emocional</p>' +
@@ -768,7 +781,8 @@ body.tranca-fechada .shell { filter: blur(8px); pointer-events: none; user-selec
     html += '<div class="manual-block">' +
       '<h3>Continue no Manual de Arquitetura Interior</h3>' +
       '<p>O diagnóstico mostrou o seu padrão. O manual explora em profundidade a fundação por trás dele: o Alicerce, a Fachada, a Cobertura, os quatro Códigos completos e as combinações entre perfil primário e secundário.</p>' +
-      '<a class="btn-primary" href="' + MANUAL_URL + '" target="_blank" rel="noopener">Ler o Manual de Arquitetura Interior</a>' +
+      '<p>Você pode acessar o manual dentro da sua plataforma do curso, ou ler agora pelo PDF na nuvem.</p>' +
+      '<a class="btn-primary" href="' + MANUAL_URL + '" target="_blank" rel="noopener">Abrir o Manual em PDF</a>' +
       '<p class="manual-hint">Abre em uma nova aba. Seu resultado continua aqui.</p>' +
     '</div>';
 
