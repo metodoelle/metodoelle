@@ -187,6 +187,27 @@ src="https://www.facebook.com/tr?id=2619890645118801&ev=PageView&noscript=1"
     font-size:14px;
   }
 
+  /* DEPOIMENTO */
+  .depoimento{padding:70px 0 20px;}
+
+  .depoimento .section-head{margin-bottom:32px;}
+
+  .depoimento-video{
+    max-width:760px;
+    margin:0 auto;
+    border-radius:20px;
+    overflow:hidden;
+    border:1px solid var(--card-border);
+    background:#000;
+  }
+
+  .depoimento-video video{
+    display:block;
+    width:100%;
+    height:auto;
+    aspect-ratio:16/9;
+  }
+
   /* PRONTO */
   .pronto-grid{
     display:grid;
@@ -677,6 +698,20 @@ src="https://www.facebook.com/tr?id=2619890645118801&ev=PageView&noscript=1"
           </div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="depoimento">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Depoimento</span>
+      <h2>Quem viveu a Imersão conta como foi</h2>
+    </div>
+    <div class="depoimento-video">
+      <video controls preload="none" playsinline poster="/imersaoevo-semlimites/video/depoimento-poster.jpg">
+        <source src="/imersaoevo-semlimites/video/depoimento.mp4" type="video/mp4">
+      </video>
     </div>
   </div>
 </section>
