@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diagnóstico Emocional | Imersão Método EVO</title>
+<meta name="description" content="Responda 10 perguntas e descubra qual padrão emocional está repetindo as mesmas histórias nos seus relacionamentos, na sua família e no seu trabalho.">
+<meta property="og:title" content="Qual padrão está decidindo as suas reações">
+<meta property="og:description" content="Diagnóstico gratuito em 3 minutos, com exercício prático no resultado.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0a0d;
+    --surface-1:#111116;
+    --surface-2:#16161d;
+    --border:rgba(255,255,255,0.08);
+    --border-hover:rgba(255,255,255,0.18);
+    --text-primary:#f5f5f7;
+    --text-secondary:#a6a6b0;
+    --text-tertiary:#6c6c76;
+    --glass-bg:rgba(22,22,29,0.6);
+    --teal:#4fe3c1;
+    --blue:#4f8ff5;
+    --purple:#9827f5;
+    --orange:#f5580a;
+    --accent:var(--purple);
+    --accent-glow:rgba(152,39,245,0.18);
+    --gradient:linear-gradient(90deg,var(--teal),var(--blue),var(--purple),var(--orange));
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text-primary);
+    font-family:'Inter',sans-serif;
+    line-height:1.6;
+    overflow-x:hidden;
+    min-height:100vh;
+    background-image:
+      radial-gradient(circle at 15% 10%, rgba(79,227,193,0.07) 0%, transparent 45%),
+      radial-gradient(circle at 85% 30%, rgba(152,39,245,0.08) 0%, transparent 45%),
+      radial-gradient(circle at 50% 95%, rgba(245,88,10,0.06) 0%, transparent 50%);
+    background-attachment:fixed;
+  }
+  h1,h2,h3{font-family:'Sora',sans-serif;font-weight:800;line-height:1.15;letter-spacing:-0.02em;}
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  button{font-family:inherit;}
+
+  @keyframes fadeUpIn{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+  @keyframes shimmer{0%,100%{opacity:.4;width:60px;}50%{opacity:1;width:90px;}}
+  @keyframes gradientShift{0%,100%{background-position:0% 50%;}50%{background-position:100% 50%;}}
+  @keyframes spin{to{transform:rotate(360deg);}}
+
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px;}
+  .gradient-bar{height:4px;background:var(--gradient);}
+
+  header.top{padding:28px 0 0;display:flex;justify-content:center;}
+  header.top img{height:44px;width:auto;}
+
+  .screen{display:none;animation:fadeUpIn .6s ease both;}
+  .screen.active{display:block;}
+
+  .shimmer-line{
+    width:60px;height:2px;margin:0 auto 1.75rem;border-radius:2px;
+    background:linear-gradient(90deg,transparent,var(--teal),transparent);
+    animation:shimmer 3s ease-in-out infinite;
+  }
+  .section-label{
+    text-align:center;font-size:.75rem;font-weight:600;letter-spacing:.15em;
+    text-transform:uppercase;color:var(--teal);margin-bottom:1.25rem;
+  }
+  .gradient-text{
+    background:linear-gradient(135deg,var(--teal) 0%,var(--blue) 35%,var(--purple) 70%,var(--orange) 100%);
+    background-size:200% 200%;
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+    animation:gradientShift 6s ease infinite;
+  }
+
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:10px;
+    padding:18px 34px;border-radius:100px;border:none;cursor:pointer;
+    font-family:'Sora',sans-serif;font-weight:700;font-size:1rem;
+    transition:transform .2s ease, box-shadow .2s ease, background .2s ease;
+  }
+  .btn-primary{background:var(--purple);color:#fff;box-shadow:0 8px 24px rgba(152,39,245,.35);}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(152,39,245,.5);}
+  .btn-orange{background:var(--orange);color:#fff;box-shadow:0 8px 24px rgba(245,88,10,.35);}
+  .btn-orange:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(245,88,10,.5);}
+  .btn-ghost{background:transparent;color:var(--text-primary);border:1px solid var(--border-hover);}
+  .btn-ghost:hover{border-color:var(--teal);color:var(--teal);}
+  .btn-block{width:100%;}
+
+  /* INTRO */
+  .intro{padding:64px 0 80px;text-align:center;}
+  .intro h1{font-size:clamp(2rem,6vw,3.1rem);margin-bottom:1.5rem;}
+  .intro .lead{font-size:1.1rem;color:var(--text-secondary);max-width:600px;margin:0 auto 1.25rem;}
+  .intro .thesis{
+    font-size:.98rem;color:var(--text-secondary);max-width:600px;margin:0 auto 2.5rem;
+    padding:1.25rem 1.5rem;border-left:2px solid var(--teal);text-align:left;
+    background:var(--glass-bg);border-radius:0 12px 12px 0;
+  }
+  .intro .meta{margin-top:1.25rem;font-size:.85rem;color:var(--text-tertiary);}
+  .meta-row{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-top:2.5rem;}
+  .meta-row span{font-size:.85rem;color:var(--text-secondary);display:flex;align-items:center;gap:8px;}
+  .meta-row span::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--teal);}
+
+  /* QUIZ */
+  .quiz{padding:48px 0 80px;}
+  .progress-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-size:.85rem;color:var(--text-secondary);}
+  .progress-head strong{color:var(--text-primary);font-family:'Sora',sans-serif;}
+  .progress{height:6px;background:var(--surface-2);border-radius:6px;overflow:hidden;margin-bottom:2.5rem;}
+  .progress-fill{height:100%;width:0;background:var(--gradient);border-radius:6px;transition:width .5s ease;}
+  .question{animation:fadeUpIn .5s ease both;}
+  .question h2{font-size:clamp(1.35rem,4vw,1.85rem);margin-bottom:.75rem;}
+  .question .hint{font-size:.88rem;color:var(--text-tertiary);margin-bottom:1.75rem;}
+  .bars-note{margin-top:1.25rem;font-size:.8rem;color:var(--text-tertiary);}
+  .echo{list-style:none;display:grid;gap:10px;margin-bottom:1.25rem;}
+  .echo li{padding:12px 16px;border-radius:12px;background:var(--surface-1);border-left:2px solid var(--teal);color:var(--text-primary);font-size:.95rem;}
+  .options{display:grid;gap:14px;}
+  .option{
+    position:relative;display:flex;align-items:flex-start;gap:14px;text-align:left;width:100%;
+    background:var(--glass-bg);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+    border:1px solid var(--border);border-radius:16px;padding:18px 20px;
+    color:var(--text-primary);font-size:1rem;line-height:1.5;cursor:pointer;overflow:hidden;
+    transition:all .35s cubic-bezier(.25,.46,.45,.94);
+  }
+  .option::before{
+    content:'';position:absolute;top:0;left:0;right:0;height:1px;
+    background:linear-gradient(90deg,transparent,var(--teal),transparent);opacity:0;transition:opacity .35s ease;
+  }
+  .option:hover{border-color:var(--border-hover);transform:translateY(-2px);box-shadow:0 12px 40px rgba(0,0,0,.4),0 0 30px var(--accent-glow);}
+  .option:hover::before{opacity:1;}
+  .option.selected{border-color:var(--teal);background:rgba(79,227,193,.08);}
+  .option .letter{
+    flex:0 0 32px;height:32px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;
+    font-family:'Sora',sans-serif;font-weight:700;font-size:.85rem;
+    background:rgba(79,227,193,.08);border:1px solid rgba(79,227,193,.2);color:var(--teal);
+  }
+  .back{margin-top:1.75rem;background:none;border:none;color:var(--text-tertiary);font-size:.9rem;cursor:pointer;}
+  .back:hover{color:var(--text-secondary);}
+
+  /* LOADING */
+  .loading{padding:120px 0;text-align:center;}
+  .spinner{width:56px;height:56px;margin:0 auto 1.75rem;border-radius:50%;border:3px solid var(--surface-2);border-top-color:var(--teal);border-right-color:var(--purple);animation:spin 1s linear infinite;}
+  .loading p{color:var(--text-secondary);}
+  .loading h2{font-size:1.4rem;margin-bottom:.5rem;}
+
+  /* RESULT */
+  .result{padding:48px 0 40px;}
+  .result-hero{text-align:center;margin-bottom:3rem;}
+  .result-hero .tag{
+    display:inline-block;padding:6px 14px;border-radius:100px;font-size:.75rem;font-weight:700;
+    letter-spacing:.12em;text-transform:uppercase;border:1px solid var(--border-hover);color:var(--text-secondary);margin-bottom:1.25rem;
+  }
+  .result-hero h1{font-size:clamp(2rem,6vw,3rem);margin-bottom:1rem;}
+  .result-hero .summary{font-size:1.15rem;color:var(--text-secondary);max-width:600px;margin:0 auto;}
+
+  .card{
+    position:relative;background:var(--glass-bg);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+    border:1px solid var(--border);border-radius:16px;padding:2rem;margin-bottom:1.5rem;overflow:hidden;
+  }
+  .card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--gradient);opacity:.7;}
+  .card h3{font-size:1.15rem;margin-bottom:1rem;}
+  .card p{color:var(--text-secondary);}
+  .card p + p{margin-top:.9rem;}
+
+  .bars{display:grid;gap:16px;}
+  .bar-row{display:grid;grid-template-columns:170px 1fr 48px;align-items:center;gap:14px;font-size:.92rem;}
+  .bar-row .name{color:var(--text-secondary);}
+  .bar-row.main .name{color:var(--text-primary);font-weight:600;}
+  .bar{height:10px;background:var(--surface-2);border-radius:10px;overflow:hidden;}
+  .bar span{display:block;height:100%;width:0;border-radius:10px;transition:width 1.1s cubic-bezier(.25,.46,.45,.94);}
+  .bar-row .pct{text-align:right;font-family:'Sora',sans-serif;font-weight:700;font-size:.9rem;}
+
+  .level{display:flex;gap:16px;align-items:flex-start;}
+  .level-badge{
+    flex:0 0 auto;padding:8px 14px;border-radius:10px;font-family:'Sora',sans-serif;font-weight:700;font-size:.85rem;
+    background:rgba(245,88,10,.12);border:1px solid rgba(245,88,10,.35);color:#ff8a52;white-space:nowrap;
+  }
+
+  .cost-list{list-style:none;display:grid;gap:14px;}
+  .cost-list li{display:grid;grid-template-columns:120px 1fr;gap:14px;padding-top:14px;border-top:1px solid var(--border);color:var(--text-secondary);}
+  .cost-list li:first-child{border-top:none;padding-top:0;}
+  .cost-list strong{color:var(--text-primary);font-family:'Sora',sans-serif;font-size:.9rem;}
+
+  .exercise{border-color:rgba(79,227,193,.3);background:rgba(79,227,193,.05);}
+  .exercise .section-label{text-align:left;margin-bottom:.75rem;}
+  .exercise ol{margin:1rem 0 0 1.2rem;color:var(--text-secondary);display:grid;gap:.6rem;}
+
+  .modules{list-style:none;display:grid;gap:12px;margin-top:.5rem;}
+  .modules li{display:flex;gap:14px;align-items:center;padding:14px 16px;border-radius:12px;background:var(--surface-1);border:1px solid var(--border);}
+  .modules .day{flex:0 0 auto;font-family:'Sora',sans-serif;font-weight:800;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--orange);}
+  .modules .mod{color:var(--text-primary);font-weight:500;}
+
+  /* CONVITE */
+  .invite{padding:72px 0 96px;position:relative;}
+  .invite-head{text-align:center;margin-bottom:2.5rem;}
+  .invite-head h2{font-size:clamp(1.75rem,5vw,2.6rem);margin-bottom:1.25rem;}
+  .invite-head p{color:var(--text-secondary);max-width:620px;margin:0 auto;font-size:1.05rem;}
+
+  .event-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:2.5rem;}
+  .event-item{padding:18px;border-radius:14px;background:var(--surface-1);border:1px solid var(--border);text-align:center;}
+  .event-item small{display:block;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text-tertiary);margin-bottom:6px;}
+  .event-item strong{font-family:'Sora',sans-serif;font-size:1rem;}
+
+  .video-card{border-radius:16px;overflow:hidden;border:1px solid var(--border);background:#000;margin-bottom:.75rem;box-shadow:0 20px 60px rgba(0,0,0,.5);}
+  .video-chrome{display:flex;align-items:center;gap:6px;padding:10px 14px;background:var(--surface-2);border-bottom:1px solid var(--border);}
+  .video-chrome i{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.15);}
+  .video-chrome span{margin-left:8px;font-size:.78rem;color:var(--text-tertiary);}
+  .video-card video{width:100%;max-height:78vh;display:block;background:#000;}
+  .video-caption{text-align:center;font-size:.85rem;color:var(--text-tertiary);margin-bottom:2.5rem;}
+
+  .host{display:grid;grid-template-columns:120px 1fr;gap:20px;align-items:center;margin-bottom:2.5rem;}
+  .host img{width:120px;height:120px;border-radius:16px;object-fit:cover;object-position:top;border:1px solid var(--border);}
+  .host p{color:var(--text-secondary);font-size:.98rem;}
+  .host strong{color:var(--text-primary);}
+
+  .generosity{text-align:center;border-color:rgba(152,39,245,.35);}
+  .generosity h3{font-size:1.35rem;margin-bottom:.75rem;}
+  .generosity .ask{margin:1.75rem 0 1rem;font-family:'Sora',sans-serif;font-weight:700;color:var(--text-primary);}
+  .choice-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .reveal{display:none;margin-top:1.75rem;animation:fadeUpIn .5s ease both;}
+  .reveal.show{display:block;}
+  .reveal p{margin-bottom:1.25rem;}
+  .reveal .stack{display:grid;gap:12px;}
+  .fine{font-size:.8rem;color:var(--text-tertiary);text-align:center;margin-top:1.5rem;}
+
+  footer{padding:32px 0 48px;text-align:center;font-size:.8rem;color:var(--text-tertiary);border-top:1px solid var(--border);}
+
+  /* CTA flutuante mobile */
+  .floating-cta{
+    position:fixed;left:16px;right:16px;bottom:16px;z-index:50;display:none;
+    transform:translateY(120%);transition:transform .4s ease;
+  }
+  .floating-cta.visible{transform:translateY(0);}
+
+  .scroll-reveal{opacity:0;transform:translateY(32px);transition:all .7s ease;}
+  .scroll-reveal.visible{opacity:1;transform:translateY(0);}
+
+  @media (max-width:768px){
+    .intro{padding:44px 0 64px;}
+    .card{padding:1.5rem;}
+    .bar-row{grid-template-columns:1fr 44px;}
+    .bar-row .name{grid-column:1 / -1;}
+    .cost-list li{grid-template-columns:1fr;gap:4px;}
+    .event-grid{grid-template-columns:1fr;}
+    .host{grid-template-columns:1fr;text-align:center;}
+    .host img{margin:0 auto;}
+    .choice-row{grid-template-columns:1fr;}
+    .floating-cta{display:block;}
+    .btn{padding:16px 24px;}
+  }
+</style>
+</head>
+<body>
+<div class="gradient-bar"></div>
+<header class="top"><img src="/imersaoevo-diagnostico/img/evo-logo-branco.png" alt="Método EVO"></header>
+
+<main class="wrap">
+
+  <!-- INTRO -->
+  <section class="screen intro active" id="s-intro">
+    <div class="shimmer-line"></div>
+    <div class="section-label">Diagnóstico emocional gratuito</div>
+    <h1>Existe um padrão emocional que influencia as suas reações <span class="gradient-text">antes de você perceber.</span></h1>
+    <p class="lead">Responda 10 perguntas sobre situações do seu dia a dia e descubra qual padrão está repetindo as mesmas histórias nos seus relacionamentos, na sua família e no seu trabalho.</p>
+    <p class="thesis">O cérebro aprende a se proteger com o que já viveu. Quando uma situação nova lembra uma antiga, ele tende a repetir a resposta de antes. Por isso a mesma briga, a mesma desistência e o mesmo medo voltam com pessoas diferentes.</p>
+    <button class="btn btn-primary" id="start">Começar o diagnóstico →</button>
+    <div class="meta-row">
+      <span>10 perguntas</span>
+      <span>3 minutos</span>
+      <span>Resultado na hora</span>
+    </div>
+    <p class="meta">No resultado você recebe o seu padrão principal e um exercício para começar hoje.</p>
+  </section>
+
+  <!-- QUIZ -->
+  <section class="screen quiz" id="s-quiz">
+    <div class="progress-head"><span>Pergunta <strong id="q-num">1</strong> de <span id="q-total">10</span></span><span id="q-pct">0%</span></div>
+    <div class="progress"><div class="progress-fill" id="q-bar"></div></div>
+    <div id="q-box"></div>
+    <button class="back" id="back" type="button">← Voltar</button>
+  </section>
+
+  <!-- LOADING -->
+  <section class="screen loading" id="s-loading">
+    <div class="spinner"></div>
+    <h2>Cruzando as suas respostas</h2>
+    <p id="loading-text">Identificando o padrão que mais aparece nas suas reações.</p>
+  </section>
+
+  <!-- RESULTADO -->
+  <section class="screen result" id="s-result">
+    <div class="result-hero">
+      <div class="tag">O seu padrão principal</div>
+      <h1 class="gradient-text" id="r-title"></h1>
+      <p class="summary" id="r-summary"></p>
+    </div>
+
+    <div class="card scroll-reveal">
+      <h3>Como as suas respostas se distribuíram</h3>
+      <div class="bars" id="r-bars"></div>
+      <p class="bars-note">Os percentuais mostram como as suas respostas se distribuíram neste diagnóstico. Servem para reflexão e não substituem uma avaliação clínica.</p>
+    </div>
+
+    <div class="card scroll-reveal">
+      <div class="level">
+        <div class="level-badge" id="r-level"></div>
+        <p id="r-level-text"></p>
+      </div>
+    </div>
+
+    <div class="card scroll-reveal">
+      <h3>O que as suas respostas mostram</h3>
+      <ul class="echo" id="r-echo"></ul>
+      <div id="r-thesis"></div>
+    </div>
+
+    <div class="card scroll-reveal">
+      <h3>Onde esse padrão costuma aparecer</h3>
+      <ul class="cost-list" id="r-costs"></ul>
+    </div>
+
+    <div class="card exercise scroll-reveal">
+      <div class="section-label">Exercício para fazer hoje</div>
+      <h3 id="r-ex-title"></h3>
+      <p id="r-ex-intro"></p>
+      <ol id="r-ex-steps"></ol>
+      <p style="margin-top:1rem" id="r-ex-close"></p>
+    </div>
+
+    <div class="card scroll-reveal">
+      <h3>Onde o seu padrão é tratado na imersão</h3>
+      <p id="r-bridge"></p>
+      <ul class="modules" id="r-modules"></ul>
+    </div>
+  </section>
+
+  <!-- CONVITE -->
+  <section class="screen invite" id="s-invite">
+    <div class="invite-head scroll-reveal">
+      <div class="shimmer-line"></div>
+      <div class="section-label">Convite de generosidade</div>
+      <h2>Os três dias que tratam o seu padrão acontecem em <span class="gradient-text" id="i-city"></span></h2>
+      <p>A Imersão Método EVO é um treinamento de inteligência emocional transmitido ao vivo, que você acompanha presencialmente em <span class="city-name"></span>, com a turma reunida no mesmo local. Em três dias, você reconhece os padrões que se repetem, ressignifica o que ficou do passado e sai com o seu próximo movimento decidido.</p>
+    </div>
+
+    <div class="event-grid scroll-reveal">
+      <div class="event-item"><small>Datas</small><strong id="i-dates"></strong></div>
+      <div class="event-item"><small>Horário</small><strong id="i-hours"></strong></div>
+      <div class="event-item"><small>Local</small><strong id="i-place"></strong></div>
+      <div class="event-item"><small>Formato</small><strong id="i-format"></strong></div>
+    </div>
+
+    <div class="scroll-reveal">
+      <div class="section-label">Quem já viveu a imersão</div>
+      <div class="video-card">
+        <div class="video-chrome"><i></i><i></i><i></i><span>Depoimento de participante</span></div>
+        <video src="/imersaoevo-diagnostico/depoimento.mp4#t=0.5" controls playsinline preload="metadata"></video>
+      </div>
+      <p class="video-caption">Toque para assistir com som.</p>
+    </div>
+
+    <div class="host scroll-reveal">
+      <img src="/imersaoevo-diagnostico/img/marcio-autoridade.jpg" alt="Marcio Micheli">
+      <p><strong>Marcio Micheli</strong> conduz a Imersão Método EVO. Nos três dias, ele leva você por cada etapa do método: da origem do padrão até a decisão do que fazer a partir de agora.</p>
+    </div>
+
+    <div class="card generosity scroll-reveal">
+      <h3>Quem nunca participou tem direito a uma vaga sem custo</h3>
+      <p>A vaga por generosidade é para quem nunca esteve na imersão nem em outro evento do Marcio. É a forma de você viver o método pela primeira vez.</p>
+      <p class="ask">Você já participou de alguma imersão ou evento do Marcio?</p>
+      <div class="choice-row">
+        <button class="btn btn-ghost" id="never" type="button">Nunca participei</button>
+        <button class="btn btn-ghost" id="already" type="button">Já participei</button>
+      </div>
+
+      <div class="reveal" id="rv-never">
+        <p>Você tem direito à vaga. Na próxima página, faça o seu cadastro para garantir o seu lugar em <span class="city-name"></span>.</p>
+        <a class="btn btn-orange btn-block cta-link" href="#" target="_blank" rel="noopener">Garantir minha vaga gratuita →</a>
+      </div>
+
+      <div class="reveal" id="rv-already">
+        <p>A vaga por generosidade é reservada para quem vai viver o Método EVO pela primeira vez. Para você, que já participou, existe uma inscrição própria para a edição de <span class="city-name"></span>. E você ainda pode enviar este diagnóstico para alguém da sua família ou para um amigo que precisa dele.</p>
+        <div class="stack">
+          <a class="btn btn-orange btn-block" id="team" href="#" target="_blank" rel="noopener">Ver como participar em <span class="city-name"></span> →</a>
+          <a class="btn btn-ghost btn-block" id="share" href="#" target="_blank" rel="noopener">Enviar o diagnóstico para alguém</a>
+        </div>
+      </div>
+    </div>
+
+    <p class="fine">Treinamento para maiores de 16 anos. Vagas limitadas à capacidade do local.</p>
+  </section>
+
+</main>
+
+<footer>Imersão Método EVO · Inteligência Emocional</footer>
+
+<div class="floating-cta" id="floating">
+  <a class="btn btn-orange btn-block" href="#s-invite" id="floating-btn">Ver o convite para <span class="city-name"></span> →</a>
+</div>
+
+<script>
+/* ===== Dados da edição (troque aqui a cada nova cidade) ===== */
+const EDICAO = {
+  cidade: 'Natal',
+  estado: 'RN',
+  datas: '4 a 6 de dezembro',
+  horario: '9h às 20h (Brasília)',
+  local: 'Natal, RN',
+  formato: 'Presencial, com transmissão ao vivo',
+  dias: {1:'Sexta, 04/12', 2:'Sábado, 05/12', 3:'Domingo, 06/12'},
+  linkInscricao: 'https://evocoaching.com.br/generosidade/?us=cf243fb7-3432-47aa-bb93-edb4a5010502&uid=dbd1c79f-d9a4-44b2-81dc-af254c057567&inicio=2026-12-04&termino=2026-12-06&estado=RN&cidade=Natal&local=NATAL+-+RN&hlocal=Bras%C3%ADlia&hinicio=09%3A00&htermino=20%3A00',
+  linkJaParticipou: 'https://curitiba2.marciomicheli.com.br/cidades/natal'
+};
+
+/* ===== Perguntas: cada opção soma ponto para um padrão ===== */
+/* P = Preso ao Passado | S = Ciclo da Autossabotagem | M = Mente Desprotegida | E = Escolhas no Escuro */
+const PERGUNTAS = [
+  {q:'Quando alguém próximo te magoa, o que costuma acontecer depois?', o:[
+    ['P','Lembro de outras vezes em que fui magoado, e a dor fica maior do que o fato.'],
+    ['S','Me afasto ou estrago a relação antes que a pessoa me magoe de novo.'],
+    ['M','Fico remoendo por dias, imaginando conversas e cenários na cabeça.'],
+    ['E','Não sei se devo falar, deixar para lá ou ir embora.']]},
+  {q:'Pense numa meta importante que ficou pela metade ou não saiu do papel. O que mais pesou?', o:[
+    ['P','Uma voz antiga dizendo que eu não sou capaz.'],
+    ['S','Eu estava indo bem e, sem explicação, parei.'],
+    ['M','O medo de dar errado e as pessoas verem.'],
+    ['E','Eu não tinha certeza se aquele era mesmo o meu caminho.']]},
+  {q:'Numa discussão em casa, você normalmente:', o:[
+    ['P','Traz de volta assuntos antigos que nunca foram resolvidos.'],
+    ['S','Fala algo de que se arrepende logo depois.'],
+    ['M','Explode ou trava, e só mais tarde entende o que sentiu.'],
+    ['E','Cede para evitar o conflito e engole o que queria dizer.']]},
+  {q:'Sobre a sua vida profissional hoje, a frase mais verdadeira é:', o:[
+    ['P','Ainda carrego o peso de uma decisão ou de um fracasso do passado.'],
+    ['S','Sempre que chego perto de crescer, algo acontece e eu volto à estaca zero.'],
+    ['M','A insegurança me impede de me posicionar e pedir o que eu mereço.'],
+    ['E','Faço o que paga as contas, mas não sei se é isso que eu quero para mim.']]},
+  {q:'Críticas, notícias ruins ou comentários negativos:', o:[
+    ['P','Me lembram de tudo o que já deu errado na minha vida.'],
+    ['S','Viram motivo para eu largar o que estava fazendo.'],
+    ['M','Ficam na minha cabeça o dia inteiro e mudam o meu humor.'],
+    ['E','Me fazem duvidar de decisões que eu já tinha tomado.']]},
+  {q:'Sobre o seu passado, você sente que:', o:[
+    ['P','Tem memórias que ainda doem como se tivessem acontecido ontem.'],
+    ['S','Repito com as pessoas de hoje os mesmos erros de antes.'],
+    ['M','Aprendi a viver em alerta, esperando o próximo problema.'],
+    ['E','Perdi muito tempo e agora não sei por onde recomeçar.']]},
+  {q:'Quando uma fase boa começa na sua vida, o que costuma vir junto?', o:[
+    ['P','Desconfiança, porque das outras vezes não durou.'],
+    ['S','Uma mudança de atitude minha que me afasta do que estava dando certo.'],
+    ['M','Ansiedade e medo de perder.'],
+    ['E','Dúvida sobre o que fazer com aquilo.']]},
+  {q:'Com dinheiro, a sua história se parece mais com:', o:[
+    ['P','Repito a relação com dinheiro que vi na minha família.'],
+    ['S','Consigo juntar e, logo depois, aparece um gasto que leva tudo.'],
+    ['M','Penso em dinheiro com aperto no peito, até quando as contas estão em dia.'],
+    ['E','Não tenho um plano claro, vou resolvendo conforme aparece.']]},
+  {q:'Se você pudesse mudar uma coisa agora, seria:', o:[
+    ['P','Parar de ser refém do que aconteceu comigo.'],
+    ['S','Parar de desistir de mim no meio do caminho.'],
+    ['M','Ter paz dentro da minha própria cabeça.'],
+    ['E','Saber, com segurança, qual é o meu próximo passo.']]},
+  {q:'Há quanto tempo você percebe esse tipo de situação se repetindo?', nivel:true, o:[
+    [1,'Comecei a perceber há pouco tempo.'],
+    [2,'Há alguns anos.'],
+    [3,'Desde que me lembro.'],
+    [3,'Já tentei mudar várias vezes, e ele sempre volta.']]}
+];
+
+/* ===== Diagnósticos ===== */
+const PADROES = {
+  P:{
+    nome:'Memória no Comando', cor:'var(--teal)',
+    resumo:'Nas suas reações de hoje, uma memória antiga costuma pesar mais do que o fato que está na sua frente.',
+    tese:[
+      'Esse padrão costuma se formar quando experiências dolorosas ficam guardadas como referência de proteção. Quando algo novo lembra o que já aconteceu, a emoção antiga volta junto, com a mesma intensidade.',
+      'É por isso que uma frase atravessada, uma cobrança ou um silêncio podem doer mais do que a situação em si.'
+    ],
+    custos:[
+      ['Relacionamentos','As pessoas de hoje acabam pagando a conta de quem machucou antes.'],
+      ['Família','Conversas simples viram discussões sobre assuntos antigos.'],
+      ['Trabalho','Um erro do passado limita os riscos que você aceita correr agora.']
+    ],
+    exTitulo:'Separar o fato da memória',
+    exIntro:'Na próxima vez que uma reação sua parecer maior do que a situação, escreva duas linhas:',
+    exPassos:[
+      'O que aconteceu agora, só o fato, do jeito que uma câmera filmaria.',
+      'De qual momento antigo essa sensação te lembra.'
+    ],
+    exFecho:'Enxergar que são dois acontecimentos diferentes costuma reduzir a força da reação. É o primeiro passo da ressignificação.',
+    ponte:'No segundo dia, você entende como o passado participa das suas decisões de hoje. No terceiro, o Marcio conduz o processo de ressignificação: você revisita a memória que ainda pesa e trabalha o significado que ela tem na sua vida.',
+    modulos:[[2,'A importância do passado, presente e futuro'],[3,'Ressignificar o passado']]
+  },
+  S:{
+    nome:'Ciclo da Autossabotagem', cor:'var(--orange)',
+    resumo:'Você sabe o que quer e chega perto. Quando o resultado se aproxima, alguma coisa interrompe o caminho.',
+    tese:[
+      'Esse padrão costuma se formar quando avançar ficou associado a algum risco, como rejeição, fracasso ou perda. Com o tempo, situações parecidas despertam uma resposta de proteção.',
+      'Ela aparece como cansaço, uma briga ou uma dúvida repentina, quase sempre na mesma fase. De fora, parece falta de disciplina.'
+    ],
+    custos:[
+      ['Relacionamentos','O afastamento vem justamente quando a relação começa a ficar boa.'],
+      ['Família','Promessas de mudança que se repetem e desgastam a confiança.'],
+      ['Trabalho','Projetos interrompidos no mesmo ponto, uma vez depois da outra.']
+    ],
+    exTitulo:'Mapear o seu ponto de desistência',
+    exIntro:'Pegue papel e caneta e faça este mapa em 5 minutos:',
+    exPassos:[
+      'Liste as três últimas coisas que você interrompeu (uma dieta, um curso, uma relação, um projeto).',
+      'Ao lado de cada uma, escreva em que momento você parou.',
+      'Depois, escreva a justificativa que você deu para parar.'
+    ],
+    exFecho:'Observe se existe um momento que se repete. Às vezes a justificativa muda, mas o ponto em que você interrompe o caminho fica parecido. É ali que o ciclo pode ser quebrado.',
+    ponte:'O segundo dia da imersão começa pelo ciclo da autossabotagem, etapa por etapa. No terceiro, você olha para as consequências que ele já trouxe e sai com um plano para interromper o ciclo.',
+    modulos:[[2,'Ciclo da autossabotagem'],[3,'Consequências da autossabotagem']]
+  },
+  M:{
+    nome:'Mente em Alerta', cor:'var(--purple)',
+    resumo:'Críticas, notícias e o humor dos outros entram com força e influenciam como vai ser o seu dia.',
+    tese:[
+      'Esse padrão costuma se formar quando a mente passa muito tempo em alerta. O cérebro começa a dar mais peso a um comentário negativo do que a dez elogios e a antecipar problemas que ainda não existem.',
+      'O medo deixa de ser um aviso pontual e passa a filtrar tudo. A reação vem antes do pensamento.'
+    ],
+    custos:[
+      ['Relacionamentos','Reações explosivas ou silêncios longos que afastam quem você ama.'],
+      ['Família','A casa sente o peso da ansiedade, até quando você não fala nada.'],
+      ['Trabalho','Insegurança para se posicionar, pedir um aumento ou defender uma ideia.']
+    ],
+    exTitulo:'Faxina de estímulos por 24 horas',
+    exIntro:'Faça este teste a partir de amanhã de manhã:',
+    exPassos:[
+      'Escolha as três entradas que mais mexem com o seu humor (um grupo de mensagens, um perfil, um tipo de notícia).',
+      'Corte essas três entradas por 24 horas.',
+      'À noite, dê uma nota de 0 a 10 para como ficou a sua cabeça e compare com um dia comum.'
+    ],
+    exFecho:'A diferença entre as notas mostra quanto do seu estado vem de fora. É o ponto de partida da blindagem da mente.',
+    ponte:'O seu padrão aparece nos três dias. No primeiro, você aprende a assumir o controle do cérebro. No segundo, entende a origem do medo. No terceiro, monta a blindagem da mente.',
+    modulos:[[1,'Assumir o controle do cérebro'],[2,'Origem do medo e como eliminá-lo'],[3,'Blindagem da mente']]
+  },
+  E:{
+    nome:'Escolhas no Escuro', cor:'var(--blue)',
+    resumo:'Você trabalha, cuida de todo mundo e resolve o que aparece. O que falta é clareza sobre o seu próximo passo.',
+    tese:[
+      'Esse padrão costuma se formar depois de anos atendendo às expectativas dos outros. A referência das próprias vontades vai ficando fraca, e cada decisão vira um peso.',
+      'Sem um critério próprio, a escolha vai para o que parece mais seguro, para o que esperam de você, ou fica adiada. Esse critério nasce do contato com a sua essência.'
+    ],
+    custos:[
+      ['Relacionamentos','Permanecer em situações por medo de errar na escolha.'],
+      ['Família','Decidir pelos outros e sentir que a própria vida ficou em segundo plano.'],
+      ['Trabalho','Anos na mesma função, esperando o momento certo para mudar.']
+    ],
+    exTitulo:'As duas listas',
+    exIntro:'Separe 10 minutos e escreva duas listas de 5 itens cada:',
+    exPassos:[
+      'Lista 1: o que você faz hoje porque escolheu.',
+      'Lista 2: o que você faz porque esperam de você.',
+      'Escolha um item da segunda lista para devolver ou renegociar nesta semana.'
+    ],
+    exFecho:'Compare o tamanho das listas. Elas mostram quanto das suas escolhas está nas suas mãos hoje.',
+    ponte:'O primeiro dia da imersão trata o seu padrão de frente: você descobre e ativa a sua essência e aprende a fazer escolhas assertivas. No segundo, transforma essa clareza num passo a passo para a prosperidade.',
+    modulos:[[1,'Descobrindo e ativando sua essência'],[1,'Como fazer escolhas assertivas'],[2,'Passo a passo para a prosperidade']]
+  }
+};
+
+const NIVEIS = {
+  1:['Em formação','O padrão começou a aparecer há pouco tempo. É um bom momento para olhar para ele, antes que vire hábito.'],
+  2:['Instalado','O padrão já se repete há alguns anos e participa de decisões importantes. Reconhecer onde ele aparece é o primeiro passo para mudar a resposta.'],
+  3:['Enraizado','O padrão acompanha você há bastante tempo e já voltou depois de tentativas de mudança. Costuma responder melhor a um processo vivido, com método e acompanhamento.']
+};
+
+/* ===== Motor do quiz ===== */
+const $ = id => document.getElementById(id);
+let atual = 0;
+const respostas = new Array(PERGUNTAS.length).fill(null);
+const ordens = PERGUNTAS.map(p => p.nivel ? p.o.map((_,i)=>i) : embaralhar(p.o.map((_,i)=>i)));
+
+function embaralhar(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+
+function mostrar(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  $(id).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function renderPergunta(){
+  const p = PERGUNTAS[atual];
+  $('q-num').textContent = atual+1;
+  $('q-total').textContent = PERGUNTAS.length;
+  const pct = Math.round(atual/PERGUNTAS.length*100);
+  $('q-pct').textContent = pct+'%';
+  $('q-bar').style.width = pct+'%';
+  const letras = ['A','B','C','D'];
+  $('q-box').innerHTML = '<div class="question"><h2>'+p.q+'</h2><p class="hint">Se mais de uma parecer com você, escolha a que acontece com mais frequência.</p><div class="options">'+
+    ordens[atual].map((idx,k)=>'<button type="button" class="option'+(respostas[atual]===idx?' selected':'')+'" data-i="'+idx+'"><span class="letter">'+letras[k]+'</span><span>'+p.o[idx][1]+'</span></button>').join('')+
+    '</div></div>';
+  $('back').style.visibility = atual===0 ? 'hidden' : 'visible';
+  $('q-box').querySelectorAll('.option').forEach(b=>b.addEventListener('click',()=>{
+    respostas[atual] = +b.dataset.i;
+    b.classList.add('selected');
+    setTimeout(()=>{ atual<PERGUNTAS.length-1 ? (atual++, renderPergunta()) : calcular(); },280);
+  }));
+}
+
+function calcular(){
+  $('q-bar').style.width='100%';
+  mostrar('s-loading');
+  const frases=['Identificando o padrão que mais aparece nas suas reações.','Medindo há quanto tempo ele te acompanha.','Montando o seu exercício.'];
+  let f=0; const t=setInterval(()=>{f++; if(f<frases.length) $('loading-text').textContent=frases[f];},800);
+  setTimeout(()=>{clearInterval(t); renderResultado();},2500);
+}
+
+function renderResultado(){
+  const pontos={P:0,S:0,M:0,E:0}; let nivel=1;
+  PERGUNTAS.forEach((p,i)=>{ const v=p.o[respostas[i]][0]; if(p.nivel) nivel=v; else pontos[v]++; });
+  const totalP = PERGUNTAS.filter(p=>!p.nivel).length;
+  const escolhidos = PERGUNTAS.map((p,i)=>p.nivel ? null : p.o[respostas[i]]);
+
+  /* Desempate: vence o padrão empatado escolhido mais perto da pergunta 9 ("Se você pudesse mudar uma coisa agora") */
+  const max = Math.max(...Object.values(pontos));
+  const empatados = Object.keys(pontos).filter(k=>pontos[k]===max);
+  let chave = empatados[0];
+  for(let i=escolhidos.length-1;i>=0;i--){ if(escolhidos[i] && empatados.includes(escolhidos[i][0])){ chave=escolhidos[i][0]; break; } }
+  const ordem = [chave, ...Object.keys(pontos).filter(k=>k!==chave).sort((a,b)=>pontos[b]-pontos[a])];
+  const principal = PADROES[chave];
+
+  /* Percentuais pelo maior resto, para fechar sempre em 100% */
+  const pcts = {}; let soma = 0;
+  ordem.forEach(k=>{ pcts[k]=Math.floor(pontos[k]/totalP*100); soma+=pcts[k]; });
+  ordem.slice().sort((a,b)=>(pontos[b]/totalP*100%1)-(pontos[a]/totalP*100%1)).slice(0,100-soma).forEach(k=>pcts[k]++);
+
+  /* Duas respostas da pessoa que formaram o padrão principal */
+  const eco = escolhidos.filter(o=>o && o[0]===chave).slice(-2);
+  $('r-echo').innerHTML = eco.map(o=>'<li>Você marcou: “'+o[1]+'”</li>').join('');
+
+  $('r-title').textContent = principal.nome;
+  $('r-summary').textContent = principal.resumo;
+  $('r-bars').innerHTML = ordem.map((k,i)=>{
+    const pct = pcts[k];
+    return '<div class="bar-row'+(i===0?' main':'')+'"><span class="name">'+PADROES[k].nome+'</span><div class="bar"><span data-w="'+pct+'" style="background:'+PADROES[k].cor+'"></span></div><span class="pct">'+pct+'%</span></div>';
+  }).join('');
+  $('r-level').textContent = 'Nível: '+NIVEIS[nivel][0];
+  $('r-level-text').textContent = NIVEIS[nivel][1];
+  $('r-thesis').innerHTML = principal.tese.map(t=>'<p>'+t+'</p>').join('');
+  $('r-costs').innerHTML = principal.custos.map(c=>'<li><strong>'+c[0]+'</strong><span>'+c[1]+'</span></li>').join('');
+  $('r-ex-title').textContent = principal.exTitulo;
+  $('r-ex-intro').textContent = principal.exIntro;
+  $('r-ex-steps').innerHTML = principal.exPassos.map(s=>'<li>'+s+'</li>').join('');
+  $('r-ex-close').textContent = principal.exFecho;
+  $('r-bridge').textContent = principal.ponte;
+  $('r-modules').innerHTML = principal.modulos.map(m=>'<li><span class="day">Dia '+m[0]+' · '+EDICAO.dias[m[0]]+'</span><span class="mod">'+m[1]+'</span></li>').join('');
+
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  $('s-result').classList.add('active');
+  $('s-invite').classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  setTimeout(()=>document.querySelectorAll('.bar span').forEach(b=>b.style.width=b.dataset.w+'%'),400);
+  observar();
+
+  const msg = 'Fiz um diagnóstico emocional e lembrei de você. Leva 3 minutos: '+location.href.split('#')[0];
+  $('share').href = 'https://wa.me/?text='+encodeURIComponent(msg);
+  window._padrao = principal.nome;
+  $('floating').classList.add('visible');
+}
+
+function observar(){
+  const obs = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);} }),{threshold:.15});
+  document.querySelectorAll('.scroll-reveal:not(.visible)').forEach(el=>obs.observe(el));
+}
+
+/* ===== Convite ===== */
+$('i-city').textContent = EDICAO.cidade+', de '+EDICAO.datas+'.';
+$('i-dates').textContent = EDICAO.datas;
+$('i-hours').textContent = EDICAO.horario;
+$('i-place').textContent = EDICAO.local;
+$('i-format').textContent = EDICAO.formato;
+document.querySelectorAll('.city-name').forEach(e=>e.textContent=EDICAO.cidade);
+document.querySelectorAll('.cta-link').forEach(a=>a.href=EDICAO.linkInscricao);
+
+$('never').addEventListener('click',()=>{
+  $('never').classList.add('btn-primary'); $('already').classList.remove('btn-primary');
+  $('rv-already').classList.remove('show'); $('rv-never').classList.add('show');
+});
+$('already').addEventListener('click',()=>{
+  $('already').classList.add('btn-primary'); $('never').classList.remove('btn-primary');
+  $('rv-never').classList.remove('show'); $('rv-already').classList.add('show');
+});
+$('team').href = EDICAO.linkJaParticipou;
+
+/* CTA flutuante some quando o convite está na tela */
+const inv = new IntersectionObserver(es=>es.forEach(e=>$('floating').style.display = e.isIntersecting ? 'none' : ''),{threshold:.05});
+inv.observe(document.querySelector('.generosity'));
+
+$('start').addEventListener('click',()=>{ mostrar('s-quiz'); renderPergunta(); });
+$('back').addEventListener('click',()=>{ if(atual>0){ atual--; renderPergunta(); } });
+</script>
+</body>
+</html>
