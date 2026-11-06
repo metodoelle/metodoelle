@@ -10,6 +10,26 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<!-- Meta Pixel (mesmos Pixels da página Imersão EVO Sem Limites) -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '812476201902590');
+fbq('init', '2619890645118801');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=812476201902590&ev=PageView&noscript=1"
+/></noscript>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=2619890645118801&ev=PageView&noscript=1"
+/></noscript>
 <style>
   :root{
     --bg:#0a0a0d;
@@ -664,8 +684,13 @@ function renderResultado(){
   const msg = 'Fiz um diagnóstico emocional e lembrei de você. Leva 3 minutos: '+location.href.split('#')[0];
   $('share').href = 'https://wa.me/?text='+encodeURIComponent(msg);
   window._padrao = principal.nome;
+  window._nivel = NIVEIS[nivel][0];
+  pixel('trackCustom','QuizCompleted',{padrao:principal.nome,nivel:NIVEIS[nivel][0],cidade:EDICAO.cidade});
   $('floating').classList.add('visible');
 }
+
+/* ===== Meta Pixel: eventos do quiz ===== */
+function pixel(tipo,evento,dados){ if(window.fbq) fbq(tipo,evento,Object.assign({content_name:'Quiz Imersão EVO'},dados||{})); }
 
 function observar(){
   const obs = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);} }),{threshold:.15});
@@ -684,18 +709,25 @@ document.querySelectorAll('.cta-link').forEach(a=>a.href=EDICAO.linkInscricao);
 $('never').addEventListener('click',()=>{
   $('never').classList.add('btn-primary'); $('already').classList.remove('btn-primary');
   $('rv-already').classList.remove('show'); $('rv-never').classList.add('show');
+  pixel('trackCustom','NuncaParticipou',{padrao:window._padrao,cidade:EDICAO.cidade});
 });
 $('already').addEventListener('click',()=>{
   $('already').classList.add('btn-primary'); $('never').classList.remove('btn-primary');
   $('rv-never').classList.remove('show'); $('rv-already').classList.add('show');
+  pixel('trackCustom','JaParticipou',{padrao:window._padrao,cidade:EDICAO.cidade});
 });
 $('team').href = EDICAO.linkJaParticipou;
+
+/* Clique na inscrição gratuita = Lead (conversão principal) */
+document.querySelectorAll('.cta-link').forEach(a=>a.addEventListener('click',()=>pixel('track','Lead',{padrao:window._padrao,nivel:window._nivel,cidade:EDICAO.cidade,tipo:'generosidade'})));
+$('team').addEventListener('click',()=>pixel('trackCustom','InscricaoJaParticipou',{padrao:window._padrao,cidade:EDICAO.cidade}));
+$('share').addEventListener('click',()=>pixel('trackCustom','CompartilhouDiagnostico',{padrao:window._padrao}));
 
 /* CTA flutuante some quando o convite está na tela */
 const inv = new IntersectionObserver(es=>es.forEach(e=>$('floating').style.display = e.isIntersecting ? 'none' : ''),{threshold:.05});
 inv.observe(document.querySelector('.generosity'));
 
-$('start').addEventListener('click',()=>{ mostrar('s-quiz'); renderPergunta(); });
+$('start').addEventListener('click',()=>{ mostrar('s-quiz'); renderPergunta(); pixel('trackCustom','QuizStarted',{cidade:EDICAO.cidade}); });
 $('back').addEventListener('click',()=>{ if(atual>0){ atual--; renderPergunta(); } });
 </script>
 </body>
