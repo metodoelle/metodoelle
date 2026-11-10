@@ -20,6 +20,9 @@ n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
+/* Sem configuração automática: a Meta não lê o texto dos botões (as respostas do quiz) */
+fbq('set', 'autoConfig', false, '812476201902590');
+fbq('set', 'autoConfig', false, '2619890645118801');
 fbq('init', '812476201902590');
 fbq('init', '2619890645118801');
 fbq('track', 'PageView');
@@ -114,16 +117,25 @@ src="https://www.facebook.com/tr?id=2619890645118801&ev=PageView&noscript=1"
   .btn-block{width:100%;}
 
   /* INTRO */
-  .intro{padding:64px 0 80px;text-align:center;}
-  .intro h1{font-size:clamp(2rem,6vw,3.1rem);margin-bottom:1.5rem;}
-  .intro .lead{font-size:1.1rem;color:var(--text-secondary);max-width:600px;margin:0 auto 1.25rem;}
+  .intro{padding:40px 0 80px;text-align:center;}
+  .intro .section-label{margin-bottom:1rem;}
+  .intro h1{font-size:clamp(1.7rem,5.5vw,2.9rem);margin-bottom:1.5rem;}
+  .situations{
+    max-width:560px;margin:0 auto 1.5rem;text-align:left;
+    background:var(--glass-bg);border:1px solid var(--border);border-radius:16px;padding:1rem 1.25rem;
+  }
+  .situations-title{font-family:'Sora',sans-serif;font-weight:700;font-size:.9rem;margin-bottom:.5rem;}
+  .situations ul{list-style:none;display:grid;gap:.45rem;}
+  .situations li{position:relative;padding-left:16px;font-size:.92rem;line-height:1.45;color:var(--text-secondary);}
+  .situations li::before{content:'';position:absolute;left:0;top:.55em;width:6px;height:6px;border-radius:50%;background:var(--teal);}
   .intro .thesis{
-    font-size:.98rem;color:var(--text-secondary);max-width:600px;margin:0 auto 2.5rem;
+    font-size:.95rem;color:var(--text-secondary);max-width:600px;margin:2.5rem auto 0;
     padding:1.25rem 1.5rem;border-left:2px solid var(--teal);text-align:left;
     background:var(--glass-bg);border-radius:0 12px 12px 0;
   }
-  .intro .meta{margin-top:1.25rem;font-size:.85rem;color:var(--text-tertiary);}
-  .meta-row{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-top:2.5rem;}
+  .intro .meta{margin:1rem auto 0;max-width:520px;font-size:.85rem;color:var(--text-tertiary);}
+  .intro .privacy{margin-top:.5rem;font-size:.78rem;color:var(--text-tertiary);}
+  .meta-row{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-top:1rem;}
   .meta-row span{font-size:.85rem;color:var(--text-secondary);display:flex;align-items:center;gap:8px;}
   .meta-row span::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--teal);}
 
@@ -261,7 +273,16 @@ src="https://www.facebook.com/tr?id=2619890645118801&ev=PageView&noscript=1"
   .scroll-reveal.visible{opacity:1;transform:translateY(0);}
 
   @media (max-width:768px){
-    .intro{padding:44px 0 64px;}
+    header.top{padding:16px 0 0;}
+    header.top img{height:30px;}
+    .intro{padding:18px 0 64px;}
+    .intro .section-label{font-size:.68rem;margin-bottom:.75rem;}
+    .intro h1{font-size:1.55rem;margin-bottom:1rem;}
+    .situations{padding:.85rem 1rem;margin-bottom:1rem;}
+    .situations li{font-size:.86rem;}
+    .btn-start{width:100%;}
+    .meta-row{gap:14px;margin-top:.75rem;}
+    .meta-row span{font-size:.78rem;}
     .card{padding:1.5rem;}
     .bar-row{grid-template-columns:1fr 44px;}
     .bar-row .name{grid-column:1 / -1;}
@@ -283,18 +304,26 @@ src="https://www.facebook.com/tr?id=2619890645118801&ev=PageView&noscript=1"
 
   <!-- INTRO -->
   <section class="screen intro active" id="s-intro">
-    <div class="shimmer-line"></div>
-    <div class="section-label">Diagnóstico emocional gratuito</div>
-    <h1>Existe um padrão emocional que influencia as suas reações <span class="gradient-text">antes de você perceber.</span></h1>
-    <p class="lead">Responda 10 perguntas sobre situações do seu dia a dia e descubra qual padrão está repetindo as mesmas histórias nos seus relacionamentos, na sua família e no seu trabalho.</p>
-    <p class="thesis">O cérebro aprende a se proteger com o que já viveu. Quando uma situação nova lembra uma antiga, ele tende a repetir a resposta de antes. Por isso a mesma briga, a mesma desistência e o mesmo medo voltam com pessoas diferentes.</p>
-    <button class="btn btn-primary" id="start">Começar o diagnóstico →</button>
+    <div class="section-label">Diagnóstico gratuito · Imersão Método EVO</div>
+    <h1>Existem padrões emocionais por trás das <span class="gradient-text">histórias que se repetem na sua vida.</span></h1>
+    <div class="situations">
+      <p class="situations-title">Situações que costumam se repetir:</p>
+      <ul>
+        <li>Uma mágoa antiga volta quando alguém faz algo que te machuca hoje.</li>
+        <li>Você desiste quando está perto de conquistar algo importante.</li>
+        <li>Uma crítica ou notícia ruim muda completamente o seu dia.</li>
+        <li>Você cede para evitar conflitos e depois fica sem saber o que realmente deseja.</li>
+      </ul>
+    </div>
+    <button class="btn btn-primary btn-start" id="start">Quero descobrir meu padrão →</button>
     <div class="meta-row">
       <span>10 perguntas</span>
       <span>3 minutos</span>
       <span>Resultado na hora</span>
     </div>
-    <p class="meta">No resultado você recebe o seu padrão principal e um exercício para começar hoje.</p>
+    <p class="meta">No resultado: o padrão que aparece com mais força nas suas respostas, como ele influencia as suas reações e um exercício para começar hoje.</p>
+    <p class="privacy">Suas respostas são processadas no seu próprio celular e não são gravadas.</p>
+    <p class="thesis">O cérebro aprende a se proteger com o que já viveu. Quando uma situação nova lembra uma antiga, ele tende a repetir a resposta de antes. Por isso a mesma briga, a mesma desistência e o mesmo medo voltam com pessoas diferentes.</p>
   </section>
 
   <!-- QUIZ -->
@@ -607,8 +636,10 @@ function mostrar(id){
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
+let chegouNaMetade = false;
 function renderPergunta(){
   const p = PERGUNTAS[atual];
+  if(atual===4 && !chegouNaMetade){ chegouNaMetade = true; pixel('trackCustom','QuizPergunta5',{cidade:EDICAO.cidade}); }
   $('q-num').textContent = atual+1;
   $('q-total').textContent = PERGUNTAS.length;
   const pct = Math.round(atual/PERGUNTAS.length*100);
@@ -683,13 +714,12 @@ function renderResultado(){
 
   const msg = 'Fiz um diagnóstico emocional e lembrei de você. Leva 3 minutos: '+location.href.split('#')[0];
   $('share').href = 'https://wa.me/?text='+encodeURIComponent(msg);
-  window._padrao = principal.nome;
-  window._nivel = NIVEIS[nivel][0];
-  pixel('trackCustom','QuizCompleted',{padrao:principal.nome,nivel:NIVEIS[nivel][0],cidade:EDICAO.cidade});
+  pixel('trackCustom','QuizCompleted',{cidade:EDICAO.cidade});
   $('floating').classList.add('visible');
 }
 
-/* ===== Meta Pixel: eventos do quiz ===== */
+/* ===== Meta Pixel: eventos do quiz =====
+   Nenhum evento envia respostas, padrão ou nível: só a etapa do funil e a cidade. */
 function pixel(tipo,evento,dados){ if(window.fbq) fbq(tipo,evento,Object.assign({content_name:'Quiz Imersão EVO'},dados||{})); }
 
 function observar(){
@@ -709,19 +739,19 @@ document.querySelectorAll('.cta-link').forEach(a=>a.href=EDICAO.linkInscricao);
 $('never').addEventListener('click',()=>{
   $('never').classList.add('btn-primary'); $('already').classList.remove('btn-primary');
   $('rv-already').classList.remove('show'); $('rv-never').classList.add('show');
-  pixel('trackCustom','NuncaParticipou',{padrao:window._padrao,cidade:EDICAO.cidade});
+  pixel('trackCustom','NuncaParticipou',{cidade:EDICAO.cidade});
 });
 $('already').addEventListener('click',()=>{
   $('already').classList.add('btn-primary'); $('never').classList.remove('btn-primary');
   $('rv-never').classList.remove('show'); $('rv-already').classList.add('show');
-  pixel('trackCustom','JaParticipou',{padrao:window._padrao,cidade:EDICAO.cidade});
+  pixel('trackCustom','JaParticipou',{cidade:EDICAO.cidade});
 });
 $('team').href = EDICAO.linkJaParticipou;
 
 /* Clique na inscrição gratuita = Lead (conversão principal) */
-document.querySelectorAll('.cta-link').forEach(a=>a.addEventListener('click',()=>pixel('track','Lead',{padrao:window._padrao,nivel:window._nivel,cidade:EDICAO.cidade,tipo:'generosidade'})));
-$('team').addEventListener('click',()=>pixel('trackCustom','InscricaoJaParticipou',{padrao:window._padrao,cidade:EDICAO.cidade}));
-$('share').addEventListener('click',()=>pixel('trackCustom','CompartilhouDiagnostico',{padrao:window._padrao}));
+document.querySelectorAll('.cta-link').forEach(a=>a.addEventListener('click',()=>pixel('track','Lead',{cidade:EDICAO.cidade,tipo:'generosidade'})));
+$('team').addEventListener('click',()=>pixel('trackCustom','InscricaoJaParticipou',{cidade:EDICAO.cidade}));
+$('share').addEventListener('click',()=>pixel('trackCustom','CompartilhouDiagnostico',{cidade:EDICAO.cidade}));
 
 /* CTA flutuante some quando o convite está na tela */
 const inv = new IntersectionObserver(es=>es.forEach(e=>$('floating').style.display = e.isIntersecting ? 'none' : ''),{threshold:.05});
