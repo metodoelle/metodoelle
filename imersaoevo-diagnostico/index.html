@@ -272,6 +272,31 @@ src="https://www.facebook.com/tr?id=2619890645118801&ev=PageView&noscript=1"
   .scroll-reveal{opacity:0;transform:translateY(32px);transition:all .7s ease;}
   .scroll-reveal.visible{opacity:1;transform:translateY(0);}
 
+  /* Janela de cadastro antes da inscrição */
+  .modal{position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(5,5,8,.78);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);}
+  .modal.open{display:flex;}
+  .modal-box{
+    position:relative;width:100%;max-width:440px;max-height:calc(100vh - 32px);overflow:auto;
+    background:var(--surface-2);border:1px solid var(--border-hover);border-radius:18px;padding:1.75rem 1.5rem 1.5rem;
+    animation:fadeUpIn .35s ease both;
+  }
+  .modal-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--gradient);border-radius:18px 18px 0 0;}
+  .modal-close{position:absolute;top:10px;right:12px;background:none;border:none;color:var(--text-tertiary);font-size:1.5rem;line-height:1;cursor:pointer;padding:6px;}
+  .modal-box h3{font-size:1.2rem;margin-bottom:.4rem;padding-right:24px;}
+  .modal-box .sub{color:var(--text-secondary);font-size:.92rem;margin-bottom:1.25rem;}
+  .field{display:block;margin-bottom:.9rem;}
+  .field span{display:block;font-size:.82rem;font-weight:600;color:var(--text-secondary);margin-bottom:.35rem;}
+  .field input{
+    width:100%;padding:14px 16px;border-radius:12px;border:1px solid var(--border-hover);background:var(--surface-1);
+    color:var(--text-primary);font-family:'Inter',sans-serif;font-size:1rem;outline:none;transition:border-color .2s ease;
+  }
+  .field input:focus{border-color:var(--teal);}
+  .consent{display:flex;gap:10px;align-items:flex-start;margin:.25rem 0 1rem;font-size:.82rem;color:var(--text-secondary);cursor:pointer;}
+  .consent input{margin-top:3px;width:18px;height:18px;flex:0 0 18px;accent-color:var(--teal);}
+  .consent a{color:var(--teal);text-decoration:underline;}
+  .form-error{display:none;color:#ff8a52;font-size:.85rem;margin-bottom:.75rem;}
+  .form-error.show{display:block;}
+
   @media (max-width:768px){
     header.top{padding:16px 0 0;}
     header.top img{height:30px;}
@@ -452,6 +477,19 @@ src="https://www.facebook.com/tr?id=2619890645118801&ev=PageView&noscript=1"
   <a class="btn btn-orange btn-block" href="#s-invite" id="floating-btn">Ver o convite para <span class="city-name"></span> →</a>
 </div>
 
+<div class="modal" id="cadastro" role="dialog" aria-modal="true" aria-labelledby="cad-titulo">
+  <form class="modal-box" id="cad-form" novalidate>
+    <button type="button" class="modal-close" id="cad-fechar" aria-label="Fechar">×</button>
+    <h3 id="cad-titulo">Falta só um passo</h3>
+    <p class="sub">Deixe o seu nome e WhatsApp para a equipe da imersão confirmar a sua participação em <span class="city-name"></span>.</p>
+    <label class="field"><span>Nome</span><input type="text" id="cad-nome" autocomplete="name" maxlength="80" required></label>
+    <label class="field"><span>WhatsApp com DDD</span><input type="tel" id="cad-whats" autocomplete="tel" inputmode="numeric" placeholder="(84) 99999-9999" maxlength="16" required></label>
+    <label class="consent"><input type="checkbox" id="cad-ok"><span>Autorizo a equipe da Imersão Método EVO a entrar em contato comigo pelo WhatsApp. <a href="/imersaoevo-diagnostico/privacidade.html" target="_blank" rel="noopener">Política de privacidade</a></span></label>
+    <p class="form-error" id="cad-erro"></p>
+    <button type="submit" class="btn btn-orange btn-block" id="cad-enviar">Continuar para a inscrição →</button>
+  </form>
+</div>
+
 <script>
 /* ===== Dados da edição (troque aqui a cada nova cidade) ===== */
 const EDICAO = {
@@ -463,7 +501,8 @@ const EDICAO = {
   formato: 'Presencial, com transmissão ao vivo',
   dias: {1:'Sexta, 04/12', 2:'Sábado, 05/12', 3:'Domingo, 06/12'},
   linkInscricao: 'https://evocoaching.com.br/generosidade/?us=cf243fb7-3432-47aa-bb93-edb4a5010502&uid=dbd1c79f-d9a4-44b2-81dc-af254c057567&inicio=2026-12-04&termino=2026-12-06&estado=RN&cidade=Natal&local=NATAL+-+RN&hlocal=Bras%C3%ADlia&hinicio=09%3A00&htermino=20%3A00',
-  linkJaParticipou: 'https://curitiba2.marciomicheli.com.br/cidades/natal'
+  linkJaParticipou: 'https://curitiba2.marciomicheli.com.br/cidades/natal',
+  planilhaURL: 'https://script.google.com/macros/s/AKfycbwY094CP9q5OhfhxkUQbJeXbTLXGFizaR8l-lpMkGI0RWCJLzPrq9juzLesQjgRTV0_/exec'  /* endereço /exec do App da Web do Google Apps Script */
 };
 
 /* ===== Perguntas: cada opção soma ponto para um padrão ===== */
@@ -749,8 +788,50 @@ $('already').addEventListener('click',()=>{
 $('team').href = EDICAO.linkJaParticipou;
 
 /* Clique na inscrição gratuita = Lead (conversão principal) */
-document.querySelectorAll('.cta-link').forEach(a=>a.addEventListener('click',()=>pixel('track','Lead',{cidade:EDICAO.cidade,tipo:'generosidade'})));
-$('team').addEventListener('click',()=>pixel('trackCustom','InscricaoJaParticipou',{cidade:EDICAO.cidade}));
+/* ===== Cadastro antes de abrir a inscrição =====
+   Só nome, WhatsApp e o caminho escolhido vão para a planilha. Respostas e padrão não são enviados. */
+let destino = null;
+function abrirCadastro(e, url, caminho){
+  e.preventDefault();
+  destino = {url, caminho};
+  $('cad-erro').classList.remove('show');
+  $('cadastro').classList.add('open');
+  setTimeout(()=>$('cad-nome').focus(), 50);
+}
+function fecharCadastro(){ $('cadastro').classList.remove('open'); }
+$('cad-fechar').addEventListener('click', fecharCadastro);
+$('cadastro').addEventListener('click', e=>{ if(e.target===$('cadastro')) fecharCadastro(); });
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') fecharCadastro(); });
+
+$('cad-whats').addEventListener('input', e=>{
+  const d = e.target.value.replace(/\D/g,'').slice(0,11);
+  e.target.value = d.length>6 ? '('+d.slice(0,2)+') '+d.slice(2,d.length-4)+'-'+d.slice(-4) : d.length>2 ? '('+d.slice(0,2)+') '+d.slice(2) : d;
+});
+
+$('cad-form').addEventListener('submit', async e=>{
+  e.preventDefault();
+  const nome = $('cad-nome').value.trim();
+  const whatsapp = $('cad-whats').value.replace(/\D/g,'');
+  const erro = nome.length<2 ? 'Digite o seu nome.' : (whatsapp.length<10 ? 'Digite o WhatsApp com DDD.' : (!$('cad-ok').checked ? 'Marque a autorização de contato para continuar.' : ''));
+  if(erro){ $('cad-erro').textContent = erro; $('cad-erro').classList.add('show'); return; }
+
+  $('cad-enviar').disabled = true; $('cad-enviar').textContent = 'Abrindo a inscrição...';
+  if(destino.caminho==='vaga-generosidade') pixel('track','Lead',{cidade:EDICAO.cidade,tipo:'generosidade'});
+  else pixel('trackCustom','InscricaoJaParticipou',{cidade:EDICAO.cidade});
+
+  if(EDICAO.planilhaURL){
+    const envio = fetch(EDICAO.planilhaURL, {
+      method:'POST', mode:'no-cors', keepalive:true,
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body: JSON.stringify({nome, whatsapp, caminho:destino.caminho, cidade:EDICAO.cidade})
+    }).catch(()=>{});
+    await Promise.race([envio, new Promise(r=>setTimeout(r,2500))]);
+  }
+  window.location.href = destino.url;
+});
+
+document.querySelectorAll('.cta-link').forEach(a=>a.addEventListener('click',e=>abrirCadastro(e, EDICAO.linkInscricao, 'vaga-generosidade')));
+$('team').addEventListener('click',e=>abrirCadastro(e, EDICAO.linkJaParticipou, 'ja-participou'));
 $('share').addEventListener('click',()=>pixel('trackCustom','CompartilhouDiagnostico',{cidade:EDICAO.cidade}));
 
 /* CTA flutuante some quando o convite está na tela */
